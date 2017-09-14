@@ -38,7 +38,7 @@ class DocumentEditor extends React.Component {
     const doc = {
       title: this.title.value.trim(),
       body: this.body.value.trim(),
-    };
+    }; 
 
     if (existingDocument) doc._id = existingDocument;
 
