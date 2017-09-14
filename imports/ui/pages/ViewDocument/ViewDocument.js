@@ -24,7 +24,7 @@ const handleRemove = (documentId, history) => {
 const renderDocument = (doc, match, history) => (doc ? (
   <div className="ViewDocument">
     <div className="page-header clearfix">
-      <h4 className="pull-left">{ doc && doc.title }</h4>
+      <h4 className="pull-right">{ doc && doc.title }</h4>
       <ButtonToolbar className="pull-right">
         <ButtonGroup bsSize="small">
           <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>

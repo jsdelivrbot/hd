@@ -26,7 +26,7 @@ const handleRemove = (documentId) => {
 const Documents = ({ loading, documents, match, history }) => (!loading ? (
   <div className="Documents">
     <div className="page-header clearfix">
-      <h4 className="pull-left">Documents</h4>
+      <h4 className="pull-right">Documents</h4>
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
     </div>
     {documents.length ? <Table responsive>
