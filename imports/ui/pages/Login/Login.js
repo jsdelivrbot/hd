@@ -43,8 +43,6 @@ class Login extends React.Component {
 	}
 
 	handleSubmit() {
-		const {history} = this.props;
-
 		Meteor.loginWithPassword(this.emailAddress.value, this.password.value, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');

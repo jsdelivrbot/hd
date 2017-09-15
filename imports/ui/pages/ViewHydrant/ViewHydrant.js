@@ -1,60 +1,98 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ButtonToolbar, ButtonGroup, Button} from 'react-bootstrap';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Meteor} from 'meteor/meteor';
-import {Bert} from 'meteor/themeteorchef:bert';
-import Documents from '../../../api/Documents/Documents';
+import { Alert, Button, Table } from 'react-bootstrap';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { Bert } from 'meteor/themeteorchef:bert';
+import Hydrants from '../../../api/Hydrants/Hydrants';
 import NotFound from '../NotFound/NotFound';
 import Loading from '../../components/Loading/Loading';
 
-const handleRemove = (documentId, history) => {
-	if (confirm('Are you sure? This is permanent!')) {
-		Meteor.call('documents.remove', documentId, (error) => {
+const handleRemove = (hydrantId, history) => {
+	if (confirm('האם אתה בטוח? אין דרך חזרה!')) {
+		Meteor.call('hydrants.remove', hydrantId, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Document deleted!', 'success');
-				history.push('/documents');
+				Bert.alert('הידרנט נמחק!', 'success');
+				history.push('/hydrants');
 			}
 		});
 	}
 };
 
-const renderDocument = (doc, match, history) => (doc ? (
-	<div className="ViewDocument">
-		<div className="page-header clearfix">
-			<h4 className="pull-right">{doc && doc.title}</h4>
-			<ButtonToolbar className="pull-right">
-				<ButtonGroup bsSize="small">
-					<Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
-					<Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
-						Delete
-					</Button>
-				</ButtonGroup>
-			</ButtonToolbar>
-		</div>
-		{doc && doc.body}
+const renderHydrant = (doc, match, history) => (doc ? (
+	<div className="Hydrants">
+		<Table responsive>
+			<thead>
+				<tr>
+					<th>מספר הידרנט</th>
+					<th>מספר סים</th>
+					<th>מספר חברה</th>
+					<th>קו רוחב</th>
+					<th>קו אורך</th>
+					<th>סטטוס</th>
+					<th>תקשורת אחרונה</th>
+					<th>כתובת</th>
+					<th>תאור</th>
+					<th>מאופשר</th>
+					<th />
+					<th />
+				</tr>
+			</thead>
+			<tbody>
+				<tr >
+					<td>{doc.number}</td>
+					<td>{doc.keyId}</td>
+					<td>{doc.companyId}</td>
+					<td>{doc.lat}</td>
+					<td>{doc.lon}</td>
+					<td>{doc.status}</td>
+					<td>{doc.lastComm}</td>
+					<td>{doc.address}</td>
+					<td>{doc.description}</td>
+					<td>{doc.enabled}</td>
+					<td>
+						<Button
+							bsStyle="primary"
+							onClick={() => history.push(`${match.url}/${_id}`)}
+							block
+						>
+							פתח
+						</Button>
+					</td>
+					<td>
+						<Button
+							bsStyle="danger"
+							onClick={() => handleRemove(doc._id)}
+							block
+						>
+							מחק
+						</Button>
+					</td>
+				</tr>
+			</tbody>
+		</Table>
 	</div>
-) : <NotFound/>);
+) : <NotFound />);
 
-const ViewDocument = ({loading, doc, match, history}) => (
-	!loading ? renderDocument(doc, match, history) : <Loading/>
+const ViewHydrant = ({ loading, doc, match, history }) => (
+	!loading ? renderHydrant(doc, match, history) : <Loading />
 );
 
-ViewDocument.propTypes = {
+ViewHydrant.propTypes = {
 	loading: PropTypes.bool.isRequired,
 	doc: PropTypes.object,
 	match: PropTypes.object.isRequired,
 	history: PropTypes.object.isRequired,
 };
 
-export default createContainer(({match}) => {
-	const documentId = match.params._id;
-	const subscription = Meteor.subscribe('documents.view', documentId);
+export default createContainer(({ match }) => {
+	const hydrantId = match.params._id;
+	const subscription = Meteor.subscribe('hydrants.view', hydrantId);
 
 	return {
 		loading: !subscription.ready(),
-		doc: Documents.findOne(documentId),
+		doc: Hydrants.findOne(hydrantId),
 	};
-}, ViewDocument);
+}, ViewHydrant);

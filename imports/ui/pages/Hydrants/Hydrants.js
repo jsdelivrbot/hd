@@ -11,13 +11,13 @@ import Loading from '../../components/Loading/Loading';
 
 import './Hydrants.scss';
 
-const handleRemove = (documentId) => {
-	if (confirm('Are you sure? This is permanent!')) {
-		Meteor.call('hydrants.remove', documentId, (error) => {
+const handleRemove = (hydrantId) => {
+	if (confirm('האם אתה בטוח? אין דרך חזרה...')) {
+		Meteor.call('hydrants.remove', hydrantId, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Hydrant deleted!', 'success');
+				Bert.alert('ההידרנט נמחק!', 'success');
 			}
 		});
 	}
@@ -26,43 +26,66 @@ const handleRemove = (documentId) => {
 const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 	<div className="Hydrants">
 		<div className="page-header clearfix">
-			<h4 className="pull-right">Hydrants</h4>
-			<Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Hydrant</Link>
+			<h4 className="pull-right">הידרנטים</h4>
+			<Link className="btn btn-success pull-left" to={`${match.url}/new`}>הוסף הידרנט</Link>
 		</div>
 		{hydrants.length ? <Table responsive>
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Last Updated</th>
-					<th>Created</th>
+					<th>מספר הידרנט</th>
+					<th>מספר סים</th>
+					<th>מספר חברה</th>
+					<th>קו רוחב</th>
+					<th>קו אורך</th>
+					<th>סטטוס</th>
+					<th>תקשורת אחרונה</th>
+					<th>כתובת</th>
+					<th>תאור</th>
+					<th>מאופשר</th>
 					<th />
 					<th />
 				</tr>
 			</thead>
 			<tbody>
-				{hydrants.map(({ _id, title, createdAt, updatedAt }) => (
-					<tr key={_id}>
-						<td>{title}</td>
-						<td>{timeago(updatedAt)}</td>
-						<td>{monthDayYearAtTime(createdAt)}</td>
-						<td>
-							<Button
-								bsStyle="primary"
-								onClick={() => history.push(`${match.url}/${_id}`)}
-								block
-							>View</Button>
-						</td>
-						<td>
-							<Button
-								bsStyle="danger"
-								onClick={() => handleRemove(_id)}
-								block
-							>Delete</Button>
-						</td>
-					</tr>
-				))}
+				{ hydrants.map(
+					({ _id, number, keyId, companyId, lat, lon,
+						status, lastComm, address, description, enabled }) =>
+						(
+							<tr key={_id}>
+								<td>{number}</td>
+								<td>{keyId}</td>
+								<td>{companyId}</td>
+								<td>{lat}</td>
+								<td>{lon}</td>
+								<td>{status}</td>
+								<td>{lastComm}</td>
+								<td>{address}</td>
+								<td>{description}</td>
+								<td>{enabled}</td>
+								<td>
+									<Button
+										bsStyle="primary"
+										onClick={() => history.push(`${match.url}/${_id}`)}
+										block
+									>
+										פתח
+									</Button>
+								</td>
+								<td>
+									<Button
+										bsStyle="danger"
+										onClick={() => handleRemove(_id)}
+										block
+									>
+										מחק
+									</Button>
+								</td>
+							</tr>
+						)
+					,
+				)}
 			</tbody>
-		</Table> : <Alert bsStyle="warning">No hydrants yet!</Alert>}
+		</Table> : <Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>}
 	</div>
 ) : <Loading />);
 

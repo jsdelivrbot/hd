@@ -1,5 +1,6 @@
 {
   "rules": {
+    "meteor/audit-argument-checks": 0,
     "no-tabs": 0,
     "indent": [
       "error",
