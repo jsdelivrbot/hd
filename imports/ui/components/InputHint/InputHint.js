@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import './InputHint.scss';
 
-const InputHint = ({ children }) => (
-  <div className="InputHint">
-    {children}
-  </div>
+const InputHint = ({children}) => (
+	<div className="InputHint">
+		{children}
+	</div>
 );
 
 InputHint.propTypes = {
-  children: PropTypes.node.isRequired,
+	children: PropTypes.node.isRequired,
 };
 
 export default InputHint;

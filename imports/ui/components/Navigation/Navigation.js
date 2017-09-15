@@ -8,25 +8,25 @@ import AuthenticatedNavigation from '../AuthenticatedNavigation/AuthenticatedNav
 import './Navigation.scss';
 
 const Navigation = props => (
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">Pup</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      {!props.authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
-    </Navbar.Collapse>
-  </Navbar>
+	<Navbar>
+		<Navbar.Header>
+			<Navbar.Brand>
+				<Link to="/">Pup</Link>
+			</Navbar.Brand>
+			<Navbar.Toggle />
+		</Navbar.Header>
+		<Navbar.Collapse>
+			{!props.authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
+		</Navbar.Collapse>
+	</Navbar>
 );
 
 Navigation.defaultProps = {
-  name: '',
+	name: '',
 };
 
 Navigation.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
+	authenticated: PropTypes.bool.isRequired,
 };
 
 export default Navigation;

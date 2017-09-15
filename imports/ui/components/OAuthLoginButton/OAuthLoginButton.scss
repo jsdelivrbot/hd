@@ -19,21 +19,27 @@
     background: $facebook;
     color: #fff;
 
-    &:hover { background: darken($facebook, 5%); }
+    &:hover {
+      background: darken($facebook, 5%);
+    }
   }
 
   &.OAuthLoginButton-google {
     background: $google;
     color: #fff;
 
-    &:hover { background: darken($google, 5%); }
+    &:hover {
+      background: darken($google, 5%);
+    }
   }
 
   &.OAuthLoginButton-github {
     background: $github;
     color: #fff;
 
-    &:hover { background: darken($github, 5%); }
+    &:hover {
+      background: darken($github, 5%);
+    }
   }
 
   &:active {
