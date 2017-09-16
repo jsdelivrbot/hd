@@ -66,16 +66,16 @@ class HydrantEditor extends React.Component {
 		const existingHydrant = this.props.doc && this.props.doc._id;
 		const methodToCall = existingHydrant ? 'hydrants.update' : 'hydrants.insert';
 		const doc = {
-			number: this.number.value || 0,
 			sim: this.sim.value,
-			lat: this.lat.value || 0,
-			lon: this.lon.value || 0,
-			status: this.status.value || 0,
-			lastComm: this.lastComm.value || 0,
-			address: this.address.value || ' ',
-			description: this.description.value || ' ',
-			enabled: this.enabled.value || false,
+			lat: this.lat.value,
+			lon: this.lon.value,
+			status: this.status.value,
+			lastComm: this.lastComm.value,
+			address: this.address.value,
+			description: this.description.value,
+			enabled: this.enabled.checked,
 		};
+		console.log(`isenabled: ${this.enabled.checked}`);
 
 		if (existingHydrant) doc._id = existingHydrant;
 		console.log('inserting');
@@ -106,7 +106,7 @@ class HydrantEditor extends React.Component {
 					name="sim"
 					ref={sim => (this.sim = sim)}
 					defaultValue={doc && doc.sim}
-					placeholder=""
+					placeholder="חובה"
 				/>
 			</FormGroup>
 			<FormGroup>
@@ -143,7 +143,7 @@ class HydrantEditor extends React.Component {
 				/>
 			</FormGroup>
 			<FormGroup>
-				<ControlLabel>תאריך תקשורת אחרון</ControlLabel>
+				<ControlLabel>תקשורת אחרונה</ControlLabel>
 				<input
 					type="text"
 					className="form-control"
@@ -178,12 +178,11 @@ class HydrantEditor extends React.Component {
 			<FormGroup>
 				<ControlLabel>מאופשר</ControlLabel>
 				<input
-					type="text"
+					type="checkbox"
 					className="form-control"
 					name="enabled"
 					ref={enabled => (this.enabled = enabled)}
-					defaultValue={doc && doc.enabled}
-					placeholder=""
+					defaultChecked={(doc && doc.enabled) ? 'checked' : ''}
 				/>
 			</FormGroup>
 			<Button type="submit" bsStyle="success">

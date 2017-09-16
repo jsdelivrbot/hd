@@ -17,11 +17,14 @@ Meteor.methods({
 	},
 	'hydrants.update': function hydrantsUpdate(doc) {
 		check(doc, Match.Any);
+		console.log('updating');
 		try {
+			console.log('ok');
 			const hydrantId = doc._id;
 			Hydrants.update(hydrantId, { $set: doc });
 			return hydrantId; // Return _id so we can redirect to document after update.
 		} catch (exception) {
+			console.log(exception);
 			throw new Meteor.Error('500', exception);
 		}
 	},

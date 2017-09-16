@@ -1,5 +1,5 @@
 import seeder from '@cleverbeagle/seeder';
-import {Meteor} from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import Documents from '../../api/Documents/Documents';
 
 const documentsSeed = userId => ({
@@ -24,8 +24,8 @@ seeder(Meteor.users, {
 		password: 'aaaaaa',
 		profile: {
 			name: {
-				first: 'Andy',
-				last: 'Warhol',
+				first: 'משה',
+				last: 'בןמשה',
 			},
 		},
 		roles: ['admin'],
