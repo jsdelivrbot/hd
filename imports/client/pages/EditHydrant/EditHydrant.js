@@ -8,7 +8,7 @@ import NotFound from '../NotFound/NotFound';
 
 const EditHydrant = ({ doc, history }) => (doc ? (
 	<div className="EditHydrant">
-		<h4 className="page-header">{`"${doc.number}"עריכת הידרנט מספר `}</h4>
+		<h4 className="page-header">{` עריכת הידרנט מספר "${doc.number}" `}</h4>
 		<HydrantEditor doc={doc} history={history} />
 	</div>
 ) : <NotFound />);

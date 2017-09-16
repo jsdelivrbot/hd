@@ -20,6 +20,7 @@ caching-compiler@1.1.9
 caching-html-compiler@1.1.2
 callback-hook@1.0.10
 check@1.2.5
+coffeescript@1.0.17
 ddp@1.3.0
 ddp-client@2.1.0
 ddp-common@1.2.9
@@ -65,6 +66,7 @@ modules-runtime@0.8.0
 mongo@1.2.0
 mongo-dev-server@1.0.1
 mongo-id@1.0.6
+mongo-livedata@1.0.12
 msavin:mongol@4.0.1
 npm-bcrypt@0.9.3
 npm-mongo@2.2.30
@@ -72,6 +74,7 @@ oauth@1.1.13
 oauth2@1.1.11
 observe-sequence@1.0.16
 ordered-dict@1.0.9
+osv:mongo-counter@0.3.5
 promise@0.9.0
 raix:eventemitter@0.1.3
 random@1.0.10

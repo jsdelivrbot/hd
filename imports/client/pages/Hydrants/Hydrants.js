@@ -26,15 +26,14 @@ const handleRemove = (hydrantId) => {
 const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 	<div className="Hydrants">
 		<div className="page-header clearfix">
-			<h4 className="pull-right">הידרנטים</h4>
-			<Link className="btn btn-success pull-left" to={`${match.url}/new`}>הוסף הידרנט</Link>
+			<div className="pull-right"><h4>הידרנטים</h4></div>
+			<div><Link className="btn btn-success pull-left" to={`${match.url}/new`}>הוסף הידרנט</Link></div>
 		</div>
 		{hydrants.length ? <Table responsive>
 			<thead>
 				<tr>
 					<th>מספר הידרנט</th>
 					<th>מספר סים</th>
-					<th>מספר חברה</th>
 					<th>קו רוחב</th>
 					<th>קו אורך</th>
 					<th>סטטוס</th>
@@ -48,13 +47,12 @@ const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 			</thead>
 			<tbody>
 				{ hydrants.map(
-					({ _id, number, keyId, companyId, lat, lon,
+					({ _id, number, sim, companyId, lat, lon,
 						status, lastComm, address, description, enabled }) =>
 						(
 							<tr key={_id}>
 								<td>{number}</td>
-								<td>{keyId}</td>
-								<td>{companyId}</td>
+								<td>{sim}</td>
 								<td>{lat}</td>
 								<td>{lon}</td>
 								<td>{status}</td>

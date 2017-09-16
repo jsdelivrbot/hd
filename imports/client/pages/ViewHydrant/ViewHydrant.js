@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Button, Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -28,7 +28,6 @@ const renderHydrant = (doc, match, history) => (doc ? (
 				<tr>
 					<th>מספר הידרנט</th>
 					<th>מספר סים</th>
-					<th>מספר חברה</th>
 					<th>קו רוחב</th>
 					<th>קו אורך</th>
 					<th>סטטוס</th>
@@ -43,8 +42,7 @@ const renderHydrant = (doc, match, history) => (doc ? (
 			<tbody>
 				<tr >
 					<td>{doc.number}</td>
-					<td>{doc.keyId}</td>
-					<td>{doc.companyId}</td>
+					<td>{doc.sim}</td>
 					<td>{doc.lat}</td>
 					<td>{doc.lon}</td>
 					<td>{doc.status}</td>
@@ -55,10 +53,10 @@ const renderHydrant = (doc, match, history) => (doc ? (
 					<td>
 						<Button
 							bsStyle="primary"
-							onClick={() => history.push(`${match.url}/${_id}`)}
+							onClick={() => history.push(`${match.url}/edit`)}
 							block
 						>
-							פתח
+							ערוך
 						</Button>
 					</td>
 					<td>

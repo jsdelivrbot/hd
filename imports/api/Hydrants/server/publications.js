@@ -1,5 +1,5 @@
-import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import Hydrants from '../Hydrants';
 
 Meteor.publish('hydrants', function hydrants() {
@@ -9,5 +9,5 @@ Meteor.publish('hydrants', function hydrants() {
 // Note: hydrants.view is also used when editing an existing document.
 Meteor.publish('hydrants.view', function hydrantsView(hydrantId) {
 	check(hydrantId, String);
-	return Hydrants.find({_id: hydrantId});
+	return Hydrants.find({ _id: hydrantId });
 });

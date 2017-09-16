@@ -49,7 +49,7 @@ ViewDocument.propTypes = {
 	history: PropTypes.object.isRequired,
 };
 
-export default createContainer(({match}) => {
+export default createContainer(({ match }) => {
 	const documentId = match.params._id;
 	const subscription = Meteor.subscribe('documents.view', documentId);
 

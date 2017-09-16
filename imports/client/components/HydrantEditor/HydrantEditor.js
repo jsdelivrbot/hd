@@ -12,16 +12,9 @@ class HydrantEditor extends React.Component {
 		const component = this;
 		validate(component.form, {
 			rules: {
-				number: {
-					required: false,
-					maxlength: 8,
-				},
-				keyId: {
+				sim: {
 					required: true,
 					maxlength: 24,
-				},
-				companyId: {
-					required: false,
 				},
 				lat: {
 					required: false,
@@ -51,7 +44,7 @@ class HydrantEditor extends React.Component {
 				number: {
 					maxlength: 'אורך מקסימלי 8',
 				},
-				keyId: {
+				sim: {
 					required: 'נא לציין מספר סים',
 					maxlength: 'אורך מקסימלי 24',
 				},
@@ -73,25 +66,28 @@ class HydrantEditor extends React.Component {
 		const existingHydrant = this.props.doc && this.props.doc._id;
 		const methodToCall = existingHydrant ? 'hydrants.update' : 'hydrants.insert';
 		const doc = {
-			number: this.title.value.trim(),
-			keyId: this.keyId.value.trim(),
-			companyId: this.companyId.value.trim(),
-			lat: this.lat.value.trim(),
-			lon: this.lon.value.trim(),
-			status: this.status.value.trim(),
-			lastComm: this.lastComm.value.trim(),
-			address: this.address.value.trim(),
-			description: this.description.value.trim(),
-			enabled: this.enabled.value.trim(),
+			number: this.number.value || 0,
+			sim: this.sim.value,
+			lat: this.lat.value || 0,
+			lon: this.lon.value || 0,
+			status: this.status.value || 0,
+			lastComm: this.lastComm.value || 0,
+			address: this.address.value || ' ',
+			description: this.description.value || ' ',
+			enabled: this.enabled.value || false,
 		};
 
 		if (existingHydrant) doc._id = existingHydrant;
+		console.log('inserting');
 
 		Meteor.call(methodToCall, doc, (error, hydrantId) => {
+			console.log('here');
 			if (error) {
+				console.log('here');
 				Bert.alert(error.reason, 'danger');
 			} else {
-				const confirmation = existingHydrant ? 'Hydrant updated!' : 'Hydrant added!';
+				console.log('here');
+				const confirmation = existingHydrant ? ' הידרנט התעדכן! ' : ' הידרנט נוסף! ';
 				this.form.reset();
 				Bert.alert(confirmation, 'success');
 				history.push(`/hydrants/${hydrantId}`);
@@ -102,36 +98,14 @@ class HydrantEditor extends React.Component {
 	render() {
 		const { doc } = this.props;
 		return (<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-			<FormGroup>
-				<ControlLabel>מספר הידרנט</ControlLabel>
-				<input
-					type="text"
-					className="form-control"
-					name="number"
-					ref={number => (this.number = number)}
-					defaultValue={doc && doc.number}
-					placeholder="12345678"
-				/>
-			</FormGroup>
-			<FormGroup>
+			<FormGroup className="has-warning">
 				<ControlLabel>מספר סים</ControlLabel>
 				<input
 					type="text"
 					className="form-control"
-					name="keyId"
-					ref={keyId => (this.keyId = keyId)}
-					defaultValue={doc && doc.keyId}
-					placeholder=""
-				/>
-			</FormGroup>
-			<FormGroup>
-				<ControlLabel>מספר חברה</ControlLabel>
-				<input
-					type="text"
-					className="form-control"
-					name="companyId"
-					ref={companyId => (this.companyId = companyId)}
-					defaultValue={doc && doc.companyId}
+					name="sim"
+					ref={sim => (this.sim = sim)}
+					defaultValue={doc && doc.sim}
 					placeholder=""
 				/>
 			</FormGroup>

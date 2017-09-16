@@ -1,5 +1,7 @@
-import '../../api/Documents/methods';
-import '../../api/Documents/server/publications';
+// import '../../api/Documents/methods';
+// import '../../api/Documents/server/publications';
+import '../../api/Hydrants/methods';
+import '../../api/Hydrants/server/publications';
 
 import '../../api/OAuth/server/methods';
 

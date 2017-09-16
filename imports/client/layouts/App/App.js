@@ -49,16 +49,19 @@ const App = props => (
 	<Router>
 		{!props.loading ?
 			<div className="App">
-				{props.userId && !props.emailVerified ?
+				{0 && props.userId && !props.emailVerified ?
 					<Alert className="verify-email text-center">
-						<p>Hey friend! Can you <strong>verify your email address</strong>
-							({props.emailAddress}) for us?
+						<p>
+							הי חבר!
+							<strong>האם אתה יכול לוודות את כתובת האימייל</strong>
+							({props.emailAddress})
+							בשבילינו?
 							<Button
 								bsStyle="link"
 								onClick={() => handleResendVerificationEmail(props.emailAddress)}
 								href="#"
 							>
-								Re-send verificationemail
+								שלח אימייל זיהוי מחדש
 							</Button>
 						</p>
 					</Alert>
@@ -85,7 +88,6 @@ const App = props => (
 						<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
 						<Route name="terms" path="/terms" component={Terms} />
 						<Route name="privacy" path="/privacy" component={Privacy} />
-						<Route name="examplePage" path="/example-page" component={ExamplePage} />
 						<Route component={NotFound} />
 					</Switch>
 				</Grid>
