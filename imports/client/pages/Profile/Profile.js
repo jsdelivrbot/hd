@@ -2,12 +2,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Row, Col, FormGroup, ControlLabel, Button} from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
-import {Bert} from 'meteor/themeteorchef:bert';
-import {createContainer} from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Bert } from 'meteor/themeteorchef:bert';
+import { createContainer } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
 import validate from '../../../modules/validate';
 
@@ -54,20 +54,20 @@ class Profile extends React.Component {
 			},
 			messages: {
 				firstName: {
-					required: 'What\'s your first name?',
+					required: 'מה שמך?',
 				},
 				lastName: {
-					required: 'What\'s your last name?',
+					required: 'מה שם משפחתך?',
 				},
 				emailAddress: {
-					required: 'Need an email address here.',
-					email: 'Is this email address correct?',
+					required: 'נא לרשום אימייל',
+					email: 'האם האימייל נכון?',
 				},
 				currentPassword: {
-					required: 'Need your current password if changing.',
+					required: 'אם דרושה סיסמה חדשה, נא להכניס סיסמה',
 				},
 				newPassword: {
-					required: 'Need your new password if changing.',
+					required: 'אם דרושה סיסמה חדשה, נא להכניס סיסמה',
 				},
 			},
 			submitHandler() {
@@ -98,7 +98,7 @@ class Profile extends React.Component {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Profile updated!', 'success');
+				Bert.alert('&emsp;הפרופיל התעדכן!', 'success', 'growl-top-left');
 			}
 		});
 
@@ -118,7 +118,7 @@ class Profile extends React.Component {
 		return !loading ? (<div className="OAuthProfile">
 			{Object.keys(user.services).map(service => (
 				<div key={service} className={`LoggedInWith ${service}`}>
-					<img src={`/${service}.svg`} alt={service}/>
+					<img src={`/${service}.svg`} alt={service} />
 					<p>{`You're logged in with ${_.capitalize(service)} using the email address ${user.services[service].email}.`}</p>
 					<Button
 						className={`btn btn-${service}`}
@@ -131,7 +131,7 @@ class Profile extends React.Component {
 					>Edit Profile on {_.capitalize(service)}</Button>
 				</div>
 			))}
-		</div>) : <div/>;
+		</div>) : <div />;
 	}
 
 	renderPasswordUser(loading, user) {
@@ -139,7 +139,7 @@ class Profile extends React.Component {
 			<Row>
 				<Col xs={6}>
 					<FormGroup>
-						<ControlLabel>First Name</ControlLabel>
+						<ControlLabel>שם</ControlLabel>
 						<input
 							type="text"
 							name="firstName"
@@ -151,7 +151,7 @@ class Profile extends React.Component {
 				</Col>
 				<Col xs={6}>
 					<FormGroup>
-						<ControlLabel>Last Name</ControlLabel>
+						<ControlLabel>שם משפחה</ControlLabel>
 						<input
 							type="text"
 							name="lastName"
@@ -163,7 +163,7 @@ class Profile extends React.Component {
 				</Col>
 			</Row>
 			<FormGroup>
-				<ControlLabel>Email Address</ControlLabel>
+				<ControlLabel>אימייל</ControlLabel>
 				<input
 					type="email"
 					name="emailAddress"
@@ -173,7 +173,7 @@ class Profile extends React.Component {
 				/>
 			</FormGroup>
 			<FormGroup>
-				<ControlLabel>Current Password</ControlLabel>
+				<ControlLabel>סיסמה נוכחית</ControlLabel>
 				<input
 					type="password"
 					name="currentPassword"
@@ -182,32 +182,32 @@ class Profile extends React.Component {
 				/>
 			</FormGroup>
 			<FormGroup>
-				<ControlLabel>New Password</ControlLabel>
+				<ControlLabel>סיסמה חדשה</ControlLabel>
 				<input
 					type="password"
 					name="newPassword"
 					ref={newPassword => (this.newPassword = newPassword)}
 					className="form-control"
 				/>
-				<InputHint>Use at least six characters.</InputHint>
+				<InputHint>נא להשתמש בלפחות שישה תווים</InputHint>
 			</FormGroup>
 			<Button type="submit" bsStyle="success">Save Profile</Button>
-		</div>) : <div/>;
+		</div>) : <div />;
 	}
 
 	renderProfileForm(loading, user) {
 		return !loading ? ({
 			password: this.renderPasswordUser,
 			oauth: this.renderOAuthUser,
-		}[this.getUserType(user)])(loading, user) : <div/>;
+		}[this.getUserType(user)])(loading, user) : <div />;
 	}
 
 	render() {
-		const {loading, user} = this.props;
+		const { loading, user } = this.props;
 		return (<div className="Profile">
 			<Row>
 				<Col xs={12} sm={6} md={4}>
-					<h4 className="page-header">Edit Profile</h4>
+					<h4 className="page-header">ערוך פרופיל</h4>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						{this.renderProfileForm(loading, user)}
 					</form>

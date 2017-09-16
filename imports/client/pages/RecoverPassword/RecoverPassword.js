@@ -1,9 +1,9 @@
 import React from 'react';
-import {Row, Col, Alert, FormGroup, ControlLabel, Button} from 'react-bootstrap';
+import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {Accounts} from 'meteor/accounts-base';
-import {Bert} from 'meteor/themeteorchef:bert';
+import { Link } from 'react-router-dom';
+import { Accounts } from 'meteor/accounts-base';
+import { Bert } from 'meteor/themeteorchef:bert';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
@@ -36,14 +36,14 @@ class RecoverPassword extends React.Component {
 	}
 
 	handleSubmit() {
-		const {history} = this.props;
+		const { history } = this.props;
 		const email = this.emailAddress.value;
 
-		Accounts.forgotPassword({email}, (error) => {
+		Accounts.forgotPassword({ email }, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert(`Check ${email} for a reset link!`, 'success');
+				Bert.alert(`בדוק את ${email}&emsp; האם יש סיסמה קישור לאיפוס סיסמה`, 'success', 'growl-top-left');
 				history.push('/login');
 			}
 		});
@@ -55,11 +55,11 @@ class RecoverPassword extends React.Component {
 				<Col xs={12} sm={6} md={5} lg={4}>
 					<h4 className="page-header">Recover Password</h4>
 					<Alert bsStyle="info">
-						Enter your email address below to receive a link to reset your password.
+						הכנס את האימייל שלך למטה כדי לקבל קישור לאיפוס סיסמה
 					</Alert>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
-							<ControlLabel>Email Address</ControlLabel>
+							<ControlLabel>אימייל</ControlLabel>
 							<input
 								type="email"
 								name="emailAddress"
@@ -67,9 +67,9 @@ class RecoverPassword extends React.Component {
 								className="form-control"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">Recover Password</Button>
+						<Button type="submit" bsStyle="success">שחזר סיסמה</Button>
 						<AccountPageFooter>
-							<p>Remember your password? <Link to="/login">Log In</Link>.</p>
+							<p>האם אתה זוכר את ססמתך? <Link to="/login">היכנס</Link>.</p>
 						</AccountPageFooter>
 					</form>
 				</Col>

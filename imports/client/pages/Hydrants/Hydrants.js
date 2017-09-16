@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Table, Alert, Button } from 'react-bootstrap';
-import { timeago, monthDayYearAtTime } from '@cleverbeagle/dates';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -17,7 +16,7 @@ const handleRemove = (hydrantId) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('ההידרנט נמחק!', 'success');
+				Bert.alert('&emsp;ההידרנט נמחק!', 'success', 'growl-top-left');
 			}
 		});
 	}
@@ -59,7 +58,7 @@ const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 								<td>{lastComm}</td>
 								<td>{address}</td>
 								<td>{description}</td>
-								<td>{enabled}</td>
+								<td>{(enabled) ? 'ON' : 'OFF'}</td>
 								<td>
 									<Button
 										bsStyle="primary"

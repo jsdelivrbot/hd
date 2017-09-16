@@ -12,11 +12,7 @@ import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
-import Documents from '../../pages/Documents/Documents';
 import Hydrants from '../../pages/Hydrants/Hydrants';
-import NewDocument from '../../pages/NewDocument/NewDocument';
-import ViewDocument from '../../pages/ViewDocument/ViewDocument';
-import EditDocument from '../../pages/EditDocument/EditDocument';
 import NewHydrant from '../../pages/NewHydrant/NewHydrant';
 import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';
 import EditHydrant from '../../pages/EditHydrant/EditHydrant';
@@ -31,7 +27,6 @@ import NotFound from '../../pages/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
-import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 
 import './App.scss';
 
@@ -40,7 +35,7 @@ const handleResendVerificationEmail = (emailAddress) => {
 		if (error) {
 			Bert.alert(error.reason, 'danger');
 		} else {
-			Bert.alert(`Check ${emailAddress} for a verification link!`, 'success');
+			Bert.alert(`Check ${emailAddress} for a verification link!`, 'success', 'growl-top-left');
 		}
 	});
 };
@@ -71,10 +66,6 @@ const App = props => (
 				<Grid>
 					<Switch>
 						<Route exact name="index" path="/" component={Index} />
-						<Authenticated exact path="/documents" component={Documents} {...props} />
-						<Authenticated exact path="/documents/new" component={NewDocument} {...props} />
-						<Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
-						<Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
 						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
 						<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />
 						<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />

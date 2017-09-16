@@ -1,3 +1,4 @@
+import Meteor from 'meteor/meteor';
 import sendEmail from '../../../modules/server/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 
@@ -16,7 +17,7 @@ export default (options, user) => {
 		templateVars: {
 			applicationName,
 			firstName,
-			welcomeUrl: Meteor.absoluteUrl('documents'), // e.g., returns http://localhost:3000/documents
+			welcomeUrl: Meteor.absoluteUrl('hydrants'), // e.g., returns http://localhost:3000/hydrants
 		},
 	})
 		.catch((error) => {

@@ -25,7 +25,7 @@ seeder(Meteor.users, {
 		profile: {
 			name: {
 				first: 'משה',
-				last: 'בןמשה',
+				last: 'בן-משה',
 			},
 		},
 		roles: ['admin'],

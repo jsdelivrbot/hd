@@ -44,8 +44,8 @@ class Login extends React.Component {
 		Meteor.loginWithPassword(this.emailAddress.value, this.password.value, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
-			} else {
-				Bert.alert('ברוך הבא בחזרה!', 'success');
+			} else { // &ensp;&nbsp;
+				Bert.alert('&emsp;ברוך הבא בחזרה!', 'success', 'growl-top-left');
 			}
 		});
 	}
@@ -54,10 +54,10 @@ class Login extends React.Component {
 		return (<div className="Login">
 			<Row>
 				<Col xs={12} sm={6} md={5} lg={4}>
-					<h4 className="page-header">Log In</h4>
+					<h4 className="page-header">היכנס לחשבון</h4>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
-							<ControlLabel>Email Address</ControlLabel>
+							<ControlLabel>אימייל</ControlLabel>
 							<input
 								type="email"
 								name="emailAddress"
@@ -67,8 +67,8 @@ class Login extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel className="clearfix">
-								<span className="pull-right">Password</span>
-								<Link className="pull-right" to="/recover-password">Forgot password?</Link>
+								<span className="pull-right">סיסמה</span>
+								<Link className="pull-left" to="/recover-password">האם שכחת סיסמה?</Link>
 							</ControlLabel>
 							<input
 								type="password"
@@ -77,9 +77,9 @@ class Login extends React.Component {
 								className="form-control"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">Log In</Button>
+						<Button type="submit" bsStyle="success">היכנס</Button>
 						<AccountPageFooter>
-							<p>{'אין לך חשבון?'} <Link to="/signup">Sign Up</Link>.</p>
+							<p>{'אין לך חשבון?'} <Link to="/signup">הירשם</Link>.</p>
 						</AccountPageFooter>
 					</form>
 				</Col>

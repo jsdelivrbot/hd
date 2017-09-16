@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
-import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
@@ -75,8 +74,8 @@ class Signup extends React.Component {
 				Bert.alert(error.reason, 'danger');
 			} else {
 				Meteor.call('users.sendVerificationEmail');
-				Bert.alert('Welcome!', 'success');
-				history.push('/documents');
+				Bert.alert('&emsp;ברוך הבא!', 'success', 'growl-top-left');
+				history.push('/hydrants');
 			}
 		});
 	}
@@ -85,23 +84,12 @@ class Signup extends React.Component {
 		return (<div className="Signup">
 			<Row>
 				<Col xs={12} sm={6} md={5} lg={4}>
-					<h4 className="page-header">Sign Up</h4>
-					<Row>
-						<Col xs={12}>
-							<OAuthLoginButtons
-								services={['facebook', 'github', 'google']}
-								emailMessage={{
-									offset: 97,
-									text: 'Sign Up with an Email Address',
-								}}
-							/>
-						</Col>
-					</Row>
+					<h4 className="page-header">פתח חשבון</h4>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<Row>
 							<Col xs={6}>
 								<FormGroup>
-									<ControlLabel>First Name</ControlLabel>
+									<ControlLabel>שם</ControlLabel>
 									<input
 										type="text"
 										name="firstName"
@@ -112,7 +100,7 @@ class Signup extends React.Component {
 							</Col>
 							<Col xs={6}>
 								<FormGroup>
-									<ControlLabel>Last Name</ControlLabel>
+									<ControlLabel>שם משפחה</ControlLabel>
 									<input
 										type="text"
 										name="lastName"
@@ -123,7 +111,7 @@ class Signup extends React.Component {
 							</Col>
 						</Row>
 						<FormGroup>
-							<ControlLabel>Email Address</ControlLabel>
+							<ControlLabel>אימייל</ControlLabel>
 							<input
 								type="email"
 								name="emailAddress"
@@ -132,18 +120,18 @@ class Signup extends React.Component {
 							/>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel>Password</ControlLabel>
+							<ControlLabel>סיסמה</ControlLabel>
 							<input
 								type="password"
 								name="password"
 								ref={password => (this.password = password)}
 								className="form-control"
 							/>
-							<InputHint>Use at least six characters.</InputHint>
+							<InputHint>נא להכניס לפחות שישה תווים</InputHint>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">Sign Up</Button>
+						<Button type="submit" bsStyle="success">הירשם</Button>
 						<AccountPageFooter>
-							<p>Already have an account? <Link to="/login">Log In</Link>.</p>
+							<p>האם כבר יש לך חשבון? <Link to="/login">היכנס</Link>.</p>
 						</AccountPageFooter>
 					</form>
 				</Col>

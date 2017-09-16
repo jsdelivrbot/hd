@@ -14,7 +14,7 @@ const handleRemove = (hydrantId, history) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('הידרנט נמחק!', 'success');
+				Bert.alert('&emsp;הידרנט נמחק!', 'success', 'growl-top-left');
 				history.push('/hydrants');
 			}
 		});
@@ -49,7 +49,7 @@ const renderHydrant = (doc, match, history) => (doc ? (
 					<td>{doc.lastComm}</td>
 					<td>{doc.address}</td>
 					<td>{doc.description}</td>
-					<td>{doc.enabled}</td>
+					<td>{(doc.enabled) ? 'ON' : 'OFF'}</td>
 					<td>
 						<Button
 							bsStyle="primary"
@@ -62,7 +62,7 @@ const renderHydrant = (doc, match, history) => (doc ? (
 					<td>
 						<Button
 							bsStyle="danger"
-							onClick={() => handleRemove(doc._id)}
+							onClick={() => handleRemove(doc._id, history)}
 							block
 						>
 							מחק

@@ -17,13 +17,13 @@ const handleRemove = (documentId) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Document deleted!', 'success');
+				Bert.alert('Document deleted!', 'success', 'growl-top-left');
 			}
 		});
 	}
 };
 
-const Documents = ({loading, documents, match, history}) => (!loading ? (
+const Documents = ({ loading, documents, match, history }) => (!loading ? (
 	<div className="Documents">
 		<div className="page-header clearfix">
 			<h4 className="pull-right">Documents</h4>
@@ -64,7 +64,7 @@ const Documents = ({loading, documents, match, history}) => (!loading ? (
 			</tbody>
 		</Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
 	</div>
-) : <Loading/>);
+) : <Loading />);
 
 Documents.propTypes = {
 	loading: PropTypes.bool.isRequired,

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Row, Col, Alert, FormGroup, ControlLabel, Button} from 'react-bootstrap';
-import {Accounts} from 'meteor/accounts-base';
-import {Bert} from 'meteor/themeteorchef:bert';
+import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Accounts } from 'meteor/accounts-base';
+import { Bert } from 'meteor/themeteorchef:bert';
 import validate from '../../../modules/validate';
 
 class ResetPassword extends React.Component {
@@ -28,12 +28,12 @@ class ResetPassword extends React.Component {
 			},
 			messages: {
 				newPassword: {
-					required: 'Enter a new password, please.',
-					minlength: 'Use at least six characters, please.',
+					required: 'הכנס סיסמה חדשה',
+					minlength: 'נא להשתמש בלפחות שישה תווים',
 				},
 				repeatNewPassword: {
-					required: 'Repeat your new password, please.',
-					equalTo: 'Hmm, your passwords don\'t match. Try again?',
+					required: 'חזורעל הסיסמה בבקשה',
+					equalTo: 'נראה שהססמאות לא תואמות, האם תרצה לנסות שוב?',
 				},
 			},
 			submitHandler() {
@@ -43,14 +43,14 @@ class ResetPassword extends React.Component {
 	}
 
 	handleSubmit() {
-		const {match, history} = this.props;
+		const { match, history } = this.props;
 		const token = match.params.token;
 
 		Accounts.resetPassword(token, this.newPassword.value, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				history.push('/documents');
+				history.push('/hydrants');
 			}
 		});
 	}

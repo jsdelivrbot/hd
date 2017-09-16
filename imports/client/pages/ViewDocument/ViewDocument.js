@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ButtonToolbar, ButtonGroup, Button} from 'react-bootstrap';
-import {createContainer} from 'meteor/react-meteor-data';
-import {Meteor} from 'meteor/meteor';
-import {Bert} from 'meteor/themeteorchef:bert';
+import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { Bert } from 'meteor/themeteorchef:bert';
 import Documents from '../../../api/Documents/Documents';
 import NotFound from '../NotFound/NotFound';
 import Loading from '../../components/Loading/Loading';
@@ -14,7 +14,7 @@ const handleRemove = (documentId, history) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
-				Bert.alert('Document deleted!', 'success');
+				Bert.alert('Document deleted!', 'success', 'growl-top-left');
 				history.push('/documents');
 			}
 		});
@@ -36,10 +36,10 @@ const renderDocument = (doc, match, history) => (doc ? (
 		</div>
 		{doc && doc.body}
 	</div>
-) : <NotFound/>);
+) : <NotFound />);
 
-const ViewDocument = ({loading, doc, match, history}) => (
-	!loading ? renderDocument(doc, match, history) : <Loading/>
+const ViewDocument = ({ loading, doc, match, history }) => (
+	!loading ? renderDocument(doc, match, history) : <Loading />
 );
 
 ViewDocument.propTypes = {
