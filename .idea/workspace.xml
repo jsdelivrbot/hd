@@ -1017,7 +1017,7 @@
       <updated>1505431901595</updated>
       <workItem from="1505431905681" duration="1920000" />
       <workItem from="1505460693908" duration="590000" />
-      <workItem from="1505461334849" duration="64440000" />
+      <workItem from="1505461334849" duration="64445000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -1040,11 +1040,18 @@
       <option name="project" value="LOCAL" />
       <updated>1505601726794</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Various changes">
+      <created>1505601730851</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1505601730851</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66950000" />
+    <option name="totallyTimeSpent" value="66955000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
