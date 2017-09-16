@@ -1,10 +1,10 @@
 import React from 'react';
-import {Row, Col, FormGroup, ControlLabel, Button} from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
-import {Bert} from 'meteor/themeteorchef:bert';
+import { Link } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Bert } from 'meteor/themeteorchef:bert';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
@@ -38,18 +38,18 @@ class Signup extends React.Component {
 			},
 			messages: {
 				firstName: {
-					required: 'What\'s your first name?',
+					required: 'מה שמך?',
 				},
 				lastName: {
-					required: 'What\'s your last name?',
+					required: 'מה שם משפחתך?',
 				},
 				emailAddress: {
-					required: 'Need an email address here.',
-					email: 'Is this email address correct?',
+					required: 'דרוש אימייל',
+					email: 'האם כתובת האימייל נכונה?',
 				},
 				password: {
-					required: 'Need a password here.',
-					minlength: 'Please use at least six characters.',
+					required: 'דרושה סיסמה',
+					minlength: 'נא להשתמש בלפחות שישה תוים',
 				},
 			},
 			submitHandler() {
@@ -59,7 +59,7 @@ class Signup extends React.Component {
 	}
 
 	handleSubmit() {
-		const {history} = this.props;
+		const { history } = this.props;
 
 		Accounts.createUser({
 			email: this.emailAddress.value,

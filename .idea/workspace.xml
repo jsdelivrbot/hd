@@ -1,74 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/AccountPageFooter/AccountPageFooter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/AccountPageFooter/AccountPageFooter.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Authenticated/Authenticated.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/AuthenticatedNavigation/AuthenticatedNavigation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Content/Content.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Content/Content.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/DocumentEditor/DocumentEditor.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Footer/Footer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Footer/Footer.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/HydrantEditor/HydrantEditor.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Icon/Icon.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/InputHint/InputHint.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/InputHint/InputHint.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Loading/Loading.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Navigation/Navigation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Navigation/Navigation.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/OAuthLoginButton/OAuthLoginButton.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/OAuthLoginButton/OAuthLoginButton.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/OAuthLoginButtons/OAuthLoginButtons.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/OAuthLoginButtons/OAuthLoginButtons.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/PageHeader/PageHeader.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/PageHeader/PageHeader.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/Public/Public.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/components/PublicNavigation/PublicNavigation.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/layouts/App/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/layouts/App/App.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Documents/Documents.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Documents/Documents.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/EditDocument/EditDocument.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/EditHydrant/EditHydrant.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/ExamplePage/ExamplePage.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Hydrants/Hydrants.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Hydrants/Hydrants.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Index/Index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Index/Index.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Login/Login.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Logout/Logout.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Logout/Logout.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/NewDocument/NewDocument.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/NewHydrant/NewHydrant.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/NotFound/NotFound.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Page/Page.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Page/Page.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Privacy/Privacy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Profile/Profile.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Profile/Profile.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/RecoverPassword/RecoverPassword.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/ResetPassword/ResetPassword.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Signup/Signup.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/Terms/Terms.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/VerifyEmail/VerifyEmail.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/ViewDocument/ViewDocument.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/pages/ViewHydrant/ViewHydrant.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/stylesheets/app.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/stylesheets/bootstrap-overrides.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/stylesheets/colors.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/stylesheets/forms.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/ui/stylesheets/mixins.scss" afterPath="" />
+    <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Hebrew updates">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/Hydrants/methods.js" afterPath="$PROJECT_DIR$/imports/api/Hydrants/methods.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/Hydrants/server/publications.js" afterPath="$PROJECT_DIR$/imports/api/Hydrants/server/publications.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/client/index.js" afterPath="$PROJECT_DIR$/imports/startup/client/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/api.js" afterPath="$PROJECT_DIR$/imports/startup/server/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" afterPath="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Login/Login.js" afterPath="$PROJECT_DIR$/imports/client/pages/Login/Login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Logout/Logout.js" afterPath="$PROJECT_DIR$/imports/client/pages/Logout/Logout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Signup/Signup.js" afterPath="$PROJECT_DIR$/imports/client/pages/Signup/Signup.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log" afterPath="$PROJECT_DIR$/log" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -156,36 +95,38 @@
       <file leaf-file-name="EditHydrant.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+            <state relative-caret-position="282">
+              <caret line="10" column="70" lean-forward="false" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HydrantEditor.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HydrantEditor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="402">
+              <caret line="93" column="13" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="93" selection-end-column="13" />
               <folding>
-                <marker date="1505585531494" expanded="true" signature="2405:2634" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="2459:2533" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="2649:2877" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="2702:2778" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="2892:3120" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="2945:3021" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3135:3376" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3186:3268" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3391:3655" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3455:3541" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3670:3916" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3721:3805" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3931:4196" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="3981:4073" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="4211:4458" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="4263:4347" ph="..." />
-                <marker date="1505585531494" expanded="true" signature="4502:4572" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2382:2615" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2436:2510" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2436:2512" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2630:2858" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2683:2759" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2873:3101" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="2926:3002" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3116:3357" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3167:3249" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3372:3631" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3431:3517" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3646:3892" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3697:3781" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3907:4172" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="3957:4049" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="4187:4439" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="4239:4327" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="4240:4327" ph="..." />
+                <marker date="1505593503803" expanded="true" signature="4483:4553" ph="..." />
               </folding>
             </state>
           </provider>
@@ -265,7 +206,7 @@
         <entry file="file://$PROJECT_DIR$/.eslintrc">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+              <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -284,8 +225,8 @@
       <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-419">
-              <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+            <state relative-caret-position="660">
+              <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -294,8 +235,8 @@
       <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/methods.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+            <state relative-caret-position="480">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -354,8 +295,38 @@
       <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            <state relative-caret-position="300">
+              <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Login/Login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Logout.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Logout/Logout.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Signup.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Signup/Signup.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -367,7 +338,6 @@
     <findStrings>
       <find>tab</find>
       <find>his</find>
-      <find>history</find>
       <find>Document</find>
       <find>Documents</find>
       <find>AuthenticatedNavigation</find>
@@ -387,15 +357,20 @@
       <find>Hydrant upd</find>
       <find>clea</find>
       <find>keyId</find>
+      <find>עריכ</find>
+      <find>Welco</find>
+      <find>הידרנט נוס</find>
+      <find>history</find>
+      <find>no-re</find>
     </findStrings>
     <replaceStrings>
       <replace>Hydrants</replace>
       <replace>Hydrant</replace>
       <replace>hydrants</replace>
       <replace>hydrantId</replace>
-      <replace>renderHydrant</replace>
       <replace>../../api</replace>
       <replace>sim</replace>
+      <replace>renderHydrant</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup\imports\client</dir>
@@ -420,7 +395,6 @@
         <option value="$PROJECT_DIR$/imports/ui/pages/Documents/Documents.js" />
         <option value="$PROJECT_DIR$/imports/ui/components/Navigation/Navigation.js" />
         <option value="$PROJECT_DIR$/imports/ui/layouts/App/App.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/api/Documents/methods.js" />
         <option value="$PROJECT_DIR$/imports/api/Documents/Documents.js" />
         <option value="$PROJECT_DIR$/imports/ui/components/AuthenticatedNavigation/AuthenticatedNavigation.js" />
@@ -429,11 +403,9 @@
         <option value="$PROJECT_DIR$/imports/ui/pages/Login/Login.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/NewHydrant/NewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/Hydrants/Hydrants.js" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/startup/server/api.js" />
         <option value="$PROJECT_DIR$/imports/api/Hydrants/server/publications.js" />
         <option value="$PROJECT_DIR$/imports/ui/components/HydrantEditor/HydrantEditor.js" />
-        <option value="$PROJECT_DIR$/imports/api/Hydrants/methods.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/ViewHydrant/ViewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/ui/pages/Documents/Documents.js" />
@@ -443,12 +415,18 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Index/Index.js" />
         <option value="$PROJECT_DIR$/imports/client/layouts/App/App.js" />
         <option value="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/AuthenticatedNavigation.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/api/Hydrants/methods.js" />
         <option value="$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Logout/Logout.js" />
         <option value="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Signup/Signup.js" />
+        <option value="$PROJECT_DIR$/.eslintrc" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Login/Login.js" />
       </list>
     </option>
   </component>
@@ -647,7 +625,31 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Logout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="NewHydrant" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Signup" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -669,6 +671,13 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="startup" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="startup" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -741,27 +750,36 @@
       <updated>1505431901595</updated>
       <workItem from="1505431905681" duration="1920000" />
       <workItem from="1505460693908" duration="590000" />
-      <workItem from="1505461334849" duration="48499000" />
+      <workItem from="1505461334849" duration="56637000" />
     </task>
+    <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
+      <created>1505592647674</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1505592647675</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51009000" />
+    <option name="totallyTimeSpent" value="59147000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13272922" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4968017" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13272922" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -795,6 +813,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Hydrants interface v1 complete before review" />
+    <MESSAGE value="Hebrew updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hebrew updates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1097,14 +1120,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="14" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/layouts/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1185,14 +1200,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/methods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/pages/EditHydrant/EditHydrant.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1237,14 +1244,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="16" lean-forward="false" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1337,45 +1336,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js">
+    <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/methods.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        <state relative-caret-position="480">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-419">
-          <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+        <state relative-caret-position="660">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="10" column="70" lean-forward="false" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Logout/Logout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="402">
+          <caret line="93" column="13" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="93" selection-end-column="13" />
           <folding>
-            <marker date="1505585531494" expanded="true" signature="2405:2634" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="2459:2533" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="2649:2877" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="2702:2778" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="2892:3120" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="2945:3021" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3135:3376" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3186:3268" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3391:3655" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3455:3541" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3670:3916" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3721:3805" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3931:4196" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="3981:4073" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="4211:4458" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="4263:4347" ph="..." />
-            <marker date="1505585531494" expanded="true" signature="4502:4572" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2382:2615" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2436:2510" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2436:2512" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2630:2858" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2683:2759" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2873:3101" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="2926:3002" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3116:3357" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3167:3249" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3372:3631" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3431:3517" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3646:3892" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3697:3781" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3907:4172" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="3957:4049" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="4187:4439" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="4239:4327" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="4240:4327" ph="..." />
+            <marker date="1505593503803" expanded="true" signature="4483:4553" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Signup/Signup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Login/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

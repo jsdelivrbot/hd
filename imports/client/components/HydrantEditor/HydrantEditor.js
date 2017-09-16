@@ -87,7 +87,7 @@ class HydrantEditor extends React.Component {
 				Bert.alert(error.reason, 'danger');
 			} else {
 				console.log('here');
-				const confirmation = existingHydrant ? ' הידרנט התעדכן! ' : ' הידרנט נוסף! ';
+				const confirmation = existingHydrant ? ' התעדכן הידרנט! ' : ' נוסף הידרנט! ';
 				this.form.reset();
 				Bert.alert(confirmation, 'success');
 				history.push(`/hydrants/${hydrantId}`);

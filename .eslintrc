@@ -1,5 +1,6 @@
 {
   "rules": {
+    "no-return-assign": 0,
     "no-console": 0,
     "no-alert": 0,
     "meteor/audit-argument-checks": 0,
