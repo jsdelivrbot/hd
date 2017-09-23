@@ -53,7 +53,7 @@ class RecoverPassword extends React.Component {
 		return (<div className="RecoverPassword">
 			<Row>
 				<Col xs={12} sm={6} md={5} lg={4}>
-					<h4 className="page-header">Recover Password</h4>
+					<h4 className="page-header">שיחזור סיסמה</h4>
 					<Alert bsStyle="info">
 						הכנס את האימייל שלך למטה כדי לקבל קישור לאיפוס סיסמה
 					</Alert>

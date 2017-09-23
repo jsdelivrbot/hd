@@ -193,7 +193,7 @@ class HydrantEditor extends React.Component {
 }
 
 HydrantEditor.defaultProps = {
-	doc: { title: '', body: '' },
+	doc: { },
 };
 
 HydrantEditor.propTypes = {

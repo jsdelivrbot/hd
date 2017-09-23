@@ -191,7 +191,7 @@ class Profile extends React.Component {
 				/>
 				<InputHint>נא להשתמש בלפחות שישה תווים</InputHint>
 			</FormGroup>
-			<Button type="submit" bsStyle="success">Save Profile</Button>
+			<Button type="submit" bsStyle="success">לשמור פרופיל</Button>
 		</div>) : <div />;
 	}
 

@@ -1,4 +1,4 @@
-import Meteor from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import sendEmail from '../../../modules/server/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 

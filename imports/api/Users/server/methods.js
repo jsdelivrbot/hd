@@ -19,7 +19,7 @@ Meteor.methods({
 			},
 		});
 
-		return editProfile({userId: this.userId, profile})
+		return editProfile({ userId: this.userId, profile })
 			.then(response => response)
 			.catch((exception) => {
 				throw new Meteor.Error('500', exception);
