@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Table, Alert, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { compose, renderComponent, branch } from 'recompose';
+import Loading from '../../components/Loading/Loading';
+import { meteorData } from '../../Utils/utils';
 import { Bert } from 'meteor/themeteorchef:bert';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
-import Loading from '../../components/Loading/Loading';
 
 import './Hydrants.scss';
 
@@ -22,13 +23,9 @@ const handleRemove = (hydrantId) => {
 	}
 };
 
-const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
+const RenderData = ({ data, match, history }) => (
 	<div className="Hydrants">
-		<div className="page-header clearfix">
-			<div className="pull-right"><h4>הידרנטים</h4></div>
-			<div><Link className="btn btn-success pull-left" to={`${match.url}/new`}>הוסף הידרנט</Link></div>
-		</div>
-		{hydrants.length ? <Table responsive>
+		<Table responsive>
 			<thead>
 				<tr>
 					<th>מספר הידרנט</th>
@@ -45,8 +42,8 @@ const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 				</tr>
 			</thead>
 			<tbody>
-				{ hydrants.map(
-					({ _id, number, sim, companyId, lat, lon,
+				{ data.map(
+					({ _id, number, sim, lat, lon,
 						status, lastComm, address, description, enabled }) =>
 						(
 							<tr key={_id}>
@@ -78,25 +75,52 @@ const Hydrants = ({ loading, hydrants, match, history }) => (!loading ? (
 									</Button>
 								</td>
 							</tr>
-						)
-					,
+						),
 				)}
 			</tbody>
-		</Table> : <Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>}
+		</Table>
 	</div>
-) : <Loading />);
+);
 
-Hydrants.propTypes = {
-	loading: PropTypes.bool.isRequired,
-	hydrants: PropTypes.arrayOf(PropTypes.object).isRequired,
-	match: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired,
-};
+const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>);
 
-export default createContainer(() => {
-	const subscription = Meteor.subscribe('hydrants');
-	return {
-		loading: !subscription.ready(),
-		hydrants: HydrantsCollection.find().fetch(),
-	};
-}, Hydrants);
+const RRenderData = compose(
+	meteorData(() => {
+		const subscription = Meteor.subscribe('hydrants');
+		return {
+			loading: !subscription.ready(),
+			data: HydrantsCollection.find().fetch(),
+		};
+	}),
+	branch(props => props.loading, renderComponent(Loading)),
+	branch(props => !props.data.length, renderComponent(NotFound)),
+)(RenderData);
+
+const renderHeader = props => (
+	<div className="Hydrants">
+		<div className="page-header clearfix">
+			<div className="pull-right"><h4>הידרנטים</h4></div>
+			<div><Link className="btn btn-success pull-left" to={`${props.match.url}/new`}>הוסף הידרנט</Link></div>
+		</div>
+		<RRenderData {...props} />
+	</div>
+);
+
+export default renderHeader;
+
+// export default compose(
+// 	withProps(
+// 		compose(
+// 			meteorData(() => {
+// 				const subscription = Meteor.subscribe('hydrants');
+// 				return {
+// 					loading: !subscription.ready(),
+// 					data: HydrantsCollection.find().fetch(),
+// 				};
+// 			}),
+// 			branch(props => props.loading, renderComponent(Loading)),
+// 			branch(props => !props.data.length,
+// 				renderComponent(() => (<Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>))),
+// 		)(RenderData),
+// 	),
+// )(renderHeader);

@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, renderComponent, branch } from 'recompose';
+import Loading from '../../components/Loading/Loading';
+import { meteorData } from '../../Utils/utils';
 import { Button, Table } from 'react-bootstrap';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Hydrants from '../../../api/Hydrants/Hydrants';
-import NotFound from '../NotFound/NotFound';
-import Loading from '../../components/Loading/Loading';
+import NotFound from '../../components/NotFound/NotFound';
+
 
 const handleRemove = (hydrantId, history) => {
 	if (confirm('האם אתה בטוח? אין דרך חזרה!')) {
@@ -21,8 +23,8 @@ const handleRemove = (hydrantId, history) => {
 	}
 };
 
-const renderHydrant = (doc, match, history) => (doc ? (
-	<div className="Hydrants">
+const renderHydrant = ({ data, match, history }) => (
+	<div className="HydrantView">
 		<Table responsive>
 			<thead>
 				<tr>
@@ -41,15 +43,15 @@ const renderHydrant = (doc, match, history) => (doc ? (
 			</thead>
 			<tbody>
 				<tr >
-					<td>{doc.number}</td>
-					<td>{doc.sim}</td>
-					<td>{doc.lat}</td>
-					<td>{doc.lon}</td>
-					<td>{doc.status}</td>
-					<td>{doc.lastComm}</td>
-					<td>{doc.address}</td>
-					<td>{doc.description}</td>
-					<td>{(doc.enabled) ? 'ON' : 'OFF'}</td>
+					<td>{data.number}</td>
+					<td>{data.sim}</td>
+					<td>{data.lat}</td>
+					<td>{data.lon}</td>
+					<td>{data.status}</td>
+					<td>{data.lastComm}</td>
+					<td>{data.address}</td>
+					<td>{data.description}</td>
+					<td>{(data.enabled) ? 'ON' : 'OFF'}</td>
 					<td>
 						<Button
 							bsStyle="primary"
@@ -62,7 +64,7 @@ const renderHydrant = (doc, match, history) => (doc ? (
 					<td>
 						<Button
 							bsStyle="danger"
-							onClick={() => handleRemove(doc._id, history)}
+							onClick={() => handleRemove(data._id, history)}
 							block
 						>
 							מחק
@@ -72,25 +74,17 @@ const renderHydrant = (doc, match, history) => (doc ? (
 			</tbody>
 		</Table>
 	</div>
-) : <NotFound />);
-
-const ViewHydrant = ({ loading, doc, match, history }) => (
-	!loading ? renderHydrant(doc, match, history) : <Loading />
 );
 
-ViewHydrant.propTypes = {
-	loading: PropTypes.bool.isRequired,
-	doc: PropTypes.object,
-	match: PropTypes.object.isRequired,
-	history: PropTypes.object.isRequired,
-};
-
-export default createContainer(({ match }) => {
-	const hydrantId = match.params._id;
-	const subscription = Meteor.subscribe('hydrants.view', hydrantId);
-
-	return {
-		loading: !subscription.ready(),
-		doc: Hydrants.findOne(hydrantId),
-	};
-}, ViewHydrant);
+export default compose(
+	meteorData(({ match }) => {
+		const hydrantId = match.params._id;
+		const subscription = Meteor.subscribe('hydrants.view', hydrantId);
+		return {
+			loading: !subscription.ready(),
+			data: Hydrants.findOne(hydrantId),
+		};
+	}),
+	branch(props => props.loading, renderComponent(Loading)),
+	branch(props => !props.data, renderComponent(NotFound)),
+)(renderHydrant);

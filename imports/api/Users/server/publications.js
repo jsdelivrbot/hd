@@ -1,4 +1,6 @@
-import {Meteor} from 'meteor/meteor';
+/* eslint-disable prefer-arrow-callback */
+
+import { Meteor } from 'meteor/meteor';
 
 Meteor.publish('users.editProfile', function usersProfile() {
 	return Meteor.users.find(this.userId, {

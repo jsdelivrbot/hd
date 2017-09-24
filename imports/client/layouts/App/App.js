@@ -23,7 +23,7 @@ import VerifyEmail from '../../pages/VerifyEmail/VerifyEmail';
 import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
-import NotFound from '../../pages/NotFound/NotFound';
+import NotFound from '../../components/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
