@@ -23,11 +23,12 @@ const handleRemove = (hydrantId, history) => {
 	}
 };
 
-const renderHydrant = ({ data, match, history }) => (
+const renderHydrant = ({ d, match, history }) => (
 	<div className="HydrantView">
 		<Table responsive>
 			<thead>
 				<tr>
+					<th>מספר חברה</th>
 					<th>מספר הידרנט</th>
 					<th>מספר סים</th>
 					<th>קו רוחב</th>
@@ -43,15 +44,16 @@ const renderHydrant = ({ data, match, history }) => (
 			</thead>
 			<tbody>
 				<tr >
-					<td>{data.number}</td>
-					<td>{data.sim}</td>
-					<td>{data.lat}</td>
-					<td>{data.lon}</td>
-					<td>{data.status}</td>
-					<td>{data.lastComm}</td>
-					<td>{data.address}</td>
-					<td>{data.description}</td>
-					<td>{(data.enabled) ? 'ON' : 'OFF'}</td>
+					<td>{d.companyId}</td>
+					<td>{d.number}</td>
+					<td>{d.sim}</td>
+					<td>{d.lat}</td>
+					<td>{d.lon}</td>
+					<td>{d.status}</td>
+					<td>{d.lastComm}</td>
+					<td>{d.address}</td>
+					<td>{d.description}</td>
+					<td>{(d.enabled) ? 'ON' : 'OFF'}</td>
 					<td>
 						<Button
 							bsStyle="primary"

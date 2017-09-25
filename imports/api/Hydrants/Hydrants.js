@@ -33,6 +33,11 @@ Hydrants.schema = new SimpleSchema({
 			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
 		},
 	},
+	CompanyId: {
+		type: Number,
+		label: 'Company Id',
+		defaultValue: 0,
+	},
 	number: {
 		type: Number,
 		label: 'Unique hydrant serial number.',

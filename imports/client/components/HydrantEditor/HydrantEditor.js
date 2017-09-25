@@ -98,6 +98,17 @@ class HydrantEditor extends React.Component {
 	render() {
 		const { doc } = this.props;
 		return (<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+			<FormGroup>
+				<ControlLabel>מספר חברה</ControlLabel>
+				<input
+					type="number"
+					className="form-control"
+					name="companyId"
+					ref={companyId => (this.companyId = companyId)}
+					defaultValue={doc && doc.companyId}
+					placeholder=""
+				/>
+			</FormGroup>
 			<FormGroup className="has-warning">
 				<ControlLabel>מספר סים</ControlLabel>
 				<input

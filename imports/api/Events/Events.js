@@ -33,13 +33,13 @@ Events.schema = new SimpleSchema({
 			if (this.isInsert) return incrementCounter('Counts', 'HydrantsSerialNumber');
 		},
 	},
-	hydrantId: {
+	hydrantNumber: {
 		type: Number,
-		label: 'Hydrant ID',
+		label: 'Hydrant number',
 	},
 	code: {
 		type: Number,
-		label: 'Hydrant code',
+		label: 'Event code',
 	},
 	data: {
 		type: Number,
