@@ -66,7 +66,7 @@ const renderHydrant = ({ d, match, history }) => (
 					<td>
 						<Button
 							bsStyle="danger"
-							onClick={() => handleRemove(data._id, history)}
+							onClick={() => handleRemove(d._id, history)}
 							block
 						>
 							מחק

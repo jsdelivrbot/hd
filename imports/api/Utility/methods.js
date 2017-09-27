@@ -1,15 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import { check, Match } from 'meteor/check';
-import Events from './Events';
 import rateLimit from '../../modules/rate-limit';
+import initDb from '../../startup/server/fixtures';
 
 Meteor.methods({
-	'events.insert': function eventsInsert(doc) {
-		check(doc, Match.Any);
-		console.log('inserting');
+	'db.init': function fixture() {
+		console.log('clearing database');
 		try {
 			console.log('ok');
-			return Events.insert({ ...doc });
+			initDb();
 		} catch (exception) {
 			console.log(exception);
 			throw new Meteor.Error('500', exception);
@@ -19,9 +17,8 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'events.insert',
-		'events.remove',
+		'fixture',
 	],
-	limit: 5,
+	limit: 1,
 	timeRange: 1000,
 });

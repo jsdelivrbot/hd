@@ -25,6 +25,7 @@ const Data = props => (
 			<thead>
 				<tr>
 					<th>מספר הידרנט</th>
+					<th>מספר חברה</th>
 					<th>מספר סים</th>
 					<th>קו רוחב</th>
 					<th>קו אורך</th>

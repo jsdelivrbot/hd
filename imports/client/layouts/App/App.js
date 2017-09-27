@@ -12,6 +12,8 @@ import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
+import Map from '../../pages/Map/Map';
+import Events from '../../pages/Events/Events';
 import Hydrants from '../../pages/Hydrants/Hydrants';
 import NewHydrant from '../../pages/NewHydrant/NewHydrant';
 import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';
@@ -66,7 +68,9 @@ const App = props => (
 				<Grid>
 					<Switch>
 						<Route exact name="index" path="/" component={Index} />
+						<Authenticated exact path="/map" component={Map} {...props} />
 						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
+						<Authenticated exact path="/events" component={Events} {...props} />
 						<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />
 						<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />
 						<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />

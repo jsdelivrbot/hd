@@ -26,6 +26,10 @@ Events.schema = new SimpleSchema({
 			if (this.isInsert) return (new Date()).toISOString();
 		},
 	},
+	hydrantId: {
+		type: String,
+		label: 'Hydrant number',
+	},
 	number: {
 		type: Number,
 		label: 'Unique event autoincrement number.',
@@ -33,15 +37,11 @@ Events.schema = new SimpleSchema({
 			if (this.isInsert) return incrementCounter('Counts', 'HydrantsSerialNumber');
 		},
 	},
-	hydrantNumber: {
-		type: Number,
-		label: 'Hydrant number',
-	},
 	code: {
 		type: Number,
 		label: 'Event code',
 	},
-	data: {
+	edata: {
 		type: Number,
 		label: 'Event data',
 	},

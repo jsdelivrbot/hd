@@ -1,7 +1,9 @@
-// import '../../api/Documents/methods';
-// import '../../api/Documents/server/publications';
+
 import '../../api/Hydrants/methods';
+// import '../../api/Events/methods';
+import '../../api/Utility/methods';
 import '../../api/Hydrants/server/publications';
+import '../../api/Events/server/publications';
 
 import '../../api/OAuth/server/methods';
 

@@ -33,7 +33,7 @@ Hydrants.schema = new SimpleSchema({
 			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
 		},
 	},
-	CompanyId: {
+	companyId: {
 		type: Number,
 		label: 'Company Id',
 		defaultValue: 0,
