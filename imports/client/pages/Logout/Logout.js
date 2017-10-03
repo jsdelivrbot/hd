@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Route, Redirect } from 'react-router-dom';
 
 import './Logout.scss';
 
@@ -10,12 +11,7 @@ class Logout extends React.Component {
 
 	render() {
 		return (
-			<div className="Logout">
-				<img
-					src="https://s3-us-west-2.amazonaws.com/cleverbeagle-assets/graphics/email-icon.png"
-					alt="Clever Beagle"
-				/>
-			</div>
+			<Redirect to="/login" />
 		);
 	}
 }

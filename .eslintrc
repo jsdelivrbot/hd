@@ -1,5 +1,13 @@
 {
   "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
+      "imports": "only-multiline",
+      "exports": "never",
+      "functions": "only-multiline"
+    }],
+    "max-len": [2, 1120, 4],
     "react/require-default-props": 0,
     "react/jsx-indent-props": [1, "tab"],
     "react/jsx-indent": [1, "tab"],

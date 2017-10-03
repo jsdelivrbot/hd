@@ -1,0 +1,29 @@
+@mixin wrap {
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
+}
+@mixin wrap_span {
+  vertical-align: middle;
+}
+
+.table_class table th {
+  span {
+    @include wrap_span;
+  }
+  @include wrap;
+}
+.table_class table td {
+  span {
+    @include wrap_span;
+  }
+  @include wrap;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+//.table_container_class {
+//  width: 800px;
+//}
+

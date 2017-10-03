@@ -5,20 +5,11 @@ import { Link } from 'react-router-dom';
 import PublicNavigation from '../PublicNavigation/PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation/AuthenticatedNavigation';
 
-import './Navigation.scss';
 
 const Navigation = props => (
-	<Navbar>
-		<Navbar.Header>
-			<Navbar.Brand>
-				<Link to="/">ראשי</Link>
-			</Navbar.Brand>
-			<Navbar.Toggle />
-		</Navbar.Header>
-		<Navbar.Collapse>
-			{!props.authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
-		</Navbar.Collapse>
-	</Navbar>
+	<div>
+		{props.authenticated ? <AuthenticatedNavigation {...props} /> : ''}
+	</div>
 );
 
 Navigation.defaultProps = {

@@ -35,3 +35,4 @@ dynamic-import@0.1.1
 static-html
 msavin:mongol
 osv:mongo-counter
+meteorhacks:subs-manager

@@ -53,7 +53,7 @@ const renderHydrant = ({ d, match, history }) => (
 					<td>{d.lastComm}</td>
 					<td>{d.address}</td>
 					<td>{d.description}</td>
-					<td>{(d.enabled) ? 'ON' : 'OFF'}</td>
+					<td>{(d.enabled) ? 'פעיל' : 'מושבת'}</td>
 					<td>
 						<Button
 							bsStyle="primary"
@@ -84,9 +84,9 @@ export default compose(
 		const subscription = Meteor.subscribe('hydrants.view', hydrantId);
 		return {
 			loading: !subscription.ready(),
-			data: Hydrants.findOne(hydrantId),
+			d: Hydrants.findOne(hydrantId),
 		};
 	}),
-	branch(props => props.loading, renderComponent(Loading)),
-	branch(props => !props.data, renderComponent(NotFound)),
+	branch(p => p.loading, renderComponent(Loading)),
+	branch(p => !p.d, renderComponent(NotFound)),
 )(renderHydrant);

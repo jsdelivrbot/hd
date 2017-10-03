@@ -22,9 +22,7 @@ Events.schema = new SimpleSchema({
 	createdAt: {
 		type: String,
 		label: 'The date this document was created.',
-		autoValue() {
-			if (this.isInsert) return (new Date()).toISOString();
-		},
+		defaultValue: (new Date()).toISOString(),
 	},
 	hydrantId: {
 		type: String,

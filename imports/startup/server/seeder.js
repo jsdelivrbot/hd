@@ -79,7 +79,6 @@ class Seeder {
 	}
 
 	seedDependent(dataId, data) {
-		console.log(`dataId:${dataId}`);
 		const dependent = data(dataId, faker);
 		this.seed(this.validateCollection(dependent.collection), dependent);
 	}

@@ -2,8 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { Grid, Alert, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
@@ -27,10 +29,9 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import NotFound from '../../components/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
-import Terms from '../../pages/Terms/Terms';
-import Privacy from '../../pages/Privacy/Privacy';
+import DownloadApp from '../../pages/DownloadApp/DownloadApp';
 
-import './App.scss';
+import './Css/App.scss';
 
 const handleResendVerificationEmail = (emailAddress) => {
 	Meteor.call('users.sendVerificationEmail', (error) => {
@@ -42,10 +43,11 @@ const handleResendVerificationEmail = (emailAddress) => {
 	});
 };
 
+
 const App = props => (
 	<Router>
 		{!props.loading ?
-			<div className="App">
+			<div className={`App ${props.style}`}>
 				{0 && props.userId && !props.emailVerified ?
 					<Alert className="verify-email text-center">
 						<p>
@@ -67,7 +69,8 @@ const App = props => (
 				<Navigation {...props} />
 				<Grid>
 					<Switch>
-						<Route exact name="index" path="/" component={Index} />
+						<Authenticated exact path="/" component={Index} {...props} />
+						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
 						<Authenticated exact path="/map" component={Map} {...props} />
 						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
 						<Authenticated exact path="/events" component={Events} {...props} />
@@ -81,12 +84,10 @@ const App = props => (
 						<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
 						<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
 						<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-						<Route name="terms" path="/terms" component={Terms} />
-						<Route name="privacy" path="/privacy" component={Privacy} />
 						<Route component={NotFound} />
 					</Switch>
 				</Grid>
-				<Footer />
+				<Footer {...props} />
 			</div>
 			:
 			''}
@@ -117,11 +118,15 @@ export default createContainer(() => {
 	const loading = !Roles.subscription.ready();
 	const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
 	const emailAddress = user && user.emails && user.emails[0].address;
+	const authenticated = !loggingIn && !!userId;
+	// const style = 'bck';
+	const style = authenticated ? '' : 'bck';
 
 	return {
+		style,
 		loading,
 		loggingIn,
-		authenticated: !loggingIn && !!userId,
+		authenticated,
 		name: name || emailAddress,
 		roles: !loading && Roles.getRolesForUser(userId),
 		userId,
