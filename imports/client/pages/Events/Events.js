@@ -22,7 +22,7 @@ import { getSelectedHydrants } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 
-const NotFound = () => (<Alert bsStyle="warning">אין אירועים!</Alert>);
+const NotFound = () => (<Alert bsStyle="warning">אין אירועים עדיין</Alert>);
 
 const eventCodes = {
 	0: 'OK',
@@ -38,9 +38,10 @@ const eventCodes = {
 export default compose(
 	meteorData(() => {
 		const selectedHydrants = getSelectedHydrants();
-		console.log(selectedHydrants);
 		const subscription1 = SubManager.subscribe('events');
-		const dataE = EventsCollection.find({ hydrantId: selectedHydrants }).fetch();
+		const dataE = EventsCollection.find(
+			_.isEmpty(selectedHydrants) ? {} : { hydrantId: { $in: selectedHydrants } })
+			.fetch();
 		const subscription2 = SubManager.subscribe('hydrants');
 		const dataH = HydrantsCollection.find().fetch();
 		return {
@@ -51,21 +52,16 @@ export default compose(
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
-	branch(p => p.nodata, renderComponent(NotFound)),
-	mapProps(({ dataE, dataH }) => {
-		dataE = new Proxy(dataE, {
-			get(obj, prop) {
-				if (isNaN(prop)) return obj[prop];
-				const row = _.cloneDeep(obj[prop]);
-				const hRow = dataH.find(r => r._id === obj[prop].hydrantId);
-				row.hydrantNumber = hRow ? hRow.number : ' ';
-				row.createdAt = _.replace((new Date(row.createdAt)).toLocaleString('he-IL'), ',', '');
-				row.code = eventCodes[row.code];
-				return row;
-			},
-		});
-		return { dataE };
-	}),
+	// branch(p => p.nodata, renderComponent(NotFound)),
+	mapProps(({ dataE, dataH, ...p }) => ({
+		dataE: _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => ({
+			hydrantNumber: _.get(_.find(dataH, ['_id', hydrantId]), 'number', '') ,
+			createdAt: _.replace((new Date(createdAt)).toLocaleString('he-IL'), ',', ''),
+			code: eventCodes[code],
+			...row,
+		}))),
+		...p,
+	})),
 	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Events')
 )(props => (
@@ -80,3 +76,20 @@ export default compose(
 		</BootstrapTable>
 	</div>
 ));
+
+
+//
+// mapProps(({ dataE, dataH }) => {
+// 	dataE = new Proxy(dataE, {
+// 		get(obj, prop) {
+// 			if (isNaN(prop)) return obj[prop];
+// 			const row = _.cloneDeep(obj[prop]);
+// 			const hRow = dataH.find(r => r._id === obj[prop].hydrantId);
+// 			row.hydrantNumber = hRow ? hRow.number : ' ';
+// 			row.createdAt = _.replace((new Date(row.createdAt)).toLocaleString('he-IL'), ',', '');
+// 			row.code = eventCodes[row.code];
+// 			return row;
+// 		},
+// 	});
+// 	return { dataE };
+// }),

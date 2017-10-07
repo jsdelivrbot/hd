@@ -1,11 +1,5 @@
 import React from 'react';
 import {
-	Alert,
-	Button,
-} from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
-import {
 	withHandlers,
 	withProps,
 	withStateHandlers,
@@ -16,113 +10,112 @@ import {
 	branch,
 } from 'recompose';
 import withLog from '@hocs/with-log';
-import { Link } from 'react-router-dom';
-import {
-	BootstrapTable,
-	TableHeaderColumn,
-} from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Segment } from 'semantic-ui-react';
+
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../stylesheets/table.scss';
+
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
-import { resetSelected, setSelectedHydrants, getSelectedHydrants } from '../../Storage/Storage';
+import { resetSelected, setSelectedHydrants, getSelectedHydrants, setHydrantFilter } from '../../Storage/Storage';
 import SubManager from '../../../api/Utility/client/SubManager';
-
-import '../../stylesheets/table.scss';
-
-const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>);
 
 export default compose(
 	withStateHandlers(
 		() => ({
 			sort: { name: 'lastComm', order: -1 },
-		}),
-		{
+			filter: {
+				status: {
+					type: {
+						1: 'פעיל',
+						0: 'מושבת',
+					},
+					value: undefined,
+				}
+			},
+		}), {
 			setSort: () => (name, order) => ({
 				sort: {
 					name,
 					order: (order === 'asc') ? 1 : -1,
 				}
 			}),
+			setFilter: ({ filter }) => (filterObj) => {
+				const nextFilter = _.clone(filter);
+				nextFilter.status.value = _.get(filterObj, 'status.value', undefined);
+				setHydrantFilter('status', nextFilter.status.value);
+				return { filter: nextFilter };
+			},
 		}
 	),
-	withHandlers({
-		setSelected: () => (row, isSelected, e) => {
-			setSelectedHydrants((isSelected) ? row._id : undefined);
-		},
-	}),
 	meteorData((p) => {
-		const name = p.sort.name;
-		const order = p.sort.order;
-		console.log(`name: ${name} order: ${order}`);
 		const subscription = SubManager.subscribe('hydrants');
-		const rawData = HydrantsCollection.find({}, { sort: { [name]: order } }).fetch();
-		const oldGlobalArray = getSelectedHydrants();
-		const newGlobalArray = [];
-		const hNumbers = [];
-		oldGlobalArray.forEach((global) => {
-			const local = rawData.find(el => el._id === global._id);
-			if (local) {
-				newGlobalArray.push(local._id);
-				hNumbers.push(local.number);
-			}
-		});
-		resetSelected(newGlobalArray);
-		console.log(`newGlobalArray: ${newGlobalArray}`);
-		console.log(`hNumbers: ${hNumbers}`);
+		const filter = {};
+		if (!_.isUndefined(p.filter.status.value)) filter.status = Number(p.filter.status.value);
+		const rawData = HydrantsCollection.find(filter,
+			{ sort: { [p.sort.name]: p.sort.order } })
+			.fetch();
 		return {
-			selectedHydrants: hNumbers,
 			rawData,
 			loading: !subscription.ready(),
 			nodata: !rawData.length,
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
-	branch(p => p.nodata, renderComponent(NotFound)),
-	mapProps(({ rawData, ...p }) => {
-		const proxy = new Proxy(rawData, {
-			get(obj, prop) {
-				if (isNaN(prop)) return obj[prop];
-				const row = _.cloneDeep(obj[prop]);
-				row.lastComm = _.replace((new Date(row.lastComm)).toLocaleString('he-IL'), ',', '');
-				row.status = row.status ? 'פעיל' : 'מושבת';
-				return row;
-			},
-		});
-		return {
-			data: proxy,
-			...p,
-		};
+	// branch(p => p.nodata, renderComponent(NotFound)),
+	mapProps(({ rawData, ...p }) => ({
+		data: _.cloneDeep(rawData.map(({ lastComm, status, ...row }) => ({
+			lastComm: _.replace((new Date(lastComm)).toLocaleString('he-IL'), ',', ''),
+			status: p.filter.status.type[status],
+			...row,
+		}))),
+		activeUnits: _.filter(rawData, ['status', 1]).length,
+		disabledUnits: _.filter(rawData, ['status', 0]).length,
+		totalUnits: rawData.length,
+		...p,
+	})),
+	withHandlers({
+		setSelected: () => (row, isSelected) => {
+			setSelectedHydrants(row._id, isSelected);
+		},
+		setAllSelected: () => (isSelected, rows) => {
+			setSelectedHydrants(rows.map(el => el._id), isSelected);
+		},
 	}),
 	withProps(p => ({
 		options: {
 			onSortChange: p.setSort,
 			defaultSortName: p.sort.name,
 			defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
+			onFilterChange: p.setFilter,
+		},
+		selectRowProp: {
+			mode: 'checkbox',
+			clickToSelect: true,
+			bgColor: 'yellow',
+			onSelect: p.setSelected,
+			onSelectAll: p.setAllSelected,
+			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
 		},
 	})),
 	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Hydrants'),
 )(
 	(p) => {
-		const sw = 55;
-		const mw = 85;
-		const lw = 200;
+		console.log('rendering');
+		const sw = 50;
+		const mw = 95;
+		const lw = 150;
 		const formatter = cell => (<span>{cell}</span>);
-		console.log(p.selectedHydrants);
-		const selectRowProp = {
-			mode: 'checkbox',
-			clickToSelect: true,
-			bgColor: 'yellow',
-			onSelect: p.setSelected,
-			selected: [p.selectedHydrants],
-		};
+		const currentDate = _.replace((new Date()).toLocaleString('he-IL'), ',', '');
 		return (
 			<div className="Hydrants">
 				<div style={{ height: 20 }} />
-				<BootstrapTable selectRow={selectRowProp} containerClass="table_container_class" tableContainerClass="table_class" data={p.data} remote options={p.options} maxHeight="650px" striped hover>
-					<TableHeaderColumn dataFormat={formatter} width={`${sw}px`} dataField="number" dataAlign="center" headerAlign="center" dataSort isKey>
+				<BootstrapTable keyField="_id" selectRow={p.selectRowProp} containerClass="table_container_class" tableContainerClass="table_class" data={p.data} remote options={p.options} height="600px" striped hover>
+					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="center" headerAlign="center" dataSort>
 						מספר
 					</TableHeaderColumn>
 					<TableHeaderColumn dataFormat={formatter} width={`${sw}px`} dataField="companyId" dataAlign="center" headerAlign="right" dataSort>
@@ -137,24 +130,54 @@ export default compose(
 					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="lon" dataAlign="center" headerAlign="center" dataSort>
 						קו אורך
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${sw}px`} dataField="status" dataAlign="center" headerAlign="center" dataSort>
+					<TableHeaderColumn
+						filterFormatted
+						dataFormat={formatter}
+						filter={{ type: 'SelectFilter', options: p.filter.status.type, selectText: 'בחר' }}
+						width="135px"
+						dataField="status"
+						dataAlign="center"
+						headerAlign="center"
+						dataSort
+					>
 						סטטוס
 					</TableHeaderColumn>
 					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="lastComm" dataAlign="center" headerAlign="right" dataSort>
 						תקשורת אחרונה
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${lw}px`} dataField="address" dataAlign="center" headerAlign="center" dataSort>
+					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="center" headerAlign="center" dataSort>
 						כתובת
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${lw}px`} dataField="description" dataAlign="center" headerAlign="center" dataSort>
+					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="center" headerAlign="center" dataSort>
 						תאור
 					</TableHeaderColumn>
 				</BootstrapTable>
+				<Segment raised textAlign="center" size="big">
+					סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
+					מתוכם: {p.activeUnits} יח&#39; פעילים        {p.disabledUnits} יח&#39; מושבתים<br />
+					נכון לתאריך: {currentDate}
+				</Segment>
 			</div>
 		);
 	});
 
+// const NotFound = () => (<Alert bsStyle="warning">אין הידרנטים עדיין</Alert>);
 
+// mapProps(({ rawData, ...p }) => {
+// 	const proxy = new Proxy(rawData, {
+// 		get(obj, prop) {
+// 			if (isNaN(prop)) return obj[prop];
+// 			const row = _.cloneDeep(obj[prop]);
+// 			row.lastComm = _.replace((new Date(row.lastComm)).toLocaleString('he-IL'), ',', '');
+// 			row.status = row.status ? 'פעיל' : 'מושבת';
+// 			return row;
+// 		},
+// 	});
+// 	return {
+// 		data: proxy,
+// 		...p,
+// 	};
+// }),
 
 //
 // const handleRemove = (hydrantId) => {

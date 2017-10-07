@@ -8,20 +8,25 @@ import {
 	compose,
 	renderComponent,
 	branch,
+	withStateHandlers,
 } from 'recompose';
 import {
 	withScriptjs,
 	withGoogleMap,
 	GoogleMap,
 	Marker,
+	InfoWindow,
 } from 'react-google-maps';
 import withLog from '@hocs/with-log';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
+import { Label } from 'semantic-ui-react';
+import _ from 'lodash';
+
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
 import SubManager from '../../../api/Utility/client/SubManager';
-import { getSelectedHydrants } from '../../Storage/Storage';
+import { getSelectedHydrants, getHydrantFilter } from '../../Storage/Storage';
 
 import './Css/Map.scss';
 
@@ -29,10 +34,13 @@ const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנט�
 
 export default compose(
 	meteorData(() => {
-		const selectedHydrants = getSelectedHydrants();
-		console.log(selectedHydrants);
 		const subscription = SubManager.subscribe('hydrants');
-		const dataH = HydrantsCollection.find({ _id: selectedHydrants }).fetch();
+		const filter = {};
+		const status = getHydrantFilter().status;
+		const selectedHydrants = getSelectedHydrants();
+		if (!_.isUndefined(status)) filter.status = status;
+		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
+		const dataH = HydrantsCollection.find(filter).fetch();
 		return {
 			loading: !subscription.ready(),
 			nodata: !dataH.length,
@@ -63,31 +71,61 @@ export default compose(
 	}),
 	withScriptjs,
 	withGoogleMap,
+	withStateHandlers(() => ({
+		infoWindowsId: undefined,
+	}), {
+		onClickMarker: () => id => ({
+			infoWindowsId: id,
+		}),
+	}),
 	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Map'),
 )(
-	({ dataH, zoom, onMapMounted, onZoomChanged, onToggleOpen }) => (
+	p => (
 		<div className="Map">
 			<div style={{ height: 40 }} />
 			<GoogleMap
 				defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-				zoom={zoom}
-				ref={onMapMounted}
-				onZoomChanged={onZoomChanged}
+				zoom={p.zoom}
+				ref={p.onMapMounted}
+				onZoomChanged={p.onZoomChanged}
 			>
 				<MarkerClusterer
 					averageCenter
 					enableRetinaIcons
 					gridSize={60}
 				>
-					{ dataH.map(d => (
-						<Marker
-							icon="marker.ico"
-							key={d._id}
-							position={{ lat: d.lat, lng: d.lon }}
-							onClick={onToggleOpen}
-						/>
-					))}
+					{ p.dataH.map((d) => {
+						let icon, color, eventType;
+						if (d.status) {
+							icon = 'marker_blue.ico';
+							color = '#0000ff';
+							eventType = 'פעיל';
+						} else {
+							icon = 'marker_red.ico';
+							color = '#ff0000';
+							eventType = 'מושבת';
+						}
+						return (
+							<Marker
+								icon={icon}
+								key={d._id}
+								position={{ lat: d.lat, lng: d.lon }}
+								onClick={() => p.onClickMarker(d._id)}
+							>
+								{p.infoWindowsId === d._id &&
+									<InfoWindow onCloseClick={p.onClickMarker}>
+										<Label size="big" style={{ color, backgroundColor: '#ffffff' }} >
+											כתובת ההידרנט:<br />
+											{d.address}<br />
+											מס&quot;ד הידרנט: {d.number}<br />
+											סוג האירוע: {eventType}
+										</Label>
+									</InfoWindow>
+								}
+							</Marker>
+						);
+					})}
 				</MarkerClusterer>
 			</GoogleMap>
 		</div>

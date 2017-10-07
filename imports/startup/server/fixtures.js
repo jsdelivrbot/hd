@@ -13,7 +13,7 @@ const eventsSeed = hydrantId => ({
 	environments: ['development', 'staging'],
 	noLimit: true,
 	wipe: false,
-	modelCount: 5,
+	modelCount: 10,
 	model() {
 		return {
 			hydrantId,
@@ -30,9 +30,8 @@ export default function initDb() {
 		environments: ['development', 'staging'],
 		noLimit: true,
 		wipe: true,
-		modelCount: 10,
+		modelCount: 15,
 		model() {
-			console.log('first model');
 			let sentence = '';
 			for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
 				const temp = `${sentence} ${words[rn(words.length)]}`;

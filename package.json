@@ -34,6 +34,7 @@
     "react-router-dom": "^4.2.2",
     "react-table": "^6.5.3",
     "recompose": "^0.25.0",
+    "semantic-ui-react": "^0.74.2",
     "simpl-schema": "^0.3.2"
   },
   "devDependencies": {

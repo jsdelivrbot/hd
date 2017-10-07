@@ -1,5 +1,7 @@
 {
   "rules": {
+    one-var-declaration-per-line: 0,
+    one-var: 0,
     "comma-dangle": ["error", {
       "arrays": "only-multiline",
       "objects": "only-multiline",
