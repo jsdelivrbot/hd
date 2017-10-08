@@ -92,10 +92,12 @@ function mongoDateBack(dateKey) {
 	}
 	return { $lt: past.toISOString() };
 }
-export function getHydrantFindFilter(fields = [], _dateKey, _statusKey  ) {
+export function getHydrantFindFilter(
+	fields = [],
+	dateKey = getHydrantFilter().lastComm,
+	statusKey = getHydrantFilter().status,
+) {
 	const filter = {};
-	const dateKey = _.defaultTo(_dateKey, getHydrantFilter().lastComm);
-	const statusKey = _.defaultTo(_statusKey, getHydrantFilter().status);
 	if (_.some(fields, 'date')) {
 		filter.lastComm = mongoDateBack(dateKey);
 	}
@@ -106,4 +108,5 @@ export function getHydrantFindFilter(fields = [], _dateKey, _statusKey  ) {
 		const selectedHydrants = getSelectedHydrants();
 		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
 	}
+	return filter;
 }

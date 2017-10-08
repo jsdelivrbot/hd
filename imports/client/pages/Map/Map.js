@@ -27,7 +27,7 @@ import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
 import SubManager from '../../../api/Utility/client/SubManager';
-import { getSelectedHydrants, getHydrantFilter } from '../../Storage/Storage';
+import { getHydrantFindFilter } from '../../Storage/Storage';
 
 import './Css/Map.scss';
 
@@ -35,14 +35,8 @@ const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנט�
 
 const Map = compose(
 	meteorData(() => {
-		const filter = {};
-
-		const status = getHydrantFilter().status;
-		if (!_.isUndefined(status)) filter.status = status;
-		const selectedHydrants = getSelectedHydrants();
-		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
-
 		const subscription = SubManager.subscribe('hydrants');
+		const filter = getHydrantFindFilter(['date', 'status', 'id']);
 		const dataH = HydrantsCollection.find(filter).fetch();
 		return {
 			loading: !subscription.ready(),

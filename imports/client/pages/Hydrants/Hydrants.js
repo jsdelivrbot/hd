@@ -29,7 +29,7 @@ import {
 	getHydrantFilter,
 	getHydrantSort,
 	setHydrantSort,
-	getHydrantDateFilter,
+	getHydrantFindFilter,
 } from '../../Storage/Storage';
 import SubManager from '../../../api/Utility/client/SubManager';
 
@@ -85,17 +85,15 @@ export default compose(
 		}
 	),
 	meteorData((p) => {
-		const filter = {};
-
-		const status = p.filter.status.value;
-		if (!_.isUndefined(status)) {
-			filter.status = status;
-		}
-
-		filter.lastComm = getHydrantDateFilter(p.filter.lastComm.value);
+		const filter = getHydrantFindFilter({
+			fields: ['date', 'status'],
+			dateKey: p.filter.lastComm.value,
+			statusKey: p.filter.status.value,
+		});
 
 		const subscription = SubManager.subscribe('hydrants');
-		const rawData = HydrantsCollection.find(filter,
+		const rawData = HydrantsCollection.find(
+			filter,
 			{ sort: { [p.sort.name]: p.sort.order } })
 			.fetch();
 		return {

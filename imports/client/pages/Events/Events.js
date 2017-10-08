@@ -18,7 +18,7 @@ import { meteorData } from '../../Utils/utils';
 import EventsCollection from '../../../api/Events/Events';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
 import SubManager from '../../../api/Utility/client/SubManager';
-import { getSelectedHydrants, getHydrantFilter } from '../../Storage/Storage';
+import { getHydrantFindFilter } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 
@@ -37,14 +37,8 @@ const eventCodes = {
 
 export default compose(
 	meteorData(() => {
-		const filter = {};
-
-		const status = getHydrantFilter().status;
-		if (!_.isUndefined(status)) filter.status = status;
-		const selectedHydrants = getSelectedHydrants();
-		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
-
 		const subscription2 = SubManager.subscribe('hydrants');
+		const filter = getHydrantFindFilter(['date', 'status', 'id']);
 		const dataH = HydrantsCollection.find(filter).fetch();
 
 		const hids = _.map(dataH, '_id');
