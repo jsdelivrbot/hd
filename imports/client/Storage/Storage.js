@@ -68,34 +68,42 @@ export function resetSelected(s) {
 	return s;
 }
 
-export function getHydrantFindFilter(fields = [], dateKey, sortState  ) {
+function mongoDateBack(dateKey) {
+	const dateOffset = (24 * 60 * 60 * 1000);
+	const now = (new Date()).getTime();
+	const past = new Date();
+	switch (dateKey) {
+		case 0:
+			past.setTime(now - (dateOffset * 1));
+			break;
+		case 1:
+			past.setTime(now - (dateOffset * 7));
+			break;
+		case 2:
+			past.setTime(now - (dateOffset * 30));
+			break;
+		case 3:
+			past.setTime(now - (dateOffset * 121));
+			break;
+		case 4:
+			past.setTime(now - (dateOffset * 365));
+			break;
+		default:
+	}
+	return { $lt: past.toISOString() };
+}
+export function getHydrantFindFilter(fields = [], _dateKey, _statusKey  ) {
 	const filter = {};
+	const dateKey = _.defaultTo(_dateKey, getHydrantFilter().lastComm);
+	const statusKey = _.defaultTo(_statusKey, getHydrantFilter().status);
 	if (_.some(fields, 'date')) {
-		const dateOffset = (24 * 60 * 60 * 1000);
-		const now = (new Date()).getTime();
-		const past = new Date();
-		switch (_.defaultTo(dateKey, getHydrantFilter().lastComm)) {
-			case 0:
-				past.setTime(now - (dateOffset * 1));
-				break;
-			case 1:
-				past.setTime(now - (dateOffset * 7));
-				break;
-			case 2:
-				past.setTime(now - (dateOffset * 30));
-				break;
-			case 3:
-				past.setTime(now - (dateOffset * 121));
-				break;
-			case 4:
-				past.setTime(now - (dateOffset * 365));
-				break;
-			default:
-		}
-		filter.lastComm = {$lt: past.toISOString()};
+		filter.lastComm = mongoDateBack(dateKey);
 	}
 	if (_.some(fields, 'status')) {
+		if (!_.isUndefined(statusKey)) filter.status = statusKey;
 	}
 	if (_.some(fields, 'id')) {
+		const selectedHydrants = getSelectedHydrants();
+		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
 	}
 }
