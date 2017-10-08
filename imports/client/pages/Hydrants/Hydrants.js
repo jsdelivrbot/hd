@@ -8,6 +8,7 @@ import {
 	compose,
 	renderComponent,
 	branch,
+	lifecycle,
 } from 'recompose';
 import withLog from '@hocs/with-log';
 import _ from 'lodash';
@@ -20,41 +21,80 @@ import '../../stylesheets/table.scss';
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
-import { resetSelected, setSelectedHydrants, getSelectedHydrants, setHydrantFilter } from '../../Storage/Storage';
+import {
+	resetSelected,
+	setSelectedHydrants,
+	getSelectedHydrants,
+	setHydrantFilter,
+	getHydrantFilter,
+	getHydrantSort,
+	setHydrantSort,
+	getHydrantDateFilter,
+} from '../../Storage/Storage';
 import SubManager from '../../../api/Utility/client/SubManager';
 
 export default compose(
 	withStateHandlers(
 		() => ({
-			sort: { name: 'lastComm', order: -1 },
+			sort: getHydrantSort(),
 			filter: {
 				status: {
 					type: {
 						1: 'פעיל',
 						0: 'מושבת',
 					},
-					value: undefined,
-				}
+					value: getHydrantFilter().status,
+				},
+				lastComm: {
+					type: {
+						0: 'יממה',
+						1: 'שבוע',
+						2: 'חודש',
+						3: 'רבעון',
+						4: 'שנה',
+					},
+					value: getHydrantFilter().lastComm,
+				},
 			},
 		}), {
-			setSort: () => (name, order) => ({
-				sort: {
+			setSort: () => (name, order) => {
+				const sort = {
 					name,
 					order: (order === 'asc') ? 1 : -1,
-				}
-			}),
+				};
+				setHydrantSort(sort);
+				return { sort };
+			},
 			setFilter: ({ filter }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
-				nextFilter.status.value = _.get(filterObj, 'status.value', undefined);
-				setHydrantFilter('status', nextFilter.status.value);
-				return { filter: nextFilter };
+
+				let status = _.get(filterObj, 'status.value', undefined);
+				status = status ? _.toNumber(status) : undefined;
+				let lastComm = _.get(filterObj, 'lastComm.value', undefined);
+				lastComm = lastComm ? _.toNumber(lastComm) : undefined;
+
+				setHydrantFilter('status', status);
+				nextFilter.status.value = status;
+				setHydrantFilter('lastComm', lastComm);
+				nextFilter.lastComm.value = lastComm;
+
+				return {
+					filter: nextFilter
+				};
 			},
 		}
 	),
 	meteorData((p) => {
-		const subscription = SubManager.subscribe('hydrants');
 		const filter = {};
-		if (!_.isUndefined(p.filter.status.value)) filter.status = Number(p.filter.status.value);
+
+		const status = p.filter.status.value;
+		if (!_.isUndefined(status)) {
+			filter.status = status;
+		}
+
+		filter.lastComm = getHydrantDateFilter(p.filter.lastComm.value);
+
+		const subscription = SubManager.subscribe('hydrants');
 		const rawData = HydrantsCollection.find(filter,
 			{ sort: { [p.sort.name]: p.sort.order } })
 			.fetch();
@@ -65,7 +105,6 @@ export default compose(
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
-	// branch(p => p.nodata, renderComponent(NotFound)),
 	mapProps(({ rawData, ...p }) => ({
 		data: _.cloneDeep(rawData.map(({ lastComm, status, ...row }) => ({
 			lastComm: _.replace((new Date(lastComm)).toLocaleString('he-IL'), ',', ''),
@@ -110,7 +149,7 @@ export default compose(
 		const mw = 95;
 		const lw = 150;
 		const formatter = cell => (<span>{cell}</span>);
-		const currentDate = _.replace((new Date()).toLocaleString('he-IL'), ',', '');
+		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Hydrants">
 				<div style={{ height: 20 }} />
@@ -133,7 +172,12 @@ export default compose(
 					<TableHeaderColumn
 						filterFormatted
 						dataFormat={formatter}
-						filter={{ type: 'SelectFilter', options: p.filter.status.type, selectText: 'בחר' }}
+						filter={{
+							type: 'SelectFilter',
+							options: p.filter.status.type,
+							selectText: 'בחר',
+							defaultValue: p.filter.status.value,
+						}}
 						width="135px"
 						dataField="status"
 						dataAlign="center"
@@ -142,7 +186,21 @@ export default compose(
 					>
 						סטטוס
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="lastComm" dataAlign="center" headerAlign="right" dataSort>
+					<TableHeaderColumn
+						dataField="lastComm"
+						width={`${mw}px`}
+						dataAlign="center"
+						headerAlign="right"
+						dataSort
+						filterFormatted
+						dataFormat={formatter}
+						filter={{
+							type: 'SelectFilter',
+							options: p.filter.lastComm.type,
+							selectText: 'בחר',
+							defaultValue: p.filter.lastComm.value,
+						}}
+					>
 						תקשורת אחרונה
 					</TableHeaderColumn>
 					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="center" headerAlign="center" dataSort>
@@ -160,6 +218,17 @@ export default compose(
 			</div>
 		);
 	});
+
+
+// lifecycle({
+// 	componentDidUpdate(prevProps) {
+// 		// console.log(_.isEqual(this.props, prevProps));
+// 		_.forEach(this.props, (value, key) => {
+// 			console.log(key);
+// 			console.log(this.props[key]===prevProps[key]);
+// 		});
+// 	}
+// }),
 
 // const NotFound = () => (<Alert bsStyle="warning">אין הידרנטים עדיין</Alert>);
 

@@ -18,7 +18,7 @@ import { meteorData } from '../../Utils/utils';
 import EventsCollection from '../../../api/Events/Events';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
 import SubManager from '../../../api/Utility/client/SubManager';
-import { getSelectedHydrants } from '../../Storage/Storage';
+import { getSelectedHydrants, getHydrantFilter } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 
@@ -37,13 +37,20 @@ const eventCodes = {
 
 export default compose(
 	meteorData(() => {
+		const filter = {};
+
+		const status = getHydrantFilter().status;
+		if (!_.isUndefined(status)) filter.status = status;
 		const selectedHydrants = getSelectedHydrants();
-		const subscription1 = SubManager.subscribe('events');
-		const dataE = EventsCollection.find(
-			_.isEmpty(selectedHydrants) ? {} : { hydrantId: { $in: selectedHydrants } })
-			.fetch();
+		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
+
 		const subscription2 = SubManager.subscribe('hydrants');
-		const dataH = HydrantsCollection.find().fetch();
+		const dataH = HydrantsCollection.find(filter).fetch();
+
+		const hids = _.map(dataH, '_id');
+		const subscription1 = SubManager.subscribe('events');
+		const dataE = EventsCollection.find({ hydrantId: { $in: hids } }).fetch();
+
 		return {
 			dataE,
 			dataH,
@@ -55,7 +62,7 @@ export default compose(
 	// branch(p => p.nodata, renderComponent(NotFound)),
 	mapProps(({ dataE, dataH, ...p }) => ({
 		dataE: _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => ({
-			hydrantNumber: _.get(_.find(dataH, ['_id', hydrantId]), 'number', '') ,
+			hydrantNumber: _.get(_.find(dataH, ['_id', hydrantId]), 'number', ''),
 			createdAt: _.replace((new Date(createdAt)).toLocaleString('he-IL'), ',', ''),
 			code: eventCodes[code],
 			...row,

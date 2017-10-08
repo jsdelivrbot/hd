@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.html" afterPath="$PROJECT_DIR$/client/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/AuthenticatedNavigation.js" afterPath="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/AuthenticatedNavigation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/Css/AuthenticatedNavigation.scss" afterPath="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/Css/AuthenticatedNavigation.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Map/Map.js" afterPath="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,15 +43,15 @@
       <file leaf-file-name="Hydrants.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="48" column="43" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+            <state relative-caret-position="-1860">
+              <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
               <folding>
-                <marker date="1507358116332" expanded="true" signature="3338:3582" ph="..." />
-                <marker date="1507358116332" expanded="true" signature="3580:3582" ph="..." />
-                <marker date="1507358116332" expanded="true" signature="5162:5294" ph="..." />
-                <marker date="1507358116332" expanded="true" signature="5162:5577" ph="..." />
-                <marker date="1507358116332" expanded="true" signature="5162:5585" ph="..." />
-                <marker date="1507358116332" expanded="true" signature="6345:6351" ph=" " />
+                <marker date="1507459621299" expanded="true" signature="3963:4207" ph="..." />
+                <marker date="1507459621299" expanded="true" signature="4205:4207" ph="..." />
+                <marker date="1507459621299" expanded="true" signature="6089:6221" ph="..." />
+                <marker date="1507459621299" expanded="true" signature="6089:6504" ph="..." />
+                <marker date="1507459621299" expanded="true" signature="6089:6512" ph="..." />
+                <marker date="1507459621299" expanded="true" signature="7524:7530" ph=" " />
               </folding>
             </state>
           </provider>
@@ -65,18 +60,8 @@
       <file leaf-file-name="Map.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
+            <state relative-caret-position="270">
+              <caret line="40" column="40" lean-forward="false" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -85,8 +70,18 @@
       <file leaf-file-name="Events.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+            <state relative-caret-position="270">
+              <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,11 +117,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".eslintrc" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".eslintrc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.eslintrc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+            <state relative-caret-position="120">
+              <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -136,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hrow</find>
       <find>hocs</find>
       <find>p.</find>
       <find>dataE</find>
@@ -144,7 +148,6 @@
       <find>הידרנטי</find>
       <find>hData</find>
       <find>onMapMounted</find>
-      <find>dataH</find>
       <find>data</find>
       <find>lodash</find>
       <find>width=&quot;50&quot;</find>
@@ -165,10 +168,11 @@
       <find>onToggleOpen</find>
       <find>color</find>
       <find>onToggleInfoWindow</find>
+      <find>dataH</find>
       <find>empt</find>
+      <find>= new Date(</find>
     </findStrings>
     <replaceStrings>
-      <replace>renderHydrant</replace>
       <replace>sim</replace>
       <replace>'success', 'growl-top-left'</replace>
       <replace>&lt;Loading /&gt;</replace>
@@ -198,6 +202,7 @@
       <replace>onToggleInfoWindow</replace>
       <replace>onClickMarker</replace>
       <replace>data</replace>
+      <replace>.setTime(</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup\imports\client</dir>
@@ -298,8 +303,8 @@
         <option value="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/AuthenticatedNavigation.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/Css/AuthenticatedNavigation.scss" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
         <option value="$PROJECT_DIR$/.eslintrc" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
@@ -338,18 +343,33 @@
             <id />
           </State>
           <State>
-            <id>General</id>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Bitwise operation issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
           </State>
           <State>
             <id>JavaScript</id>
           </State>
           <State>
-            <id>Naming conventionsJavaScript</id>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsCoffeeScript</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>CoffeeScript</id>
+            <id>PointlessArithmeticExpressionJS</id>
           </State>
         </selected-state>
       </profile-state>
@@ -679,7 +699,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/react/react.js" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="JavaScriptPreferStrict" value="true" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.meteor.project" value="true" />
@@ -742,7 +762,7 @@
       <workItem from="1506093956449" duration="83194000" />
       <workItem from="1506468339347" duration="19882000" />
       <workItem from="1506526082459" duration="20995000" />
-      <workItem from="1506585978458" duration="201941000" />
+      <workItem from="1506585978458" duration="247832000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -783,7 +803,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="404620000" />
+    <option name="totallyTimeSpent" value="450511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1461,14 +1481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-870">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Authenticated/Authenticated.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1555,22 +1567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/Utility/client/SubManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1579,33 +1575,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
+    <entry file="file://$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="48" column="43" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+        <state relative-caret-position="-1860">
+          <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding>
-            <marker date="1507358116332" expanded="true" signature="3338:3582" ph="..." />
-            <marker date="1507358116332" expanded="true" signature="3580:3582" ph="..." />
-            <marker date="1507358116332" expanded="true" signature="5162:5294" ph="..." />
-            <marker date="1507358116332" expanded="true" signature="5162:5577" ph="..." />
-            <marker date="1507358116332" expanded="true" signature="5162:5585" ph="..." />
-            <marker date="1507358116332" expanded="true" signature="6345:6351" ph=" " />
+            <marker date="1507459621299" expanded="true" signature="3963:4207" ph="..." />
+            <marker date="1507459621299" expanded="true" signature="4205:4207" ph="..." />
+            <marker date="1507459621299" expanded="true" signature="6089:6221" ph="..." />
+            <marker date="1507459621299" expanded="true" signature="6089:6504" ph="..." />
+            <marker date="1507459621299" expanded="true" signature="6089:6512" ph="..." />
+            <marker date="1507459621299" expanded="true" signature="7524:7530" ph=" " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="40" column="40" lean-forward="false" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
+        <state relative-caret-position="445">
+          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
           <folding />
         </state>
       </provider>
