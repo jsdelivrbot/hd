@@ -46,7 +46,7 @@ export default compose(
 					},
 					value: getHydrantFilter().status,
 				},
-				lastComm: {
+				createdAt: {
 					type: {
 						0: 'יממה',
 						1: 'שבוע',
@@ -54,7 +54,7 @@ export default compose(
 						3: 'רבעון',
 						4: 'שנה',
 					},
-					value: getHydrantFilter().lastComm,
+					value: getHydrantFilter().createdAt,
 				},
 			},
 		}), {
@@ -71,13 +71,13 @@ export default compose(
 
 				let status = _.get(filterObj, 'status.value', undefined);
 				status = status ? _.toNumber(status) : undefined;
-				let lastComm = _.get(filterObj, 'lastComm.value', undefined);
-				lastComm = lastComm ? _.toNumber(lastComm) : undefined;
+				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
+				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
 
 				setHydrantFilter('status', status);
 				nextFilter.status.value = status;
-				setHydrantFilter('lastComm', lastComm);
-				nextFilter.lastComm.value = lastComm;
+				setHydrantFilter('createdAt', createdAt);
+				nextFilter.createdAt.value = createdAt;
 
 				return {
 					filter: nextFilter
@@ -89,7 +89,7 @@ export default compose(
 		const filter = getHydrantFindFilter({
 			addDate: true,
 			addStatus: true,
-			dateKey: p.filter.lastComm.value,
+			dateKey: p.filter.createdAt.value,
 			statusKey: p.filter.status.value,
 		});
 
@@ -106,9 +106,8 @@ export default compose(
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
 	mapProps(({ rawData, ...p }) => ({
-		data: _.cloneDeep(rawData.map(({ lastComm, status, ...row }) => ({
-			lastComm: moment(lastComm),
-			time: moment(lastComm),
+		data: _.cloneDeep(rawData.map(({ createdAt, status, ...row }) => ({
+			createdAt: moment(createdAt).format('DD.MM.YYYY'),
 			status: p.filter.status.type[status],
 			...row,
 		}))),
@@ -165,6 +164,14 @@ export default compose(
 			);
 		};
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
+		const getCustomFilter = (filterHandler) => {
+			console.log(filterHandler);
+			return (
+				<div>
+					<input ref='nokCheckbox' type="checkbox" className="filter" onChange={ () => console.log('changed') } defaultChecked={ true } style={ { marginLeft: 30 + 'px' } } /><label>label</label>
+				</div>
+			);
+		};
 		return (
 			<div className="Hydrants">
 				<div style={{ height: 20 }} />
@@ -181,25 +188,14 @@ export default compose(
 					hover
 				>
 					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="left" headerAlign="center" dataSort>
-						מספר
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${sw}px`} dataField="companyId" dataAlign="center" headerAlign="right" dataSort>
-						מספר חברה
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="sim" dataAlign="center" headerAlign="center" dataSort>
-						מספר סים
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="lat" dataAlign="center" headerAlign="center" dataSort>
-						קו רוחב
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width={`${mw}px`} dataField="lon" dataAlign="center" headerAlign="center" dataSort>
-						קו אורך
+						מספר מזהה
 					</TableHeaderColumn>
 					<TableHeaderColumn
 						filterFormatted
 						dataFormat={formatter}
 						filter={{
-							type: 'SelectFilter',
+							type: 'CustomFilter',
+							getElement: getCustomFilter,
 							options: p.filter.status.type,
 							selectText: 'בחר',
 							defaultValue: p.filter.status.value,
@@ -213,7 +209,7 @@ export default compose(
 						סטטוס
 					</TableHeaderColumn>
 					<TableHeaderColumn
-						dataField="lastComm"
+						dataField="createdAt"
 						width={`${mw}px`}
 						dataAlign="center"
 						headerAlign="center"
@@ -222,24 +218,21 @@ export default compose(
 						dataFormat={formatter}
 						filter={{
 							type: 'SelectFilter',
-							options: p.filter.lastComm.type,
+							options: p.filter.createdAt.type,
 							selectText: 'בחר',
-							defaultValue: p.filter.lastComm.value,
+							defaultValue: p.filter.createdAt.value,
 						}}
 					>
-						תקשורת אחרונה
-					</TableHeaderColumn>
-					<TableHeaderColumn dataField="time" width={`${mw}px`} dataAlign="center" headerAlign="center">
-						זמן
+						תאריך התקנה
 					</TableHeaderColumn>
 					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="right" headerAlign="center" dataSort>
-						כתובת
+						כתובת ההתקנה
 					</TableHeaderColumn>
 					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
-						תאור
+						תאור מקום
 					</TableHeaderColumn>
 				</BootstrapTable>
-				<Segment raised textAlign="center" size="big">
+				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 					סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
 					מתוכם: {p.activeUnits} יח&#39; פעילים        {p.disabledUnits} יח&#39; מושבתים<br />
 					נכון לתאריך: {currentDate}

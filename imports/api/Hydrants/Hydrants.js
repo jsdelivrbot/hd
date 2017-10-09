@@ -23,7 +23,7 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		label: 'The date this document was created.',
 		autoValue() {
-			if (this.isInsert) return (new Date()).toISOString();
+			if (this.isInsert && !this.isSet) return (new Date()).toISOString();
 		},
 	},
 	updatedAt: {

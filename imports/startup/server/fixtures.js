@@ -44,7 +44,7 @@ export default function initDb() {
 				lat: (32.848439 + ((5 - rn(10)) * 0.005)).toFixed(6),
 				lon: (35.117543 + ((5 - rn(10)) * 0.005)).toFixed(6),
 				status: rn(1),
-				lastComm: faker.date.past(1).toISOString(),    // (new Date()).toISOString(),
+				createdAt: faker.date.past(1).toISOString(),
 				address: `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`,
 				description: sentence,
 				enabled: faker.random.boolean(),

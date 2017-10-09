@@ -15,6 +15,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
+import moment from 'moment';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
@@ -109,13 +110,17 @@ export default compose(
 			.fetch();
 
 		const huntUnits = _.filter(dataE, ['code', 2]).length;
-		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => ({
-			hydrantNumber: _.get(_.find(dataH, ['_id', hydrantId]), 'number', ''),
-			createdAt: (new Date(createdAt)).toLocaleString('he-IL').split(', ')[0],
-			time: (new Date(createdAt)).toLocaleString('he-IL').split(', ')[1],
-			code: p.filter.code.type[code],
-			...row,
-		})));
+		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => {
+			const h = _.find(dataH, ['_id', hydrantId]);
+			return {
+				hydrantNumber: _.get(h, 'number', ''),
+				description: _.get(h, 'description', ''),
+				createdAt: moment(createdAt).format('DD.MM.YYYY'),
+				time: moment(createdAt).format('HH:mm'),
+				code: p.filter.code.type[code],
+				...row,
+			};
+		}));
 		if (p.sort.name === 'hydrantNumber') {
 			dataE.sort((a, b) => (p.sort.order) * (a.hydrantNumber - b.hydrantNumber));
 		}
@@ -158,13 +163,7 @@ export default compose(
 					hover
 				>
 					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center" dataSort>
-						מספר הידרנט
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="center" headerAlign="center" dataSort>
-						מספר אירוע
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="edata" dataAlign="center" headerAlign="center" dataSort>
-						מידע
+						מספר מזהה
 					</TableHeaderColumn>
 					<TableHeaderColumn
 						filterFormatted
@@ -181,7 +180,7 @@ export default compose(
 						headerAlign="center"
 						dataSort
 					>
-						קוד אירוע
+						סוג ההתראה
 					</TableHeaderColumn>
 					<TableHeaderColumn
 						dataField="createdAt"
@@ -198,13 +197,14 @@ export default compose(
 							defaultValue: p.filter.createdAt.value,
 						}}
 					>
-						תאריך
+						זמן האירוע
 					</TableHeaderColumn>
-					<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center">
-						זמן
+					<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
+					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
+						תאור מקום
 					</TableHeaderColumn>
 				</BootstrapTable>
-				<Segment raised textAlign="center" size="big">
+				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.huntUnits} <br />
 					נכון לתאריך: {currentDate}
 				</Segment>

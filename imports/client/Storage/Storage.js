@@ -46,7 +46,7 @@ StorageCollection.attachSchema(StorageCollection.schema);
 // Hydrants
 
 export function getHydrantSort() {
-	return _.get(StorageCollection.findOne({}), 'hydrantSort', { name: 'lastComm', order: 1 });
+	return _.get(StorageCollection.findOne({}), 'hydrantSort', { name: 'createdAt', order: 1 });
 }
 
 export function setHydrantSort(sort) {
@@ -138,13 +138,12 @@ export function getHydrantFindFilter(
 		addDate,
 		addStatus,
 		addId,
-		dateKey = getHydrantFilter().lastComm,
+		dateKey = getHydrantFilter().createdAt,
 		statusKey = getHydrantFilter().status,
 	}) {
 	const filter = {};
 	if (addDate) {
-		filter.lastComm = mongoDateBack(dateKey);
-		// console.log(`filter.lastComm:${filter.lastComm}`);
+		filter.createdAt = mongoDateBack(dateKey);
 	}
 
 	if (addStatus) {
@@ -167,4 +166,3 @@ export function getEventFindFilter({ dateKey, codeKey }) {
 	return filter;
 }
 
-// console.log(`filter.lastComm:${filter.lastComm}`);

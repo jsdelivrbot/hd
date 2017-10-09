@@ -5,11 +5,9 @@ import './Footer.scss';
 
 const Footer = () => (
 	<footer className="Footer">
-		{/*<Grid>*/}
-			<p>
-				תאגיד עין אפק
-			</p>
-		{/*</Grid>*/}
+		<p>
+			תאגיד עין אפק
+		</p>
 	</footer>
 );
 

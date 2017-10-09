@@ -132,7 +132,7 @@ const Map = compose(
 					</MarkerClusterer>
 				</GoogleMap>
 				<Segment raised textAlign="center" size="big">
-					סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
+					סה&quot;כ מוצרים מוצגים מתוך תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
 					נכון לתאריך: {currentDate}
 				</Segment>
 			</div>
