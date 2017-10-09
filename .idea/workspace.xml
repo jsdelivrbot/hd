@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
@@ -41,16 +42,26 @@
       <file leaf-file-name="Hydrants.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="89" column="14" lean-forward="true" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+            <state relative-caret-position="240">
+              <caret line="166" column="109" lean-forward="false" selection-start-line="166" selection-start-column="109" selection-end-line="166" selection-end-column="109" />
               <folding>
-                <marker date="1507462876711" expanded="true" signature="3925:4169" ph="..." />
-                <marker date="1507462876711" expanded="true" signature="4167:4169" ph="..." />
-                <marker date="1507462876711" expanded="true" signature="6051:6183" ph="..." />
-                <marker date="1507462876711" expanded="true" signature="6051:6466" ph="..." />
-                <marker date="1507462876711" expanded="true" signature="6051:6474" ph="..." />
-                <marker date="1507462876711" expanded="true" signature="7486:7492" ph=" " />
+                <marker date="1507546923117" expanded="true" signature="3930:4229" ph="..." />
+                <marker date="1507546923117" expanded="true" signature="4227:4229" ph="..." />
+                <marker date="1507546923117" expanded="true" signature="6106:6237" ph="..." />
+                <marker date="1507546923117" expanded="true" signature="6106:6520" ph="..." />
+                <marker date="1507546923117" expanded="true" signature="6106:6528" ph="..." />
+                <marker date="1507546923117" expanded="true" signature="7540:7546" ph=" " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Events.js" pinned="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1348">
+              <caret line="159" column="16" lean-forward="true" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,28 +69,18 @@
       <file leaf-file-name="Map.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="390">
+              <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Events.js" pinned="true" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-30">
-              <caret line="90" column="16" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+            <state relative-caret-position="565">
+              <caret line="164" column="18" lean-forward="true" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -139,13 +140,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>hocs</find>
-      <find>p.</find>
-      <find>dataE</find>
-      <find>eRow</find>
-      <find>הידרנטי</find>
-      <find>hData</find>
-      <find>onMapMounted</find>
       <find>data</find>
       <find>lodash</find>
       <find>width=&quot;50&quot;</find>
@@ -169,14 +163,15 @@
       <find>dataH</find>
       <find>empt</find>
       <find>= new Date(</find>
+      <find>eventCodes</find>
+      <find>sort</find>
+      <find>lastComm</find>
+      <find>status</find>
+      <find>Hydrant</find>
+      <find>hydrant</find>
+      <find>headerAlign=&quot;right&quot;</find>
     </findStrings>
     <replaceStrings>
-      <replace>sim</replace>
-      <replace>'success', 'growl-top-left'</replace>
-      <replace>&lt;Loading /&gt;</replace>
-      <replace>events</replace>
-      <replace>Events</replace>
-      <replace>\n</replace>
       <replace />
       <replace>RN</replace>
       <replace>rn</replace>
@@ -191,7 +186,6 @@
       <replace>row</replace>
       <replace>width=&quot;20&quot;</replace>
       <replace>headerAlign=&quot;rigt&quot;</replace>
-      <replace>headerAlign=&quot;center&quot;</replace>
       <replace>100px</replace>
       <replace>tdStyle={{ width: `${w}px` }} thStyle={{ width: `${w}px` }} width={`${w}px`}</replace>
       <replace>setSelectedHydrant</replace>
@@ -201,6 +195,13 @@
       <replace>onClickMarker</replace>
       <replace>data</replace>
       <replace>.setTime(</replace>
+      <replace>createdAT</replace>
+      <replace>createdAt</replace>
+      <replace>code</replace>
+      <replace>Event</replace>
+      <replace>Event`</replace>
+      <replace>event</replace>
+      <replace>headerAlign=&quot;center&quot;</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup\imports\client</dir>
@@ -302,10 +303,10 @@
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/client/components/AuthenticatedNavigation/Css/AuthenticatedNavigation.scss" />
         <option value="$PROJECT_DIR$/.eslintrc" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
         <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
       </list>
     </option>
   </component>
@@ -697,7 +698,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/react/react.js" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="JavaScriptPreferStrict" value="true" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.meteor.project" value="true" />
@@ -760,7 +761,7 @@
       <workItem from="1506093956449" duration="83194000" />
       <workItem from="1506468339347" duration="19882000" />
       <workItem from="1506526082459" duration="20995000" />
-      <workItem from="1506585978458" duration="250489000" />
+      <workItem from="1506585978458" duration="260819000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -801,7 +802,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="453168000" />
+    <option name="totallyTimeSpent" value="463498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1591,39 +1592,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="390">
+          <caret line="39" column="25" lean-forward="false" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="565">
+          <caret line="164" column="18" lean-forward="true" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="89" column="14" lean-forward="true" selection-start-line="89" selection-start-column="14" selection-end-line="89" selection-end-column="14" />
+        <state relative-caret-position="240">
+          <caret line="166" column="109" lean-forward="false" selection-start-line="166" selection-start-column="109" selection-end-line="166" selection-end-column="109" />
           <folding>
-            <marker date="1507462876711" expanded="true" signature="3925:4169" ph="..." />
-            <marker date="1507462876711" expanded="true" signature="4167:4169" ph="..." />
-            <marker date="1507462876711" expanded="true" signature="6051:6183" ph="..." />
-            <marker date="1507462876711" expanded="true" signature="6051:6466" ph="..." />
-            <marker date="1507462876711" expanded="true" signature="6051:6474" ph="..." />
-            <marker date="1507462876711" expanded="true" signature="7486:7492" ph=" " />
+            <marker date="1507546923117" expanded="true" signature="3930:4229" ph="..." />
+            <marker date="1507546923117" expanded="true" signature="4227:4229" ph="..." />
+            <marker date="1507546923117" expanded="true" signature="6106:6237" ph="..." />
+            <marker date="1507546923117" expanded="true" signature="6106:6520" ph="..." />
+            <marker date="1507546923117" expanded="true" signature="6106:6528" ph="..." />
+            <marker date="1507546923117" expanded="true" signature="7540:7546" ph=" " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="90" column="16" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+        <state relative-caret-position="1348">
+          <caret line="159" column="16" lean-forward="true" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="16" />
           <folding />
         </state>
       </provider>

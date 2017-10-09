@@ -86,7 +86,8 @@ export default compose(
 	),
 	meteorData((p) => {
 		const filter = getHydrantFindFilter({
-			fields: ['date', 'status'],
+			addDate: true,
+			addStatus: true,
 			dateKey: p.filter.lastComm.value,
 			statusKey: p.filter.status.value,
 		});
@@ -132,7 +133,7 @@ export default compose(
 		selectRowProp: {
 			mode: 'checkbox',
 			clickToSelect: true,
-			bgColor: 'yellow',
+			bgColor: 'blue',
 			onSelect: p.setSelected,
 			onSelectAll: p.setAllSelected,
 			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
@@ -151,8 +152,19 @@ export default compose(
 		return (
 			<div className="Hydrants">
 				<div style={{ height: 20 }} />
-				<BootstrapTable keyField="_id" selectRow={p.selectRowProp} containerClass="table_container_class" tableContainerClass="table_class" data={p.data} remote options={p.options} height="600px" striped hover>
-					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="center" headerAlign="center" dataSort>
+				<BootstrapTable
+					keyField="_id"
+					selectRow={p.selectRowProp}
+					containerClass="table_container_class"
+					tableContainerClass="table_class"
+					data={p.data}
+					remote
+					options={p.options}
+					height="600px"
+					striped
+					hover
+				>
+					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="left" headerAlign="center" dataSort>
 						מספר
 					</TableHeaderColumn>
 					<TableHeaderColumn dataFormat={formatter} width={`${sw}px`} dataField="companyId" dataAlign="center" headerAlign="right" dataSort>
@@ -187,7 +199,7 @@ export default compose(
 					<TableHeaderColumn
 						dataField="lastComm"
 						width={`${mw}px`}
-						dataAlign="center"
+						dataAlign="left"
 						headerAlign="right"
 						dataSort
 						filterFormatted
@@ -201,10 +213,10 @@ export default compose(
 					>
 						תקשורת אחרונה
 					</TableHeaderColumn>
-					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="center" headerAlign="center" dataSort>
+					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="right" headerAlign="center" dataSort>
 						כתובת
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="center" headerAlign="center" dataSort>
+					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
 						תאור
 					</TableHeaderColumn>
 				</BootstrapTable>

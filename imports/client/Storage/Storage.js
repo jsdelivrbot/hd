@@ -4,6 +4,8 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
 
+// Schema
+
 const StorageCollection = new Mongo.Collection(null);
 
 StorageCollection.schema = new SimpleSchema({
@@ -25,9 +27,23 @@ StorageCollection.schema = new SimpleSchema({
 		optional: true,
 		label: 'Global hydrant sort',
 	},
+	eventFilter: {
+		type: Object,
+		blackbox: true,
+		optional: true,
+		label: 'Global event filter',
+	},
+	eventSort: {
+		type: Object,
+		blackbox: true,
+		optional: true,
+		label: 'Global event sort',
+	},
 });
 
 StorageCollection.attachSchema(StorageCollection.schema);
+
+// Hydrants
 
 export function getHydrantSort() {
 	return _.get(StorageCollection.findOne({}), 'hydrantSort', { name: 'lastComm', order: 1 });
@@ -68,6 +84,29 @@ export function resetSelected(s) {
 	return s;
 }
 
+// Events
+
+export function getEventSort() {
+	return _.get(StorageCollection.findOne({}), 'eventSort', { name: 'createdAt', order: 1 });
+}
+
+export function setEventSort(sort) {
+	StorageCollection.upsert(1, { $set: { eventSort: sort } });
+}
+
+export function getEventFilter() {
+	console.log('getEventFilter');
+	return _.get(StorageCollection.findOne({}), 'eventFilter', {});
+}
+
+export function setEventFilter(field, value) {
+	const filter = getEventFilter();
+	filter[field] = value;
+	StorageCollection.upsert(1, { $set: { eventFilter: filter } });
+}
+
+// Build Filter
+
 function mongoDateBack(dateKey) {
 	const dateOffset = (24 * 60 * 60 * 1000);
 	const now = (new Date()).getTime();
@@ -89,24 +128,43 @@ function mongoDateBack(dateKey) {
 			past.setTime(now - (dateOffset * 365));
 			break;
 		default:
+			past.setTime(0);
 	}
-	return { $lt: past.toISOString() };
+	return { $gt: past.toISOString() };
 }
+
 export function getHydrantFindFilter(
-	fields = [],
-	dateKey = getHydrantFilter().lastComm,
-	statusKey = getHydrantFilter().status,
-) {
+	{
+		addDate,
+		addStatus,
+		addId,
+		dateKey = getHydrantFilter().lastComm,
+		statusKey = getHydrantFilter().status,
+	}) {
 	const filter = {};
-	if (_.some(fields, 'date')) {
+	if (addDate) {
 		filter.lastComm = mongoDateBack(dateKey);
+		console.log(`filter.lastComm:${filter.lastComm}`);
 	}
-	if (_.some(fields, 'status')) {
+
+	if (addStatus) {
 		if (!_.isUndefined(statusKey)) filter.status = statusKey;
 	}
-	if (_.some(fields, 'id')) {
+	if (addId) {
 		const selectedHydrants = getSelectedHydrants();
 		if (!_.isEmpty(selectedHydrants)) filter._id = { $in: selectedHydrants };
 	}
 	return filter;
 }
+
+export function getEventFindFilter({ dateKey, codeKey }) {
+	const filter = {};
+
+	filter.createdAt = mongoDateBack(dateKey);
+
+	if (!_.isUndefined(codeKey)) filter.code = codeKey;
+
+	return filter;
+}
+
+// console.log(`filter.lastComm:${filter.lastComm}`);

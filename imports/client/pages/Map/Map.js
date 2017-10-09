@@ -36,7 +36,7 @@ const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנט�
 const Map = compose(
 	meteorData(() => {
 		const subscription = SubManager.subscribe('hydrants');
-		const filter = getHydrantFindFilter(['date', 'status', 'id']);
+		const filter = getHydrantFindFilter({ addDate: true, addStatus: true, addId: true });
 		const dataH = HydrantsCollection.find(filter).fetch();
 		return {
 			loading: !subscription.ready(),
