@@ -14,6 +14,7 @@ import withLog from '@hocs/with-log';
 import _ from 'lodash';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Segment } from 'semantic-ui-react';
+import moment from 'moment';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../stylesheets/table.scss';
@@ -106,7 +107,8 @@ export default compose(
 	branch(p => p.loading, renderComponent(Loading)),
 	mapProps(({ rawData, ...p }) => ({
 		data: _.cloneDeep(rawData.map(({ lastComm, status, ...row }) => ({
-			lastComm: _.replace((new Date(lastComm)).toLocaleString('he-IL'), ',', ''),
+			lastComm: moment(lastComm),
+			time: moment(lastComm),
 			status: p.filter.status.type[status],
 			...row,
 		}))),
@@ -133,13 +135,13 @@ export default compose(
 		selectRowProp: {
 			mode: 'checkbox',
 			clickToSelect: true,
-			bgColor: 'blue',
+			bgColor: 'green',
 			onSelect: p.setSelected,
 			onSelectAll: p.setAllSelected,
 			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
 		},
 	})),
-	withLog((p) => { console.log(p); return ''; }),
+	// withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Hydrants'),
 )(
 	(p) => {
@@ -147,7 +149,21 @@ export default compose(
 		const sw = 50;
 		const mw = 95;
 		const lw = 150;
-		const formatter = cell => (<span>{cell}</span>);
+		const formatter = (cell) => {
+			let style = {};
+			if (cell === p.filter.status.type[0]) {
+				style = { color: '#ff0000' };
+			} else if (cell === p.filter.status.type[1]) {
+				style = { color: '#0000ff' };
+			}
+			return (
+				<span
+					style={style}
+				>
+					{cell}
+				</span>
+			);
+		};
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Hydrants">
@@ -199,8 +215,8 @@ export default compose(
 					<TableHeaderColumn
 						dataField="lastComm"
 						width={`${mw}px`}
-						dataAlign="left"
-						headerAlign="right"
+						dataAlign="center"
+						headerAlign="center"
 						dataSort
 						filterFormatted
 						dataFormat={formatter}
@@ -212,6 +228,9 @@ export default compose(
 						}}
 					>
 						תקשורת אחרונה
+					</TableHeaderColumn>
+					<TableHeaderColumn dataField="time" width={`${mw}px`} dataAlign="center" headerAlign="center">
+						זמן
 					</TableHeaderColumn>
 					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="right" headerAlign="center" dataSort>
 						כתובת

@@ -54,7 +54,7 @@ export function setHydrantSort(sort) {
 }
 
 export function getHydrantFilter() {
-	console.log('getHydrantFilter');
+	// console.log('getHydrantFilter');
 	return _.get(StorageCollection.findOne({}), 'hydrantFilter', {});
 }
 
@@ -65,7 +65,7 @@ export function setHydrantFilter(field, value) {
 }
 
 export function getSelectedHydrants() {
-	console.log('getselectedhydrants');
+	// console.log('getselectedhydrants');
 	return _.get(StorageCollection.findOne(), 'hydrantSelected', []);
 }
 
@@ -87,7 +87,7 @@ export function resetSelected(s) {
 // Events
 
 export function getEventSort() {
-	return _.get(StorageCollection.findOne({}), 'eventSort', { name: 'createdAt', order: 1 });
+	return _.get(StorageCollection.findOne({}), 'eventSort', { name: 'date', order: 1 });
 }
 
 export function setEventSort(sort) {
@@ -95,7 +95,7 @@ export function setEventSort(sort) {
 }
 
 export function getEventFilter() {
-	console.log('getEventFilter');
+	// console.log('getEventFilter');
 	return _.get(StorageCollection.findOne({}), 'eventFilter', {});
 }
 
@@ -144,7 +144,7 @@ export function getHydrantFindFilter(
 	const filter = {};
 	if (addDate) {
 		filter.lastComm = mongoDateBack(dateKey);
-		console.log(`filter.lastComm:${filter.lastComm}`);
+		// console.log(`filter.lastComm:${filter.lastComm}`);
 	}
 
 	if (addStatus) {

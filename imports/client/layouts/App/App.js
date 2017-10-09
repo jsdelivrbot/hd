@@ -87,7 +87,11 @@ const App = props => (
 						<Route component={NotFound} />
 					</Switch>
 				</Grid>
-				<Footer {...props} />
+				{ props.authenticated ?
+					<Footer {...props} />
+					:
+					''
+				}
 			</div>
 			:
 			''}

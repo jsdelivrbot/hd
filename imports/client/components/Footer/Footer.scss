@@ -7,15 +7,22 @@ html {
 }
 
 body {
-  margin-bottom: 80px;
+  //padding-bottom: 200px;
+  //margin-bottom: 200px;
 }
 
 .Footer {
-  position: absolute;
+  right: 0;
   bottom: 0;
-  width: 100%;
-  background-color: #fff;
-  border-top: 1px solid $gray-lighter;
+  left: 0;
+  background-color: #efefef;
+  text-align: center;
+  position: fixed;
+
+  //bottom: 0;
+  //width: 100%;
+  //background-color: #fff;
+  //border-top: 1px solid $gray-lighter;
 
   p {
     //padding: 10px 0;

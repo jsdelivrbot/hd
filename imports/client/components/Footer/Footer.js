@@ -1,25 +1,16 @@
 import React from 'react';
-import { year } from '@cleverbeagle/dates';
-import { Link } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 
 import './Footer.scss';
 
-// const copyrightYear = () => {
-// 	const currentYear = year();
-// 	return currentYear === '2017' ? '2017' : `2017-${currentYear}`;
-// };
-
-const Footer = props => (
-	<div>
-		{ props.authenticated ?
-			<div className="Footer">
-				<Grid>
-					<p>תאגיד עין אפק</p>
-				</Grid>
-			</div>
-			: ''}
-	</div>
+const Footer = () => (
+	<footer className="Footer">
+		{/*<Grid>*/}
+			<p>
+				תאגיד עין אפק
+			</p>
+		{/*</Grid>*/}
+	</footer>
 );
 
 Footer.propTypes = {};

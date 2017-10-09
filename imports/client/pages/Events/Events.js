@@ -102,14 +102,17 @@ export default compose(
 			codeKey: p.filter.code.value,
 		});
 		filterE.hydrantId = { $in: hids };
+
 		let dataE = EventsCollection.find(
 			filterE,
 			{ sort: { [p.sort.name]: p.sort.order } })
 			.fetch();
 
+		const huntUnits = _.filter(dataE, ['code', 2]).length;
 		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => ({
 			hydrantNumber: _.get(_.find(dataH, ['_id', hydrantId]), 'number', ''),
-			createdAt: _.replace((new Date(createdAt)).toLocaleString('he-IL'), ',', ''),
+			createdAt: (new Date(createdAt)).toLocaleString('he-IL').split(', ')[0],
+			time: (new Date(createdAt)).toLocaleString('he-IL').split(', ')[1],
 			code: p.filter.code.type[code],
 			...row,
 		})));
@@ -119,7 +122,7 @@ export default compose(
 		return {
 			dataE,
 			dataH,
-			huntUnits: _.filter(dataE, ['code', 2]).length,
+			huntUnits,
 			loading: !subscription1.ready() || !subscription2.ready(),
 			nodata: !dataE.length || !dataH.length,
 		};
@@ -183,7 +186,7 @@ export default compose(
 					<TableHeaderColumn
 						dataField="createdAt"
 						width="135px"
-						dataAlign="left"
+						dataAlign="center"
 						headerAlign="center"
 						dataSort
 						filterFormatted
@@ -196,6 +199,9 @@ export default compose(
 						}}
 					>
 						תאריך
+					</TableHeaderColumn>
+					<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center">
+						זמן
 					</TableHeaderColumn>
 				</BootstrapTable>
 				<Segment raised textAlign="center" size="big">
