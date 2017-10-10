@@ -158,7 +158,7 @@ export default compose(
 		const currentDate = moment().format('DD.MM.YYYY');
 
 		const popoverClickRootClose = (
-			<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 600 }}>
+			<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 500 }}>
 				<form>
 					<FormGroup>
 						{_.map(p.filter.code.type,
@@ -166,10 +166,12 @@ export default compose(
 								const len = _.size(p.filter.code.type);
 								return (
 									<Checkbox
+										style={{ marginLeft: 10 }}
 										inline
 										key={key}
 										checked={_.get(p.filter.code.value, key, false)}
 										onChange={() => p.setFilter({ code: { value: key } })}
+
 									>
 										{type}
 									</Checkbox>
