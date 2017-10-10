@@ -147,7 +147,7 @@ export function getHydrantFindFilter(
 	}
 
 	if (addStatus) {
-		if (!_.isUndefined(statusKey)) filter.status = statusKey;
+		if (!_.isEmpty(statusKey)) filter.status = { $in: _.keys(statusKey).map(k => _.toNumber(k)) };
 	}
 	if (addId) {
 		const selectedHydrants = getSelectedHydrants();
@@ -161,7 +161,7 @@ export function getEventFindFilter({ dateKey, codeKey }) {
 
 	filter.createdAt = mongoDateBack(dateKey);
 
-	if (!_.isUndefined(codeKey)) filter.code = codeKey;
+	if (!_.isEmpty(codeKey)) filter.code = { $in: _.keys(codeKey).map(k => _.toNumber(k)) };
 
 	return filter;
 }

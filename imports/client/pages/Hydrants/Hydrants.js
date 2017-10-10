@@ -15,7 +15,13 @@ import _ from 'lodash';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
+// import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
+// import {Checkbox} from 'primereact/components/checkbox/Checkbox';
+// import 'primereact/resources/primereact.min.css';
+// import 'primereact/resources/themes/omega/theme.css';
+// import 'font-awesome/css/font-awesome.css';
 
+import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../stylesheets/table.scss';
 
@@ -41,10 +47,10 @@ export default compose(
 			filter: {
 				status: {
 					type: {
-						1: 'פעיל',
 						0: 'מושבת',
+						1: 'פעיל',
 					},
-					value: getHydrantFilter().status,
+					value: getHydrantFilter().status || {},
 				},
 				createdAt: {
 					type: {
@@ -69,13 +75,21 @@ export default compose(
 			setFilter: ({ filter }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
 
-				let status = _.get(filterObj, 'status.value', undefined);
-				status = status ? _.toNumber(status) : undefined;
+				const index = _.get(filterObj, 'status.value', undefined);
+				if (index) {
+					const value = filter.status.value;
+					if (_.get(value, [index])) {
+						_.unset(value, [index]);
+					} else {
+						_.set(value, [index], true);
+					}
+					nextFilter.status.value = value;
+					setHydrantFilter('status', value);
+				}
+
 				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
 				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
 
-				setHydrantFilter('status', status);
-				nextFilter.status.value = status;
 				setHydrantFilter('createdAt', createdAt);
 				nextFilter.createdAt.value = createdAt;
 
@@ -163,15 +177,34 @@ export default compose(
 				</span>
 			);
 		};
-		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
-		const getCustomFilter = (filterHandler) => {
-			console.log(filterHandler);
+		const currentDate = moment().format('DD.MM.YYYY');
+
+		const popoverClickRootClose = (
+			<Popover id="popover-trigger-click-root-close" title="סינון">
+				<form>
+					<FormGroup>
+						{_.map(p.filter.status.type, (type, key) => (
+							<Checkbox
+								key={key}
+								checked={_.get(p.filter.status.value, key, false)}
+								onChange={() => p.setFilter({ status: { value: key } })}
+							>
+								{type}
+							</Checkbox>
+						))}
+					</FormGroup>
+				</form>
+			</Popover>
+		);
+
+		const getCustomFilter = () => {
 			return (
-				<div>
-					<input ref='nokCheckbox' type="checkbox" className="filter" onChange={ () => console.log('changed') } defaultChecked={ true } style={ { marginLeft: 30 + 'px' } } /><label>label</label>
-				</div>
+				<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
+					<Button>סינון</Button>
+				</OverlayTrigger>
 			);
 		};
+
 		return (
 			<div className="Hydrants">
 				<div style={{ height: 20 }} />
@@ -200,7 +233,7 @@ export default compose(
 							selectText: 'בחר',
 							defaultValue: p.filter.status.value,
 						}}
-						width="135px"
+						width="155px"
 						dataField="status"
 						dataAlign="center"
 						headerAlign="center"
@@ -240,6 +273,71 @@ export default compose(
 			</div>
 		);
 	});
+
+
+
+{/*<FormGroup>*/}
+	{/*<ControlLabel>מאופשר</ControlLabel>*/}
+	{/*<input*/}
+		{/*type="checkbox"*/}
+		{/*className="form-control"*/}
+		{/*name="enabled"*/}
+		{/*ref={enabled => (this.enabled = enabled)}*/}
+		{/*defaultChecked={(doc && doc.enabled) ? 'checked' : ''}*/}
+	{/*/>*/}
+{/*</FormGroup>*/}
+
+
+{/*<Checkbox value="New York" label="New York" onChange={this.onCityChange}></Checkbox>*/}
+{/*<Checkbox value="San Francisco" label="San Francisco" onChange={this.onCityChange}></Checkbox>*/}
+{/*<Checkbox value="Los Angeles" label="Los Angeles" onChange={this.onCityChange}></Checkbox>*/}
+
+
+{/*<Popup*/}
+{/*trigger={<Button>סינון</Button>}*/}
+{/*flowing*/}
+{/*hoverable*/}
+{/*// on="click"*/}
+{/*position="top center"*/}
+{/*style={{*/}
+{/*borderRadius: 0,*/}
+{/*opacity: 0.9,*/}
+{/*padding: '2em',*/}
+{/*}}*/}
+{/*>*/}
+{/*<Grid centered divided columns={1}>*/}
+{/*<Grid.Column textAlign="center">*/}
+{/*<CheckboxGroup name="fruits" value={['kiwi', 'pineapple']} onChange={this.fruitsChanged}>*/}
+{/*<label><Checkbox value="apple"/> Apple</label>*/}
+{/*<label><Checkbox value="orange"/> Orange</label>*/}
+{/*<label><Checkbox value="watermelon"/> Watermelon</label>*/}
+{/*</CheckboxGroup>*/}
+{/*</Grid.Column>*/}
+{/*</Grid>*/}
+{/*</Popup>*/}
+
+
+{/*<Header as='h4'></Header>*/}
+{/*<p><b>2</b> projects, $10 a month</p>*/}
+{/*<Button>Choose</Button>*/}
+
+{/*<input*/}
+{/*ref="nokCheckbox"*/}
+{/*type="checkbox"*/}
+{/*className="filter"*/}
+{/*onChange={() => console.log('changed')}*/}
+{/*defaultChecked={true}*/}
+{/*style={{ marginLeft: 30 + 'px' }}*/}
+{/*/>*/}
+{/*<label>label</label>*/}
+{/*<input type="checkbox" style={{ marginLeft: '5px' }} />*/}
+{/*<label>label</label>*/}
+{/*<input type="checkbox" style={{ marginLeft: '5px' }} />*/}
+{/*<label>label</label>*/}
+{/*<input type="checkbox" style={{ marginLeft: '5px' }} />*/}
+{/*<label>label</label>*/}
+{/*<input type="checkbox" style={{ marginLeft: '5px' }} />*/}
+{/*<label>label</label>*/}
 
 
 // lifecycle({

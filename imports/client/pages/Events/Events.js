@@ -16,6 +16,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
+import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
@@ -49,7 +50,7 @@ export default compose(
 						6: 'תחילת זרימה הפוכה',
 						7: 'סיום זרימה הפוכה',
 					},
-					value: getEventFilter().code,
+					value: getEventFilter().code || {},
 				},
 				createdAt: {
 					type: {
@@ -74,13 +75,20 @@ export default compose(
 			setFilter: ({ filter }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
 
-				let code = _.get(filterObj, 'code.value', undefined);
-				code = code ? _.toNumber(code) : undefined;
+				const index = _.get(filterObj, 'code.value', undefined);
+				if (index) {
+					const value = filter.code.value;
+					if (_.get(value, [index])) {
+						_.unset(value, [index]);
+					} else {
+						_.set(value, [index], true);
+					}
+					nextFilter.code.value = value;
+					setEventFilter('code', value);
+				}
+
 				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
 				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
-
-				setEventFilter('code', code);
-				nextFilter.code.value = code;
 				setEventFilter('createdAt', createdAt);
 				nextFilter.createdAt.value = createdAt;
 
@@ -147,7 +155,40 @@ export default compose(
 	(p) => {
 		console.log('rendering');
 		const formatter = cell => (<span>{cell}</span>);
-		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
+		const currentDate = moment().format('DD.MM.YYYY');
+
+		const popoverClickRootClose = (
+			<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 600 }}>
+				<form>
+					<FormGroup>
+						{_.map(p.filter.code.type,
+							(type, key) => {
+								const len = _.size(p.filter.code.type);
+								return (
+									<Checkbox
+										inline
+										key={key}
+										checked={_.get(p.filter.code.value, key, false)}
+										onChange={() => p.setFilter({ code: { value: key } })}
+									>
+										{type}
+									</Checkbox>
+								);
+							}
+						)}
+					</FormGroup>
+				</form>
+			</Popover>
+		);
+
+		const getCustomFilter = () => {
+			return (
+				<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
+					<Button>סינון</Button>
+				</OverlayTrigger>
+			);
+		};
+
 		return (
 			<div className="Events">
 				<div style={{ height: 20 }} />
@@ -169,12 +210,13 @@ export default compose(
 						filterFormatted
 						dataFormat={formatter}
 						filter={{
-							type: 'SelectFilter',
+							type: 'CustomFilter',
+							getElement: getCustomFilter,
 							options: p.filter.code.type,
 							selectText: 'בחר',
 							defaultValue: p.filter.code.value,
 						}}
-						width="135px"
+						width="155px"
 						dataField="code"
 						dataAlign="center"
 						headerAlign="center"
@@ -212,6 +254,42 @@ export default compose(
 		);
 	});
 
+
+
+{/*<Col md={6}>*/}
+	{/*{_.map(p.filter.code.type,*/}
+		{/*(type, key) => {*/}
+			{/*const len = _.size(p.filter.code.type);*/}
+			{/*if (key % 2) return '';*/}
+			{/*return (*/}
+				{/*<Checkbox*/}
+					{/*key={key}*/}
+					{/*checked={_.get(p.filter.code.value, key, false)}*/}
+					{/*onChange={() => p.setFilter({ code: { value: key } })}*/}
+				{/*>*/}
+					{/*{type}*/}
+				{/*</Checkbox>*/}
+			{/*);*/}
+		{/*}*/}
+	{/*)}*/}
+{/*</Col>*/}
+{/*<Col md={6}>*/}
+	{/*{_.map(p.filter.code.type,*/}
+		{/*(type, key) => {*/}
+			{/*const len = _.size(p.filter.code.type);*/}
+			{/*if (!(key % 2)) return '';*/}
+			{/*return (*/}
+				{/*<Checkbox*/}
+					{/*key={key}*/}
+					{/*checked={_.get(p.filter.code.value, key, false)}*/}
+					{/*onChange={() => p.setFilter({ code: { value: key } })}*/}
+				{/*>*/}
+					{/*{type}*/}
+				{/*</Checkbox>*/}
+			{/*);*/}
+		{/*}*/}
+	{/*)}*/}
+{/*</Col>*/}
 
 
 
