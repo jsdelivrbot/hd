@@ -39,10 +39,10 @@ Hydrants.schema = new SimpleSchema({
 		defaultValue: 0,
 	},
 	number: {
-		type: Number,
+		type: String,
 		label: 'Unique hydrant serial number.',
 		autoValue() {
-			if (this.isInsert) return incrementCounter('Counts', 'HydrantsSerialNumber');
+			if (this.isInsert) return String(incrementCounter('Counts', 'HydrantsSerialNumber'));
 		},
 	},
 	sim: {
@@ -69,6 +69,17 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		label: 'Last communication date',
 		defaultValue: '0',
+	},
+	disableDate: {
+		type: String,
+		label: 'Disable date',
+		defaultValue: '0',
+	},
+	disableText: {
+		type: String,
+		label: 'Disable text',
+		defaultValue: '',
+		max: 250,
 	},
 	address: {
 		type: String,

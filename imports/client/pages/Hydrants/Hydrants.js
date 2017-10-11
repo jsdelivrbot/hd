@@ -10,11 +10,13 @@ import {
 	branch,
 	lifecycle,
 } from 'recompose';
+import { Link } from 'react-router-dom';
 import withLog from '@hocs/with-log';
 import _ from 'lodash';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
+import { Flex, Box } from 'reflexbox'
 // import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 // import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 // import 'primereact/resources/primereact.min.css';
@@ -62,6 +64,15 @@ export default compose(
 					},
 					value: getHydrantFilter().createdAt,
 				},
+				address: {
+					value: getHydrantFilter().address,
+				},
+				description: {
+					value: getHydrantFilter().description,
+				},
+				number: {
+					value: getHydrantFilter().number,
+				},
 			},
 		}), {
 			setSort: () => (name, order) => {
@@ -76,6 +87,12 @@ export default compose(
 				const nextFilter = _.clone(filter);
 
 				const index = _.get(filterObj, 'status.value', undefined);
+				const address = _.get(filterObj, 'address.value');
+				const description = _.get(filterObj, 'description.value');
+				const number = _.get(filterObj, 'number.value');
+				let createdAt = _.get(filterObj, 'createdAt.value');
+				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
+
 				if (index) {
 					const value = filter.status.value;
 					if (_.get(value, [index])) {
@@ -85,13 +102,19 @@ export default compose(
 					}
 					nextFilter.status.value = value;
 					setHydrantFilter('status', value);
+				} else if (address) {
+					setHydrantFilter('address', address);
+					nextFilter.address.value = address;
+				} else if (description) {
+					setHydrantFilter('description', description);
+					nextFilter.description.value = description;
+				} else if (number) {
+					setHydrantFilter('number', number);
+					nextFilter.number.value = number;
+				} else if (createdAt) {
+					setHydrantFilter('createdAt', createdAt);
+					nextFilter.createdAt.value = createdAt;
 				}
-
-				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
-				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
-
-				setHydrantFilter('createdAt', createdAt);
-				nextFilter.createdAt.value = createdAt;
 
 				return {
 					filter: nextFilter
@@ -103,6 +126,12 @@ export default compose(
 		const filter = getHydrantFindFilter({
 			addDate: true,
 			addStatus: true,
+			addAddress: true,
+			addDescription: true,
+			addNumber: true,
+			numberKey: p.filter.number.value,
+			descriptionKey: p.filter.description.value,
+			addressKey: p.filter.address.value,
 			dateKey: p.filter.createdAt.value,
 			statusKey: p.filter.status.value,
 		});
@@ -120,9 +149,10 @@ export default compose(
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
 	mapProps(({ rawData, ...p }) => ({
-		data: _.cloneDeep(rawData.map(({ createdAt, status, ...row }) => ({
+		data: _.cloneDeep(rawData.map(({ createdAt, status, ...row }, key) => ({
 			createdAt: moment(createdAt).format('DD.MM.YYYY'),
 			status: p.filter.status.type[status],
+			rowNumber: key,
 			...row,
 		}))),
 		activeUnits: _.filter(rawData, ['status', 1]).length,
@@ -154,7 +184,7 @@ export default compose(
 			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
 		},
 	})),
-	// withLog((p) => { console.log(p); return ''; }),
+	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Hydrants'),
 )(
 	(p) => {
@@ -197,13 +227,11 @@ export default compose(
 			</Popover>
 		);
 
-		const getCustomFilter = () => {
-			return (
-				<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
-					<Button>סינון</Button>
-				</OverlayTrigger>
-			);
-		};
+		const getCustomFilter = () => (
+			<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
+				<Button>סינון</Button>
+			</OverlayTrigger>
+		);
 
 		return (
 			<div className="Hydrants">
@@ -220,7 +248,23 @@ export default compose(
 					striped
 					hover
 				>
-					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="number" dataAlign="left" headerAlign="center" dataSort>
+					<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+						מס&quot;ד
+					</TableHeaderColumn>
+					<TableHeaderColumn
+						filterFormatted
+						filter={{
+							type: 'TextFilter',
+							delay: 1000,
+							placeholder: 'חפש',
+							defaultValue: p.filter.number.value,
+						}}
+						width="125px"
+						dataField="number"
+						dataAlign="left"
+						headerAlign="center"
+						dataSort
+					>
 						מספר מזהה
 					</TableHeaderColumn>
 					<TableHeaderColumn
@@ -230,10 +274,9 @@ export default compose(
 							type: 'CustomFilter',
 							getElement: getCustomFilter,
 							options: p.filter.status.type,
-							selectText: 'בחר',
 							defaultValue: p.filter.status.value,
 						}}
-						width="155px"
+						width="135px"
 						dataField="status"
 						dataAlign="center"
 						headerAlign="center"
@@ -243,7 +286,7 @@ export default compose(
 					</TableHeaderColumn>
 					<TableHeaderColumn
 						dataField="createdAt"
-						width={`${mw}px`}
+						width="155"
 						dataAlign="center"
 						headerAlign="center"
 						dataSort
@@ -252,23 +295,79 @@ export default compose(
 						filter={{
 							type: 'SelectFilter',
 							options: p.filter.createdAt.type,
-							selectText: 'בחר',
+							placeholder: 'בחר',
 							defaultValue: p.filter.createdAt.value,
 						}}
 					>
 						תאריך התקנה
 					</TableHeaderColumn>
-					<TableHeaderColumn width={`${lw}px`} dataFormat={formatter} dataField="address" dataAlign="right" headerAlign="center" dataSort>
+					<TableHeaderColumn
+						filterFormatted
+						filter={{
+							type: 'TextFilter',
+							delay: 1000,
+							placeholder: 'חפש',
+							defaultValue: p.filter.address.value,
+						}}
+						width="200"
+						dataFormat={formatter}
+						dataField="address"
+						dataAlign="right"
+						headerAlign="center"
+						dataSort
+					>
 						כתובת ההתקנה
 					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
+					<TableHeaderColumn
+						filterFormatted
+						filter={{
+							type: 'TextFilter',
+							delay: 1000,
+							placeholder: 'חפש',
+							defaultValue: p.filter.description.value,
+						}}
+						dataFormat={formatter}
+						dataField="description"
+						dataAlign="right"
+						headerAlign="center"
+						dataSort
+					>
 						תאור מקום
 					</TableHeaderColumn>
 				</BootstrapTable>
-				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-					סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
-					מתוכם: {p.activeUnits} יח&#39; פעילים        {p.disabledUnits} יח&#39; מושבתים<br />
-					נכון לתאריך: {currentDate}
+				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
+					<Flex align="center">
+						<Box w={1 / 8}>
+							{_.isEmpty(getSelectedHydrants()) ?
+								<Button
+									bsStyle="primary"
+									block
+									onClick={() => p.history.push(
+										`${p.match.url}/new`
+									)}
+								>
+									חדש
+								</Button>
+								:
+								<Button
+									bsStyle="success"
+									disabled={getSelectedHydrants().length > 1}
+									onClick={() => p.history.push(
+										`${p.match.url}/${_.filter(p.data, ['_id', getSelectedHydrants()[0]])[0]._id}/edit`
+									)}
+									block
+								>
+									ערוך
+								</Button>
+							}
+						</Box>
+						<Box w={6 / 8}>
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.totalUnits} יח&#39;<br />
+							מתוכם: {p.activeUnits} יח&#39; פעילים {p.disabledUnits} יח&#39; מושבתים<br />
+							נכון לתאריך: {currentDate}
+						</Box>
+						<Box w={1 / 8} />
+					</Flex>
 				</Segment>
 			</div>
 		);
@@ -383,7 +482,6 @@ export default compose(
 //
 
 // // withLog(p => `props: ${JSON.stringify(p, null, 4)}`),
-// <Link className="btn btn-success" to={`${match.url}/new`}>הוסף הידרנט</Link>
 // <td>{(d.enabled) ? 'פעיל' : 'מושבת'}</td>
 // <td>
 // 	<Button

@@ -31,13 +31,18 @@ import { getHydrantFindFilter } from '../../Storage/Storage';
 
 import './Css/Map.scss';
 
-const NotFound = () => (<Alert bsStyle="warning">עדיין אין הידרנטים!</Alert>);
-
 const Map = compose(
 	meteorData(() => {
 		const subscription = SubManager.subscribe('hydrants');
-		const filter = getHydrantFindFilter({ addDate: true, addStatus: true, addId: true });
-		const dataH = HydrantsCollection.find(filter).fetch();
+		const filterH = getHydrantFindFilter({
+			addAddress: true,
+			addDescription: true,
+			addNumber: true,
+			addDate: true,
+			addStatus: true,
+			addId: true
+		});
+		const dataH = HydrantsCollection.find(filterH).fetch();
 		return {
 			loading: !subscription.ready(),
 			nodata: !dataH.length,
@@ -45,7 +50,6 @@ const Map = compose(
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
-	branch(p => p.nodata, renderComponent(NotFound)),
 	mapProps(({ dataH, ...p }) => ({
 		dataH,
 		totalUnits: dataH.length,

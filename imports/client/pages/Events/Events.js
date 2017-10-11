@@ -100,7 +100,14 @@ export default compose(
 	),
 	meteorData((p) => {
 		const subscription2 = SubManager.subscribe('hydrants');
-		const filterH = getHydrantFindFilter({ addDate: true, addStatus: true, addId: true });
+		const filterH = getHydrantFindFilter({
+			addAddress: true,
+			addDescription: true,
+			addNumber: true,
+			addDate: true,
+			addStatus: true,
+			addId: true
+		});
 		const dataH = HydrantsCollection.find(filterH).fetch();
 
 		const hids = _.map(dataH, '_id');
@@ -118,7 +125,7 @@ export default compose(
 			.fetch();
 
 		const huntUnits = _.filter(dataE, ['code', 2]).length;
-		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }) => {
+		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }, key) => {
 			const h = _.find(dataH, ['_id', hydrantId]);
 			return {
 				hydrantNumber: _.get(h, 'number', ''),
@@ -126,6 +133,7 @@ export default compose(
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				time: moment(createdAt).format('HH:mm'),
 				code: p.filter.code.type[code],
+				rowNumber: key,
 				...row,
 			};
 		}));
@@ -205,6 +213,9 @@ export default compose(
 					striped
 					hover
 				>
+					<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+						מס&quot;ד
+					</TableHeaderColumn>
 					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center" dataSort>
 						מספר מזהה
 					</TableHeaderColumn>

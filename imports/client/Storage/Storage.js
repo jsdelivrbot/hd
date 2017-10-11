@@ -138,6 +138,12 @@ export function getHydrantFindFilter(
 		addDate,
 		addStatus,
 		addId,
+		addAddress,
+		addDescription,
+		addNumber,
+		addressKey = getHydrantFilter().address,
+		descriptionKey = getHydrantFilter().description,
+		numberKey = getHydrantFilter().number,
 		dateKey = getHydrantFilter().createdAt,
 		statusKey = getHydrantFilter().status,
 	}) {
@@ -146,6 +152,16 @@ export function getHydrantFindFilter(
 		filter.createdAt = mongoDateBack(dateKey);
 	}
 
+	if (addNumber && numberKey) {
+		filter.number = { $regex: numberKey };
+		console.log(filter.number);
+	}
+	if (addAddress && addressKey) {
+		filter.address = { $regex: addressKey };
+	}
+	if (addDescription && descriptionKey) {
+		filter.description = { $regex: descriptionKey };
+	}
 	if (addStatus) {
 		if (!_.isEmpty(statusKey)) filter.status = { $in: _.keys(statusKey).map(k => _.toNumber(k)) };
 	}
