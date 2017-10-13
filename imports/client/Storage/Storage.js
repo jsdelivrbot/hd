@@ -134,15 +134,8 @@ function mongoDateBack(keyDate) {
 		default:
 			past.setTime(0);
 	}
-	let temp1 = past.toISOString();
-	// let m = moment();
-	// let temp1 = m.subtruct(20, 'days').format();
-
-	let temp2 = "2017-09-13T15:53:20.000Z";
-	console.log(_.isEqual(temp1, temp2));
-	console.log(temp2);
-	console.log(temp1);
-	return { $gt: _.cloneDeep(temp1) };
+	// date = moment("2017-10-13T15:53:20.000Z").subtract(100000, 'days').toISOString();
+	return { $gt: past.toISOString() };
 }
 
 export function getHydrantFindFilter(
@@ -195,9 +188,7 @@ export function getEventFindFilter({ keyDate, codeKey }) {
 }
 
 export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
-
 	// Hydrants collection
-
 	const filterH = {};
 
 	const keyAddress = getHydrantFilter().address;
@@ -228,14 +219,14 @@ export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
 
 	// Events collection
 
-	let filterE = {};
+	const filterE = {};
+
 	filterE.createdAt = mongoDateBack(keyDateE);
 
-	// if (!_.isEmpty(keyCode)) {
-	// 	filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
-	// }
-	// const ff1 = {"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}};
-	// filterE = JSON.parse(JSON.stringify((ff1)))
+	if (!_.isEmpty(keyCode)) {
+		filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
+	}
+
 	return { filterH, filterE };
 }
 
