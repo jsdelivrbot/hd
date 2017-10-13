@@ -16,7 +16,8 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
-import moment from 'moment';
+// import moment from 'moment';
+import moment from 'meteor/momentjs:moment';
 import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 import { Mongo } from 'meteor/mongo';
 
@@ -108,12 +109,24 @@ export default compose(
 			keyDateE: p.filter.createdAt.value,
 			keyCode: p.filter.code.value,
 		});
-		const s = SubManager.subscribe('eventsH', {
+		// console.log('createdat state');
+		// console.log(p.filter.createdAt.value);"fi
+		console.log('11111');
+		console.log(filterE);
+		console.log({"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}});
+		console.log('222222');
+
+		// const filterEE = Object.assign({}, filterE);
+		const ff1 = {"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}};
+		const fff = JSON.parse(JSON.stringify((filterE)));//{"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}};
+		const ffs = JSON.parse(JSON.stringify((ff1)));//{"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}};
+		console.log(_.isEqual(ffs, fff));
+		const subscription = SubManager.subscribe('eventsH', {
 			filterH,
-			filterE,
-			sortName: p.sort.name,
-			sortOrder: p.sort.order,
+			filterE: fff,
+			sort: { [p.sort.name]: p.sort.order },
 		});
+		// const subscription = SubManager.subscribe('eventsH');
 
 		// const filterH = getHydrantFindFilter({
 		// 	addAddress: true,
@@ -140,6 +153,9 @@ export default compose(
 
 		let data = EventsH.find().fetch();
 
+		let m = moment("2014-12-12T04:01:21.768Z").subtruct(20, 'days').format();
+		console.log(m);
+
 		const huntUnits = _.filter(data, ['code', 2]).length;
 		data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
 			// const h = _.find(dataH, ['_id', hydrantId]);
@@ -157,7 +173,7 @@ export default compose(
 		return {
 			data,
 			huntUnits,
-			loading: !s.ready(),
+			loading: !subscription.ready(),
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
@@ -169,7 +185,7 @@ export default compose(
 			onFilterChange: p.setFilter,
 		},
 	})),
-	withLog((p) => { console.log(p); return ''; }),
+	withLog((p) => { console.log('data'); return p.data; }),
 	setDisplayName('Events')
 )(
 	(p) => {

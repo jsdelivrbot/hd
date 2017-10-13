@@ -3,6 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import _ from 'lodash';
+import moment from 'moment';
 
 // Schema
 
@@ -95,7 +96,8 @@ export function setEventSort(sort) {
 }
 
 export function getEventFilter() {
-	// console.log('getEventFilter');
+	console.log('getEventFilter');
+	console.log(_.get(StorageCollection.findOne({}), 'eventFilter', {}));
 	return _.get(StorageCollection.findOne({}), 'eventFilter', {});
 }
 
@@ -109,7 +111,9 @@ export function setEventFilter(field, value) {
 
 function mongoDateBack(keyDate) {
 	const dateOffset = (24 * 60 * 60 * 1000);
-	const now = (new Date()).getTime();
+	let now = (new Date()).getTime();
+	now = 10000000 * Math.round(now / 10000000);
+	console.log(now);
 	const past = new Date();
 	switch (keyDate) {
 		case 0:
@@ -130,7 +134,15 @@ function mongoDateBack(keyDate) {
 		default:
 			past.setTime(0);
 	}
-	return { $gt: past.toISOString() };
+	let temp1 = past.toISOString();
+	// let m = moment();
+	// let temp1 = m.subtruct(20, 'days').format();
+
+	let temp2 = "2017-09-13T15:53:20.000Z";
+	console.log(_.isEqual(temp1, temp2));
+	console.log(temp2);
+	console.log(temp1);
+	return { $gt: _.cloneDeep(temp1) };
 }
 
 export function getHydrantFindFilter(
@@ -185,6 +197,7 @@ export function getEventFindFilter({ keyDate, codeKey }) {
 export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
 
 	// Hydrants collection
+
 	const filterH = {};
 
 	const keyAddress = getHydrantFilter().address;
@@ -214,12 +227,59 @@ export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
 	}
 
 	// Events collection
-	const filterE = {};
+
+	let filterE = {};
 	filterE.createdAt = mongoDateBack(keyDateE);
 
-	if (!_.isEmpty(keyCode)) {
-		filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
-	}
-
+	// if (!_.isEmpty(keyCode)) {
+	// 	filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
+	// }
+	// const ff1 = {"createdAt":{"$gt":"2017-09-13T15:53:20.000Z"}};
+	// filterE = JSON.parse(JSON.stringify((ff1)))
 	return { filterH, filterE };
 }
+
+
+// export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
+//
+// 	// Hydrants collection
+//
+// 	const filterH = {};
+//
+// 	const keyAddress = getHydrantFilter().address;
+// 	const keyDescription = getHydrantFilter().description;
+// 	const keyNumber = getHydrantFilter().number;
+// 	const keyDateH = getHydrantFilter().createdAt;
+// 	const keyStatus = getHydrantFilter().status;
+//
+// 	filterH.createdAt = mongoDateBack(keyDateH);
+//
+// 	const selectedHydrants = getSelectedHydrants();
+// 	if (!_.isEmpty(selectedHydrants)) {
+// 		filterH._id = { $in: selectedHydrants };
+// 	} else {
+// 		if (keyNumber) {
+// 			filterH.number = { $regex: keyNumber };
+// 		}
+// 		if (keyAddress) {
+// 			filterH.address = { $regex: keyAddress };
+// 		}
+// 		if (keyDescription) {
+// 			filterH.description = { $regex: keyDescription };
+// 		}
+// 		if (!_.isEmpty(keyStatus)) {
+// 			filterH.status = { $in: _.keys(keyStatus).map(k => _.toNumber(k)) };
+// 		}
+// 	}
+//
+// 	// Events collection
+//
+// 	const filterE = {};
+// 	filterE.createdAt = mongoDateBack(keyDateE);
+//
+// 	if (!_.isEmpty(keyCode)) {
+// 		filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
+// 	}
+//
+// 	return { filterH, filterE };
+// }
