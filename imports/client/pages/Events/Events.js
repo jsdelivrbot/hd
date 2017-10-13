@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 
+
 import React from 'react';
 import {
 	mapProps,
@@ -17,6 +18,7 @@ import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
+import { Mongo } from 'meteor/mongo';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
@@ -30,9 +32,12 @@ import {
 	setEventSort,
 	setEventFilter,
 	getEventFindFilter,
+	getEventsBackendFilterParams,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
+
+const EventsH = new Mongo.Collection('EventsH');
 
 export default compose(
 	withStateHandlers(
@@ -99,37 +104,48 @@ export default compose(
 		}
 	),
 	meteorData((p) => {
-		const subscription2 = SubManager.subscribe('hydrants');
-		const filterH = getHydrantFindFilter({
-			addAddress: true,
-			addDescription: true,
-			addNumber: true,
-			addDate: true,
-			addStatus: true,
-			addId: true
+		const { filterH, filterE } = getEventsBackendFilterParams({
+			keyDateE: p.filter.createdAt.value,
+			keyCode: p.filter.code.value,
 		});
-		const dataH = HydrantsCollection.find(filterH).fetch();
-
-		const hids = _.map(dataH, '_id');
-		const subscription1 = SubManager.subscribe('events');
-
-		const filterE = getEventFindFilter({
-			dateKey: p.filter.createdAt.value,
-			codeKey: p.filter.code.value,
-		});
-		filterE.hydrantId = { $in: hids };
-
-		let dataE = EventsCollection.find(
+		const s = SubManager.subscribe('eventsH', {
+			filterH,
 			filterE,
-			{ sort: { [p.sort.name]: p.sort.order } })
-			.fetch();
+			sortName: p.sort.name,
+			sortOrder: p.sort.order,
+		});
 
-		const huntUnits = _.filter(dataE, ['code', 2]).length;
-		dataE = _.cloneDeep(dataE.map(({ hydrantId, createdAt, code, ...row }, key) => {
-			const h = _.find(dataH, ['_id', hydrantId]);
+		// const filterH = getHydrantFindFilter({
+		// 	addAddress: true,
+		// 	addDescription: true,
+		// 	addNumber: true,
+		// 	addDate: true,
+		// 	addStatus: true,
+		// 	addId: true
+		// });
+		// const dataH = HydrantsCollection.find(filterH).fetch();
+		//
+		// const hids = _.map(dataH, '_id');
+		//
+		// const filterE = getEventFindFilter({
+		// 	dateKey: p.filter.createdAt.value,
+		// 	codeKey: p.filter.code.value,
+		// });
+		// filterE.hydrantId = { $in: hids };
+		//
+		// let data = EventsCollection.find(
+		// 	filterE,
+		// 	{ sort: { [p.sort.name]: p.sort.order } })
+		// 	.fetch();
+
+		let data = EventsH.find().fetch();
+
+		const huntUnits = _.filter(data, ['code', 2]).length;
+		data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
+			// const h = _.find(dataH, ['_id', hydrantId]);
 			return {
-				hydrantNumber: _.get(h, 'number', ''),
-				description: _.get(h, 'description', ''),
+				// hydrantNumber: _.get(h, 'number', ''),
+				// description: _.get(h, 'description', ''),
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				time: moment(createdAt).format('HH:mm'),
 				code: p.filter.code.type[code],
@@ -137,15 +153,11 @@ export default compose(
 				...row,
 			};
 		}));
-		if (p.sort.name === 'hydrantNumber') {
-			dataE.sort((a, b) => (p.sort.order) * (a.hydrantNumber - b.hydrantNumber));
-		}
+
 		return {
-			dataE,
-			dataH,
+			data,
 			huntUnits,
-			loading: !subscription1.ready() || !subscription2.ready(),
-			nodata: !dataE.length || !dataH.length,
+			loading: !s.ready(),
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
@@ -206,7 +218,7 @@ export default compose(
 					keyField="_id"
 					containerClass="table_container_class"
 					tableContainerClass="table_class"
-					data={p.dataE}
+					data={p.data}
 					remote
 					options={p.options}
 					height="600px"
@@ -309,7 +321,7 @@ export default compose(
 // (props => (
 // 	<div className="Events">
 // 		<div style={{ height: 20 }} />
-// 		<BootstrapTable data={props.dataE} maxHeight="650px" striped hover>
+// 		<BootstrapTable data={props.data} maxHeight="650px" striped hover>
 // 			<TableHeaderColumn isKey dataSort dataField="hydrantNumber" dataAlign="center" headerAlign="center">מספר הידרנט</TableHeaderColumn>
 // 			<TableHeaderColumn dataSort dataField="number" dataAlign="center" headerAlign="center">מספר אירוע</TableHeaderColumn>
 // 			<TableHeaderColumn dataSort dataField="createdAt" dataAlign="center" headerAlign="center">תאריך</TableHeaderColumn>
@@ -321,8 +333,8 @@ export default compose(
 
 
 //
-// mapProps(({ dataE, dataH }) => {
-// 	dataE = new Proxy(dataE, {
+// mapProps(({ data, dataH }) => {
+// 	data = new Proxy(data, {
 // 		get(obj, prop) {
 // 			if (isNaN(prop)) return obj[prop];
 // 			const row = _.cloneDeep(obj[prop]);
@@ -333,5 +345,5 @@ export default compose(
 // 			return row;
 // 		},
 // 	});
-// 	return { dataE };
+// 	return { data };
 // }),

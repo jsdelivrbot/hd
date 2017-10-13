@@ -107,11 +107,11 @@ export function setEventFilter(field, value) {
 
 // Build Filter
 
-function mongoDateBack(dateKey) {
+function mongoDateBack(keyDate) {
 	const dateOffset = (24 * 60 * 60 * 1000);
 	const now = (new Date()).getTime();
 	const past = new Date();
-	switch (dateKey) {
+	switch (keyDate) {
 		case 0:
 			past.setTime(now - (dateOffset * 1));
 			break;
@@ -141,29 +141,29 @@ export function getHydrantFindFilter(
 		addAddress,
 		addDescription,
 		addNumber,
-		addressKey = getHydrantFilter().address,
-		descriptionKey = getHydrantFilter().description,
-		numberKey = getHydrantFilter().number,
-		dateKey = getHydrantFilter().createdAt,
-		statusKey = getHydrantFilter().status,
+		keyAddress = getHydrantFilter().address,
+		keyDescription = getHydrantFilter().description,
+		keyNumber = getHydrantFilter().number,
+		keyDate = getHydrantFilter().createdAt,
+		keyStatus = getHydrantFilter().status,
 	}) {
 	const filter = {};
 	if (addDate) {
-		filter.createdAt = mongoDateBack(dateKey);
+		filter.createdAt = mongoDateBack(keyDate);
 	}
 
-	if (addNumber && numberKey) {
-		filter.number = { $regex: numberKey };
+	if (addNumber && keyNumber) {
+		filter.number = { $regex: keyNumber };
 		console.log(filter.number);
 	}
-	if (addAddress && addressKey) {
-		filter.address = { $regex: addressKey };
+	if (addAddress && keyAddress) {
+		filter.address = { $regex: keyAddress };
 	}
-	if (addDescription && descriptionKey) {
-		filter.description = { $regex: descriptionKey };
+	if (addDescription && keyDescription) {
+		filter.description = { $regex: keyDescription };
 	}
 	if (addStatus) {
-		if (!_.isEmpty(statusKey)) filter.status = { $in: _.keys(statusKey).map(k => _.toNumber(k)) };
+		if (!_.isEmpty(keyStatus)) filter.status = { $in: _.keys(keyStatus).map(k => _.toNumber(k)) };
 	}
 	if (addId) {
 		const selectedHydrants = getSelectedHydrants();
@@ -172,13 +172,54 @@ export function getHydrantFindFilter(
 	return filter;
 }
 
-export function getEventFindFilter({ dateKey, codeKey }) {
+export function getEventFindFilter({ keyDate, codeKey }) {
 	const filter = {};
 
-	filter.createdAt = mongoDateBack(dateKey);
+	filter.createdAt = mongoDateBack(keyDate);
 
 	if (!_.isEmpty(codeKey)) filter.code = { $in: _.keys(codeKey).map(k => _.toNumber(k)) };
 
 	return filter;
 }
 
+export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
+
+	// Hydrants collection
+	const filterH = {};
+
+	const keyAddress = getHydrantFilter().address;
+	const keyDescription = getHydrantFilter().description;
+	const keyNumber = getHydrantFilter().number;
+	const keyDateH = getHydrantFilter().createdAt;
+	const keyStatus = getHydrantFilter().status;
+
+	filterH.createdAt = mongoDateBack(keyDateH);
+
+	const selectedHydrants = getSelectedHydrants();
+	if (!_.isEmpty(selectedHydrants)) {
+		filterH._id = { $in: selectedHydrants };
+	} else {
+		if (keyNumber) {
+			filterH.number = { $regex: keyNumber };
+		}
+		if (keyAddress) {
+			filterH.address = { $regex: keyAddress };
+		}
+		if (keyDescription) {
+			filterH.description = { $regex: keyDescription };
+		}
+		if (!_.isEmpty(keyStatus)) {
+			filterH.status = { $in: _.keys(keyStatus).map(k => _.toNumber(k)) };
+		}
+	}
+
+	// Events collection
+	const filterE = {};
+	filterE.createdAt = mongoDateBack(keyDateE);
+
+	if (!_.isEmpty(keyCode)) {
+		filterE.code = { $in: _.keys(keyCode).map(k => _.toNumber(k)) };
+	}
+
+	return { filterH, filterE };
+}
