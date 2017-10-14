@@ -40,6 +40,12 @@ StorageCollection.schema = new SimpleSchema({
 		optional: true,
 		label: 'Global event sort',
 	},
+	eventSlider: {
+		type: Object,
+		blackbox: true,
+		optional: true,
+		label: 'Event slider',
+	},
 });
 
 StorageCollection.attachSchema(StorageCollection.schema);
@@ -87,8 +93,18 @@ export function resetSelected(s) {
 
 // Events
 
+export function getEventSlider() {
+	console.log('getting');
+	return _.get(StorageCollection.findOne({}), 'eventSlider');
+}
+
+export function setEventSlider(slider) {
+	console.log('setting');
+	StorageCollection.upsert(1, { $set: { eventSlider: slider } });
+}
+
 export function getEventSort() {
-	return _.get(StorageCollection.findOne({}), 'eventSort', { name: 'date', order: 1 });
+	return _.get(StorageCollection.findOne({}), 'eventSort', { name: 'createdAt', order: 1 });
 }
 
 export function setEventSort(sort) {
@@ -113,7 +129,7 @@ function mongoDateBack(keyDate) {
 	const dateOffset = (24 * 60 * 60 * 1000);
 	let now = (new Date()).getTime();
 	now = 10000000 * Math.round(now / 10000000);
-	console.log(now);
+	// console.log(now);
 	const past = new Date();
 	switch (keyDate) {
 		case 0:

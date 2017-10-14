@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 
-
+import { Flex, Box } from 'reflexbox'
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import ReactSimpleRange from 'react-simple-range';
 import {
 	mapProps,
 	setDisplayName,
@@ -34,11 +36,14 @@ import {
 	setEventFilter,
 	getEventFindFilter,
 	getEventsBackendFilterParams,
+	setEventSlider,
+	getEventSlider,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 
 const EventsH = new Mongo.Collection('EventsH');
+const EventsHCount = new Mongo.Collection('EventsHCount');
 
 export default compose(
 	withStateHandlers(
@@ -69,7 +74,13 @@ export default compose(
 					value: getEventFilter().createdAt,
 				},
 			},
+			slider: getEventSlider(),
 		}), {
+			setSlider: () => (slider) => {
+				console.log(slider);
+				setEventSlider(slider);
+				return { slider };
+			},
 			setSort: () => (name, order) => {
 				const sort = {
 					name,
@@ -105,15 +116,21 @@ export default compose(
 		}
 	),
 	meteorData((p) => {
-		// const { filterH, filterE } = getEventsBackendFilterParams({
-		// 	keyDateE: p.filter.createdAt.value,
-		// 	keyCode: p.filter.code.value,
-		// });
-		// const subscription = Meteor.subscribe('eventsH', {
+		const { filterH, filterE } = getEventsBackendFilterParams({
+			keyDateE: p.filter.createdAt.value,
+			keyCode: p.filter.code.value,
+		});
+		const subscription1 = Meteor.subscribe('eventsH', {
+			filterH,
+			filterE,
+			sort: { [p.sort.name]: p.sort.order },
+		});
+		// const subscription2 = Meteor.subscribe('eventsHCount', {
 		// 	filterH,
 		// 	filterE,
 		// 	sort: { [p.sort.name]: p.sort.order },
 		// });
+
 		// const subscription = SubManager.subscribe('eventsH', {
 		// 	filterH,
 		// 	filterE: fff,
@@ -144,17 +161,37 @@ export default compose(
 		// 	{ sort: { [p.sort.name]: p.sort.order } })
 		// 	.fetch();
 
-		let data = EventsH.find().fetch();
+		let data = EventsH.find(
+			filterE,
+			{ sort: { [p.sort.name]: p.sort.order } })
+			.fetch();
 
-		// let m = moment().subtract(7, 'day').format("YYYY-MM-DD")
-		// console.log(m);
+		console.log('EventsHCount');
+		Meteor.call('getEventsHCount', {
+			filterH,
+			filterE,
+			limit: 13,
+			skip: p.slider.max - p.slider.value,
+			sort: { [p.sort.name]: p.sort.order },
+		},
+		(error, response) => {
+			if (error) {
+				console.log(error.reason);
+			} else {
+				const slider = p.slider;
+				slider.max = response[0].count;
+				p.setSlider(slider);
+				console.log(slider.max);
+			}
+		});
+
+		// console.log('EventsHCount');
+		// const cnt = EventsHCount.find().fetch();
+		// console.log(cnt);
 
 		const huntUnits = _.filter(data, ['code', 2]).length;
 		data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
-			// const h = _.find(dataH, ['_id', hydrantId]);
 			return {
-				// hydrantNumber: _.get(h, 'number', ''),
-				// description: _.get(h, 'description', ''),
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				time: moment(createdAt).format('HH:mm'),
 				code: p.filter.code.type[code],
@@ -166,7 +203,7 @@ export default compose(
 		return {
 			data,
 			huntUnits,
-			// loading: !subscription.ready(),
+			loading: !subscription1.ready(),
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
@@ -223,63 +260,83 @@ export default compose(
 		return (
 			<div className="Events">
 				<div style={{ height: 20 }} />
-				<BootstrapTable
-					keyField="_id"
-					containerClass="table_container_class"
-					tableContainerClass="table_class"
-					data={p.data}
-					remote
-					options={p.options}
-					height="600px"
-					striped
-					hover
-				>
-					<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
-						מס&quot;ד
-					</TableHeaderColumn>
-					<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center" dataSort>
-						מספר מזהה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						filterFormatted
-						dataFormat={formatter}
-						filter={{
-							type: 'CustomFilter',
-							getElement: getCustomFilter,
-							options: p.filter.code.type,
-							selectText: 'בחר',
-							defaultValue: p.filter.code.value,
-						}}
-						width="155px"
-						dataField="code"
-						dataAlign="center"
-						headerAlign="center"
-						dataSort
-					>
-						סוג ההתראה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						dataField="createdAt"
-						width="135px"
-						dataAlign="center"
-						headerAlign="center"
-						dataSort
-						filterFormatted
-						dataFormat={formatter}
-						filter={{
-							type: 'SelectFilter',
-							options: p.filter.createdAt.type,
-							selectText: 'בחר',
-							defaultValue: p.filter.createdAt.value,
-						}}
-					>
-						זמן האירוע
-					</TableHeaderColumn>
-					<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
-					<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
-						תאור מקום
-					</TableHeaderColumn>
-				</BootstrapTable>
+				<Flex align="center">
+					<Box w={1 / 8}>
+						<ReactSimpleRange
+							onChange={p.setSlider}
+							label
+							defaultValue={p.slider && p.slider.value}
+							// disableTrack
+							verticalSliderHeight="450px"
+							vertical
+							sliderSize={19}
+							thumbSize={34}
+							max={p.slider && p.slider.max}
+							step={13}
+						>
+							<div style={{ marginLeft: '0px' }}>oo</div>
+						</ReactSimpleRange>
+					</Box>
+					<Box w={7 / 8}>
+						<BootstrapTable
+							keyField="_id"
+							containerClass="table_container_class"
+							tableContainerClass="table_class"
+							data={p.data}
+							remote
+							options={p.options}
+							height="600px"
+							striped
+							hover
+						>
+							<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+								מס&quot;ד
+							</TableHeaderColumn>
+							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center" dataSort>
+								מספר מזהה
+							</TableHeaderColumn>
+							<TableHeaderColumn
+								filterFormatted
+								dataFormat={formatter}
+								filter={{
+									type: 'CustomFilter',
+									getElement: getCustomFilter,
+									options: p.filter.code.type,
+									selectText: 'בחר',
+									defaultValue: p.filter.code.value,
+								}}
+								width="155px"
+								dataField="code"
+								dataAlign="center"
+								headerAlign="center"
+								dataSort
+							>
+								סוג ההתראה
+							</TableHeaderColumn>
+							<TableHeaderColumn
+								dataField="createdAt"
+								width="135px"
+								dataAlign="center"
+								headerAlign="center"
+								dataSort
+								filterFormatted
+								dataFormat={formatter}
+								filter={{
+									type: 'SelectFilter',
+									options: p.filter.createdAt.type,
+									selectText: 'בחר',
+									defaultValue: p.filter.createdAt.value,
+								}}
+							>
+								זמן האירוע
+							</TableHeaderColumn>
+							<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
+							<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
+								תאור מקום
+							</TableHeaderColumn>
+						</BootstrapTable>
+					</Box>
+				</Flex>
 				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.huntUnits} <br />
 					נכון לתאריך: {currentDate}

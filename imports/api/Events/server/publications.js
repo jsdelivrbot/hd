@@ -6,19 +6,68 @@ import { check } from 'meteor/check';
 import Events from '../Events';
 import _ from 'lodash';
 
-// Meteor.publish('events', function events() {
-// 	return Events.find();
-// });
-//
-// Meteor.publish('eventsH', function eventsH(p) {
+
+
+
+Meteor.publish('eventsH', function eventsH(p) {
+	check(p, Object);
+	const { filterH, filterE, sort } = p;
+
+	console.log('filterH');
+	console.log(filterH);
+	console.log('filterE');
+	console.log(filterE);
+	console.log('sort');
+	console.log(sort);
+	const newFilterH = _.transform(filterH, function(result, value, key) {
+		result[`h.${key}`] = value;
+	}, {});
+	console.log('new filterH');
+	console.log(filterH);
+
+	ReactiveAggregate(
+		this,
+		Events,
+		[
+			{ $match: filterE },
+			{ $lookup: {
+				from: 'Hydrants',
+				localField: 'hydrantId',
+				foreignField: '_id',
+				as: 'h'
+			} },
+			{ $unwind: '$h' },
+			{ $match: newFilterH },
+			{ $project: {
+				createdAt: 1,
+				number: 1,
+				code: 1,
+				edata: 1,
+				hydrantNumber: '$h.number',
+				description: '$h.description',
+			} },
+			{ $sort: sort },
+		],
+		{ clientCollection: 'EventsH' }
+	);
+});
+
+// Meteor.publish('eventsHCount', function eventsHCount(p) {
 // 	check(p, Object);
 // 	const { filterH, filterE, sort } = p;
+//
 // 	console.log('filterH');
 // 	console.log(filterH);
 // 	console.log('filterE');
 // 	console.log(filterE);
 // 	console.log('sort');
 // 	console.log(sort);
+// 	const newFilterH = _.transform(filterH, function(result, value, key) {
+// 		result[`h.${key}`] = value;
+// 	}, {});
+// 	console.log('new filterH');
+// 	console.log(filterH);
+//
 // 	ReactiveAggregate(
 // 		this,
 // 		Events,
@@ -31,9 +80,7 @@ import _ from 'lodash';
 // 				as: 'h'
 // 			} },
 // 			{ $unwind: '$h' },
-// 			{ $match: {
-// 				'h.createdAt': { '$gt': '1970-01-01T00:00:00.000Z' },
-// 			} },
+// 			{ $match: newFilterH },
 // 			{ $project: {
 // 				createdAt: 1,
 // 				number: 1,
@@ -42,11 +89,11 @@ import _ from 'lodash';
 // 				hydrantNumber: '$h.number',
 // 				description: '$h.description',
 // 			} },
-// 			{ $sort: { date: 1 } },
-// 			// { $group: {
-// 			// 	_id: 'null',
-// 			// 	hydrantNumber: { $sum: 1 },
-// 			// } },
+// 			{ $group: {
+// 				_id: null,
+// 				count: { $sum: 1 }
+// 			} },
 // 		],
-// 		{ clientCollection: 'EventsH' });
+// 		{ clientCollection: 'EventsHCount' }
+// 	);
 // });

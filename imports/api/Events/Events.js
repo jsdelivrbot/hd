@@ -6,6 +6,7 @@ import { incrementCounter } from 'meteor/osv:mongo-counter';
 
 const Events = new Mongo.Collection('Events');
 
+
 Events.allow({
 	insert: () => false,
 	update: () => false,

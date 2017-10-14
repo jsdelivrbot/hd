@@ -1,6 +1,6 @@
 
 import '../../api/Hydrants/methods';
-// import '../../api/Events/methods';
+import '../../api/Events/methods';
 import '../../api/Utility/methods';
 import '../../api/Hydrants/server/publications';
 import '../../api/Events/server/publications';

@@ -102,19 +102,16 @@ export default compose(
 					}
 					nextFilter.status.value = value;
 					setHydrantFilter('status', value);
-				} else if (address) {
-					setHydrantFilter('address', address);
-					nextFilter.address.value = address;
-				} else if (description) {
-					setHydrantFilter('description', description);
-					nextFilter.description.value = description;
-				} else if (number) {
-					setHydrantFilter('number', number);
-					nextFilter.number.value = number;
-				} else if (createdAt) {
-					setHydrantFilter('createdAt', createdAt);
-					nextFilter.createdAt.value = createdAt;
 				}
+
+				setHydrantFilter('createdAt', createdAt);
+				nextFilter.createdAt.value = createdAt;
+				setHydrantFilter('address', address);
+				nextFilter.address.value = address;
+				setHydrantFilter('description', description);
+				nextFilter.description.value = description;
+				setHydrantFilter('number', number);
+				nextFilter.number.value = number;
 
 				return {
 					filter: nextFilter
