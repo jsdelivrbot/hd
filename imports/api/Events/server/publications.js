@@ -3,15 +3,12 @@
 import { Meteor } from 'meteor/meteor';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { check } from 'meteor/check';
-import Events from '../Events';
 import _ from 'lodash';
-
-
-
+import Events from '../Events';
 
 Meteor.publish('eventsH', function eventsH(p) {
 	check(p, Object);
-	const { filterH, filterE, sort } = p;
+	const { filterH, filterE, sort, limit, skip } = p;
 
 	console.log('filterH');
 	console.log(filterH);
@@ -47,6 +44,8 @@ Meteor.publish('eventsH', function eventsH(p) {
 				description: '$h.description',
 			} },
 			{ $sort: sort },
+			{ $skip: skip },
+			{ $limit: limit },
 		],
 		{ clientCollection: 'EventsH' }
 	);

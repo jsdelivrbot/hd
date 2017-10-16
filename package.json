@@ -8,6 +8,7 @@
   "dependencies": {
     "@cleverbeagle/dates": "^0.5.1",
     "@cleverbeagle/seeder": "^1.2.0",
+    "@hocs/with-callback-on-change": "^0.2.0",
     "@hocs/with-log": "^0.2.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",

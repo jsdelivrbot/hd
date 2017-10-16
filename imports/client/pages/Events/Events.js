@@ -13,6 +13,7 @@ import {
 	withStateHandlers,
 	withProps,
 } from 'recompose';
+import withCallbackOnChange from '@hocs/with-callback-on-change';
 import withLog from '@hocs/with-log';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -74,9 +75,13 @@ export default compose(
 					value: getEventFilter().createdAt,
 				},
 			},
-			slider: getEventSlider(),
+			slider: getEventSlider() || {},
 		}), {
-			setSlider: () => (slider) => {
+			setSlider: ({ slider }) => (obj) => {
+				console.log('setting slider');
+				console.log(slider);
+				_.assign(slider, obj);
+				console.log('assigned slider');
 				console.log(slider);
 				setEventSlider(slider);
 				return { slider };
@@ -89,9 +94,13 @@ export default compose(
 				setEventSort(sort);
 				return { sort };
 			},
-			setFilter: ({ filter }) => (filterObj) => {
+			setFilter: ({ filter, methodStatus }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
-
+				console.log('setting filter');
+				console.log('new filter');
+				console.log(filterObj);
+				console.log('prev filter');
+				console.log(filter);
 				const index = _.get(filterObj, 'code.value', undefined);
 				if (index) {
 					const value = filter.code.value;
@@ -106,104 +115,86 @@ export default compose(
 
 				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
 				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
-				setEventFilter('createdAt', createdAt);
-				nextFilter.createdAt.value = createdAt;
+				if (filter.createdAt.value !== createdAt) {
+					setEventFilter('createdAt', createdAt);
+					nextFilter.createdAt.value = createdAt;
+					methodStatus = 0;
+				}
 
 				return {
-					filter: nextFilter
+					filter: nextFilter,
 				};
 			},
 		}
 	),
+	withCallbackOnChange('filter', (p) => {
+		const { filterH, filterE } = getEventsBackendFilterParams({
+			keyDateE: p.filter.createdAt.value,
+			keyCode: p.filter.code.value,
+		});
+		Meteor.call('getEventsHCount', {
+			filterH,
+			filterE,
+		}, (error, response) => {
+			if (error) {
+				console.log(error.reason);
+			} else if (!response[0]) {
+				console.log('method getEventsHCount return undefined');
+			} else {
+				p.setSlider({ max: response[0].count });
+			}
+		});
+	}),
 	meteorData((p) => {
 		const { filterH, filterE } = getEventsBackendFilterParams({
 			keyDateE: p.filter.createdAt.value,
 			keyCode: p.filter.code.value,
 		});
+
+		let data;
+		let huntUnits;
+		const loading = false;
+
+		let skip = 0;
+
+		if (p.slider) {
+			skip = p.slider.max - p.slider.value;
+			if (skip < 0) skip = 0;
+		} else {
+			skip = 0;
+		}
+		console.log(skip);
+		console.log('subscribing');
+
 		const subscription1 = Meteor.subscribe('eventsH', {
 			filterH,
 			filterE,
+			limit: 12,
+			skip,
 			sort: { [p.sort.name]: p.sort.order },
 		});
-		// const subscription2 = Meteor.subscribe('eventsHCount', {
-		// 	filterH,
-		// 	filterE,
-		// 	sort: { [p.sort.name]: p.sort.order },
-		// });
 
-		// const subscription = SubManager.subscribe('eventsH', {
-		// 	filterH,
-		// 	filterE: fff,
-		// 	sort: { [p.sort.name]: p.sort.order },
-		// });
-		// const subscription = SubManager.subscribe('eventsH');
-
-		// const filterH = getHydrantFindFilter({
-		// 	addAddress: true,
-		// 	addDescription: true,
-		// 	addNumber: true,
-		// 	addDate: true,
-		// 	addStatus: true,
-		// 	addId: true
-		// });
-		// const dataH = HydrantsCollection.find(filterH).fetch();
-		//
-		// const hids = _.map(dataH, '_id');
-		//
-		// const filterE = getEventFindFilter({
-		// 	dateKey: p.filter.createdAt.value,
-		// 	codeKey: p.filter.code.value,
-		// });
-		// filterE.hydrantId = { $in: hids };
-		//
-		// let data = EventsCollection.find(
-		// 	filterE,
-		// 	{ sort: { [p.sort.name]: p.sort.order } })
-		// 	.fetch();
-
-		let data = EventsH.find(
-			filterE,
-			{ sort: { [p.sort.name]: p.sort.order } })
-			.fetch();
-
-		console.log('EventsHCount');
-		Meteor.call('getEventsHCount', {
-			filterH,
-			filterE,
-			limit: 13,
-			skip: p.slider.max - p.slider.value,
-			sort: { [p.sort.name]: p.sort.order },
-		},
-		(error, response) => {
-			if (error) {
-				console.log(error.reason);
-			} else {
-				const slider = p.slider;
-				slider.max = response[0].count;
-				p.setSlider(slider);
-				console.log(slider.max);
-			}
-		});
-
-		// console.log('EventsHCount');
-		// const cnt = EventsHCount.find().fetch();
-		// console.log(cnt);
-
-		const huntUnits = _.filter(data, ['code', 2]).length;
-		data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
-			return {
-				createdAt: moment(createdAt).format('DD.MM.YYYY'),
-				time: moment(createdAt).format('HH:mm'),
-				code: p.filter.code.type[code],
-				rowNumber: key,
-				...row,
-			};
-		}));
+		if (subscription1.ready()) {
+			data = EventsH.find(
+				filterE,
+				{ sort: { [p.sort.name]: p.sort.order } })
+				.fetch();
+			huntUnits = _.filter(data, ['code', 2]).length;
+			data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
+				return {
+					createdAt: moment(createdAt).format('DD.MM.YYYY'),
+					time: moment(createdAt).format('HH:mm'),
+					code: p.filter.code.type[code],
+					rowNumber: skip + key,
+					...row,
+				};
+			}));
+		}
 
 		return {
 			data,
 			huntUnits,
-			loading: !subscription1.ready(),
+			loading,
 		};
 	}),
 	branch(p => p.loading, renderComponent(Loading)),
@@ -257,22 +248,26 @@ export default compose(
 			);
 		};
 
+
 		return (
 			<div className="Events">
 				<div style={{ height: 20 }} />
 				<Flex align="center">
 					<Box w={1 / 8}>
 						<ReactSimpleRange
+							// value={p.slider && p.slider.value}
 							onChange={p.setSlider}
 							label
 							defaultValue={p.slider && p.slider.value}
+							//defaultValue={10}
 							// disableTrack
 							verticalSliderHeight="450px"
 							vertical
 							sliderSize={19}
 							thumbSize={34}
 							max={p.slider && p.slider.max}
-							step={13}
+							//max={100}
+							step={1}
 						>
 							<div style={{ marginLeft: '0px' }}>oo</div>
 						</ReactSimpleRange>
@@ -344,6 +339,13 @@ export default compose(
 			</div>
 		);
 	});
+
+
+// data = _.range(13).map((number, key) => {
+// return {
+// rowNumber: skip + key,
+// };
+// });
 
 
 
