@@ -18,7 +18,6 @@ import {
 	Marker,
 	InfoWindow,
 } from 'react-google-maps';
-import withLog from '@hocs/with-log';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import { Label, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
@@ -84,7 +83,6 @@ const Map = compose(
 			infoWindowsId: id,
 		}),
 	}),
-	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Map'),
 )(
 	(p) => {

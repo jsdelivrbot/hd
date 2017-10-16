@@ -8,8 +8,6 @@
   "dependencies": {
     "@cleverbeagle/dates": "^0.5.1",
     "@cleverbeagle/seeder": "^1.2.0",
-    "@hocs/with-callback-on-change": "^0.2.0",
-    "@hocs/with-log": "^0.2.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "commonmark": "^0.28.1",
@@ -40,7 +38,8 @@
     "react-router-dom": "^4.2.2",
     "react-simple-range": "^1.5.4",
     "react-table": "^6.5.3",
-    "recompose": "^0.25.0",
+    "recompose": "^0.26.0",
+    "reflexbox": "^3.0.0-0",
     "semantic-ui-react": "^0.74.2",
     "simpl-schema": "^0.3.2"
   },

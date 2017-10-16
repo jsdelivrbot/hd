@@ -1,34 +1,29 @@
 /* eslint-disable no-param-reassign */
 
-import { Flex, Box } from 'reflexbox'
+import { Flex, Box } from 'reflexbox';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactSimpleRange from 'react-simple-range';
 import {
-	mapProps,
-	setDisplayName,
 	compose,
 	renderComponent,
 	branch,
 	withStateHandlers,
 	withProps,
+	withPropsOnChange,
+	withState,
+	lifecycle,
+	shallowEqual,
 } from 'recompose';
-import withCallbackOnChange from '@hocs/with-callback-on-change';
-import withLog from '@hocs/with-log';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
-// import moment from 'meteor/momentjs:moment';
 import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 import { Mongo } from 'meteor/mongo';
 
 import Loading from '../../components/Loading/Loading';
-import { meteorData } from '../../Utils/utils';
-import EventsCollection from '../../../api/Events/Events';
-import HydrantsCollection from '../../../api/Hydrants/Hydrants';
-import SubManager from '../../../api/Utility/client/SubManager';
 import {
 	getHydrantFindFilter,
 	getEventSort,
@@ -42,9 +37,6 @@ import {
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
-
-const EventsH = new Mongo.Collection('EventsH');
-const EventsHCount = new Mongo.Collection('EventsHCount');
 
 export default compose(
 	withStateHandlers(
@@ -78,13 +70,10 @@ export default compose(
 			slider: getEventSlider() || {},
 		}), {
 			setSlider: ({ slider }) => (obj) => {
-				console.log('setting slider');
-				console.log(slider);
-				_.assign(slider, obj);
-				console.log('assigned slider');
-				console.log(slider);
-				setEventSlider(slider);
-				return { slider };
+				const nextSlider = _.clone(slider);
+				_.assign(nextSlider, obj);
+				setEventSlider(nextSlider);
+				return { slider: nextSlider };
 			},
 			setSort: () => (name, order) => {
 				const sort = {
@@ -94,13 +83,8 @@ export default compose(
 				setEventSort(sort);
 				return { sort };
 			},
-			setFilter: ({ filter, methodStatus }) => (filterObj) => {
+			setFilter: ({ filter }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
-				console.log('setting filter');
-				console.log('new filter');
-				console.log(filterObj);
-				console.log('prev filter');
-				console.log(filter);
 				const index = _.get(filterObj, 'code.value', undefined);
 				if (index) {
 					const value = filter.code.value;
@@ -118,7 +102,6 @@ export default compose(
 				if (filter.createdAt.value !== createdAt) {
 					setEventFilter('createdAt', createdAt);
 					nextFilter.createdAt.value = createdAt;
-					methodStatus = 0;
 				}
 
 				return {
@@ -127,77 +110,86 @@ export default compose(
 			},
 		}
 	),
-	withCallbackOnChange('filter', (p) => {
-		const { filterH, filterE } = getEventsBackendFilterParams({
-			keyDateE: p.filter.createdAt.value,
-			keyCode: p.filter.code.value,
-		});
-		Meteor.call('getEventsHCount', {
-			filterH,
-			filterE,
-		}, (error, response) => {
-			if (error) {
-				console.log(error.reason);
-			} else if (!response[0]) {
-				console.log('method getEventsHCount return undefined');
-			} else {
-				p.setSlider({ max: response[0].count });
-			}
-		});
-	}),
-	meteorData((p) => {
-		const { filterH, filterE } = getEventsBackendFilterParams({
-			keyDateE: p.filter.createdAt.value,
-			keyCode: p.filter.code.value,
-		});
+	lifecycle({
+		state: {
+			init: 0,
+			data: [],
+			loading: false,
+			huntUnitsCount: 0,
+		},
+		setInit: v => this.setState({ init: v }),
+		setData: v => this.setState({ data: v }),
+		setLoading: v => this.setState({ loading: v }),
+		setHuntUnitsCount: v => this.setState({ huntUnitsCount: v }),
+		componentDidMount: () => this.setState({ init: 1 }),
+		componentWillReceiveProps: (np) => {
+			const { filterH, filterE } = getEventsBackendFilterParams({
+				keyDateE: np.filter.createdAt.value,
+				keyCode: np.filter.code.value,
+			});
 
-		let data;
-		let huntUnits;
-		const loading = false;
+			let skip = np.slider.max - np.slider.value;
+			skip = (skip > 0) ? skip : 0;
 
-		let skip = 0;
-
-		if (p.slider) {
-			skip = p.slider.max - p.slider.value;
-			if (skip < 0) skip = 0;
-		} else {
-			skip = 0;
-		}
-		console.log(skip);
-		console.log('subscribing');
-
-		const subscription1 = Meteor.subscribe('eventsH', {
-			filterH,
-			filterE,
-			limit: 12,
-			skip,
-			sort: { [p.sort.name]: p.sort.order },
-		});
-
-		if (subscription1.ready()) {
-			data = EventsH.find(
-				filterE,
-				{ sort: { [p.sort.name]: p.sort.order } })
-				.fetch();
-			huntUnits = _.filter(data, ['code', 2]).length;
-			data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
+			np.setData(_.range(13).map((number, key) => {
 				return {
-					createdAt: moment(createdAt).format('DD.MM.YYYY'),
-					time: moment(createdAt).format('HH:mm'),
-					code: p.filter.code.type[code],
 					rowNumber: skip + key,
-					...row,
 				};
 			}));
-		}
 
-		return {
-			data,
-			huntUnits,
-			loading,
-		};
+			// this.setState({
+			// 	data:
+			// 		_.range(13).map((number, key) => {
+			// 			return {
+			// 				rowNumber: skip + key,
+			// 			};
+			// 		})
+			// });
+
+			console.log(' p.init');
+			console.log(np.init);
+
+			Meteor.call('getEventsH', {
+				filterH,
+				filterE,
+				limit: 12,
+				skip,
+				doCalculateOnce: np.init === 1,
+				doCalculateQueryLen: !shallowEqual(this.props.filter, np.filter),
+				sort: { [np.sort.name]: np.sort.order },
+			}, (error, response) => {
+				if (error) {
+					console.log(error.reason);
+				} else {
+					let { data } = response;
+					data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
+						return {
+							createdAt: moment(createdAt).format('DD.MM.YYYY'),
+							time: moment(createdAt).format('HH:mm'),
+							code: np.filter.code.type[code],
+							rowNumber: skip + key,
+							...row,
+						};
+					}));
+					np.setData(data);
+
+					const { huntUnitsCount, queryLen } = response;
+					if (huntUnitsCount) np.setHuntUnitsCount(huntUnitsCount);
+					if (queryLen) {
+						np.setSlider({
+							max: queryLen,
+							value: queryLen
+						});
+					}
+
+					console.log('method getEventsH returned data');
+				}
+			});
+
+			this.setState({ init: 2 });
+
+		},
 	}),
-	branch(p => p.loading, renderComponent(Loading)),
 	withProps(p => ({
 		options: {
 			onSortChange: p.setSort,
@@ -206,8 +198,6 @@ export default compose(
 			onFilterChange: p.setFilter,
 		},
 	})),
-	withLog((p) => { console.log('data'); return p.data; }),
-	setDisplayName('Events')
 )(
 	(p) => {
 		console.log('rendering');
@@ -220,7 +210,6 @@ export default compose(
 					<FormGroup>
 						{_.map(p.filter.code.type,
 							(type, key) => {
-								const len = _.size(p.filter.code.type);
 								return (
 									<Checkbox
 										style={{ marginLeft: 10 }}
@@ -247,7 +236,6 @@ export default compose(
 				</OverlayTrigger>
 			);
 		};
-
 
 		return (
 			<div className="Events">

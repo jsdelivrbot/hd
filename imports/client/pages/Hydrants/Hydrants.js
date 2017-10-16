@@ -11,7 +11,6 @@ import {
 	lifecycle,
 } from 'recompose';
 import { Link } from 'react-router-dom';
-import withLog from '@hocs/with-log';
 import _ from 'lodash';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Segment } from 'semantic-ui-react';
@@ -181,7 +180,6 @@ export default compose(
 			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
 		},
 	})),
-	withLog((p) => { console.log(p); return ''; }),
 	setDisplayName('Hydrants'),
 )(
 	(p) => {
