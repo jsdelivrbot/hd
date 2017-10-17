@@ -203,7 +203,7 @@ export function getEventFindFilter({ keyDate, codeKey }) {
 	return filter;
 }
 
-export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
+export function getEventsBackendFilterParams() {
 	// Hydrants collection
 	const filterH = {};
 
@@ -236,6 +236,8 @@ export function getEventsBackendFilterParams({ keyDateE, keyCode }) {
 	// Events collection
 
 	const filterE = {};
+	const keyDateE = getEventFilter().createdAt;
+	const keyCode = getEventFilter().code;
 
 	filterE.createdAt = mongoDateBack(keyDateE);
 

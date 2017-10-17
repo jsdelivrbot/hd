@@ -2,47 +2,35 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import Events from './Events';
 import rateLimit from '../../modules/rate-limit';
+import _ from 'lodash';
 
 Meteor.methods({
 	getEventsH: function getEventsH(p) {
 		check(p, Object);
-		const { filterE, sort, limit, skip, doCalculateQueryLen, doCalculateOnce } = p;
+		const { filterE, sort, skip, doCalculateQueryLen, doCalculateOnce } = p;
 
-		// console.log('doCalculateQueryLen');
-		// console.log(doCalculateQueryLen);
-		// console.log('doCalculateOnce');
-		// console.log(doCalculateOnce);
-
-		const queryLen = doCalculateQueryLen && Events.aggregate([
+		const queryLen = doCalculateQueryLen && _.get(Events.aggregate([
 			{ $match: filterE },
-			{ $lookup: {
-				from: 'Hydrants',
-				localField: 'hydrantId',
-				foreignField: '_id',
-				as: 'h'
-			} },
-			{ $unwind: '$h' },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
-		])[0].count;
+		]), '[0].count', 0);
 
-		const huntUnitsCount = doCalculateOnce && Events.aggregate([
+		const huntUnitsCount = doCalculateOnce && _.get(Events.aggregate([
 			{ $match: { code: 2 } },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
-		])[0].count;
-		// console.log('huntUnitsCount');
-		// console.log(huntUnitsCount);
-		// console.log('queryLen');
-		// console.log(queryLen);
+		]), '[0].count', 0);
 
 		const data = Events.aggregate(
 			[
 				{ $match: filterE },
+				{ $sort: sort },
+				{ $skip: skip },
+				{ $limit: 12 },
 				{ $lookup: {
 					from: 'Hydrants',
 					localField: 'hydrantId',
@@ -58,9 +46,6 @@ Meteor.methods({
 					hydrantNumber: '$h.number',
 					description: '$h.description',
 				} },
-				{ $sort: sort },
-				{ $skip: skip },
-				{ $limit: limit },
 			]
 		);
 

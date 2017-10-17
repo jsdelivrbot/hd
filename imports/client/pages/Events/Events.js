@@ -14,6 +14,7 @@ import {
 	withState,
 	lifecycle,
 	shallowEqual,
+	shouldUpdate,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -84,7 +85,7 @@ export default compose(
 				return { sort };
 			},
 			setFilter: ({ filter }) => (filterObj) => {
-				const nextFilter = _.clone(filter);
+				const nextFilter = _.cloneDeep(filter);
 				const index = _.get(filterObj, 'code.value', undefined);
 				if (index) {
 					const value = filter.code.value;
@@ -112,83 +113,67 @@ export default compose(
 	),
 	lifecycle({
 		state: {
-			init: 0,
+			init: true,
 			data: [],
 			loading: false,
-			huntUnitsCount: 0,
+			countHuntUnits: 0,
 		},
-		setInit: v => this.setState({ init: v }),
-		setData: v => this.setState({ data: v }),
-		setLoading: v => this.setState({ loading: v }),
-		setHuntUnitsCount: v => this.setState({ huntUnitsCount: v }),
-		componentDidMount: () => this.setState({ init: 1 }),
-		componentWillReceiveProps: (np) => {
-			const { filterH, filterE } = getEventsBackendFilterParams({
-				keyDateE: np.filter.createdAt.value,
-				keyCode: np.filter.code.value,
-			});
+		componentDidMount() { this.fetch(this.props); this.setState({ init: false }); },
+		componentWillReceiveProps(np) { this.fetch(np);	},
 
-			let skip = np.slider.max - np.slider.value;
-			skip = (skip > 0) ? skip : 0;
+		fetch(np) {
+			if (!this.loading) {
+				this.setState({ loading: true });
 
-			np.setData(_.range(13).map((number, key) => {
-				return {
+				const { filterH, filterE } = getEventsBackendFilterParams();
+
+				let skip = np.slider.max - np.slider.value;
+				skip = (skip > 0) ? skip : 0;
+
+				this.setData(this.state.data.map(({ rowNumber, ...row }, key) => ({
 					rowNumber: skip + key,
-				};
-			}));
+					...row
+				})));
 
-			// this.setState({
-			// 	data:
-			// 		_.range(13).map((number, key) => {
-			// 			return {
-			// 				rowNumber: skip + key,
-			// 			};
-			// 		})
-			// });
+				Meteor.call('getEventsH', {
+					filterH,
+					filterE,
+					skip,
+					doCalculateOnce: np.init,
+					doCalculateQueryLen: np.init || !shallowEqual(this.props.filter, np.filter),
+					sort: { [np.sort.name]: np.sort.order },
 
-			console.log(' p.init');
-			console.log(np.init);
-
-			Meteor.call('getEventsH', {
-				filterH,
-				filterE,
-				limit: 12,
-				skip,
-				doCalculateOnce: np.init === 1,
-				doCalculateQueryLen: !shallowEqual(this.props.filter, np.filter),
-				sort: { [np.sort.name]: np.sort.order },
-			}, (error, response) => {
-				if (error) {
-					console.log(error.reason);
-				} else {
-					let { data } = response;
-					data = _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
-						return {
-							createdAt: moment(createdAt).format('DD.MM.YYYY'),
-							time: moment(createdAt).format('HH:mm'),
-							code: np.filter.code.type[code],
-							rowNumber: skip + key,
-							...row,
-						};
-					}));
-					np.setData(data);
-
-					const { huntUnitsCount, queryLen } = response;
-					if (huntUnitsCount) np.setHuntUnitsCount(huntUnitsCount);
-					if (queryLen) {
-						np.setSlider({
-							max: queryLen,
-							value: queryLen
+				}, (error, response) => {
+					if (error) {
+						console.log(error.reason);
+					} else {
+						const { data, countHuntUnits, lenQuery } = response;
+						this.setState({
+							data: _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
+								return {
+									createdAt: moment(createdAt).format('DD.MM.YYYY'),
+									time: moment(createdAt).format('HH:mm'),
+									code: np.filter.code.type[code],
+									rowNumber: skip + key,
+									...row,};})),
+							countHuntUnits: countHuntUnits || this.countHuntUnits,
+							lenQuery: lenQuery || this.lenQuery,
+							loading: false,
 						});
+
+						if (this.lenQuery) {
+							np.setSlider({
+								max: lenQuery,
+								value: lenQuery
+							});
+						}
+
+						console.log('method getEventsH returned data');
 					}
-
-					console.log('method getEventsH returned data');
-				}
-			});
-
-			this.setState({ init: 2 });
-
+				});
+			}
 		},
+
 	}),
 	withProps(p => ({
 		options: {
@@ -321,13 +306,21 @@ export default compose(
 					</Box>
 				</Flex>
 				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.huntUnits} <br />
+					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.countHuntUnits} <br />
 					נכון לתאריך: {currentDate}
 				</Segment>
 			</div>
 		);
 	});
 
+// this.setState({
+// 	data:
+// 		_.range(13).map((number, key) => {
+// 			return {
+// 				rowNumber: skip + key,
+// 			};
+// 		})
+// });
 
 // data = _.range(13).map((number, key) => {
 // return {

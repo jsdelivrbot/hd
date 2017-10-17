@@ -13,7 +13,7 @@ const eventsSeed = hydrantId => ({
 	environments: ['development', 'staging'],
 	noLimit: true,
 	wipe: false,
-	modelCount: 10,
+	modelCount: 1000,
 	model() {
 		return {
 			hydrantId,
