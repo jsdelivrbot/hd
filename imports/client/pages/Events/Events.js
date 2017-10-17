@@ -38,6 +38,7 @@ import {
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
+import './Css/Events.scss';
 
 export default compose(
 	withStateHandlers(
@@ -71,7 +72,9 @@ export default compose(
 			slider: getEventSlider() || {},
 		}), {
 			setSlider: ({ slider }) => (obj) => {
-				const nextSlider = _.clone(slider);
+				console.log('slider obj');
+				console.log(obj);
+				const nextSlider = _.cloneDeep(slider);
 				_.assign(nextSlider, obj);
 				setEventSlider(nextSlider);
 				return { slider: nextSlider };
@@ -113,70 +116,72 @@ export default compose(
 	),
 	lifecycle({
 		state: {
-			init: true,
+			filterUpdated: true,
 			data: [],
 			loading: false,
 			countHuntUnits: 0,
 		},
-		componentDidMount() { this.fetch(this.props); this.setState({ init: false }); },
-		componentWillReceiveProps(np) { this.fetch(np);	},
+		componentDidMount() {
+			this.fetch({ np: this.props, init: true, filterUpdated: true });
+		},
+		componentWillReceiveProps(np) {
+			this.fetch({ np, filterUpdated: this.props.filter !== np.filter });
+		},
 
-		fetch(np) {
-			if (!this.loading) {
-				this.setState({ loading: true });
+		fetch({ np, init, filterUpdated }) {
+			if (!this.state.loading) {
+				const skip = (q => (q > 0 ? q : 0))(np.slider.max - np.slider.value);
 
-				const { filterH, filterE } = getEventsBackendFilterParams();
+				this.setState({
+					data: this.state.data.map(({ rowNumber, ...row }, key) => ({
+						rowNumber: skip + key,
+						...row })) });
 
-				let skip = np.slider.max - np.slider.value;
-				skip = (skip > 0) ? skip : 0;
+				if (!np.slider.drag) {
+					this.setState({ loading: true });
+					console.log('this.filterUpdated');
+					console.log(this.state.filterUpdated);
 
-				this.setData(this.state.data.map(({ rowNumber, ...row }, key) => ({
-					rowNumber: skip + key,
-					...row
-				})));
+					Meteor.call('getEventsH', {
+						filterE: getEventsBackendFilterParams(),
+						skip,
+						doCalculateOnce: init,
+						doCalculateQueryLen: filterUpdated,
+						sort: { [np.sort.name]: np.sort.order },
 
-				Meteor.call('getEventsH', {
-					filterH,
-					filterE,
-					skip,
-					doCalculateOnce: np.init,
-					doCalculateQueryLen: np.init || !shallowEqual(this.props.filter, np.filter),
-					sort: { [np.sort.name]: np.sort.order },
-
-				}, (error, response) => {
-					if (error) {
-						console.log(error.reason);
-					} else {
-						const { data, countHuntUnits, lenQuery } = response;
-						this.setState({
-							data: _.cloneDeep(data.map(({ createdAt, code, ...row }, key) => {
-								return {
+					}, (error, r) => {
+						if (error) {
+							console.log(error.reason);
+						} else {
+							this.setState({
+								data: _.cloneDeep(r.data.map(({ createdAt, code, ...row }, key) => ({
 									createdAt: moment(createdAt).format('DD.MM.YYYY'),
 									time: moment(createdAt).format('HH:mm'),
 									code: np.filter.code.type[code],
 									rowNumber: skip + key,
-									...row,};})),
-							countHuntUnits: countHuntUnits || this.countHuntUnits,
-							lenQuery: lenQuery || this.lenQuery,
-							loading: false,
-						});
+									...row }))),
+								countHuntUnits: r.countHuntUnits || this.state.countHuntUnits,
+								lenQuery: r.lenQuery || this.state.lenQuery,
+								loading: false });
 
-						if (this.lenQuery) {
-							np.setSlider({
-								max: lenQuery,
-								value: lenQuery
-							});
+							if (r.lenQuery) {
+								np.setSlider({
+									max: r.lenQuery,
+									value: r.lenQuery });
+							}
+
+							console.log('method getEventsH returned data');
 						}
-
-						console.log('method getEventsH returned data');
-					}
-				});
+					});
+				}
 			}
 		},
 
 	}),
 	withProps(p => ({
-		options: {
+		onSliderChange: obj => p.setSlider(obj),
+		onSliderChangeComplete: obj => p.setSlider(obj),
+		tableOptions: {
 			onSortChange: p.setSort,
 			defaultSortName: p.sort.name,
 			defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
@@ -228,21 +233,25 @@ export default compose(
 				<Flex align="center">
 					<Box w={1 / 8}>
 						<ReactSimpleRange
-							// value={p.slider && p.slider.value}
-							onChange={p.setSlider}
-							label
-							defaultValue={p.slider && p.slider.value}
-							//defaultValue={10}
-							// disableTrack
+							onChange={p.onSliderChange}
+							onChangeComplete={p.onSliderChangeComplete}
+							disableTrack
+							value={p.slider.value}
+							defaultValue={p.slider.value}
 							verticalSliderHeight="450px"
 							vertical
-							sliderSize={19}
-							thumbSize={34}
-							max={p.slider && p.slider.max}
-							//max={100}
-							step={1}
+							sliderSize={40}
+							// thumbSize={34}
+							max={p.slider.max}
+							step={12}
 						>
-							<div style={{ marginLeft: '0px' }}>oo</div>
+							<div className="slider">
+								<Flex align="center" justify="space-around" w={1} py={2}>
+									<Box>
+										{p.slider.max - p.slider.value}
+									</Box>
+								</Flex>
+							</div>
 						</ReactSimpleRange>
 					</Box>
 					<Box w={7 / 8}>
@@ -252,7 +261,7 @@ export default compose(
 							tableContainerClass="table_class"
 							data={p.data}
 							remote
-							options={p.options}
+							options={p.tableOptions}
 							height="600px"
 							striped
 							hover

@@ -9,7 +9,7 @@ Meteor.methods({
 		check(p, Object);
 		const { filterE, sort, skip, doCalculateQueryLen, doCalculateOnce } = p;
 
-		const queryLen = doCalculateQueryLen && _.get(Events.aggregate([
+		const lenQuery = doCalculateQueryLen && _.get(Events.aggregate([
 			{ $match: filterE },
 			{ $group: {
 				_id: null,
@@ -17,7 +17,7 @@ Meteor.methods({
 			} },
 		]), '[0].count', 0);
 
-		const huntUnitsCount = doCalculateOnce && _.get(Events.aggregate([
+		const countHuntUnits = doCalculateOnce && _.get(Events.aggregate([
 			{ $match: { code: 2 } },
 			{ $group: {
 				_id: null,
@@ -49,7 +49,7 @@ Meteor.methods({
 			]
 		);
 
-		return { huntUnitsCount, queryLen, data };
+		return { countHuntUnits, lenQuery, data };
 	},
 });
 
