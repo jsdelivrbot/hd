@@ -61,7 +61,6 @@ export function setHydrantSort(sort) {
 }
 
 export function getHydrantFilter() {
-	// console.log('getHydrantFilter');
 	return _.get(StorageCollection.findOne({}), 'hydrantFilter', {});
 }
 
@@ -72,7 +71,6 @@ export function setHydrantFilter(field, value) {
 }
 
 export function getSelectedHydrants() {
-	// console.log('getselectedhydrants');
 	return _.get(StorageCollection.findOne(), 'hydrantSelected', []);
 }
 
@@ -94,12 +92,10 @@ export function resetSelected(s) {
 // Events
 
 export function getEventSlider() {
-	console.log('getting');
 	return _.get(StorageCollection.findOne({}), 'eventSlider');
 }
 
 export function setEventSlider(slider) {
-	console.log('setting');
 	StorageCollection.upsert(1, { $set: { eventSlider: slider } });
 }
 
@@ -112,8 +108,6 @@ export function setEventSort(sort) {
 }
 
 export function getEventFilter() {
-	console.log('getEventFilter');
-	console.log(_.get(StorageCollection.findOne({}), 'eventFilter', {}));
 	return _.get(StorageCollection.findOne({}), 'eventFilter', {});
 }
 
@@ -123,35 +117,9 @@ export function setEventFilter(field, value) {
 	StorageCollection.upsert(1, { $set: { eventFilter: filter } });
 }
 
-// Build Filter
-
 function mongoDateBack(keyDate) {
-	const dateOffset = (24 * 60 * 60 * 1000);
-	let now = (new Date()).getTime();
-	now = 10000000 * Math.round(now / 10000000);
-	// console.log(now);
-	const past = new Date();
-	switch (keyDate) {
-		case 0:
-			past.setTime(now - (dateOffset * 1));
-			break;
-		case 1:
-			past.setTime(now - (dateOffset * 7));
-			break;
-		case 2:
-			past.setTime(now - (dateOffset * 30));
-			break;
-		case 3:
-			past.setTime(now - (dateOffset * 121));
-			break;
-		case 4:
-			past.setTime(now - (dateOffset * 365));
-			break;
-		default:
-			past.setTime(0);
-	}
-	// date = moment("2017-10-13T15:53:20.000Z").subtract(100000, 'days').toISOString();
-	return { $gt: past.toISOString() };
+	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
+	return { $gt: moment().subtract(choose[keyDate] || 10000, 'days').toISOString() };
 }
 
 export function getHydrantFindFilter(
@@ -193,16 +161,6 @@ export function getHydrantFindFilter(
 	return filter;
 }
 
-export function getEventFindFilter({ keyDate, codeKey }) {
-	const filter = {};
-
-	filter.createdAt = mongoDateBack(keyDate);
-
-	if (!_.isEmpty(codeKey)) filter.code = { $in: _.keys(codeKey).map(k => _.toNumber(k)) };
-
-	return filter;
-}
-
 export function getEventsBackendFilterParams() {
 	const filterE = {};
 	const keyDateE = getEventFilter().createdAt;
@@ -216,6 +174,37 @@ export function getEventsBackendFilterParams() {
 
 	return filterE;
 }
+
+// function mongoDateBack(keyDate) {
+// 	const dateOffset = (24 * 60 * 60 * 1000);
+// 	let now = (new Date()).getTime();
+// 	now = 10000000 * Math.round(now / 10000000);
+// 	const past = new Date();
+// 	switch (keyDate) {
+// 		case 0:
+// 			past.setTime(now - (dateOffset * 1));
+// 			break;
+// 		case 1:
+// 			past.setTime(now - (dateOffset * 7));
+// 			break;
+// 		case 2:
+// 			past.setTime(now - (dateOffset * 30));
+// 			break;
+// 		case 3:
+// 			past.setTime(now - (dateOffset * 121));
+// 			break;
+// 		case 4:
+// 			past.setTime(now - (dateOffset * 365));
+// 			break;
+// 		default:
+// 			past.setTime(0);
+// 	}
+// 	// return { $gt: past.toISOString() };
+// 	let choose = {
+// 		0: 1, 1: 7, 2: 30, 3: 90, 4: 365
+// 	};
+// 	return { $gt: moment().subtract(choose[keyDate], 'days').toISOString() };
+// }
 
 
 // export function getEventsBackendFilterParams() {

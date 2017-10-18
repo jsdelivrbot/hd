@@ -26,12 +26,10 @@ import { Mongo } from 'meteor/mongo';
 
 import Loading from '../../components/Loading/Loading';
 import {
-	getHydrantFindFilter,
 	getEventSort,
 	getEventFilter,
 	setEventSort,
 	setEventFilter,
-	getEventFindFilter,
 	getEventsBackendFilterParams,
 	setEventSlider,
 	getEventSlider,
