@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import seeder from './seeder';
 import Hydrants from '../../api/Hydrants/Hydrants';
+import Static from '../../api/Utility/Static';
 import Events from '../../api/Events/Events';
 import { words, streets, cities } from './local/he';
 import faker from 'faker';
@@ -25,6 +26,7 @@ const eventsSeed = hydrantId => ({
 });
 
 export default function initDb() {
+	Static.insert({});
 	Events.remove({});
 	seeder(Hydrants, {
 		environments: ['development', 'staging'],

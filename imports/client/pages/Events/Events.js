@@ -26,55 +26,48 @@ import { Mongo } from 'meteor/mongo';
 
 import Loading from '../../components/Loading/Loading';
 import {
-	getEventSort,
-	getEventFilter,
-	setEventSort,
-	setEventFilter,
-	getEventsBackendFilterParams,
-	setEventSlider,
-	getEventSlider,
+	getStore as getStoreEventsPage,
+	setStore,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
 
+const fetchMeteor = ({ method, params, responseFunc }) => {
+	this.setState({ loading: true });
+	Meteor.call(method, params, (error, response) => {
+		if (error) {
+			this.setState({ loading: false });
+			console.log(error.reason);
+		} else {
+			this.setState({ loading: false });
+			responseFunc(response);
+		}
+	});
+};
+
+const getStore = (properties) => {
+	getStoreEventsPage('eventsPage', properties);
+};
+
 export default compose(
 	withStateHandlers(
 		() => ({
-			sort: getEventSort(),
+			sort: {},
 			filter: {
-				code: {
-					type: {
-						0: 'OK',
-						1: 'בטריה ריקה',
-						2: 'התעללות',
-						3: 'תחילת זרימה רגילה',
-						4: 'המשך זרימה רגילה',
-						5: 'סיום זרימה רגילה',
-						6: 'תחילת זרימה הפוכה',
-						7: 'סיום זרימה הפוכה',
-					},
-					value: getEventFilter().code || {},
-				},
-				createdAt: {
-					type: {
-						0: 'יממה',
-						1: 'שבוע',
-						2: 'חודש',
-						3: 'רבעון',
-						4: 'שנה',
-					},
-					value: getEventFilter().createdAt,
-				},
+				code: undefined,
+				createdAt: undefined,
 			},
-			slider: getEventSlider() || {},
+			slider: {},
+			types: {},
 		}), {
+			setTypes: () => types => ({ types }),
 			setSlider: ({ slider }) => (obj) => {
 				console.log('slider obj');
 				console.log(obj);
 				const nextSlider = _.cloneDeep(slider);
 				_.assign(nextSlider, obj);
-				setEventSlider(nextSlider);
+				setStore({ slider: nextSlider });
 				return { slider: nextSlider };
 			},
 			setSort: () => (name, order) => {
@@ -82,7 +75,7 @@ export default compose(
 					name,
 					order: (order === 'asc') ? 1 : -1,
 				};
-				setEventSort(sort);
+				setStore({ sort });
 				return { sort };
 			},
 			setFilter: ({ filter }) => (filterObj) => {
@@ -96,19 +89,16 @@ export default compose(
 						_.set(value, [index], true);
 					}
 					nextFilter.code.value = value;
-					setEventFilter('code', value);
 				}
 
 				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
 				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
 				if (filter.createdAt.value !== createdAt) {
-					setEventFilter('createdAt', createdAt);
 					nextFilter.createdAt.value = createdAt;
 				}
 
-				return {
-					filter: nextFilter,
-				};
+				setStore({ filter: nextFilter });
+				return { filter: nextFilter };
 			},
 		}
 	),
@@ -116,62 +106,88 @@ export default compose(
 		state: {
 			filterUpdated: true,
 			data: [],
-			loading: false,
+			loading: 0,
+			initializing: false,
+			loadingLenQuery: false,
 			countHuntUnits: 0,
+			lenQuery: 0,
 		},
 		componentDidMount() {
-			this.fetch({ np: this.props, init: true, filterUpdated: true });
+			const eventsPageStore = getStore(['countHuntUnits', 'lenQuery', 'data']);
+			if (eventsPageStore) {
+				this.setState(eventsPageStore);
+			} else {
+				this.props.setSort({ name: 'createdAt', order: 1 });
+				this.props.setFilter({ code: undefined, createdAt: undefined });
+				this.fetchInit();
+			}
 		},
 		componentWillReceiveProps(np) {
-			this.fetch({ np, filterUpdated: this.props.filter !== np.filter });
+			if (!this.state.initializing) {
+				const filterUpdated = this.props.filter !== np.filter;
+				const sortUpdated = this.props.sort !== np.sort;
+				const sliderUpdated = this.props.slider !== np.slider;
+				if (filterUpdated && !this.state.loading) this.fetchLenQuery(np);
+				if (!this.state.loadingLenQuery) {
+					if ((filterUpdated || sortUpdated || sliderUpdated) && !this.state.loading) {
+						this.fetchData(np);
+					}
+					if (sortUpdated || filterUpdated) {
+						np.setSlider({
+							max: this.state.lenQuery,
+							value: this.state.lenQuery });
+					}
+				}
+			}
 		},
 
-		fetch({ np, init, filterUpdated }) {
-			if (!this.state.loading) {
-				const skip = (q => (q > 0 ? q : 0))(np.slider.max - np.slider.value);
-
-				this.setState({
-					data: this.state.data.map(({ rowNumber, ...row }, key) => ({
-						rowNumber: skip + key,
-						...row })) });
-
-				if (!np.slider.drag) {
-					this.setState({ loading: true });
-					console.log('this.filterUpdated');
-					console.log(this.state.filterUpdated);
-
-					Meteor.call('getEventsH', {
-						filterE: getEventsBackendFilterParams(),
-						skip,
-						doCalculateOnce: init,
-						doCalculateQueryLen: filterUpdated,
-						sort: { [np.sort.name]: np.sort.order },
-
-					}, (error, r) => {
-						if (error) {
-							console.log(error.reason);
-						} else {
-							this.setState({
-								data: _.cloneDeep(r.data.map(({ createdAt, code, ...row }, key) => ({
-									createdAt: moment(createdAt).format('DD.MM.YYYY'),
-									time: moment(createdAt).format('HH:mm'),
-									code: np.filter.code.type[code],
-									rowNumber: skip + key,
-									...row }))),
-								countHuntUnits: r.countHuntUnits || this.state.countHuntUnits,
-								lenQuery: r.lenQuery || this.state.lenQuery,
-								loading: false });
-
-							if (r.lenQuery) {
-								np.setSlider({
-									max: r.lenQuery,
-									value: r.lenQuery });
-							}
-
-							console.log('method getEventsH returned data');
-						}
+		fetchInit() {
+			this.setState({ initializing: true });
+			fetchMeteor({
+				method: 'events.get.init',
+				params: {},
+				responseFunc: ({ types, countHuntUnits }) => {
+					this.setState({ initializing: false });
+					this.props.setTypes(types);
+					this.setState({ countHuntUnits });
+				} });
+		},
+		fetchLenQuery(np) {
+			this.setState({ loadingLenQuery: true });
+			fetchMeteor({
+				method: 'get.events.data',
+				params: { filter: np.filter },
+				responseFunc: (r) => {
+					this.setState({
+						lenQuery: r.lenQuery || this.state.lenQuery,
+						loadingLenQuery: false,
 					});
 				}
+			});
+		},
+		fetchData(np) {
+			const skip = (q => (q > 0 ? q : 0))(np.slider.max - np.slider.value);
+			this.setState({
+				data: this.state.data.map(({ rowNumber, ...row }, key) => ({
+					rowNumber: skip + key,
+					...row })) });
+			if (!np.slider.drag) {
+				fetchMeteor({
+					method: 'get.events.data',
+					params: {
+						filter: np.filter,
+						sort: np.sort,
+						skip,
+					},
+					responseFunc: (r) => {
+						this.setState({
+							data: _.cloneDeep(r.data.map(({ createdAt, code, ...row }, key) => ({
+								createdAt: moment(createdAt).format('DD.MM.YYYY'),
+								time: moment(createdAt).format('HH:mm'),
+								code: np.types.code[code],
+								rowNumber: skip + key,
+								...row }))) });
+					} });
 			}
 		},
 
@@ -196,7 +212,7 @@ export default compose(
 			<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 500 }}>
 				<form>
 					<FormGroup>
-						{_.map(p.filter.code.type,
+						{_.map(p.types.code,
 							(type, key) => {
 								return (
 									<Checkbox
@@ -276,7 +292,7 @@ export default compose(
 								filter={{
 									type: 'CustomFilter',
 									getElement: getCustomFilter,
-									options: p.filter.code.type,
+									options: p.types.code,
 									selectText: 'בחר',
 									defaultValue: p.filter.code.value,
 								}}
@@ -298,7 +314,7 @@ export default compose(
 								dataFormat={formatter}
 								filter={{
 									type: 'SelectFilter',
-									options: p.filter.createdAt.type,
+									options: p.types.createdAt,
 									selectText: 'בחר',
 									defaultValue: p.filter.createdAt.value,
 								}}

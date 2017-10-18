@@ -30,9 +30,6 @@ import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../api/Hydrants/Hydrants';
 import {
-	resetSelected,
-	setSelectedHydrants,
-	getSelectedHydrants,
 	setHydrantFilter,
 	getHydrantFilter,
 	getHydrantSort,
@@ -156,14 +153,6 @@ export default compose(
 		totalUnits: rawData.length,
 		...p,
 	})),
-	withHandlers({
-		setSelected: () => (row, isSelected) => {
-			setSelectedHydrants(row._id, isSelected);
-		},
-		setAllSelected: () => (isSelected, rows) => {
-			setSelectedHydrants(rows.map(el => el._id), isSelected);
-		},
-	}),
 	withProps(p => ({
 		options: {
 			onSortChange: p.setSort,
@@ -171,22 +160,10 @@ export default compose(
 			defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
 			onFilterChange: p.setFilter,
 		},
-		selectRowProp: {
-			mode: 'checkbox',
-			clickToSelect: true,
-			bgColor: 'green',
-			onSelect: p.setSelected,
-			onSelectAll: p.setAllSelected,
-			selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
-		},
 	})),
-	setDisplayName('Hydrants'),
 )(
 	(p) => {
 		console.log('rendering');
-		const sw = 50;
-		const mw = 95;
-		const lw = 150;
 		const formatter = (cell) => {
 			let style = {};
 			if (cell === p.filter.status.type[0]) {
@@ -233,7 +210,6 @@ export default compose(
 				<div style={{ height: 20 }} />
 				<BootstrapTable
 					keyField="_id"
-					selectRow={p.selectRowProp}
 					containerClass="table_container_class"
 					tableContainerClass="table_class"
 					data={p.data}
