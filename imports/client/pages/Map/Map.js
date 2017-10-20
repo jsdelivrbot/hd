@@ -24,7 +24,7 @@ import _ from 'lodash';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
-import HydrantsCollection from '../../../api/Hydrants/Hydrants';
+import HydrantsCollection from '../../../api/Hydrants/server/Hydrants';
 import SubManager from '../../../api/Utility/client/SubManager';
 import { getHydrantFindFilter } from '../../Storage/Storage';
 

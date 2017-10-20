@@ -14,12 +14,12 @@ import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
-import Map from '../../pages/Map/Map';
+// import Map from '../../pages/Map/Map';
 import Events from '../../pages/Events/Events';
-import Hydrants from '../../pages/Hydrants/Hydrants';
-import NewHydrant from '../../pages/NewHydrant/NewHydrant';
-import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';
-import EditHydrant from '../../pages/EditHydrant/EditHydrant';
+// import Hydrants from '../../pages/Hydrants/Hydrants';
+// import NewHydrant from '../../pages/NewHydrant/NewHydrant';
+// import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';
+// import EditHydrant from '../../pages/EditHydrant/EditHydrant';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
 import Logout from '../../pages/Logout/Logout';
@@ -71,12 +71,12 @@ const App = props => (
 					<Switch>
 						<Authenticated exact path="/" component={Index} {...props} />
 						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
-						<Authenticated exact path="/map" component={Map} {...props} />
-						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
+						{/*<Authenticated exact path="/map" component={Map} {...props} />*/}
+						{/*<Authenticated exact path="/hydrants" component={Hydrants} {...props} />*/}
 						<Authenticated exact path="/events" component={Events} {...props} />
-						<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />
-						<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />
-						<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />
+						{/*<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />*/}
+						{/*<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />*/}
+						{/*<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />*/}
 						<Authenticated exact path="/profile" component={Profile} {...props} />
 						<Public path="/signup" component={Signup} {...props} />
 						<Public path="/login" component={Login} {...props} />

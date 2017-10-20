@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import Hydrants from '../../../api/Hydrants/Hydrants';
+import Hydrants from '../../../api/Hydrants/server/Hydrants';
 import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
 import NotFound from '../../components/NotFound/NotFound';
 

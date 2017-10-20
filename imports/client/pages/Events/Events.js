@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactSimpleRange from 'react-simple-range';
 import {
+	renderNothing,
 	compose,
 	renderComponent,
 	branch,
@@ -22,176 +23,141 @@ import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
-import { Mongo } from 'meteor/mongo';
 
 import Loading from '../../components/Loading/Loading';
 import {
 	getStore as getStoreEventsPage,
-	setStore,
+	setStore as setStoreEventsPage,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
 
-const fetchMeteor = ({ method, params, responseFunc }) => {
-	this.setState({ loading: true });
-	Meteor.call(method, params, (error, response) => {
-		if (error) {
-			this.setState({ loading: false });
-			console.log(error.reason);
-		} else {
-			this.setState({ loading: false });
-			responseFunc(response);
-		}
-	});
+const getStore = (keys) => {
+	getStoreEventsPage('eventsPage', keys);
+};
+const setStore = (obj) => {
+	setStoreEventsPage('eventsPage', obj);
+	return obj;
 };
 
-const getStore = (properties) => {
-	getStoreEventsPage('eventsPage', properties);
-};
+const difProps = (obj1, obj2) => (
+	_.reduce(obj1, (result, value, key) => {
+		if (value !== obj2[key]) result[key] = value;
+		return result;
+	}));
 
 export default compose(
 	withStateHandlers(
 		() => ({
-			sort: {},
-			filter: {
-				code: undefined,
-				createdAt: undefined,
-			},
+			sort: getStore(['countHuntUnits']) || { name: 'createdAt', order: 1 },
+			filter: getStore(['countHuntUnits']) || { code: undefined, createdAt: undefined },
 			slider: {},
-			types: {},
+			initialized: false,
 		}), {
-			setTypes: () => types => ({ types }),
-			setSlider: ({ slider }) => (obj) => {
-				console.log('slider obj');
-				console.log(obj);
-				const nextSlider = _.cloneDeep(slider);
-				_.assign(nextSlider, obj);
-				setStore({ slider: nextSlider });
-				return { slider: nextSlider };
-			},
+			setInitialized: () => initialized => ({ initialized }),
+			setSlider:
+				({ slider }) =>
+					obj =>
+						setStore({ slider: Object.assign({}, slider, obj) }),
 			setSort: () => (name, order) => {
 				const sort = {
 					name,
 					order: (order === 'asc') ? 1 : -1,
 				};
-				setStore({ sort });
-				return { sort };
+				return setStore({ sort });
 			},
-			setFilter: ({ filter }) => (filterObj) => {
-				const nextFilter = _.cloneDeep(filter);
-				const index = _.get(filterObj, 'code.value', undefined);
-				if (index) {
-					const value = filter.code.value;
-					if (_.get(value, [index])) {
-						_.unset(value, [index]);
-					} else {
-						_.set(value, [index], true);
-					}
-					nextFilter.code.value = value;
-				}
+			setFilter:
+				({ filter }) =>
+					(filterObj) => {
+						const index = _.get(filterObj, 'code.value');
+						if (index) {
+							const value = filter.code;
+							if (_.get(value, [index])) {
+								_.unset(value, [index]);
+							} else {
+								_.set(value, [index], true);
+							}
+							filter = Object.assign({}, filter, { code: value });
+						}
+						((createdAt) => {
+							if (createdAt) filter = Object.assign({}, filter, { createdAt });
+						})();
 
-				let createdAt = _.get(filterObj, 'createdAt.value', undefined);
-				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
-				if (filter.createdAt.value !== createdAt) {
-					nextFilter.createdAt.value = createdAt;
-				}
-
-				setStore({ filter: nextFilter });
-				return { filter: nextFilter };
-			},
+						return setStore({ filter });
+					},
 		}
 	),
 	lifecycle({
 		state: {
-			filterUpdated: true,
-			data: [],
-			loading: 0,
-			initializing: false,
-			loadingLenQuery: false,
-			countHuntUnits: 0,
-			lenQuery: 0,
+			types: {},
+			data: getStore(['data']) || [],
+			countHuntUnits: getStore(['countHuntUnits']) || 0,
+			lenQuery: getStore(['lenQuery']) || 0,
+			loading: false,
+			modifiedProps: {},
 		},
-		componentDidMount() {
-			const eventsPageStore = getStore(['countHuntUnits', 'lenQuery', 'data']);
-			if (eventsPageStore) {
-				this.setState(eventsPageStore);
-			} else {
-				this.props.setSort({ name: 'createdAt', order: 1 });
-				this.props.setFilter({ code: undefined, createdAt: undefined });
-				this.fetchInit();
+		setLoading: loading => this.setState({ loading }),
+		setModifiedProps: modifiedProps => this.setState({ modifiedProps }),
+		setTypes: types => this.setState(setStore({ types })),
+		setCountHuntUnits: countHuntUnits => this.setState(setStore({ countHuntUnits })),
+		setLenQuery: lenQuery => this.setState(setStore({ lenQuery })),
+		setData: data => this.setState(setStore({ data })),
+
+		async componentDidMount() {
+			const p = this.props;
+			if (!getStore()) {
+				const { types, countHuntUnits } = await Meteor.callPromise('events.get.init');
+				this.setTypes(types);
+				this.setCountHuntUnits(countHuntUnits);
 			}
+			p.setInitialized(true);
 		},
-		componentWillReceiveProps(np) {
-			if (!this.state.initializing) {
-				const filterUpdated = this.props.filter !== np.filter;
-				const sortUpdated = this.props.sort !== np.sort;
-				const sliderUpdated = this.props.slider !== np.slider;
-				if (filterUpdated && !this.state.loading) this.fetchLenQuery(np);
-				if (!this.state.loadingLenQuery) {
-					if ((filterUpdated || sortUpdated || sliderUpdated) && !this.state.loading) {
-						this.fetchData(np);
-					}
-					if (sortUpdated || filterUpdated) {
-						np.setSlider({
-							max: this.state.lenQuery,
-							value: this.state.lenQuery });
-					}
-				}
+		async componentWillReceiveProps(np) {
+			if (!np.initialized) return;
+
+			this.setLoading(true);
+			const modifiedProps = difProps(this.props, np);
+			this.setModifiedProps(modifiedProps);
+
+			const { filter, sort, slider } = modifiedProps;
+			if (filter) {
+				this.setLenQuery(await Meteor.callPromise('get.events.data', { filter: np.filter }));
 			}
+			if (filter || sort || slider) {
+				this.setData(await this.fetchData(np));
+			}
+			this.setLoading(false);
 		},
 
-		fetchInit() {
-			this.setState({ initializing: true });
-			fetchMeteor({
-				method: 'events.get.init',
-				params: {},
-				responseFunc: ({ types, countHuntUnits }) => {
-					this.setState({ initializing: false });
-					this.props.setTypes(types);
-					this.setState({ countHuntUnits });
-				} });
-		},
-		fetchLenQuery(np) {
-			this.setState({ loadingLenQuery: true });
-			fetchMeteor({
-				method: 'get.events.data',
-				params: { filter: np.filter },
-				responseFunc: (r) => {
-					this.setState({
-						lenQuery: r.lenQuery || this.state.lenQuery,
-						loadingLenQuery: false,
-					});
-				}
-			});
-		},
-		fetchData(np) {
-			const skip = (q => (q > 0 ? q : 0))(np.slider.max - np.slider.value);
-			this.setState({
-				data: this.state.data.map(({ rowNumber, ...row }, key) => ({
+		async fetchData(p) {
+			const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+			if (!p.slider.drag) {
+				this.setState({
+					data: this.state.data.map(({ rowNumber, ...row }, key) => ({
+						rowNumber: skip + key,
+						...row })) });
+			} else {
+				const data = await Meteor.callPromise('get.events.data', {
+					filter: p.filter,
+					sort: p.sort,
+					skip,
+				});
+				this.setData(_.map(data, ({ createdAt, code, ...row }, key) => ({
+					createdAt: moment(createdAt).format('DD.MM.YYYY'),
+					time: moment(createdAt).format('HH:mm'),
+					code: this.state.types.code[code],
 					rowNumber: skip + key,
-					...row })) });
-			if (!np.slider.drag) {
-				fetchMeteor({
-					method: 'get.events.data',
-					params: {
-						filter: np.filter,
-						sort: np.sort,
-						skip,
-					},
-					responseFunc: (r) => {
-						this.setState({
-							data: _.cloneDeep(r.data.map(({ createdAt, code, ...row }, key) => ({
-								createdAt: moment(createdAt).format('DD.MM.YYYY'),
-								time: moment(createdAt).format('HH:mm'),
-								code: np.types.code[code],
-								rowNumber: skip + key,
-								...row }))) });
-					} });
+					...row })));
 			}
 		},
 
 	}),
+	withPropsOnChange(['filter', 'sort'], (p) => {
+		p.setSlider({ max: p.lenQuery });
+		p.setSlider({ value: 0 });
+	}),
+	// branch(() => true, renderNothing),
 	withProps(p => ({
 		onSliderChange: obj => p.setSlider(obj),
 		onSliderChangeComplete: obj => p.setSlider(obj),
@@ -202,6 +168,7 @@ export default compose(
 			onFilterChange: p.setFilter,
 		},
 	})),
+	shouldUpdate((props, nextProps) => shallowEqual(props, nextProps)),
 )(
 	(p) => {
 		console.log('rendering');
@@ -233,13 +200,11 @@ export default compose(
 			</Popover>
 		);
 
-		const getCustomFilter = () => {
-			return (
-				<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
-					<Button>סינון</Button>
-				</OverlayTrigger>
-			);
-		};
+		const tableCustomFilter = () => (
+			<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
+				<Button>סינון</Button>
+			</OverlayTrigger>
+		);
 
 		return (
 			<div className="Events">
@@ -255,7 +220,6 @@ export default compose(
 							verticalSliderHeight="450px"
 							vertical
 							sliderSize={40}
-							// thumbSize={34}
 							max={p.slider.max}
 							step={12}
 						>
@@ -291,7 +255,7 @@ export default compose(
 								dataFormat={formatter}
 								filter={{
 									type: 'CustomFilter',
-									getElement: getCustomFilter,
+									getElement: tableCustomFilter,
 									options: p.types.code,
 									selectText: 'בחר',
 									defaultValue: p.filter.code.value,
@@ -335,6 +299,34 @@ export default compose(
 			</div>
 		);
 	});
+
+	
+	
+	
+//
+// function ifDefThen(q, f) {
+// 	const c = q();
+// 	if (c) f(c);
+// }
+// ifDefThen(
+// 	_.toNumber(_.get(filterObj, 'createdAt.value')),
+// 	createdAt => filter = Object.assign({}, filter, { createdAt })
+// ).bind(this);
+	
+
+// const fetchMeteor = ({ method, params, responseFunc }) => {
+// 	this.setState({ loading: true });
+// 	Meteor.call(method, params, (error, response) => {
+// 		if (error) {
+// 			this.setState({ loading: false });
+// 			console.log(error.reason);
+// 		} else {
+// 			this.setState({ loading: false });
+// 			responseFunc(response);
+// 		}
+// 	});
+// };
+
 
 // this.setState({
 // 	data:

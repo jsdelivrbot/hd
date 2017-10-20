@@ -28,7 +28,7 @@ import '../../stylesheets/table.scss';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
-import HydrantsCollection from '../../../api/Hydrants/Hydrants';
+import HydrantsCollection from '../../../api/Hydrants/server/Hydrants';
 import {
 	setHydrantFilter,
 	getHydrantFilter,

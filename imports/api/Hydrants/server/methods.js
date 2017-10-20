@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import Hydrants from './Hydrants';
-import rateLimit from '../../modules/rate-limit';
+import rateLimit from '../../../modules/rate-limit';
 
 Meteor.methods({
 	'hydrants.insert': function hydrantsInsert(doc) {

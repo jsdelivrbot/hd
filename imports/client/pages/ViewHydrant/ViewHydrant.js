@@ -6,7 +6,7 @@ import { meteorData } from '../../Utils/utils';
 import { Button, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import Hydrants from '../../../api/Hydrants/Hydrants';
+import Hydrants from '../../../api/Hydrants/server/Hydrants';
 import NotFound from '../../components/NotFound/NotFound';
 
 

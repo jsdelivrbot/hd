@@ -10,8 +10,8 @@ export function getStore(field, keys) {
 	}
 	return result;
 }
-export function setStore(field, key, value) {
-	StorageCollection.upsert(1, { $set: { [`${field}.${key}`]: value } });
+export function setStore(field, obj) {
+	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
 }
 
 // export function getHydrantSort() {
