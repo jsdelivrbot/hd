@@ -36,58 +36,10 @@ import {
 const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
-
-const Map1 = compose(
-	withProps({
-		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places',
-		loadingElement: <div style={{ height: '100%' }} />,
-		containerElement: <div style={{ height: '400px' }} />,
-		mapElement: <div style={{ height: '100%' }} />,
-	}),
-	withState('zoom', 'onZoomChange', 8),
-	withHandlers(() => {
-		const refs = {
-			map: undefined,
-		};
-
-		return {
-			onMapMounted: () => (ref) => {
-				refs.map = ref;
-			},
-			onZoomChanged: ({ onZoomChange }) => () => {
-				onZoomChange(refs.map.getZoom());
-			}
-		};
-	}),
-	withScriptjs,
-	withGoogleMap
-)(props =>
-	(<GoogleMap
-		defaultCenter={{ lat: -34.397, lng: 150.644 }}
-		zoom={props.zoom}
-		ref={props.onMapMounted}
-		onZoomChanged={props.onZoomChanged}
-	>
-		<Marker
-			position={{ lat: -34.397, lng: 150.644 }}
-			onClick={props.onToggleOpen}
-		>
-			<InfoWindow onCloseClick={props.onToggleOpen}>
-				<div>
-					{' '}
-          			Controlled zoom: {props.zoom}
-				</div>
-			</InfoWindow>
-		</Marker>
-	</GoogleMap>)
-);
-
-
-
-
 const Map = compose(
 	withStateHandlers(
 		() => ({
+			zoom: getStore('zoom') || 13,
 			data: getStore('data') || [],
 			loading: false,
 			initialized: false,
@@ -97,6 +49,7 @@ const Map = compose(
 			bounds: {},
 		}), {
 			setMapRef: () => mapRef => ({ mapRef }),
+			setZoom: ({ mapRef }) => () => setStore({ zoom: mapRef.getZoom() }),
 			setCountActiveUnits: () => countTotalUnits => setStore({ countTotalUnits }),
 			setBounds: ({ mapRef }) => () => setStore({ bounds: mapRef.getBounds().toJSON() }),
 			setLoading: () => loading => setStore({ loading }),
@@ -106,13 +59,7 @@ const Map = compose(
 		}
 	),
 	withHandlers(() => ({
-		onMapMounted: ({ setMapRef }) => (ref) => {
-			setMapRef(ref);
-		},
-		onBoundsChanged: ({ setBounds }) => () => {
-			setBounds();
-		},
-		onTilesLoaded: ({ mapRef, setBounds, setInitialized }) => () => {
+		onTilesLoaded: ({ setBounds, setInitialized }) => () => {
 			setBounds();
 			setInitialized(true);
 		},
@@ -160,16 +107,18 @@ const Map = compose(
 			infoWindowsId: id,
 		}),
 	}),
-)(
+)(    // minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
+	// saving issue, how to fill large datasets, large datasets, check events
 	(p) => {
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Map">
 				<GoogleMap
 					defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-					zoom={13}
-					ref={p.onMapMounted}
-					onBoundsChanged={p.onBoundsChanged}
+					zoom={p.zoom}
+					ref={p.setMapRef}
+					onBoundsChanged={p.setBounds}
+					onZoomChanged={p.setZoom}
 					onTilesLoaded={p.onTilesLoaded}
 				>
 					<MarkerClusterer

@@ -33,7 +33,7 @@ export default function initDb() {
 		environments: ['development', 'staging'],
 		noLimit: true,
 		wipe: true,
-		modelCount: 1000,
+		modelCount: 10000,
 		model() {
 			let sentence = '';
 			for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
