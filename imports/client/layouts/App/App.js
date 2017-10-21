@@ -14,7 +14,7 @@ import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
-// import Map from '../../pages/Map/Map';
+import Map from '../../pages/Map/Map';
 import Events from '../../pages/Events/Events';
 // import Hydrants from '../../pages/Hydrants/Hydrants';
 // import NewHydrant from '../../pages/NewHydrant/NewHydrant';
@@ -71,7 +71,7 @@ const App = props => (
 					<Switch>
 						<Authenticated exact path="/" component={Index} {...props} />
 						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
-						{/*<Authenticated exact path="/map" component={Map} {...props} />*/}
+						<Authenticated exact path="/map" component={Map} {...props} />
 						{/*<Authenticated exact path="/hydrants" component={Hydrants} {...props} />*/}
 						<Authenticated exact path="/events" component={Events} {...props} />
 						{/*<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />*/}

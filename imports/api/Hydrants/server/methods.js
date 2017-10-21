@@ -1,9 +1,31 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
+import _ from 'lodash';
 import Hydrants from './Hydrants';
 import rateLimit from '../../../modules/rate-limit';
 
 Meteor.methods({
+	'map.get.init': function getEventsH() {
+		const array = Hydrants.aggregate([
+			{ $group: {
+				_id: null,
+				count: { $sum: 1 }
+			} },
+		]);
+		return _.get(array, '[0].count', 0);
+	},
+	'map.get.data': function getHydrantsH(bounds) {
+		check(bounds, Object);
+
+		return Hydrants.aggregate([
+			{ $match: bounds },
+			{ $limit: 100 },
+			{ $project: {
+				lat: 1,
+				lon: 1,
+				status: 1,
+			} }]);
+	},
 	'hydrants.insert': function hydrantsInsert(doc) {
 		check(doc, Match.Any);
 		console.log('inserting');

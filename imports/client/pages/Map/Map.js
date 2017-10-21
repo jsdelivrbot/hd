@@ -1,15 +1,16 @@
+
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Alert } from 'react-bootstrap';
 import {
 	withHandlers,
-	withState,
 	withProps,
-	setDisplayName,
 	compose,
 	renderComponent,
 	branch,
 	withStateHandlers,
-	mapProps,
+	lifecycle,
+	withState,
 } from 'recompose';
 import {
 	withScriptjs,
@@ -23,56 +24,134 @@ import { Label, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import Loading from '../../components/Loading/Loading';
-import { meteorData } from '../../Utils/utils';
-import HydrantsCollection from '../../../api/Hydrants/server/Hydrants';
-import SubManager from '../../../api/Utility/client/SubManager';
-import { getHydrantFindFilter } from '../../Storage/Storage';
+import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
-const Map = compose(
-	meteorData(() => {
-		const subscription = SubManager.subscribe('hydrants');
-		const filterH = getHydrantFindFilter({
-			addAddress: true,
-			addDescription: true,
-			addNumber: true,
-			addDate: true,
-			addStatus: true,
-			addId: true
-		});
-		const dataH = HydrantsCollection.find(filterH).fetch();
-		return {
-			loading: !subscription.ready(),
-			nodata: !dataH.length,
-			dataH,
-		};
-	}),
-	branch(p => p.loading, renderComponent(Loading)),
-	mapProps(({ dataH, ...p }) => ({
-		dataH,
-		totalUnits: dataH.length,
-		...p,
-	})),
+import {
+	getStore as getStoreHydrantsPage,
+	setStore as setStoreHydrantsPage,
+} from '../../Storage/Storage';
+
+const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
+const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
+
+
+const Map1 = compose(
 	withProps({
-		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
+		googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%' }} />,
-		containerElement: <div style={{ height: '600px' }} />,
-		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
+		containerElement: <div style={{ height: '400px' }} />,
+		mapElement: <div style={{ height: '100%' }} />,
 	}),
-	withState('zoom', 'onZoomChange', 13),
+	withState('zoom', 'onZoomChange', 8),
 	withHandlers(() => {
 		const refs = {
 			map: undefined,
 		};
+
 		return {
 			onMapMounted: () => (ref) => {
 				refs.map = ref;
 			},
 			onZoomChanged: ({ onZoomChange }) => () => {
 				onZoomChange(refs.map.getZoom());
+			}
+		};
+	}),
+	withScriptjs,
+	withGoogleMap
+)(props =>
+	(<GoogleMap
+		defaultCenter={{ lat: -34.397, lng: 150.644 }}
+		zoom={props.zoom}
+		ref={props.onMapMounted}
+		onZoomChanged={props.onZoomChanged}
+	>
+		<Marker
+			position={{ lat: -34.397, lng: 150.644 }}
+			onClick={props.onToggleOpen}
+		>
+			<InfoWindow onCloseClick={props.onToggleOpen}>
+				<div>
+					{' '}
+          			Controlled zoom: {props.zoom}
+				</div>
+			</InfoWindow>
+		</Marker>
+	</GoogleMap>)
+);
+
+
+
+
+const Map = compose(
+	withStateHandlers(
+		() => ({
+			data: getStore('data') || [],
+			loading: false,
+			initialized: false,
+			dataInitialized: false,
+			countTotalUnits: getStore('countTotalUnits') || 0,
+			mapRef: undefined,
+			bounds: {},
+		}), {
+			setMapRef: () => mapRef => setStore({ mapRef }),
+			setCountActiveUnits: () => countTotalUnits => setStore({ countTotalUnits }),
+			setBounds: ({ mapRef }) => () => setStore({ bounds: mapRef.map.getBounds().toJSON() }),
+			setLoading: () => loading => setStore({ loading }),
+			setData: () => data => setStore({ data }),
+			setInitialized: () => initialized => ({ initialized }),
+			setDataInitialized: () => dataInitialized => ({ dataInitialized }),
+		}
+	),
+	withHandlers(() => {
+		return {
+			onMapMounted: ({ setMapRef }) => (ref) => {
+				setMapRef(ref);
+			},
+			onBoundsChanged: ({ setBounds }) => (o) => {
+				setBounds();
+			},
+			ontilesChanged: ({ setBounds, setInitialized }) => (o) => {
+				setBounds();
+				setInitialized(true);
 			},
 		};
+	}),
+	lifecycle({
+		async componentDidMount() {
+			console.log('initializing data');
+			this.storeEmpty = false;
+			if (!getStore()) {
+				this.props.setLoading(true);
+				this.props.setCountActiveUnits(await Meteor.callPromise('map.get.init'));
+				this.props.setLoading(false);
+				this.storeEmpty = true;
+			}
+			this.props.setDataInitialized(true);
+		},
+		async componentWillReceiveProps(p) {
+			if (!p.initialized) return;
+			if (p.loading) return;
+			const { bounds } = difProps({ prevProps: this.props, nextProps: p });
+			console.log('bounds');
+			console.log(bounds);
+			if (bounds || this.storeEmpty) {
+				this.storeEmpty = false;
+				p.setLoading(true);
+				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds }));
+				p.setLoading(false);
+			}
+		},
+
+	}),
+	branch(p => !p.dataInitialized, renderComponent(Loading)),
+	withProps({
+		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
+		loadingElement: <div style={{ height: '100%' }} />,
+		containerElement: <div style={{ marginTop: '20px', height: '600px' }} />,
+		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
 	}),
 	withScriptjs,
 	withGoogleMap,
@@ -83,7 +162,6 @@ const Map = compose(
 			infoWindowsId: id,
 		}),
 	}),
-	setDisplayName('Map'),
 )(
 	(p) => {
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
@@ -91,16 +169,18 @@ const Map = compose(
 			<div className="Map">
 				<GoogleMap
 					defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-					zoom={p.zoom}
+					zoom={12}
 					ref={p.onMapMounted}
-					onZoomChanged={p.onZoomChanged}
+					// onZoomChanged={p.onZoomChanged}
+					onBoundsChanged={p.onZoomChanged}
+					onTilesLoaded={p.onZoomChanged}
 				>
 					<MarkerClusterer
 						averageCenter
 						enableRetinaIcons
 						gridSize={60}
 					>
-						{p.dataH.map((d) => {
+						{p.data.map((d) => {
 							let icon, color, eventType;
 							if (d.status) {
 								icon = 'marker_blue.ico';
@@ -134,7 +214,7 @@ const Map = compose(
 					</MarkerClusterer>
 				</GoogleMap>
 				<Segment raised textAlign="center" size="big">
-					סה&quot;כ מוצרים מוצגים מתוך תאגיד עין אפק:  {p.totalUnits} יח&#39;<br />
+					סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
 					נכון לתאריך: {currentDate}
 				</Segment>
 			</div>
@@ -142,11 +222,4 @@ const Map = compose(
 	}
 );
 
-const wrap = () => (
-	<div>
-		<div style={{ height: 20 }} />
-		<Map />
-	</div>
-);
-
-export default wrap;
+export default Map;
