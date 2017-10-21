@@ -14,7 +14,7 @@ const eventsSeed = hydrantId => ({
 	environments: ['development', 'staging'],
 	noLimit: true,
 	wipe: false,
-	modelCount: 200,
+	modelCount: 3,
 	model() {
 		return {
 			hydrantId,
@@ -33,7 +33,7 @@ export default function initDb() {
 		environments: ['development', 'staging'],
 		noLimit: true,
 		wipe: true,
-		modelCount: 15,
+		modelCount: 1000,
 		model() {
 			let sentence = '';
 			for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
@@ -44,8 +44,8 @@ export default function initDb() {
 			return {
 				companyId: 1,
 				sim: rn(999999999),
-				lat: (32.848439 + ((5 - rn(10)) * 0.005)).toFixed(6),
-				lon: (35.117543 + ((5 - rn(10)) * 0.005)).toFixed(6),
+				lat: (32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6),
+				lon: (35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6),
 				status: rn(1),
 				createdAt: faker.date.past(1).toISOString(),
 				address: `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`,

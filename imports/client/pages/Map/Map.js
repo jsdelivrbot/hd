@@ -96,48 +96,46 @@ const Map = compose(
 			mapRef: undefined,
 			bounds: {},
 		}), {
-			setMapRef: () => mapRef => setStore({ mapRef }),
+			setMapRef: () => mapRef => ({ mapRef }),
 			setCountActiveUnits: () => countTotalUnits => setStore({ countTotalUnits }),
-			setBounds: ({ mapRef }) => () => setStore({ bounds: mapRef.map.getBounds().toJSON() }),
+			setBounds: ({ mapRef }) => () => setStore({ bounds: mapRef.getBounds().toJSON() }),
 			setLoading: () => loading => setStore({ loading }),
 			setData: () => data => setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setDataInitialized: () => dataInitialized => ({ dataInitialized }),
 		}
 	),
-	withHandlers(() => {
-		return {
-			onMapMounted: ({ setMapRef }) => (ref) => {
-				setMapRef(ref);
-			},
-			onBoundsChanged: ({ setBounds }) => (o) => {
-				setBounds();
-			},
-			ontilesChanged: ({ setBounds, setInitialized }) => (o) => {
-				setBounds();
-				setInitialized(true);
-			},
-		};
-	}),
+	withHandlers(() => ({
+		onMapMounted: ({ setMapRef }) => (ref) => {
+			setMapRef(ref);
+		},
+		onBoundsChanged: ({ setBounds }) => () => {
+			setBounds();
+		},
+		onTilesLoaded: ({ mapRef, setBounds, setInitialized }) => () => {
+			setBounds();
+			setInitialized(true);
+		},
+	})),
 	lifecycle({
 		async componentDidMount() {
+			const p = this.props;
 			console.log('initializing data');
 			this.storeEmpty = false;
 			if (!getStore()) {
-				this.props.setLoading(true);
-				this.props.setCountActiveUnits(await Meteor.callPromise('map.get.init'));
-				this.props.setLoading(false);
+				p.setLoading(true);
+				p.setCountActiveUnits(await Meteor.callPromise('map.get.init'));
+				p.setLoading(false);
 				this.storeEmpty = true;
 			}
-			this.props.setDataInitialized(true);
+			p.setDataInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { bounds } = difProps({ prevProps: this.props, nextProps: p });
-			console.log('bounds');
-			console.log(bounds);
 			if (bounds || this.storeEmpty) {
+				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
 				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds }));
@@ -169,11 +167,10 @@ const Map = compose(
 			<div className="Map">
 				<GoogleMap
 					defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-					zoom={12}
+					zoom={13}
 					ref={p.onMapMounted}
-					// onZoomChanged={p.onZoomChanged}
-					onBoundsChanged={p.onZoomChanged}
-					onTilesLoaded={p.onZoomChanged}
+					onBoundsChanged={p.onBoundsChanged}
+					onTilesLoaded={p.onTilesLoaded}
 				>
 					<MarkerClusterer
 						averageCenter

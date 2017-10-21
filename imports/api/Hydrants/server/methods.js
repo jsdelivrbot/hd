@@ -5,7 +5,7 @@ import Hydrants from './Hydrants';
 import rateLimit from '../../../modules/rate-limit';
 
 Meteor.methods({
-	'map.get.init': function getEventsH() {
+	'map.get.init': function mapGetInit() {
 		const array = Hydrants.aggregate([
 			{ $group: {
 				_id: null,
@@ -14,16 +14,21 @@ Meteor.methods({
 		]);
 		return _.get(array, '[0].count', 0);
 	},
-	'map.get.data': function getHydrantsH(bounds) {
-		check(bounds, Object);
-
+	'map.get.data': function mapGetData(p) {
+		check(p, Object);
+		const { bounds } = p;
+		console.log('getting map in bounds');
+		console.log(bounds);
+		const { east, west, north, south } = bounds;
 		return Hydrants.aggregate([
-			{ $match: bounds },
-			{ $limit: 100 },
+			{ $match: { $and: [{ lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
+			{ $limit: 30 },
 			{ $project: {
 				lat: 1,
 				lon: 1,
 				status: 1,
+				address: 1,
+				number: 1,
 			} }]);
 	},
 	'hydrants.insert': function hydrantsInsert(doc) {
