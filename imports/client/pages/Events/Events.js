@@ -1,30 +1,24 @@
-/* eslint-disable no-param-reassign */
 
 import { Flex, Box } from 'reflexbox';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import ReactSimpleRange from 'react-simple-range';
 import {
-	renderNothing,
 	compose,
 	renderComponent,
 	branch,
 	withStateHandlers,
-	withProps,
-	withPropsOnChange,
-	withState,
 	lifecycle,
-	shallowEqual,
-	shouldUpdate,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
-import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 
 import Loading from '../../components/Loading/Loading';
+import { difProps } from '../../Utils/Utils';
+import Slider from '../../components/Slider/Slider';
+import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
 	getStore as getStoreEventsPage,
 	setStore as setStoreEventsPage,
@@ -33,221 +27,143 @@ import {
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
 
-const getStore = (keys) => {
-	getStoreEventsPage('eventsPage', keys);
-};
-const setStore = (obj) => {
-	setStoreEventsPage('eventsPage', obj);
-	return obj;
-};
-
-const difProps = (obj1, obj2) => (
-	_.reduce(obj1, (result, value, key) => {
-		if (value !== obj2[key]) result[key] = value;
-		return result;
-	}));
+const getStore = keys => getStoreEventsPage('eventsPage', keys);
+const setStore = obj => setStoreEventsPage('eventsPage', obj);
 
 export default compose(
 	withStateHandlers(
 		() => ({
-			sort: getStore(['countHuntUnits']) || { name: 'createdAt', order: 1 },
-			filter: getStore(['countHuntUnits']) || { code: undefined, createdAt: undefined },
-			slider: {},
+			types: getStore('types') || {},
+			data: getStore('data') || [],
+			countHuntUnits: getStore('countHuntUnits') || 0,
+			loading: false,
 			initialized: false,
+			sort: getStore('sort') || { name: 'createdAt', order: 1 },
+			filter: getStore('filter') || { code: {}, createdAt: undefined },
+			slider: { max: 0, value: 0 },
 		}), {
+			setLoading: () => loading => setStore({ loading }),
+			setTypes: () => types => setStore({ types }),
+			setCountHuntUnits: () => countHuntUnits => setStore({ countHuntUnits }),
+			setData: () => data => setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
-			setSlider:
-				({ slider }) =>
-					obj =>
-						setStore({ slider: Object.assign({}, slider, obj) }),
-			setSort: () => (name, order) => {
-				const sort = {
-					name,
-					order: (order === 'asc') ? 1 : -1,
-				};
+			setSlider: ({ slider }) => (obj) => {
+				slider = Object.assign({}, slider, obj);
+				return setStore({ slider });
+			},
+			setSort: ({ sort }) => (name, order) => {
+				sort = { name, order: (order === 'asc') ? 1 : -1 };
 				return setStore({ sort });
 			},
-			setFilter:
-				({ filter }) =>
-					(filterObj) => {
-						const index = _.get(filterObj, 'code.value');
-						if (index) {
-							const value = filter.code;
-							if (_.get(value, [index])) {
-								_.unset(value, [index]);
-							} else {
-								_.set(value, [index], true);
-							}
-							filter = Object.assign({}, filter, { code: value });
-						}
-						((createdAt) => {
-							if (createdAt) filter = Object.assign({}, filter, { createdAt });
-						})();
+			setFilter: ({ filter }) => (filterObj) => {
+				const index = filterObj.code;
+				if (index) {
+					const codes = filter.code;
+					if (_.get(codes, [index])) {
+						_.unset(codes, [index]);
+					} else {
+						_.set(codes, [index], true);
+					}
+					filter = Object.assign({}, filter, { code: codes });
+				}
 
-						return setStore({ filter });
-					},
+				const createdAt = _.get(filterObj, 'createdAt.value');
+				if (createdAt) filter = Object.assign({}, filter, { createdAt });
+
+				return setStore({ filter });
+			},
 		}
 	),
 	lifecycle({
-		state: {
-			types: {},
-			data: getStore(['data']) || [],
-			countHuntUnits: getStore(['countHuntUnits']) || 0,
-			lenQuery: getStore(['lenQuery']) || 0,
-			loading: false,
-			modifiedProps: {},
-		},
-		setLoading: loading => this.setState({ loading }),
-		setModifiedProps: modifiedProps => this.setState({ modifiedProps }),
-		setTypes: types => this.setState(setStore({ types })),
-		setCountHuntUnits: countHuntUnits => this.setState(setStore({ countHuntUnits })),
-		setLenQuery: lenQuery => this.setState(setStore({ lenQuery })),
-		setData: data => this.setState(setStore({ data })),
-
 		async componentDidMount() {
-			const p = this.props;
+			console.log('initializing');
+			this.storeEmpty = false;
 			if (!getStore()) {
 				const { types, countHuntUnits } = await Meteor.callPromise('events.get.init');
-				this.setTypes(types);
-				this.setCountHuntUnits(countHuntUnits);
+				this.props.setTypes(types);
+				this.props.setCountHuntUnits(countHuntUnits);
+				this.storeEmpty = true;
 			}
-			p.setInitialized(true);
+			this.props.setInitialized(true);
 		},
-		async componentWillReceiveProps(np) {
-			if (!np.initialized) return;
+		async componentWillReceiveProps(p) {
+			if (!p.initialized) return;
+			if (p.loading) return;
 
-			this.setLoading(true);
-			const modifiedProps = difProps(this.props, np);
-			this.setModifiedProps(modifiedProps);
-
-			const { filter, sort, slider } = modifiedProps;
-			if (filter) {
-				this.setLenQuery(await Meteor.callPromise('get.events.data', { filter: np.filter }));
+			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
+			if (filter || this.storeEmpty) {
+				this.storeEmpty = false;
+				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });
+				p.setSlider({ max: lenQuery, value: lenQuery });
 			}
-			if (filter || sort || slider) {
-				this.setData(await this.fetchData(np));
+			if (sort) {
+				p.setSlider({ value: p.slider.max });
 			}
-			this.setLoading(false);
+			if (slider) {
+				p.setLoading(true);
+				p.setData(await this.fetchData(p));
+			}
+			p.setLoading(false);
 		},
 
 		async fetchData(p) {
 			const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
-			if (!p.slider.drag) {
-				this.setState({
-					data: this.state.data.map(({ rowNumber, ...row }, key) => ({
-						rowNumber: skip + key,
-						...row })) });
+			let data;
+			if (p.slider.drag) {
+				data = p.data.map(({ rowNumber, ...row }, key) => ({
+					rowNumber: skip + key,
+					...row }));
 			} else {
-				const data = await Meteor.callPromise('get.events.data', {
+				data = await Meteor.callPromise('events.get.data', {
 					filter: p.filter,
 					sort: p.sort,
 					skip,
 				});
-				this.setData(_.map(data, ({ createdAt, code, ...row }, key) => ({
+				data = _.map(data, ({ createdAt, code, ...row }, key) => ({
 					createdAt: moment(createdAt).format('DD.MM.YYYY'),
 					time: moment(createdAt).format('HH:mm'),
-					code: this.state.types.code[code],
+					code: p.types.code[code],
 					rowNumber: skip + key,
-					...row })));
+					...row }));
 			}
+			return data;
 		},
 
 	}),
-	withPropsOnChange(['filter', 'sort'], (p) => {
-		p.setSlider({ max: p.lenQuery });
-		p.setSlider({ value: 0 });
-	}),
-	// branch(() => true, renderNothing),
-	withProps(p => ({
-		onSliderChange: obj => p.setSlider(obj),
-		onSliderChangeComplete: obj => p.setSlider(obj),
-		tableOptions: {
-			onSortChange: p.setSort,
-			defaultSortName: p.sort.name,
-			defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
-			onFilterChange: p.setFilter,
-		},
-	})),
-	shouldUpdate((props, nextProps) => shallowEqual(props, nextProps)),
+	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
 		console.log('rendering');
 		const formatter = cell => (<span>{cell}</span>);
 		const currentDate = moment().format('DD.MM.YYYY');
 
-		const popoverClickRootClose = (
-			<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 500 }}>
-				<form>
-					<FormGroup>
-						{_.map(p.types.code,
-							(type, key) => {
-								return (
-									<Checkbox
-										style={{ marginLeft: 10 }}
-										inline
-										key={key}
-										checked={_.get(p.filter.code.value, key, false)}
-										onChange={() => p.setFilter({ code: { value: key } })}
-
-									>
-										{type}
-									</Checkbox>
-								);
-							}
-						)}
-					</FormGroup>
-				</form>
-			</Popover>
-		);
-
-		const tableCustomFilter = () => (
-			<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
-				<Button>סינון</Button>
-			</OverlayTrigger>
-		);
-
 		return (
-			<div className="Events">
-				<div style={{ height: 20 }} />
-				<Flex align="center">
-					<Box w={1 / 8}>
-						<ReactSimpleRange
-							onChange={p.onSliderChange}
-							onChangeComplete={p.onSliderChangeComplete}
-							disableTrack
-							value={p.slider.value}
-							defaultValue={p.slider.value}
-							verticalSliderHeight="450px"
-							vertical
-							sliderSize={40}
-							max={p.slider.max}
-							step={12}
-						>
-							<div className="slider">
-								<Flex align="center" justify="space-around" w={1} py={2}>
-									<Box>
-										{p.slider.max - p.slider.value}
-									</Box>
-								</Flex>
-							</div>
-						</ReactSimpleRange>
+			<div className="events">
+				<Flex>
+					<Box w={1 / 12} pl={2}>
+						<Slider {...p}/>
 					</Box>
-					<Box w={7 / 8}>
+					<Box w={11 / 12}>
 						<BootstrapTable
 							keyField="_id"
 							containerClass="table_container_class"
 							tableContainerClass="table_class"
 							data={p.data}
 							remote
-							options={p.tableOptions}
+							options={{
+								onSortChange: p.setSort,
+								defaultSortName: p.sort.name,
+								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
+								onFilterChange: p.setFilter,
+							}}
 							height="600px"
 							striped
 							hover
 						>
-							<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+							<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center">
 								מס&quot;ד
 							</TableHeaderColumn>
-							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center" dataSort>
+							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
 								מספר מזהה
 							</TableHeaderColumn>
 							<TableHeaderColumn
@@ -255,10 +171,7 @@ export default compose(
 								dataFormat={formatter}
 								filter={{
 									type: 'CustomFilter',
-									getElement: tableCustomFilter,
-									options: p.types.code,
-									selectText: 'בחר',
-									defaultValue: p.filter.code.value,
+									getElement: () => MultiSelect(p)
 								}}
 								width="155px"
 								dataField="code"
@@ -280,13 +193,13 @@ export default compose(
 									type: 'SelectFilter',
 									options: p.types.createdAt,
 									selectText: 'בחר',
-									defaultValue: p.filter.createdAt.value,
+									defaultValue: p.filter.createdAt,
 								}}
 							>
 								זמן האירוע
 							</TableHeaderColumn>
 							<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
-							<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center" dataSort>
+							<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center">
 								תאור מקום
 							</TableHeaderColumn>
 						</BootstrapTable>
@@ -302,7 +215,9 @@ export default compose(
 
 	
 	
-	
+
+// shouldUpdate((props, nextProps) => !shallowEqual(props, nextProps)),
+
 //
 // function ifDefThen(q, f) {
 // 	const c = q();

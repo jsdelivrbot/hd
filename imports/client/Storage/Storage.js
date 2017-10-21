@@ -5,13 +5,14 @@ const StorageCollection = new Mongo.Collection(null);
 
 export function getStore(field, keys) {
 	let result = _.get(StorageCollection.findOne({}), field);
-	if (result) {
-		result = _.pick(result, keys);
+	if (result && keys) {
+		result = result[keys];
 	}
 	return result;
 }
 export function setStore(field, obj) {
 	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
+	return obj;
 }
 
 // export function getHydrantSort() {
