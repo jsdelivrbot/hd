@@ -11,7 +11,7 @@ import rateLimit from '../../../modules/rate-limit';
 
 function buildFilter(p) {
 	const filter = {};
-
+	console.log('events uploading');
 	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
 	filter.createdAt = { $gt: moment().subtract(choose[p.createdAt] || 10000, 'days').toISOString() };
 

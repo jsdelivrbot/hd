@@ -3,6 +3,7 @@ import { Flex, Box } from 'reflexbox';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import {
+	withHandlers,
 	compose,
 	renderComponent,
 	branch,
@@ -48,6 +49,7 @@ export default compose(
 			setData: () => data => setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }) => (obj) => {
+				if (obj.value !== undefined && obj.value < 12) obj.value = 12;
 				slider = Object.assign({}, slider, obj);
 				return setStore({ slider });
 			},
@@ -55,7 +57,12 @@ export default compose(
 				sort = { name, order: (order === 'asc') ? 1 : -1 };
 				return setStore({ sort });
 			},
-			setFilter: ({ filter }) => (filterObj) => {
+			setFilterSelect: ({ filter }) => (filterObj) => {
+				const createdAt = _.get(filterObj, 'createdAt.value');
+				filter = Object.assign({}, filter, { createdAt });
+				return setStore({ filter });
+			},
+			setFilterMultiSelect: ({ filter }) => (filterObj) => {
 				const index = filterObj.code;
 				if (index) {
 					const codes = filter.code;
@@ -66,20 +73,26 @@ export default compose(
 					}
 					filter = Object.assign({}, filter, { code: codes });
 				}
-
-				const createdAt = _.get(filterObj, 'createdAt.value');
-				if (createdAt) filter = Object.assign({}, filter, { createdAt });
-
 				return setStore({ filter });
 			},
 		}
 	),
+	withHandlers({
+		sliderInc: ({ slider, setSlider }) => () => {
+			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
+		},
+		sliderDec: ({ slider, setSlider }) => () => {
+			if (slider.value > 0) setSlider({ value: slider.value - 1 });
+		},
+	}),
 	lifecycle({
 		async componentDidMount() {
 			console.log('initializing');
 			this.storeEmpty = false;
 			if (!getStore()) {
+				this.props.setLoading(true);
 				const { types, countHuntUnits } = await Meteor.callPromise('events.get.init');
+				this.props.setLoading(false);
 				this.props.setTypes(types);
 				this.props.setCountHuntUnits(countHuntUnits);
 				this.storeEmpty = true;
@@ -89,43 +102,46 @@ export default compose(
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
 			if (p.loading) return;
-
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
 			if (filter || this.storeEmpty) {
 				this.storeEmpty = false;
+				p.setLoading(true);
 				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });
+				p.setLoading(false);
 				p.setSlider({ max: lenQuery, value: lenQuery });
 			}
 			if (sort) {
 				p.setSlider({ value: p.slider.max });
 			}
 			if (slider) {
-				p.setLoading(true);
-				p.setData(await this.fetchData(p));
+				const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+				let data;
+				if (p.slider.drag) {
+					data = p.data.map(({ rowNumber, ...row }, key) => ({
+						rowNumber: skip + key,
+						...row }));
+					p.setData(data);
+				} else {
+					p.setData(await this.fetchData(p, skip));
+				}
 			}
-			p.setLoading(false);
 		},
 
-		async fetchData(p) {
-			const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+		async fetchData(p, skip) {
 			let data;
-			if (p.slider.drag) {
-				data = p.data.map(({ rowNumber, ...row }, key) => ({
-					rowNumber: skip + key,
-					...row }));
-			} else {
-				data = await Meteor.callPromise('events.get.data', {
-					filter: p.filter,
-					sort: p.sort,
-					skip,
-				});
-				data = _.map(data, ({ createdAt, code, ...row }, key) => ({
-					createdAt: moment(createdAt).format('DD.MM.YYYY'),
-					time: moment(createdAt).format('HH:mm'),
-					code: p.types.code[code],
-					rowNumber: skip + key,
-					...row }));
-			}
+			p.setLoading(true);
+			data = await Meteor.callPromise('events.get.data', {
+				filter: p.filter,
+				sort: p.sort,
+				skip,
+			});
+			p.setLoading(false);
+			data = _.map(data, ({ createdAt, code, ...row }, key) => ({
+				createdAt: moment(createdAt).format('DD.MM.YYYY'),
+				time: moment(createdAt).format('HH:mm'),
+				code: p.types.code[code],
+				rowNumber: skip + key,
+				...row }));
 			return data;
 		},
 
@@ -141,7 +157,7 @@ export default compose(
 			<div className="events">
 				<Flex>
 					<Box w={1 / 12} pl={2}>
-						<Slider {...p}/>
+						<Slider {...p} />
 					</Box>
 					<Box w={11 / 12}>
 						<BootstrapTable
@@ -154,7 +170,7 @@ export default compose(
 								onSortChange: p.setSort,
 								defaultSortName: p.sort.name,
 								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
-								onFilterChange: p.setFilter,
+								onFilterChange: p.setFilterSelect,
 							}}
 							height="600px"
 							striped
