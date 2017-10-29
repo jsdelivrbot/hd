@@ -6,18 +6,18 @@ import _ from 'lodash';
 
 import './Css/MultiSelect.scss';
 
-const popoverClickRootClose = p => (
+const popoverClickRootClose = ({ types, activeCodes, onChange }) => (
 	<Popover id="popover-trigger-click-root-close" title="סינון" style={{ maxWidth: 500 }}>
 		<form>
 			<FormGroup>
-				{_.map(p.types.code,
+				{_.map(types,
 					(type, key) => (
 						<Checkbox
 							style={{ marginLeft: 10 }}
 							inline
 							key={key}
-							checked={_.get(p.filter.code, key, false)}
-							onChange={() => p.setFilterMultiSelect({ code: key })}
+							checked={_.get(activeCodes, key, false)}
+							onChange={() => onChange({ code: key })}
 
 						>
 							{type}

@@ -40,6 +40,7 @@
     "react-table": "^6.7.4",
     "recompose": "^0.26.0",
     "reflexbox": "^3.0.0-0",
+    "sanctuary": "^0.13.2",
     "semantic-ui-react": "^0.74.2",
     "simpl-schema": "^0.3.2"
   },

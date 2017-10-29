@@ -188,7 +188,7 @@ export default compose(
 								dataFormat={formatter}
 								filter={{
 									type: 'CustomFilter',
-									getElement: () => MultiSelect(p)
+									getElement: () => MultiSelect({ types: p.types.code, activeCodes: p.filter.code, onChange: p.setFilterMultiSelect }),
 								}}
 								width="155px"
 								dataField="code"
