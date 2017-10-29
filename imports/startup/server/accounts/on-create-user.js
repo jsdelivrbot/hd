@@ -1,5 +1,5 @@
 import {Accounts} from 'meteor/accounts-base';
-import sendWelcomeEmail from '../../../api/Users/server/send-welcome-email';
+import sendWelcomeEmail from '../../../server/api/Users/send-welcome-email';
 
 Accounts.onCreateUser((options, user) => {
 	const userToCreate = user;

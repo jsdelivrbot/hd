@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import _ from 'lodash';
 import Hydrants from './Hydrants';
-import rateLimit from '../../../modules/rate-limit';
+import rateLimit from '../../../modules/server/rate-limit';
 
 Meteor.methods({
 	'map.get.init': function mapGetInit() {

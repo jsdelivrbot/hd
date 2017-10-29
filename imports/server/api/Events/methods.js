@@ -3,8 +3,8 @@ import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Events from './Events';
-import Static from '../../Utility/Static';
-import rateLimit from '../../../modules/rate-limit';
+import Static from '../Utility/Static';
+import rateLimit from '../../../modules/server/rate-limit';
 // import moment from 'moment';
 // function mongoDateBack(keyDate) {
 // }

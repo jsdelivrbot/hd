@@ -72,11 +72,11 @@ const App = props => (
 						<Authenticated exact path="/" component={Index} {...props} />
 						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
 						<Authenticated exact path="/map" component={Map} {...props} />
-						{/*<Authenticated exact path="/hydrants" component={Hydrants} {...props} />*/}
+						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
 						<Authenticated exact path="/events" component={Events} {...props} />
-						{/*<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />*/}
-						{/*<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />*/}
-						{/*<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />*/}
+						<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />
+						<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />
+						<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />
 						<Authenticated exact path="/profile" component={Profile} {...props} />
 						<Public path="/signup" component={Signup} {...props} />
 						<Public path="/login" component={Login} {...props} />

@@ -28,7 +28,7 @@ import '../../stylesheets/table.scss';
 
 import Loading from '../../components/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
-import HydrantsCollection from '../../../api/Hydrants/server/Hydrants';
+import HydrantsCollection from '../../../server/api/Hydrants/Hydrants';
 import {
 	setHydrantFilter,
 	getHydrantFilter,
@@ -36,7 +36,7 @@ import {
 	setHydrantSort,
 	getHydrantFindFilter,
 } from '../../Storage/Storage';
-import SubManager from '../../../api/Utility/client/SubManager';
+import SubManager from '../../../../private/SubManager';
 
 export default compose(
 	withStateHandlers(

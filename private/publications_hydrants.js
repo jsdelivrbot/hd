@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Hydrants from './Hydrants';
+import Hydrants from '../imports/server/api/Hydrants/Hydrants';
 
 Meteor.publish('hydrants', function hydrants() {
 	return Hydrants.find();

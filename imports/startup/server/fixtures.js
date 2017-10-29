@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import seeder from './seeder';
-import Hydrants from '../../api/Hydrants/server/Hydrants';
-import Static from '../../api/Utility/Static';
-import Events from '../../api/Events/server/Events';
+import Hydrants from '../../server/api/Hydrants/Hydrants';
+import Static from '../../server/api/Utility/Static';
+import Events from '../../server/api/Events/Events';
 import { words, streets, cities } from './local/he';
 import faker from 'faker';
 
