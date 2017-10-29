@@ -59,9 +59,12 @@ const Map = compose(
 		}
 	),
 	withHandlers(() => ({
-		onTilesLoaded: ({ setBounds, setInitialized }) => () => {
-			setBounds();
-			setInitialized(true);
+		onTilesLoaded: ({ initialized, setBounds, setInitialized }) => () => {
+			console.log('tiles');
+			if (!initialized) {
+				setBounds();
+				setInitialized(true);
+			}
 		},
 	})),
 	lifecycle({
@@ -82,10 +85,13 @@ const Map = compose(
 			if (p.loading) return;
 			const { bounds } = difProps({ prevProps: this.props, nextProps: p });
 			if (bounds || this.storeEmpty) {
+				console.log('bounds');
+				console.log(bounds);
 				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
 				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds }));
+				console.log('received data');
 				p.setLoading(false);
 			}
 		},
@@ -107,9 +113,16 @@ const Map = compose(
 			infoWindowsId: id,
 		}),
 	}),
-)(    // minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
-	// saving issue, how to fill large datasets, large datasets, check events
+)(
+	// minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
+	// saving issue, check events
+	// use cursor -> find, use index, large datasets
+	// show loading
+	// zoom/pan  while downloading previous one and smooth zoom
+	// various limits, testing on cloud
 	(p) => {
+		console.log('rendering');
+		console.log(p.data);
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Map">

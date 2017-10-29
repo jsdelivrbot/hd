@@ -41,7 +41,7 @@ export default compose(
 			initialized: false,
 			sort: getStore('sort') || { name: 'createdAt', order: 1 },
 			filter: getStore('filter') || { code: {}, createdAt: undefined },
-			slider: { max: 0, value: 0 },
+			slider: getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => setStore({ loading }),
 			setTypes: () => types => setStore({ types }),
@@ -135,6 +135,7 @@ export default compose(
 				sort: p.sort,
 				skip,
 			});
+
 			p.setLoading(false);
 			data = _.map(data, ({ createdAt, code, ...row }, key) => ({
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
@@ -176,7 +177,7 @@ export default compose(
 							striped
 							hover
 						>
-							<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center">
+							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="rowNumber" dataAlign="left" headerAlign="center">
 								מס&quot;ד
 							</TableHeaderColumn>
 							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">

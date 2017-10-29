@@ -20,9 +20,9 @@ Meteor.methods({
 		console.log('getting map in bounds');
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
-		return Hydrants.aggregate([
+		const result = Hydrants.aggregate([
 			{ $match: { $and: [{ lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
-			{ $limit: 30 },
+			{ $limit: 100 },
 			{ $project: {
 				lat: 1,
 				lon: 1,
@@ -30,6 +30,8 @@ Meteor.methods({
 				address: 1,
 				number: 1,
 			} }]);
+		console.log('finished');
+		return result;
 	},
 	'hydrants.insert': function hydrantsInsert(doc) {
 		check(doc, Match.Any);

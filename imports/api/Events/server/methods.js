@@ -72,7 +72,7 @@ Meteor.methods({
 				edata: 1,
 				hydrantNumber: '$h.number',
 				description: '$h.description',
-			} }]);
+			} }], { allowDiskUse: true });
 	},
 });
 
