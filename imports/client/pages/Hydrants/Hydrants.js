@@ -1,4 +1,6 @@
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
 import {
 	withHandlers,
 	compose,
@@ -25,6 +27,7 @@ import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
+	reactiveVar,
 } from '../../Storage/Storage';
 
 const { create, env } = require('sanctuary');
@@ -36,6 +39,12 @@ const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
+	withTracker(() => {
+		console.log('tracker');
+		return {
+			companyId: reactiveVar.get().companyId,
+		};
+	}),
 	withStateHandlers(
 		() => ({
 			types: getStore('types') || {},
@@ -79,6 +88,8 @@ export default compose(
 				return setStore({ filter });
 			},
 			setFilterSelectAndSearch: ({ filter }) => (filterObj) => {
+				const cc = _.get(reactiveVar.get(), 'companyId', 0) + 1;
+				reactiveVar.set({ companyId: cc });
 				// const createdAt = S.gets(true, ['createdAt', 'value'], filterObj);
 				// filter = Object.assign({}, filter, { createdAt });
 				//
@@ -110,7 +121,7 @@ export default compose(
 			this.storeEmpty = false;
 			if (!getStore()) {
 				this.props.setLoading(true);
-				const { types, cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('events.get.init');
+				const { types, cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
 				this.props.setLoading(false);
 				this.props.setTypes(types);
 				this.props.setCntTotalUnits(cntTotalUnits);
@@ -121,6 +132,11 @@ export default compose(
 			this.props.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
+			console.log('componentWillReceiveProps');
+			console.log('reactiveVar.get("companyId")');
+			console.log(reactiveVar.get('companyId'));
+			console.log('p.companyId');
+			console.log(p.companyId);
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
@@ -206,7 +222,7 @@ export default compose(
 									type: 'TextFilter',
 									delay: 1000,
 									placeholder: 'חפש',
-									defaultValue: p.filter.number.value,
+									defaultValue: p.filter.number,
 								}}
 								width="125px"
 								dataField="number"
@@ -254,7 +270,7 @@ export default compose(
 									type: 'TextFilter',
 									delay: 1000,
 									placeholder: 'חפש',
-									defaultValue: p.filter.address.value,
+									defaultValue: p.filter.address,
 								}}
 								width="200"
 								dataFormat={formatter}
@@ -271,7 +287,7 @@ export default compose(
 									type: 'TextFilter',
 									delay: 1000,
 									placeholder: 'חפש',
-									defaultValue: p.filter.description.value,
+									defaultValue: p.filter.description,
 								}}
 								dataFormat={formatter}
 								dataField="description"
@@ -287,28 +303,15 @@ export default compose(
 				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
-							{_.isEmpty(getSelectedHydrants()) ?
-								<Button
-									bsStyle="primary"
-									block
-									onClick={() => p.history.push(
-										`${p.match.url}/new`
-									)}
-								>
-									חדש
-								</Button>
-								:
-								<Button
-									bsStyle="success"
-									disabled={getSelectedHydrants().length > 1}
-									onClick={() => p.history.push(
-										`${p.match.url}/${_.filter(p.data, ['_id', getSelectedHydrants()[0]])[0]._id}/edit`
-									)}
-									block
-								>
-									ערוך
-								</Button>
-							}
+							<Button
+								bsStyle="primary"
+								block
+								onClick={() => p.history.push(
+									`${p.match.url}/new`
+								)}
+							>
+								חדש
+							</Button>
 						</Box>
 						<Box w={6 / 8}>
 							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.cntTotalUnits} יח&#39;<br />
@@ -321,6 +324,30 @@ export default compose(
 			</div>
 		);
 	});
+
+
+// {_.isEmpty(getSelectedHydrants()) ?
+// 	<Button
+// 		bsStyle="primary"
+// 		block
+// 		onClick={() => p.history.push(
+// 			`${p.match.url}/new`
+// 		)}
+// 	>
+// 		חדש
+// 	</Button>
+// 	:
+// 	<Button
+// 		bsStyle="success"
+// 		disabled={getSelectedHydrants().length > 1}
+// 		onClick={() => p.history.push(
+// 			`${p.match.url}/${_.filter(p.data, ['_id', getSelectedHydrants()[0]])[0]._id}/edit`
+// 		)}
+// 		block
+// 	>
+// 		ערוך
+// 	</Button>
+// }
 
 
 // const formatter = (cell) => {

@@ -1,19 +1,25 @@
 import { Mongo } from 'meteor/mongo';
+// import { ReactiveDict } from 'meteor/reactive-dict';
+import { ReactiveVar } from 'meteor/reactive-var'
 import _ from 'lodash';
 
 const StorageCollection = new Mongo.Collection(null);
 
-export function getStore(field, keys) {
+function getStore(field, keys) {
 	let result = _.get(StorageCollection.findOne({}), field);
 	if (result && keys) {
 		result = result[keys];
 	}
 	return result;
 }
-export function setStore(field, obj) {
+function setStore(field, obj) {
 	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
 	return obj;
 }
+
+const reactiveVar = new ReactiveVar({});
+
+export { getStore, setStore, reactiveVar };
 
 // export function getHydrantSort() {
 // 	return _.get(StorageCollection.findOne({}), 'hydrantSort');
