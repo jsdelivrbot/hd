@@ -33,7 +33,7 @@ Events.schema = new SimpleSchema({
 		type: Number,
 		label: 'Unique event autoincrement number.',
 		autoValue() {
-			if (this.isInsert) return incrementCounter('Counts', 'HydrantsSerialNumber');
+			if (this.isInsert) return incrementCounter('Counts', 'EventsSerialNumber');
 		},
 	},
 	code: {

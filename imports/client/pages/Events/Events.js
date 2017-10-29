@@ -1,5 +1,4 @@
 
-import { Flex, Box } from 'reflexbox';
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import {
@@ -14,6 +13,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
+import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
@@ -36,16 +36,16 @@ export default compose(
 		() => ({
 			types: getStore('types') || {},
 			data: getStore('data') || [],
-			countHuntUnits: getStore('countHuntUnits') || 0,
+			cntAbusedUnits: getStore('cntAbusedUnits') || 0,
 			loading: false,
 			initialized: false,
 			sort: getStore('sort') || { name: 'createdAt', order: 1 },
-			filter: getStore('filter') || { code: {}, createdAt: undefined },
+			filter: getStore('filter') || { code: {} },
 			slider: getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => setStore({ loading }),
 			setTypes: () => types => setStore({ types }),
-			setCountHuntUnits: () => countHuntUnits => setStore({ countHuntUnits }),
+			setCntAbusedUnits: () => cntAbusedUnits => setStore({ cntAbusedUnits }),
 			setData: () => data => setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }) => (obj) => {
@@ -91,10 +91,10 @@ export default compose(
 			this.storeEmpty = false;
 			if (!getStore()) {
 				this.props.setLoading(true);
-				const { types, countHuntUnits } = await Meteor.callPromise('events.get.init');
+				const { types, cntAbusedUnits } = await Meteor.callPromise('events.get.init');
 				this.props.setLoading(false);
 				this.props.setTypes(types);
-				this.props.setCountHuntUnits(countHuntUnits);
+				this.props.setCntAbusedUnits(cntAbusedUnits);
 				this.storeEmpty = true;
 			}
 			this.props.setInitialized(true);
@@ -223,7 +223,7 @@ export default compose(
 					</Box>
 				</Flex>
 				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.countHuntUnits} <br />
+					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAbusedUnits} <br />
 					נכון לתאריך: {currentDate}
 				</Segment>
 			</div>

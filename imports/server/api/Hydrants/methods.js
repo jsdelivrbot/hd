@@ -1,8 +1,80 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import _ from 'lodash';
+import moment from 'moment';
 import Hydrants from './Hydrants';
 import rateLimit from '../../../modules/server/rate-limit';
+import Static from '../Utility/Static';
+
+function buildFilter(fromfilter) {
+	const filter = {};
+	console.log('hydrants uploading');
+
+	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
+	filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
+
+	if (!_.isEmpty(fromfilter.status)) {
+		filter.status = { $in: _.keys(fromfilter.status).map(k => _.toNumber(k)) };
+	}
+
+	return filter;
+}
+
+Meteor.methods({
+	'hydrants.get.init': function getEventsH() {
+		const arrayEnabled = Hydrants.aggregate([
+			{ $match: { enabled: true } },
+			{ $group: {
+				_id: null,
+				count: { $sum: 1 }
+			} },
+		]);
+		const arrayDisabled = Hydrants.aggregate([
+			{ $match: { enabled: false } },
+			{ $group: {
+				_id: null,
+				count: { $sum: 1 }
+			} },
+		]);
+		const cntEnabledUnits = _.get(arrayEnabled, '[0].count', 0);
+		const cntDisabledUnits = _.get(arrayDisabled, '[0].count', 0);
+		return {
+			types: Static.findOne({}).types,
+			cntEnabledUnits,
+			cntDisabledUnits,
+			cntTotalUnits: cntEnabledUnits + cntDisabledUnits,
+		};
+	},
+	'hydrants.get.lenQuery': function getHydrantsH(p) {
+		check(p, Object);
+		const { filter } = p;
+		const array = Hydrants.aggregate([
+			{ $match: buildFilter(filter) },
+			{ $group: {
+				_id: null,
+				count: { $sum: 1 }
+			} },
+		]);
+		return _.get(array, '[0].count', 0);
+	},
+	'hydrants.get.data': function getHydrantsH(p) {
+		check(p, Object);
+		const { filter, sort, skip } = p;
+
+		return Hydrants.aggregate([
+			{ $match: buildFilter(filter) },
+			{ $sort: { [sort.name]: sort.order } },
+			{ $skip: skip },
+			{ $limit: 12 },
+			{ $project: {
+				createdAt: 1,
+				number: 1,
+				status: 1,
+				address: 1,
+				description: 1,
+			} }], { allowDiskUse: true });
+	},
+});
 
 Meteor.methods({
 	'map.get.init': function mapGetInit() {
@@ -33,6 +105,9 @@ Meteor.methods({
 		console.log('finished');
 		return result;
 	},
+});
+
+Meteor.methods({
 	'hydrants.insert': function hydrantsInsert(doc) {
 		check(doc, Match.Any);
 		console.log('inserting');

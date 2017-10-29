@@ -5,18 +5,16 @@ import moment from 'moment';
 import Events from './Events';
 import Static from '../Utility/Static';
 import rateLimit from '../../../modules/server/rate-limit';
-// import moment from 'moment';
-// function mongoDateBack(keyDate) {
-// }
 
-function buildFilter(p) {
+function buildFilter(fromfilter) {
 	const filter = {};
 	console.log('events uploading');
-	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-	filter.createdAt = { $gt: moment().subtract(choose[p.createdAt] || 10000, 'days').toISOString() };
 
-	if (!_.isEmpty(p.code)) {
-		filter.code = { $in: _.keys(p.code).map(k => _.toNumber(k)) };
+	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
+	filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
+
+	if (!_.isEmpty(fromfilter.code)) {
+		filter.code = { $in: _.keys(fromfilter.code).map(k => _.toNumber(k)) };
 	}
 
 	return filter;

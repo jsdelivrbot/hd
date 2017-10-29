@@ -1,91 +1,90 @@
 import React from 'react';
 import {
 	withHandlers,
-	withProps,
-	withStateHandlers,
-	mapProps,
-	setDisplayName,
 	compose,
 	renderComponent,
 	branch,
+	withStateHandlers,
 	lifecycle,
 } from 'recompose';
-import { Link } from 'react-router-dom';
-import _ from 'lodash';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Segment } from 'semantic-ui-react';
-import moment from 'moment';
-import { Flex, Box } from 'reflexbox'
-// import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
-// import {Checkbox} from 'primereact/components/checkbox/Checkbox';
-// import 'primereact/resources/primereact.min.css';
-// import 'primereact/resources/themes/omega/theme.css';
-// import 'font-awesome/css/font-awesome.css';
-
-import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-bootstrap';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import _ from 'lodash';
+import { Segment } from 'semantic-ui-react';
+import { Flex, Box } from 'reflexbox';
+import moment from 'moment';
+
+import { Button } from 'react-bootstrap';
 import '../../stylesheets/table.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
-import { meteorData } from '../../Utils/Utils';
-import HydrantsCollection from '../../../server/api/Hydrants/Hydrants';
+import { difProps } from '../../Utils/Utils';
+import Slider from '../../components/Slider/Slider';
+import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
-	setHydrantFilter,
-	getHydrantFilter,
-	getHydrantSort,
-	setHydrantSort,
-	getHydrantFindFilter,
+	getStore as getStoreHydrantsPage,
+	setStore as setStoreHydrantsPage,
 } from '../../Storage/Storage';
-import SubManager from '../../../../private/SubManager';
+
+const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
+const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
 	withStateHandlers(
 		() => ({
-			sort: getHydrantSort(),
-			filter: {
-				status: {
-					type: {
-						0: 'מושבת',
-						1: 'פעיל',
-					},
-					value: getHydrantFilter().status || {},
-				},
-				createdAt: {
-					type: {
-						0: 'יממה',
-						1: 'שבוע',
-						2: 'חודש',
-						3: 'רבעון',
-						4: 'שנה',
-					},
-					value: getHydrantFilter().createdAt,
-				},
-				address: {
-					value: getHydrantFilter().address,
-				},
-				description: {
-					value: getHydrantFilter().description,
-				},
-				number: {
-					value: getHydrantFilter().number,
-				},
-			},
+			types: getStore('types') || {},
+			data: getStore('data') || [],
+			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
+			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
+			cntTotalUnits: getStore('cntTotalUnits') || 0,
+			loading: false,
+			initialized: false,
+			sort: getStore('sort') || { name: 'createdAt', order: 1 },
+			filter: getStore('filter') || { status: {} },
+			slider: getStore('slider') || { max: 0, value: 0 },
 		}), {
-			setSort: () => (name, order) => {
-				const sort = {
-					name,
-					order: (order === 'asc') ? 1 : -1,
-				};
-				setHydrantSort(sort);
-				return { sort };
+			setLoading: () => loading => setStore({ loading }),
+			setTypes: () => types => setStore({ types }),
+			setCntEnabledUnits: () => cntEnabledUnits => setStore({ cntEnabledUnits }),
+			setCntDisabledUnits: () => cntDisabledUnits => setStore({ cntDisabledUnits }),
+			setCntTotalUnits: () => cntTotalUnits => setStore({ cntTotalUnits }),
+			setData: () => data => setStore({ data }),
+			setInitialized: () => initialized => ({ initialized }),
+			setSlider: ({ slider }) => (obj) => {
+				if (obj.value !== undefined && obj.value < 12) obj.value = 12;
+				slider = Object.assign({}, slider, obj);
+				return setStore({ slider });
 			},
-			setFilter: ({ filter }) => (filterObj) => {
+			setSort: ({ sort }) => (name, order) => {
+				sort = { name, order: (order === 'asc') ? 1 : -1 };
+				return setStore({ sort });
+			},
+			setFilterSelect: ({ filter }) => (filterObj) => {
+				const createdAt = _.get(filterObj, 'createdAt.value');
+				filter = Object.assign({}, filter, { createdAt });
+				return setStore({ filter });
+			},
+			setFilterMultiSelect: ({ filter }) => (filterObj) => {
+				const index = filterObj.status;
+				if (index) {
+					const statuses = filter.status;
+					if (_.get(statuses, [index])) {
+						_.unset(statuses, [index]);
+					} else {
+						_.set(statuses, [index], true);
+					}
+					filter = Object.assign({}, filter, { status: statuses });
+				}
+				return setStore({ filter });
+			},
+			setFilterSearch: ({ filter }) => (filterObj) => {
 				const nextFilter = _.clone(filter);
 
 				const index = _.get(filterObj, 'status.value', undefined);
 				const address = _.get(filterObj, 'address.value');
 				const description = _.get(filterObj, 'description.value');
 				const number = _.get(filterObj, 'number.value');
+
 				let createdAt = _.get(filterObj, 'createdAt.value');
 				createdAt = createdAt ? _.toNumber(createdAt) : undefined;
 
@@ -115,6 +114,77 @@ export default compose(
 			},
 		}
 	),
+	withHandlers({
+		sliderInc: ({ slider, setSlider }) => () => {
+			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
+		},
+		sliderDec: ({ slider, setSlider }) => () => {
+			if (slider.value > 0) setSlider({ value: slider.value - 1 });
+		},
+	}),
+	lifecycle({
+		async componentDidMount() {
+			console.log('initializing');
+			this.storeEmpty = false;
+			if (!getStore()) {
+				this.props.setLoading(true);
+				const { types, cntAbusedUnits } = await Meteor.callPromise('events.get.init');
+				this.props.setLoading(false);
+				this.props.setTypes(types);
+				this.props.setCntAbusedUnits(cntAbusedUnits);
+				this.storeEmpty = true;
+			}
+			this.props.setInitialized(true);
+		},
+		async componentWillReceiveProps(p) {
+			if (!p.initialized) return;
+			if (p.loading) return;
+			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
+			if (filter || this.storeEmpty) {
+				this.storeEmpty = false;
+				p.setLoading(true);
+				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });
+				p.setLoading(false);
+				p.setSlider({ max: lenQuery, value: lenQuery });
+			}
+			if (sort) {
+				p.setSlider({ value: p.slider.max });
+			}
+			if (slider) {
+				const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+				let data;
+				if (p.slider.drag) {
+					data = p.data.map(({ rowNumber, ...row }, key) => ({
+						rowNumber: skip + key,
+						...row }));
+					p.setData(data);
+				} else {
+					p.setData(await this.fetchData(p, skip));
+				}
+			}
+		},
+
+		async fetchData(p, skip) {
+			let data;
+			p.setLoading(true);
+			data = await Meteor.callPromise('events.get.data', {
+				filter: p.filter,
+				sort: p.sort,
+				skip,
+			});
+
+			p.setLoading(false);
+			data = _.map(data, ({ createdAt, code, ...row }, key) => ({
+				createdAt: moment(createdAt).format('DD.MM.YYYY'),
+				time: moment(createdAt).format('HH:mm'),
+				code: p.types.code[code],
+				rowNumber: skip + key,
+				...row }));
+			return data;
+		},
+
+	}),
+	branch(p => !p.initialized, renderComponent(Loading)),
 	meteorData((p) => {
 		const filter = getHydrantFindFilter({
 			addDate: true,
@@ -140,70 +210,11 @@ export default compose(
 			nodata: !rawData.length,
 		};
 	}),
-	branch(p => p.loading, renderComponent(Loading)),
-	mapProps(({ rawData, ...p }) => ({
-		data: _.cloneDeep(rawData.map(({ createdAt, status, ...row }, key) => ({
-			createdAt: moment(createdAt).format('DD.MM.YYYY'),
-			status: p.filter.status.type[status],
-			rowNumber: key,
-			...row,
-		}))),
-		activeUnits: _.filter(rawData, ['status', 1]).length,
-		disabledUnits: _.filter(rawData, ['status', 0]).length,
-		totalUnits: rawData.length,
-		...p,
-	})),
-	withProps(p => ({
-		options: {
-			onSortChange: p.setSort,
-			defaultSortName: p.sort.name,
-			defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
-			onFilterChange: p.setFilter,
-		},
-	})),
 )(
 	(p) => {
 		console.log('rendering');
-		const formatter = (cell) => {
-			let style = {};
-			if (cell === p.filter.status.type[0]) {
-				style = { color: '#ff0000' };
-			} else if (cell === p.filter.status.type[1]) {
-				style = { color: '#0000ff' };
-			}
-			return (
-				<span
-					style={style}
-				>
-					{cell}
-				</span>
-			);
-		};
 		const currentDate = moment().format('DD.MM.YYYY');
-
-		const popoverClickRootClose = (
-			<Popover id="popover-trigger-click-root-close" title="סינון">
-				<form>
-					<FormGroup>
-						{_.map(p.filter.status.type, (type, key) => (
-							<Checkbox
-								key={key}
-								checked={_.get(p.filter.status.value, key, false)}
-								onChange={() => p.setFilter({ status: { value: key } })}
-							>
-								{type}
-							</Checkbox>
-						))}
-					</FormGroup>
-				</form>
-			</Popover>
-		);
-
-		const getCustomFilter = () => (
-			<OverlayTrigger trigger="click" rootClose placement="top" overlay={popoverClickRootClose}>
-				<Button>סינון</Button>
-			</OverlayTrigger>
-		);
+		const formatter = cell => (<span>{cell}</span>);
 
 		return (
 			<div className="Hydrants">
@@ -333,8 +344,8 @@ export default compose(
 							}
 						</Box>
 						<Box w={6 / 8}>
-							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.totalUnits} יח&#39;<br />
-							מתוכם: {p.activeUnits} יח&#39; פעילים {p.disabledUnits} יח&#39; מושבתים<br />
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.cntTotalUnits} יח&#39;<br />
+							מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />
 							נכון לתאריך: {currentDate}
 						</Box>
 						<Box w={1 / 8} />
@@ -344,6 +355,22 @@ export default compose(
 		);
 	});
 
+
+// const formatter = (cell) => {
+// 	let style = {};
+// 	if (cell === p.filter.status.type[0]) {
+// 		style = { color: '#ff0000' };
+// 	} else if (cell === p.filter.status.type[1]) {
+// 		style = { color: '#0000ff' };
+// 	}
+// 	return (
+// 		<span
+// 			style={style}
+// 		>
+// 			{cell}
+// 		</span>
+// 	);
+// };
 
 
 {/*<FormGroup>*/}

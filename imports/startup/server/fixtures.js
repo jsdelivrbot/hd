@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import faker from 'faker';
 import seeder from './seeder';
 import Hydrants from '../../server/api/Hydrants/Hydrants';
 import Static from '../../server/api/Utility/Static';
 import Events from '../../server/api/Events/Events';
 import { words, streets, cities } from './local/he';
-import faker from 'faker';
+import SimpleSchema from 'simpl-schema';
+
+const Counts = new Mongo.Collection('Counts');
 
 const rn = n => faker.random.number(n);
 
@@ -23,22 +25,22 @@ const randomHydrant = (ind) => {
 		else sentence2 = temp;
 	}
 	const dt = faker.date.past(1).toISOString();
-	return {
+	return Hydrants.schema.clean({
 		companyId: 1,
 		sim: rn(999999999),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
-		status: rn(1),
+		status: rn(5),
 		updatedAt: dt,
 		createdAt: dt,
-		lastComm: dt,
-		disableDate: dt,
+		lastComm: faker.date.past(1).toISOString(),
+		disableDate: faker.date.past(1).toISOString(),
 		address: `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`,
 		description: sentence1,
 		disableText: sentence2,
 		enabled: faker.random.boolean(),
 		number: ind,
-	};
+	});
 };
 
 const randomEvent = (hydrantId, ind) => {
@@ -56,6 +58,8 @@ export default function initDb() {
 	Static.insert({});
 	Events.remove({});
 	Hydrants.remove({});
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
+	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
 
 	console.log('starting');
 	const first = (new Date()).getTime();
@@ -65,7 +69,7 @@ export default function initDb() {
 	let r;
 
 	a = [];
-	for (let i = 0; i <= 10000; i += 1) {
+	for (let i = 0; i < 10000; i += 1) {
 		a.push(randomHydrant(i));
 	}
 	r = Hydrants.batchInsert(a);
@@ -74,9 +78,9 @@ export default function initDb() {
 	console.log(r.length);
 
 	a = [];
-	for (let i = 0; i <= r.length; i += 1) {
-		for (let j = 0; j <= 10; j += 1) {
-			a.push(randomEvent(r[i], i * 10 + j));
+	for (let i = 0; i < r.length; i += 1) {
+		for (let j = 0; j < 10; j += 1) {
+			a.push(randomEvent(r[i], (i * 10) + j));
 		}
 	}
 	r = Events.batchInsert(a);

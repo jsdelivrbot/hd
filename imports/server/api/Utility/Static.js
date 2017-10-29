@@ -23,6 +23,14 @@ Static.schema = new SimpleSchema({
 		blackbox: true,
 		label: 'strings',
 		defaultValue: {
+			status: {
+				0: 'הכל OK',
+				1: 'בטריה ריקה',
+				2: 'אין תקשורת',
+				3: 'התעללות',
+				4: 'זרימה רגילה',
+				5: 'זרימה הפוכה',
+			},
 			code: {
 				0: 'OK',
 				1: 'בטריה ריקה',
