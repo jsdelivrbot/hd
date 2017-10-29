@@ -26,7 +26,7 @@ import { OverlayTrigger, Popover, Button, FormGroup, Checkbox } from 'react-boot
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../stylesheets/table.scss';
 
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import HydrantsCollection from '../../../server/api/Hydrants/Hydrants';
 import {

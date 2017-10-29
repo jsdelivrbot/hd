@@ -16,7 +16,7 @@ import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import moment from 'moment';
 
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../../components/Slider/Slider';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';

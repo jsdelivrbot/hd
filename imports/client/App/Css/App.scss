@@ -1,0 +1,67 @@
+@import '../../stylesheets/colors';
+
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+#react-root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+.App {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.bck {
+  background: url('blurred.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color:#64c3f7;
+}
+
+.App > .container {
+  margin-bottom: 60px;
+}
+
+.App .verify-email {
+  margin-bottom: 0;
+  padding: 0;
+  border-top: none;
+  border-bottom: 1px solid #e7e7e7;
+  background: #fff;
+  color: $gray-dark;
+  border-radius: 0;
+
+  p {
+    padding: 19px;
+  }
+
+  .btn {
+    padding: 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+//.blur {
+//  -webkit-filter: blur(5px) grayscale(50%);
+//}

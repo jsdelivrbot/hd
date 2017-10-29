@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, renderComponent, branch } from 'recompose';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { meteorData } from '../../Utils/utils';
 import { Button, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Hydrants from '../../../server/api/Hydrants/Hydrants';
-import NotFound from '../../components/NotFound/NotFound';
+import NotFound from '../../LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 
 
 const handleRemove = (hydrantId, history) => {

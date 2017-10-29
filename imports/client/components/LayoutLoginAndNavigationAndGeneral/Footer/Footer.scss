@@ -1,0 +1,65 @@
+@import '../../../stylesheets/mixins';
+@import '../../../stylesheets/colors';
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  //padding-bottom: 200px;
+  //margin-bottom: 200px;
+}
+
+.Footer {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #efefef;
+  text-align: center;
+  position: fixed;
+
+  //bottom: 0;
+  //width: 100%;
+  //background-color: #fff;
+  //border-top: 1px solid $gray-lighter;
+
+  p {
+    //padding: 10px 0;
+    vertical-align: middle;
+    height: 40px;
+    font-size: 25px;
+    text-align: center;
+    color: $gray-light;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    float: left;
+
+    &:first-child {
+      margin-right: 15px;
+    }
+
+    a {
+      color: $gray-light;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+      text-decoration: none;
+      color: $gray;
+    }
+  }
+}
+
+@include breakpoint(tablet) {
+  .Footer ul li:first-child {
+    margin-right: 30px;
+  }
+}
