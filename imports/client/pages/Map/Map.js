@@ -23,7 +23,7 @@ import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClust
 import { Label, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import Loading from '../../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';

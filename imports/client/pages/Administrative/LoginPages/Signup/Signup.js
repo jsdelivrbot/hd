@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
-import InputHint from '../../../../LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/InputHint/InputHint';
-import AccountPageFooter from '../../../../LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
+import InputHint from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/InputHint/InputHint';
+import AccountPageFooter from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
 import validate from '../../../../../modules/validate';
 
 class Signup extends React.Component {

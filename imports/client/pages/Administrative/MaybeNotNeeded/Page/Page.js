@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {ReactiveVar} from 'meteor/reactive-var';
-import PageHeader from '../../../../LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/PageHeader/PageHeader';
-import Content from '../../../../LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/Content/Content';
+import PageHeader from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/PageHeader/PageHeader';
+import Content from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/Content/Content';
 
 import './Page.scss';
 

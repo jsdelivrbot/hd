@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import Hydrants from '../../../server/api/Hydrants/Hydrants';
 import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
-import NotFound from '../../LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
+import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 
 const EditHydrant = ({ doc, history }) => (doc ? (
 	<div className="EditHydrant">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import App from '../../client/App/App';
+import App from '../../client/Main/App/App';
 
 import '../../client/stylesheets/app.scss';
 
