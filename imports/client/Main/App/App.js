@@ -30,6 +30,8 @@ import Profile from '../../pages/Administrative/Profile/Profile';
 import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
 import DownloadApp from '../../pages/DownloadApp/DownloadApp';
+import Companies from '../../pages/Companies/Companies';
+import Users from '../../pages/Users/Users';
 
 
 import './Css/App.scss';
@@ -72,6 +74,8 @@ const App = props => (
 					<Switch>
 						<Authenticated exact path="/" component={Index} {...props} />
 						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
+						<Authenticated exact path="/companies" component={Companies} {...props} />
+						<Authenticated exact path="/users" component={Users} {...props} />
 						<Authenticated exact path="/map" component={Map} {...props} />
 						<Authenticated exact path="/events" component={Events} {...props} />
 						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />

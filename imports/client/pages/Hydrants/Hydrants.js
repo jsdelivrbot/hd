@@ -1,6 +1,5 @@
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Session } from 'meteor/session';
 import {
 	withHandlers,
 	compose,
@@ -187,7 +186,7 @@ export default compose(
 	(p) => {
 		console.log('rendering');
 		const currentDate = moment().format('DD.MM.YYYY');
-		const formatter = cell => (<span onClick={p.setFilter}>{cell}</span>);
+		const formatter = cell => (<span>{cell}</span>);
 
 		return (
 			<div className="hydrants">
@@ -207,7 +206,6 @@ export default compose(
 								defaultSortName: p.sort.name,
 								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
 								onFilterChange: p.setFilterSelectAndSearch,
-								// onRowClick: p.setFilterSelectAndSearch,
 							}}
 							height="600px"
 							striped
