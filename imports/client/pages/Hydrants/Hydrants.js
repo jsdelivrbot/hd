@@ -87,9 +87,13 @@ export default compose(
 				}
 				return setStore({ filter });
 			},
-			setFilterSelectAndSearch: ({ filter }) => (filterObj) => {
+			setFilterSelectAndSearch: ({ filter }) => (filterObj, x, y,z) => {
 				const cc = _.get(reactiveVar.get(), 'companyId', 0) + 1;
 				reactiveVar.set({ companyId: cc });
+				console.log(filterObj);
+				console.log(x);
+				console.log(y);
+				console.log(z);
 				// const createdAt = S.gets(true, ['createdAt', 'value'], filterObj);
 				// filter = Object.assign({}, filter, { createdAt });
 				//
@@ -132,11 +136,6 @@ export default compose(
 			this.props.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
-			console.log('componentWillReceiveProps');
-			console.log('reactiveVar.get("companyId")');
-			console.log(reactiveVar.get('companyId'));
-			console.log('p.companyId');
-			console.log(p.companyId);
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
@@ -188,7 +187,7 @@ export default compose(
 	(p) => {
 		console.log('rendering');
 		const currentDate = moment().format('DD.MM.YYYY');
-		const formatter = cell => (<span>{cell}</span>);
+		const formatter = cell => (<span onClick={p.setFilter}>{cell}</span>);
 
 		return (
 			<div className="hydrants">
@@ -208,6 +207,7 @@ export default compose(
 								defaultSortName: p.sort.name,
 								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
 								onFilterChange: p.setFilterSelectAndSearch,
+								// onRowClick: p.setFilterSelectAndSearch,
 							}}
 							height="600px"
 							striped

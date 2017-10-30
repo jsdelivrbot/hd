@@ -46,20 +46,27 @@ const AuthenticatedNavigation = ({ name, history }) => {
 						</LinkContainer>
 					</Nav>
 					<Nav pullLeft>
-						<NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
-							<LinkContainer to="/profile">
-								<NavItem eventKey={2.1} href="/profile">פרופיל</NavItem>
+						<NavDropdown eventKey={2} title="תפריט" id="user-nav-dropdown">
+							<LinkContainer to="/download_app">
+								<NavItem eventKey={2.1} href="/download_app">להתקנת אפליקציה</NavItem>
 							</LinkContainer>
 							<MenuItem divider />
-							<MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>לצאת</MenuItem>
+							<LinkContainer to="/companies">
+								<NavItem eventKey={2.2} href="/companies">תאגידים</NavItem>
+							</LinkContainer>
 							<MenuItem divider />
-							<MenuItem eventKey={2.2} onClick={() => handleFixture() }>איפוס</MenuItem>
+							<LinkContainer to="/users">
+								<NavItem eventKey={2.3} href="/users">משתמשים</NavItem>
+							</LinkContainer>
+							<MenuItem divider />
+							<LinkContainer to="/profile">
+								<NavItem eventKey={2.4} href="/profile">פרופיל</NavItem>
+							</LinkContainer>
+							<MenuItem divider />
+							<MenuItem eventKey={2.5} onClick={() => history.push('/logout')}>לצאת</MenuItem>
+							<MenuItem divider />
+							<MenuItem eventKey={2.6} onClick={() => handleFixture()}>איפוס</MenuItem>
 						</NavDropdown>
-					</Nav>
-					<Nav pullLeft>
-						<LinkContainer to="/download_app">
-							<NavItem eventKey={1.4} href="/download_app">להתקנת אפליקציה</NavItem>
-						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
@@ -73,6 +80,22 @@ AuthenticatedNavigation.propTypes = {
 };
 
 export default withRouter(AuthenticatedNavigation);
+
+//
+// <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
+// 	<LinkContainer to="/profile">
+// 		<NavItem eventKey={2.1} href="/profile">פרופיל</NavItem>
+// 	</LinkContainer>
+// 	<MenuItem divider />
+// 	<MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>לצאת</MenuItem>
+// 	<MenuItem divider />
+// 	<MenuItem eventKey={2.2} onClick={() => handleFixture() }>איפוס</MenuItem>
+// </NavDropdown>
+
+
+
+
+
 
 //
 // <section id="sc1">
