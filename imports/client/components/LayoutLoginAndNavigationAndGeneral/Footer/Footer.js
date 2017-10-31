@@ -1,19 +1,39 @@
+
 import React from 'react';
-import { Grid } from 'react-bootstrap';
+import { withTracker } from 'meteor/react-meteor-data';
+import {
+	withHandlers,
+	compose,
+	withStateHandlers,
+	lifecycle,
+} from 'recompose';
 
 import './Footer.scss';
 
-const Footer = () => (
-	<footer className="Footer">
-		<p>
-			תאגיד עין אפק
-		</p>
-	</footer>
-);
+import {
+	reactiveVar,
+} from '../../../Storage/Storage';
 
-Footer.propTypes = {};
+export default compose(
+	withTracker(() => {
+		console.log('tracker footer');
+		return {
+			company: reactiveVar.get().company || { key: 1, number: 1, name: 'תאגיד עין אפק 1' }
+		};
+	}),
+)(
+	(p) => {
+		console.log('rendering');
 
-export default Footer;
+		return (
+			<footer className="Footer">
+				<p>
+					{p.company.name}
+				</p>
+			</footer>
+		);
+	});
+
 // //
 // <p>תאגיד עין אפק</p>
 //

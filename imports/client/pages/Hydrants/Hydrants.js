@@ -86,31 +86,28 @@ export default compose(
 				}
 				return setStore({ filter });
 			},
-			setFilterSelectAndSearch: ({ filter }) => (filterObj, x, y,z) => {
-				const cc = _.get(reactiveVar.get(), 'companyId', 0) + 1;
-				reactiveVar.set({ companyId: cc });
+			setFilterSelectAndSearch: ({ filter }) => (filterObj) => {
 				console.log(filterObj);
-				console.log(x);
-				console.log(y);
-				console.log(z);
 				// const createdAt = S.gets(true, ['createdAt', 'value'], filterObj);
-				// filter = Object.assign({}, filter, { createdAt });
-				//
-				// const address = _.get(filterObj, 'address.value');
-				// const description = _.get(filterObj, 'description.value');
-				// const number = _.get(filterObj, 'number.value');
-				//
-				//
-				// nextFilter.createdAt.value = createdAt;
-				// nextFilter.address.value = address;
-				// nextFilter.description.value = description;
-				// nextFilter.number.value = number;
-				//
-				// return setStore({ filter });
+
+				const createdAt = _.get(filterObj, 'createdAt.value');
+				const address = _.get(filterObj, 'address.value');
+				const description = _.get(filterObj, 'description.value');
+				const number = _.get(filterObj, 'number.value');
+
+
+				if (createdAt) filter = Object.assign({}, filter, { createdAt });
+				if (address) filter = Object.assign({}, filter, { address });
+				if (description) filter = Object.assign({}, filter, { description });
+				if (number) filter = Object.assign({}, filter, { number });
+
+				return setStore({ filter });
 			},
 		}
 	),
+
 	withHandlers({
+		select: p => row => p.history.push(`${p.match.url}/${row._id}`),
 		sliderInc: ({ slider, setSlider }) => () => {
 			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
 		},
@@ -120,19 +117,21 @@ export default compose(
 	}),
 	lifecycle({
 		async componentDidMount() {
+			const p = this.props;
 			console.log('initializing');
 			this.storeEmpty = false;
 			if (!getStore()) {
-				this.props.setLoading(true);
-				const { types, cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
-				this.props.setLoading(false);
-				this.props.setTypes(types);
-				this.props.setCntTotalUnits(cntTotalUnits);
-				this.props.setCntEnabledUnits(cntEnabledUnits);
-				this.props.setCntDisabledUnits(cntDisabledUnits);
+				p.setLoading(true);
+				const types = await Meteor.callPromise('get.types');
+				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
+				p.setLoading(false);
+				p.setTypes(types);
+				p.setCntTotalUnits(cntTotalUnits);
+				p.setCntEnabledUnits(cntEnabledUnits);
+				p.setCntDisabledUnits(cntDisabledUnits);
 				this.storeEmpty = true;
 			}
-			this.props.setInitialized(true);
+			p.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
@@ -206,6 +205,7 @@ export default compose(
 								defaultSortName: p.sort.name,
 								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
 								onFilterChange: p.setFilterSelectAndSearch,
+								onRowClick: p.select,
 							}}
 							height="600px"
 							striped

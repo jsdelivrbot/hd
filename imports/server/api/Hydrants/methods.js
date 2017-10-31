@@ -78,6 +78,7 @@ Meteor.methods({
 
 Meteor.methods({
 	'map.get.init': function mapGetInit() {
+		console.log('init map');
 		const array = Hydrants.aggregate([
 			{ $group: {
 				_id: null,

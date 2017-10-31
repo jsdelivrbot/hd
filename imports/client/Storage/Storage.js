@@ -158,10 +158,17 @@ export { getStore, setStore, reactiveVar };
 // 	},
 // }),
 
-// selectRow={p.selectRowProp}
+// selectRow={
+// 	mode: 'checkbox',
+// 	clickToSelect: true,
+// 	bgColor: 'green',
+// }
 // onSelect: p.setSelected,
 // onSelectAll: p.setAllSelected,
 // selected: resetSelected(getSelectedHydrants().filter(id => p.data.find(row => row._id === id))),
+// options={{
+// 	onRowClick: p.click,
+// }}
 
 
 // export function getSelectedHydrants() {

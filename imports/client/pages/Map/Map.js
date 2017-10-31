@@ -29,12 +29,12 @@ import { difProps } from '../../Utils/Utils';
 import './Css/Map.scss';
 
 import {
-	getStore as getStoreHydrantsPage,
-	setStore as setStoreHydrantsPage,
+	getStore as getStoreMapPage,
+	setStore as setStoreMapPage,
 } from '../../Storage/Storage';
 
-const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
-const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
+const getStore = keys => getStoreMapPage('mapPage', keys);
+const setStore = obj => setStoreMapPage('mapPage', obj);
 
 const Map = compose(
 	withStateHandlers(
