@@ -74,6 +74,13 @@ Meteor.methods({
 				description: 1,
 			} }], { allowDiskUse: true });
 	},
+	'hydrants.get.data.one': function getHydrantsH(p) {
+		check(p, Object);
+		const { filter } = p;
+		console.log('filter');
+		console.log(filter);
+		return Hydrants.findOne({ _id: filter._id });
+	},
 });
 
 Meteor.methods({

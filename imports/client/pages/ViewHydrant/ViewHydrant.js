@@ -32,13 +32,11 @@ const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 export default compose(
 	withStateHandlers(
 		({ match }) => ({
-			types: getStore('types') || {},
 			data: [],
 			loading: false,
 			initialized: false,
 			filter: { _id: match.params._id },
 		}), {
-			setTypes: () => types => setStore({ types }),
 			setLoading: () => loading => setStore({ loading }),
 			setData: () => data => setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -49,12 +47,13 @@ export default compose(
 			const p = this.props;
 			console.log('initializing');
 			p.setLoading(true);
-			const types = await Meteor.callPromise('get.types');
-			p.setTypes(types);
-			const data = await Meteor.callPromise('hydrants.get.data', { filter: p.filter });
-			data[0].createdAt = moment(data[0].createdAt).format('DD.MM.YYYY');
-			data[0].status = p.types.status[data[0].status];
-			p.setData(data);
+			const types = getStore('types') || await Meteor.callPromise('get.types');
+			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: p.filter });
+			console.log('data');
+			console.log(data);
+			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
+			data.status = types.status[data.status];
+			p.setData([data]);
 			p.setLoading(false);
 			this.props.setInitialized(true);
 		},
@@ -74,6 +73,7 @@ export default compose(
 					data={p.data}
 				>
 					<TableHeaderColumn
+						isKey
 						dataFormat={formatter}
 						width="125px"
 						dataField="number"
@@ -121,7 +121,7 @@ export default compose(
 				<div>
 					<Button
 						bsStyle="primary"
-						onClick={() => history.push(`${p.match.url}/edit`)}
+						onClick={() => p.history.push(`${p.match.url}/edit`)}
 						block
 					>
 						ערוך
