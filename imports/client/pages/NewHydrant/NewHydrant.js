@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
 
 const NewHydrant = ({ history }) => (
@@ -8,9 +7,4 @@ const NewHydrant = ({ history }) => (
 		<HydrantEditor history={history} />
 	</div>
 );
-
-NewHydrant.propTypes = {
-	history: PropTypes.object.isRequired,
-};
-
 export default NewHydrant;

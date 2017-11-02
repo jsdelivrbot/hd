@@ -1,4 +1,3 @@
-/* eslint-disable max-len, no-return-assign */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -11,60 +10,19 @@ import validate from '../../../modules/validate';
 class HydrantEditor extends React.Component {
 	componentDidMount() {
 		const component = this;
-		validate(component.form, {
+		validate(this.form, {
 			rules: {
-				sim: {
-					required: true,
-					maxlength: 24,
-				},
-				lat: {
-					required: false,
-				},
-				lon: {
-					required: false,
-				},
-				status: {
-					required: false,
-				},
-				lastComm: {
-					required: false,
-				},
-				disableDate: {
-					required: false,
-				},
-				disableText: {
-					maxlength: 250,
-					required: false,
-				},
-				address: {
-					required: false,
-					maxlength: 50,
-				},
-				description: {
-					required: false,
-					maxlength: 50,
-				},
-				enabled: {
-					required: false,
-				},
+				sim: { required: true, maxlength: 24 },
+				disableText: { maxlength: 250 },
+				address: { maxlength: 50 },
+				description: { maxlength: 50 },
 			},
 			messages: {
-				number: {
-					maxlength: 'אורך מקסימלי 8',
-				},
-				sim: {
-					required: 'נא לציין מספר סים',
-					maxlength: 'אורך מקסימלי 24',
-				},
-				disableText: {
-					maxlength: 'אורך מקסימלי 250',
-				},
-				address: {
-					maxlength: 'אורך מקסימלי 50',
-				},
-				description: {
-					maxlength: 'אורך מקסימלי 50',
-				},
+				number: { maxlength: 'אורך מקסימלי 8' },
+				sim: { required: 'נא לציין מספר סים', maxlength: 'אורך מקסימלי 24' },
+				disableText: { maxlength: 'אורך מקסימלי 250'},
+				address: { maxlength: 'אורך מקסימלי 50' },
+				description: { maxlength: 'אורך מקסימלי 50' },
 			},
 			submitHandler() {
 				component.handleSubmit();
@@ -74,9 +32,9 @@ class HydrantEditor extends React.Component {
 
 	handleSubmit() {
 		const { history } = this.props;
-		const existingHydrant = this.props.doc && this.props.doc._id;
+		const existingHydrant = this.props.data && this.props.data._id;
 		const methodToCall = existingHydrant ? 'hydrants.update' : 'hydrants.insert';
-		const doc = {
+		const data = {
 			sim: this.sim.value,
 			lat: this.lat.value,
 			lon: this.lon.value,
@@ -88,12 +46,11 @@ class HydrantEditor extends React.Component {
 			description: this.description.value,
 			enabled: this.enabled.checked,
 		};
-		// console.log(`isenabled: ${this.enabled.checked}`);
 
-		if (existingHydrant) doc._id = existingHydrant;
+		if (existingHydrant) data._id = existingHydrant;
 		console.log('inserting');
 
-		Meteor.call(methodToCall, doc, (error, hydrantId) => {
+		Meteor.call(methodToCall, data, (error, hydrantId) => {
 			console.log('here');
 			if (error) {
 				console.log('here');
@@ -103,13 +60,13 @@ class HydrantEditor extends React.Component {
 				const confirmation = existingHydrant ? '&emsp; התעדכן הידרנט! ' : '&emsp; נוסף הידרנט! ';
 				this.form.reset();
 				Bert.alert(confirmation, 'success', 'growl-top-left');
-				history.push('/hydrants');
+				history.push(`/hydrants/${hydrantId}`);
 			}
 		});
 	}
 
 	render() {
-		const { doc } = this.props;
+		const { data } = this.props;
 		return (
 			<Flex align="center">
 				<Box w={1 / 5}>
@@ -121,7 +78,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="companyId"
 								ref={companyId => (this.companyId = companyId)}
-								defaultValue={doc && doc.companyId}
+								defaultValue={data && data.companyId}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -132,7 +89,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="sim"
 								ref={sim => (this.sim = sim)}
-								defaultValue={doc && doc.sim}
+								defaultValue={data && data.sim}
 								placeholder="חובה"
 							/>
 						</FormGroup>
@@ -143,7 +100,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="lat"
 								ref={lat => (this.lat = lat)}
-								defaultValue={doc && doc.lat}
+								defaultValue={data && data.lat}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -154,7 +111,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="lon"
 								ref={lon => (this.lon = lon)}
-								defaultValue={doc && doc.lon}
+								defaultValue={data && data.lon}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -165,7 +122,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="status"
 								ref={status => (this.status = status)}
-								defaultValue={doc && doc.status}
+								defaultValue={data && data.status}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -176,7 +133,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="lastComm"
 								ref={lastComm => (this.lastComm = lastComm)}
-								defaultValue={doc && doc.lastComm}
+								defaultValue={data && data.lastComm}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -187,7 +144,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="disableDate"
 								ref={disableDate => (this.disableDate = disableDate)}
-								defaultValue={doc && doc.disableDate}
+								defaultValue={data && data.disableDate}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -198,7 +155,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="disableText"
 								ref={disableText => (this.disableText = disableText)}
-								defaultValue={doc && doc.disableText}
+								defaultValue={data && data.disableText}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -209,7 +166,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="address"
 								ref={address => (this.address = address)}
-								defaultValue={doc && doc.address}
+								defaultValue={data && data.address}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -220,7 +177,7 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="description"
 								ref={description => (this.description = description)}
-								defaultValue={doc && doc.description}
+								defaultValue={data && data.description}
 								placeholder=""
 							/>
 						</FormGroup>
@@ -231,11 +188,11 @@ class HydrantEditor extends React.Component {
 								className="form-control"
 								name="enabled"
 								ref={enabled => (this.enabled = enabled)}
-								defaultChecked={(doc && doc.enabled) ? 'checked' : ''}
+								defaultChecked={(data && data.enabled) ? 'checked' : ''}
 							/>
 						</FormGroup>
 						<Button type="submit" bsStyle="success">
-							{doc && doc._id ? 'לשמור שינויים' : 'להוסיף הידרנט'}
+							{data && data._id ? 'לשמור שינויים' : 'להוסיף הידרנט'}
 						</Button>
 					</form>
 				</Box>
@@ -247,12 +204,24 @@ class HydrantEditor extends React.Component {
 }
 
 HydrantEditor.defaultProps = {
-	doc: { },
+	data: { },
 };
 
 HydrantEditor.propTypes = {
-	doc: PropTypes.object,
+	data: PropTypes.object,
 	history: PropTypes.object.isRequired,
 };
 
 export default HydrantEditor;
+
+//
+// sim: { required: true, maxlength: 24 },
+// // lat: { required: false },
+// // lon: { required: false },
+// // status: { required: false },
+// // lastComm: { required: false },
+// // disableDate: { required: false },
+// disableText: {  required: false, maxlength: 250 },
+// address: { required: false, maxlength: 50 },
+// description: { required: false, maxlength: 50 },
+// // enabled: { required: false },

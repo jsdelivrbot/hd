@@ -1,3 +1,5 @@
+
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -46,7 +48,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		() => ({
-			types: getStore('types') || {},
+			types: undefined,
 			data: getStore('data') || [],
 			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
@@ -122,7 +124,8 @@ export default compose(
 			this.storeEmpty = false;
 			if (!getStore()) {
 				p.setLoading(true);
-				const types = await Meteor.callPromise('get.types');
+				let types = getStore('types');
+				if (!types) types = await Meteor.callPromise('get.types');
 				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
 				p.setLoading(false);
 				p.setTypes(types);

@@ -39,7 +39,6 @@ Meteor.methods({
 		const cntEnabledUnits = _.get(arrayEnabled, '[0].count', 0);
 		const cntDisabledUnits = _.get(arrayDisabled, '[0].count', 0);
 		return {
-			types: Static.findOne({}).types,
 			cntEnabledUnits,
 			cntDisabledUnits,
 			cntTotalUnits: cntEnabledUnits + cntDisabledUnits,

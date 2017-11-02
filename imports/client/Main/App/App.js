@@ -33,7 +33,6 @@ import DownloadApp from '../../pages/DownloadApp/DownloadApp';
 import Companies from '../../pages/Companies/Companies';
 import Users from '../../pages/Users/Users';
 
-
 import './Css/App.scss';
 
 const handleResendVerificationEmail = (emailAddress) => {
@@ -45,7 +44,6 @@ const handleResendVerificationEmail = (emailAddress) => {
 		}
 	});
 };
-
 
 const App = props => (
 	<Router>

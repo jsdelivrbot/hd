@@ -1,3 +1,5 @@
+
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -31,14 +33,15 @@ const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
 	withStateHandlers(
-		({ match }) => ({
+		() => ({
+			types: undefined,
 			data: [],
 			loading: false,
 			initialized: false,
-			filter: { _id: match.params._id },
 		}), {
-			setLoading: () => loading => setStore({ loading }),
-			setData: () => data => setStore({ data }),
+			setTypes: () => types => setStore({ types }),
+			setLoading: () => loading => ({ loading }),
+			setData: () => data => ({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
 	),
@@ -47,15 +50,15 @@ export default compose(
 			const p = this.props;
 			console.log('initializing');
 			p.setLoading(true);
-			const types = getStore('types') || await Meteor.callPromise('get.types');
-			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: p.filter });
-			console.log('data');
-			console.log(data);
+			let types = getStore('types');
+			if (!types) types = await Meteor.callPromise('get.types');
+			p.setTypes(types);
+			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.match.params._id } });
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = types.status[data.status];
 			p.setData([data]);
 			p.setLoading(false);
-			this.props.setInitialized(true);
+			p.setInitialized(true);
 		},
 
 	}),

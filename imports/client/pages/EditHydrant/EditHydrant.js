@@ -1,34 +1,60 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import Hydrants from '../../../server/api/Hydrants/Hydrants';
+import {
+	withHandlers,
+	compose,
+	renderComponent,
+	branch,
+	withStateHandlers,
+	lifecycle,
+} from 'recompose';
+
+import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
-import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 
-const EditHydrant = ({ doc, history }) => (doc ? (
-	<div className="EditHydrant">
-		<h4 className="page-header">{` עריכת הידרנט מספר ${doc.number} `}</h4>
-		<HydrantEditor doc={doc} history={history} />
-	</div>
-) : <NotFound />);
+import {
+	getStore as getStoreHydrantsPage,
+	setStore as setStoreHydrantsPage,
+} from '../../Storage/Storage';
 
-EditHydrant.defaultProps =
-	{
-		doc: null,
-	};
+const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
+const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
-EditHydrant.propTypes = {
-	doc: PropTypes.object,
-	history: PropTypes.object.isRequired,
-};
+export default compose(
+	withStateHandlers(
+		() => ({
+			data: undefined,
+			loading: false,
+			initialized: false,
+		}), {
+			setLoading: () => loading => ({ loading }),
+			setData: () => data => ({ data }),
+			setInitialized: () => initialized => ({ initialized }),
+		}
+	),
+	lifecycle({
+		async componentDidMount() {
+			const p = this.props;
+			console.log('initializing');
 
-export default createContainer(({ match }) => {
-	const hydrantId = match.params._id;
-	const subscription = Meteor.subscribe('hydrants.view', hydrantId);
+			p.setLoading(true);
+			let types = getStore('types');
+			if (!types) types = setStore('types', await Meteor.callPromise('get.types'));
+			const id = p.match.params._id;
+			if (id) p.setData(await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: id } }));
+			p.setLoading(false);
 
-	return {
-		loading: !subscription.ready(),
-		doc: Hydrants.findOne(hydrantId),
-	};
-}, EditHydrant);
+			p.setInitialized(true);
+		},
+	}),
+	branch(p => !p.initialized, renderComponent(Loading)),
+)(
+	(p) => {
+		console.log('rendering');
+		return (
+			<div className="EditHydrant">
+				<h4 className="page-header">{` עריכת הידרנט מספר ${p.data.number} `}</h4>
+				<HydrantEditor {...p} />
+			</div>
+		);
+	});
