@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import Hydrants from './Hydrants';
 import rateLimit from '../../../modules/server/rate-limit';
-import Static from '../Utility/Static';
 
 function buildFilter(fromfilter) {
 	const filter = {};
@@ -95,13 +94,13 @@ Meteor.methods({
 	},
 	'map.get.data': function mapGetData(p) {
 		check(p, Object);
-		const { bounds } = p;
+		const { bounds, hydrantId } = p;
 		console.log('getting map in bounds');
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: { $and: [{ lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
-			{ $limit: 100 },
+			{ $match: { $and: [{ _id: { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
+			{ $limit: 5 },
 			{ $project: {
 				lat: 1,
 				lon: 1,

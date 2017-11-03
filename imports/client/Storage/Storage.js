@@ -10,10 +10,22 @@ function getStore(field, keys) {
 	if (result && keys) {
 		result = result[keys];
 	}
+	// console.log('-----getStore');
+	// console.log('field');
+	// console.log(field);
+	// console.log('keys');
+	// console.log(keys);
+	// console.log('result');
+	// console.log(result);
 	return result;
 }
 function setStore(field, obj) {
 	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
+	// console.log('-----setStore');
+	// console.log('field');
+	// console.log(field);
+	// console.log('obj');
+	// console.log(obj);
 	return obj;
 }
 

@@ -16,53 +16,54 @@ import { Segment } from 'semantic-ui-react';
 import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
-import Slider from '../../components/Slider/Slider';
-import MultiSelect from '../../components/MultiSelect/MultiSelect';
+import Slider from '../Slider/Slider';
+import MultiSelect from '../MultiSelect/MultiSelect';
 import {
-	getStore as getStoreEventsPage,
-	setStore as setStoreEventsPage,
+	getStore,
+	setStore,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
 
-const getStore = keys => getStoreEventsPage('eventsPage', keys);
-const setStore = obj => setStoreEventsPage('eventsPage', obj);
-
 export default compose(
+	withHandlers({
+		getStore: p => keys => getStore(`events_${p.id}`, keys),
+		setStore: p => obj => setStore(`events_${p.id}`, obj),
+	}),
 	withStateHandlers(
-		() => ({
-			types: getStore('types') || {},
-			data: getStore('data') || [],
-			cntAbusedUnits: getStore('cntAbusedUnits') || 0,
+		p => ({
+			types: p.getStore('types') || {},
+			data: p.getStore('data') || [],
+			cntAbusedUnits: p.getStore('cntAbusedUnits') || 0,
 			loading: false,
 			initialized: false,
-			sort: getStore('sort') || { name: 'createdAt', order: 1 },
-			filter: getStore('filter') || { code: {} },
-			slider: getStore('slider') || { max: 0, value: 0 },
+			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
+			filter: p.getStore('filter') || { code: {}, hydrantId: p.id },
+			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
-			setLoading: () => loading => setStore({ loading }),
-			setTypes: () => types => setStore({ types }),
-			setCntAbusedUnits: () => cntAbusedUnits => setStore({ cntAbusedUnits }),
-			setData: () => data => setStore({ data }),
+			setLoading: ({}, p) => loading => p.setStore({ loading }),
+			setTypes: ({}, p) => types => p.setStore({ types }),
+			setCntAbusedUnits: ({}, p) => cntAbusedUnits => p.setStore({ cntAbusedUnits }),
+			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
-			setSlider: ({ slider }) => (obj) => {
-				if (obj.value !== undefined && obj.value < 12) obj.value = 12;
+			setSlider: ({ slider }, p) => (obj) => {
+				if (obj.value !== undefined && obj.max >= 12 && obj.value < 12) obj.value = 12;
 				slider = Object.assign({}, slider, obj);
-				return setStore({ slider });
+				return p.setStore({ slider });
 			},
-			setSort: ({ sort }) => (name, order) => {
+			setSort: ({ sort }, p) => (name, order) => {
 				sort = { name, order: (order === 'asc') ? 1 : -1 };
-				return setStore({ sort });
+				return p.setStore({ sort });
 			},
-			setFilterSelect: ({ filter }) => (filterObj) => {
+			setFilterSelect: ({ filter }, p) => (filterObj) => {
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				filter = Object.assign({}, filter, { createdAt });
-				return setStore({ filter });
+				return p.setStore({ filter });
 			},
-			setFilterMultiSelect: ({ filter }) => (filterObj) => {
+			setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
 				const index = filterObj.code;
 				if (index) {
 					const codes = filter.code;
@@ -73,7 +74,7 @@ export default compose(
 					}
 					filter = Object.assign({}, filter, { code: codes });
 				}
-				return setStore({ filter });
+				return p.setStore({ filter });
 			},
 		}
 	),
@@ -88,13 +89,14 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			console.log('initializing');
+			const p = this.props;
 			this.storeEmpty = false;
-			if (!getStore()) {
+			if (!p.getStore()) {
 				this.props.setLoading(true);
 				const { types, cntAbusedUnits } = await Meteor.callPromise('events.get.init');
-				this.props.setLoading(false);
-				this.props.setTypes(types);
-				this.props.setCntAbusedUnits(cntAbusedUnits);
+				p.setLoading(false);
+				p.setTypes(types);
+				p.setCntAbusedUnits(cntAbusedUnits);
 				this.storeEmpty = true;
 			}
 			this.props.setInitialized(true);
@@ -106,6 +108,7 @@ export default compose(
 			if (filter || this.storeEmpty) {
 				this.storeEmpty = false;
 				p.setLoading(true);
+				console.log('getting lenquery');
 				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });
 				p.setLoading(false);
 				p.setSlider({ max: lenQuery, value: lenQuery });
@@ -133,7 +136,7 @@ export default compose(
 			data = await Meteor.callPromise('events.get.data', {
 				filter: p.filter,
 				sort: p.sort,
-				skip,
+				skip
 			});
 
 			p.setLoading(false);
@@ -222,10 +225,12 @@ export default compose(
 						</BootstrapTable>
 					</Box>
 				</Flex>
-				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-					סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAbusedUnits} <br />
-					נכון לתאריך: {currentDate}
-				</Segment>
+				{!p.id ?
+					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
+						סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAbusedUnits} <br />
+						נכון לתאריך: {currentDate}
+					</Segment>
+					: ''}
 			</div>
 		);
 	});

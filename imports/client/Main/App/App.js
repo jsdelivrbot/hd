@@ -14,8 +14,8 @@ import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navi
 import Authenticated from '../../components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated';
 import Public from '../../components/LayoutLoginAndNavigationAndGeneral/Public/Public';
 import Index from '../Index/Index';
-import Map from '../../pages/Map/Map';
-import Events from '../../pages/Events/Events';
+import Map from '../../components/Map/Map';
+import Events from '../../components/Events/Events';
 import Hydrants from '../../pages/Hydrants/Hydrants';
 import NewHydrant from '../../pages/NewHydrant/NewHydrant';
 import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';

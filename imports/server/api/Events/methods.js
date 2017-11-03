@@ -3,23 +3,29 @@ import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Events from './Events';
+import Hydrants from '../Hydrants/Hydrants';
 import Static from '../Utility/Static';
 import rateLimit from '../../../modules/server/rate-limit';
 
-function buildFilter(fromfilter) {
+function buildFilter(fromFilter) {
 	const filter = {};
 	console.log('events uploading');
 
 	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-	filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
+	filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toISOString() };
 
-	if (!_.isEmpty(fromfilter.code)) {
-		filter.code = { $in: _.keys(fromfilter.code).map(k => _.toNumber(k)) };
+	if (!_.isEmpty(fromFilter.code)) {
+		filter.code = { $in: _.keys(fromFilter.code).map(k => _.toNumber(k)) };
 	}
 
+	if (fromFilter.hydrantId) {
+	// 	const h = Hydrants.findOne({ _id: fromfilter.hydrantId });
+		filter.hydrantId = fromFilter.hydrantId;
+	}
+	console.log('filter');
+	console.log(filter);
 	return filter;
 }
-
 
 Meteor.methods({
 	'events.get.init': function getEventsH() {
@@ -70,7 +76,8 @@ Meteor.methods({
 				edata: 1,
 				hydrantNumber: '$h.number',
 				description: '$h.description',
-			} }], { allowDiskUse: true });
+			} }
+		], { allowDiskUse: true });
 	},
 });
 

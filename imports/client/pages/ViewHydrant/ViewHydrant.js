@@ -21,6 +21,8 @@ import '../../stylesheets/table.scss';
 import './Css/ViewHydrant.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Map from '../../components/Map/Map';
+import Events from '../../components/Events/Events';
 
 import {
 	getStore as getStoreHydrantsPage,
@@ -33,7 +35,8 @@ const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
 	withStateHandlers(
-		() => ({
+		p => ({
+			id: p.match.params._id,
 			types: undefined,
 			data: [],
 			loading: false,
@@ -53,7 +56,7 @@ export default compose(
 			let types = getStore('types');
 			if (!types) types = await Meteor.callPromise('get.types');
 			p.setTypes(types);
-			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.match.params._id } });
+			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.id } });
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = types.status[data.status];
 			p.setData([data]);
@@ -130,6 +133,8 @@ export default compose(
 						ערוך
 					</Button>
 				</div>
+				<Events id={p.id} />
+				<Map id={p.id} />
 			</div>
 		);
 	});

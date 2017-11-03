@@ -23,37 +23,38 @@ import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClust
 import { Label, Segment } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
 import {
-	getStore as getStoreMapPage,
-	setStore as setStoreMapPage,
+	getStore,
+	setStore,
 } from '../../Storage/Storage';
 
-const getStore = keys => getStoreMapPage('mapPage', keys);
-const setStore = obj => setStoreMapPage('mapPage', obj);
-
-const Map = compose(
+export default compose(
+	withHandlers({
+		getStore: p => keys => getStore(`map_${p.id}`, keys),
+		setStore: p => obj => setStore(`map_${p.id}`, obj),
+	}),
 	withStateHandlers(
-		() => ({
-			zoom: getStore('zoom') || 13,
-			data: getStore('data') || [],
+		p => ({
+			zoom: p.getStore('zoom') || 13,
+			data: p.getStore('data') || [],
 			loading: false,
 			initialized: false,
 			dataInitialized: false,
-			countTotalUnits: getStore('countTotalUnits') || 0,
+			countTotalUnits: p.getStore('countTotalUnits') || 0,
 			mapRef: undefined,
 			bounds: {},
 		}), {
 			setMapRef: () => mapRef => ({ mapRef }),
-			setZoom: ({ mapRef }) => () => setStore({ zoom: mapRef.getZoom() }),
-			setCountActiveUnits: () => countTotalUnits => setStore({ countTotalUnits }),
-			setBounds: ({ mapRef }) => () => setStore({ bounds: mapRef.getBounds().toJSON() }),
-			setLoading: () => loading => setStore({ loading }),
-			setData: () => data => setStore({ data }),
+			setZoom: ({ mapRef }, p) => () => p.setStore({ zoom: mapRef.getZoom() }),
+			setCountActiveUnits: ({}, p) => countTotalUnits => p.setStore({ countTotalUnits }),
+			setBounds: ({ mapRef }, p) => () => p.setStore({ bounds: mapRef.getBounds().toJSON() }),
+			setLoading: ({}, p) => loading => p.setStore({ loading }),
+			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setDataInitialized: () => dataInitialized => ({ dataInitialized }),
 		}
@@ -72,7 +73,7 @@ const Map = compose(
 			const p = this.props;
 			console.log('initializing data');
 			this.storeEmpty = false;
-			if (!getStore()) {
+			if (!p.getStore()) {
 				p.setLoading(true);
 				p.setCountActiveUnits(await Meteor.callPromise('map.get.init'));
 				p.setLoading(false);
@@ -90,7 +91,7 @@ const Map = compose(
 				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
-				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds }));
+				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds, hydrantId: p.id }));
 				console.log('received data');
 				p.setLoading(false);
 			}
@@ -114,12 +115,6 @@ const Map = compose(
 		}),
 	}),
 )(
-	// minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
-	// saving issue, check events
-	// use cursor -> find, use index, large datasets
-	// show loading
-	// zoom/pan  while downloading previous one and smooth zoom
-	// various limits, testing on cloud
 	(p) => {
 		console.log('rendering');
 		console.log(p.data);
@@ -172,13 +167,20 @@ const Map = compose(
 						})}
 					</MarkerClusterer>
 				</GoogleMap>
-				<Segment raised textAlign="center" size="big">
-					סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
-					נכון לתאריך: {currentDate}
-				</Segment>
+				{!p.id ?
+					<Segment raised textAlign="center" size="big">
+						סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
+						נכון לתאריך: {currentDate}
+					</Segment>
+					: ''}
 			</div>
 		);
 	}
 );
 
-export default Map;
+// minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
+// saving issue, check events
+// use cursor -> find, use index, large datasets
+// show loading
+// zoom/pan  while downloading previous one and smooth zoom
+// various limits, testing on cloud

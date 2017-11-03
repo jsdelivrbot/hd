@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/imports/client/pages/Events/Css/Events.scss" afterPath="$PROJECT_DIR$/imports/client/components/Events/Css/Events.scss" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/imports/client/pages/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/imports/client/pages/Map/Css/Map.scss" afterPath="$PROJECT_DIR$/imports/client/components/Map/Css/Map.scss" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/imports/client/pages/Map/Map.js" afterPath="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Main/App/App.js" afterPath="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" afterPath="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Events/methods.js" afterPath="$PROJECT_DIR$/imports/server/api/Events/methods.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Hydrants/methods.js" afterPath="$PROJECT_DIR$/imports/server/api/Hydrants/methods.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -26,8 +29,8 @@
       <file leaf-file-name="Hydrants.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="110" column="18" lean-forward="false" selection-start-line="110" selection-start-column="18" selection-end-line="110" selection-end-column="18" />
+            <state relative-caret-position="617">
+              <caret line="195" column="21" lean-forward="true" selection-start-line="195" selection-start-column="21" selection-end-line="195" selection-end-column="21" />
               <folding>
                 <marker date="1509465630530" expanded="true" signature="3110:3724" ph="..." />
               </folding>
@@ -35,83 +38,107 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1560">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding>
-                <marker date="1509446264289" expanded="true" signature="2744:4948" ph="..." />
-                <marker date="1509446264289" expanded="true" signature="2755:4938" ph="..." />
-                <marker date="1509446264289" expanded="true" signature="2801:4914" ph="..." />
-                <marker date="1509446264289" expanded="true" signature="3195:3234" ph="..." />
-                <marker date="1509446264289" expanded="true" signature="3398:3441" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="methods.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Hydrants/methods.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Companies.js" pinned="true" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Companies.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2820">
-              <caret line="94" column="45" lean-forward="false" selection-start-line="94" selection-start-column="45" selection-end-line="94" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="App.js" pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3720">
-              <caret line="124" column="26" lean-forward="false" selection-start-line="124" selection-start-column="21" selection-end-line="124" selection-end-column="26" />
+            <state relative-caret-position="240">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding>
-                <marker date="1509462694378" expanded="true" signature="2603:2946" ph="..." />
-                <marker date="1509462694378" expanded="true" signature="2613:2932" ph="..." />
-                <marker date="1509462694378" expanded="true" signature="2752:2794" ph="..." />
-                <marker date="1509462694378" expanded="true" signature="3003:4411" ph="..." />
+                <marker date="1509653144413" expanded="true" signature="2613:2956" ph="..." />
+                <marker date="1509653144413" expanded="true" signature="2623:2942" ph="..." />
+                <marker date="1509653144413" expanded="true" signature="2762:2804" ph="..." />
+                <marker date="1509653144413" expanded="true" signature="3013:4421" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Hydrants/methods.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="523">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Events.js" pinned="true" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6180">
-              <caret line="206" column="24" lean-forward="false" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="24" />
+            <state relative-caret-position="225">
+              <caret line="110" column="48" lean-forward="false" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Slider.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/Slider/Slider.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-256">
+              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Events/methods.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Map.js" pinned="true" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="36" column="35" lean-forward="false" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+            <state relative-caret-position="1508">
+              <caret line="93" column="102" lean-forward="true" selection-start-line="93" selection-start-column="98" selection-end-line="93" selection-end-column="102" />
               <folding>
-                <marker date="1509366489572" expanded="true" signature="3819:5236" ph="..." />
-                <marker date="1509366489572" expanded="true" signature="3835:5051" ph="..." />
-                <marker date="1509366489572" expanded="true" signature="4064:5034" ph="..." />
-                <marker date="1509366489572" expanded="true" signature="4455:4564" ph="..." />
-                <marker date="1509366489572" expanded="true" signature="4694:4961" ph="..." />
-                <marker date="1509366489572" expanded="false" signature="4850:4856" ph="&quot;" />
-                <marker date="1509366489572" expanded="true" signature="5102:5226" ph="..." />
-                <marker date="1509366489572" expanded="false" signature="5111:5117" ph="&quot;" />
-                <marker date="1509366489572" expanded="false" signature="5169:5174" ph="'" />
+                <marker date="1509657197054" expanded="true" signature="3538:4983" ph="..." />
+                <marker date="1509657197054" expanded="true" signature="3554:4770" ph="..." />
+                <marker date="1509657197054" expanded="true" signature="3855:4731" ph="..." />
+                <marker date="1509657197054" expanded="true" signature="4174:4283" ph="..." />
+                <marker date="1509657197054" expanded="true" signature="4413:4680" ph="..." />
+                <marker date="1509657197054" expanded="false" signature="4569:4575" ph="&quot;" />
+                <marker date="1509657197054" expanded="true" signature="4835:4962" ph="..." />
+                <marker date="1509657197054" expanded="false" signature="4845:4851" ph="&quot;" />
+                <marker date="1509657197054" expanded="false" signature="4903:4908" ph="'" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Events.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Css/Events.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,16 +157,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/components/LayoutLoginAndNavigationAndGeneral/</find>
-      <find>/LayoutLoginAndNavigationAndGeneral/</find>
-      <find>utils</find>
-      <find>server</find>
-      <find>events</find>
-      <find>Events</find>
-      <find>randomHydrant</find>
-      <find>Collections</find>
-      <find>upsert</find>
-      <find>FormGroup</find>
       <find>countHuntUnits</find>
       <find>disabledUnits</find>
       <find>createdAt</find>
@@ -160,14 +177,18 @@
       <find>data</find>
       <find>Roles</find>
       <find>doc</find>
+      <find>SelectF</find>
+      <find>p.filter</find>
+      <find>mapRef</find>
+      <find>``</find>
+      <find>getStore</find>
+      <find>setStore</find>
+      <find>?</find>
+      <find>id</find>
+      <find>fromfilter</find>
+      <find>p.setSlider</find>
     </findStrings>
     <replaceStrings>
-      <replace>hNumber</replace>
-      <replace>address</replace>
-      <replace>filterH</replace>
-      <replace>setSlider</replace>
-      <replace>nextSlider</replace>
-      <replace>lenQuery</replace>
       <replace>countHuntUnits</replace>
       <replace>'</replace>
       <replace>tableCustomFilter</replace>
@@ -192,6 +213,12 @@
       <replace>p</replace>
       <replace>p.data</replace>
       <replace>data</replace>
+      <replace>(s, p) =&gt;</replace>
+      <replace>s.filter</replace>
+      <replace>s.mapRef</replace>
+      <replace>p.getStore</replace>
+      <replace>p.setStore</replace>
+      <replace>fromFilter</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -205,8 +232,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/client/components/Navigation/Navigation.scss" />
-        <option value="$PROJECT_DIR$/imports/client/layouts/App/App.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Map/Data.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Map/Css/Map.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.scss" />
@@ -227,7 +252,6 @@
         <option value="$PROJECT_DIR$/imports/api/Utility/Static.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/imports/client/components/MultiSelect/Css/MultiSelect.scss" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/client/Utils/utils.js" />
         <option value="$PROJECT_DIR$/imports/client/Utils/Utils.js" />
         <option value="$PROJECT_DIR$/client/main.html" />
@@ -277,7 +301,6 @@
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/Content/Content.scss" />
         <option value="$PROJECT_DIR$/imports/client/App/App.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/Index/Index.scss" />
-        <option value="$PROJECT_DIR$/imports/server/api/Events/methods.js" />
         <option value="$PROJECT_DIR$/imports/client/components/tryls.ls" />
         <option value="$PROJECT_DIR$/imports/client/components/tryls.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Utility/Static.js" />
@@ -287,25 +310,29 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Events/Css/Events.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Css/Hydrants.scss" />
         <option value="$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedNavigation/AuthenticatedNavigation.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Css/Companies.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Css/Users.scss" />
-        <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Footer/Footer.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/ViewHydrant/Css/ViewHydrant.scss" />
         <option value="$PROJECT_DIR$/imports/server/api/methods.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Utility/methods.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Hydrants/methods.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" />
+        <option value="$PROJECT_DIR$/.eslintrc" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Hydrants/methods.js" />
+        <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
+        <option value="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Events/methods.js" />
       </list>
     </option>
   </component>
@@ -418,7 +445,31 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Events" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="HydrantEditor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Map" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Slider" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -456,14 +507,6 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Events" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -474,14 +517,6 @@
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
               <item name="Css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Map" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -535,6 +570,14 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="Events" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -601,19 +644,19 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\PSG\m\pup\imports\client\components" />
-      <recent name="C:\Users\PSG\m\pup\imports\client\Main" />
-      <recent name="C:\Users\PSG\m\pup\imports\client" />
-      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Administrative\LoginPages" />
-      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Administrative\MaybeNotNeeded" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\PSG\m\pup\imports\server\api" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\ViewHydrant" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Hydrants\Css" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Hydrants" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PSG\m\pup\imports\client\components" />
+      <recent name="C:\Users\PSG\m\pup\imports\client\Main" />
+      <recent name="C:\Users\PSG\m\pup\imports\client" />
+      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Administrative\LoginPages" />
+      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Administrative\MaybeNotNeeded" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -752,9 +795,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -765,7 +809,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4968017" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -810,13 +853,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.meteor/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/meteorhacks_subs-manager/1.6.4/web.browser/lib/sub_manager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
@@ -889,14 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/bootstrap-rtl.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -929,6 +957,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="6" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -936,6 +965,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -943,6 +973,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -957,6 +988,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -978,6 +1010,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -992,6 +1025,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1146,6 +1180,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1153,6 +1188,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1167,6 +1203,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,6 +1218,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1202,6 +1240,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1230,6 +1269,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1265,6 +1305,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1272,6 +1313,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="1" column="25" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,13 +1321,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Events/methods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -1296,27 +1331,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Events/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/Slider/Slider.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Css/Events.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1324,6 +1339,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="355">
           <caret line="29" column="24" lean-forward="false" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1331,6 +1347,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1338,6 +1355,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="1" column="53" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1345,6 +1363,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1352,6 +1371,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1359,6 +1379,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-660">
           <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1366,6 +1387,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1373,6 +1395,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="35" lean-forward="false" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1384,36 +1407,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Map/Map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="36" column="35" lean-forward="false" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
-          <folding>
-            <marker date="1509366489572" expanded="true" signature="3819:5236" ph="..." />
-            <marker date="1509366489572" expanded="true" signature="3835:5051" ph="..." />
-            <marker date="1509366489572" expanded="true" signature="4064:5034" ph="..." />
-            <marker date="1509366489572" expanded="true" signature="4455:4564" ph="..." />
-            <marker date="1509366489572" expanded="true" signature="4694:4961" ph="..." />
-            <marker date="1509366489572" expanded="false" signature="4850:4856" ph="&quot;" />
-            <marker date="1509366489572" expanded="true" signature="5102:5226" ph="..." />
-            <marker date="1509366489572" expanded="false" signature="5111:5117" ph="&quot;" />
-            <marker date="1509366489572" expanded="false" signature="5169:5174" ph="'" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Events/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6180">
-          <caret line="206" column="24" lean-forward="false" selection-start-line="206" selection-start-column="24" selection-end-line="206" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/Css/ViewHydrant.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1421,6 +1419,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1455,19 +1454,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3720">
-          <caret line="124" column="26" lean-forward="false" selection-start-line="124" selection-start-column="21" selection-end-line="124" selection-end-column="26" />
-          <folding>
-            <marker date="1509462694378" expanded="true" signature="2603:2946" ph="..." />
-            <marker date="1509462694378" expanded="true" signature="2613:2932" ph="..." />
-            <marker date="1509462694378" expanded="true" signature="2752:2794" ph="..." />
-            <marker date="1509462694378" expanded="true" signature="3003:4411" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1476,36 +1462,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="54" column="26" lean-forward="false" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="110" column="18" lean-forward="false" selection-start-line="110" selection-start-column="18" selection-end-line="110" selection-end-column="18" />
-          <folding>
-            <marker date="1509465630530" expanded="true" signature="3110:3724" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1680">
           <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="14" column="9" lean-forward="false" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1518,10 +1478,123 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Css/Events.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <marker date="1509653144413" expanded="true" signature="2613:2956" ph="..." />
+            <marker date="1509653144413" expanded="true" signature="2623:2942" ph="..." />
+            <marker date="1509653144413" expanded="true" signature="2762:2804" ph="..." />
+            <marker date="1509653144413" expanded="true" signature="3013:4421" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Css/Map.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1508">
+          <caret line="93" column="102" lean-forward="true" selection-start-line="93" selection-start-column="98" selection-end-line="93" selection-end-column="102" />
+          <folding>
+            <marker date="1509657197054" expanded="true" signature="3538:4983" ph="..." />
+            <marker date="1509657197054" expanded="true" signature="3554:4770" ph="..." />
+            <marker date="1509657197054" expanded="true" signature="3855:4731" ph="..." />
+            <marker date="1509657197054" expanded="true" signature="4174:4283" ph="..." />
+            <marker date="1509657197054" expanded="true" signature="4413:4680" ph="..." />
+            <marker date="1509657197054" expanded="false" signature="4569:4575" ph="&quot;" />
+            <marker date="1509657197054" expanded="true" signature="4835:4962" ph="..." />
+            <marker date="1509657197054" expanded="false" signature="4845:4851" ph="&quot;" />
+            <marker date="1509657197054" expanded="false" signature="4903:4908" ph="'" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="195" column="21" lean-forward="true" selection-start-line="195" selection-start-column="21" selection-end-line="195" selection-end-column="21" />
+          <folding>
+            <marker date="1509465630530" expanded="true" signature="3110:3724" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Hydrants/methods.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="120">
+          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Events/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Slider/Slider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-256">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="110" column="48" lean-forward="false" selection-start-line="110" selection-start-column="48" selection-end-line="110" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Events/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
           <folding />
         </state>
       </provider>
