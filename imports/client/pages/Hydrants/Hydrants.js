@@ -44,7 +44,6 @@ export default compose(
 	}),
 	withStateHandlers(
 		() => ({
-			types: {},
 			data: getStore('data') || [],
 			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
@@ -56,7 +55,6 @@ export default compose(
 			slider: getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => ({ loading }),
-			setTypes: () => types => ({ types }),
 			setCntEnabledUnits: () => cntEnabledUnits => setStore({ cntEnabledUnits }),
 			setCntDisabledUnits: () => cntDisabledUnits => setStore({ cntDisabledUnits }),
 			setCntTotalUnits: () => cntTotalUnits => setStore({ cntTotalUnits }),
@@ -124,7 +122,6 @@ export default compose(
 				p.setLoading(false);
 				this.storeEmpty = true;
 			}
-			p.setTypes(await getStoreGlobal('types'));
 			p.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {

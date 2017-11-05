@@ -39,6 +39,7 @@ export default compose(
 		}), {
 			setSelected: () => (row) => {
 				reactiveVar.set({ company: row });
+				Meteor.callPromise('user.set.companyId', row._id);
 				console.log('reactiveVar.get()');
 				console.log(reactiveVar.get());
 				return { selected: [row._id] };

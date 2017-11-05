@@ -24,10 +24,6 @@ import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading
 import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
 
-import {
-	getStoreGlobal,
-} from '../../Storage/Storage';
-
 export default compose(
 	withStateHandlers(
 		p => ({
@@ -47,10 +43,9 @@ export default compose(
 			console.log('initializing');
 			p.setLoading(true);
 
-			const types = await getStoreGlobal('types');
 			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.id } });
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
-			data.status = types.status[data.status];
+			data.status = p.types.status[data.status];
 			p.setData([data]);
 
 			p.setLoading(false);

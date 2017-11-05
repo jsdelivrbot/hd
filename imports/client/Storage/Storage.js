@@ -30,28 +30,28 @@ function setStore(field, obj) {
 	return obj;
 }
 
-async function getStoreGlobal(keys) {
-	let result = _.get(StorageCollection.findOne({}), 'global');
-	if (result && keys) {
-		result = result[keys];
-	}
-	if (keys === 'types' && !result) {
-		result = await Meteor.callPromise('get.types');
-		setStore('global', { types: result });
-	}
-	// console.log('-----getStore');
-	// console.log('field');
-	// console.log(field);
-	// console.log('keys');
-	// console.log(keys);
-	// console.log('result');
-	// console.log(result);
-	return result;
-}
+// async function getStoreGlobal(keys) {
+// 	let result = _.get(StorageCollection.findOne({}), 'global');
+// 	if (result && keys) {
+// 		result = result[keys];
+// 	}
+// 	if (keys === 'types' && !result) {
+// 		result = await Meteor.callPromise('get.types');
+// 		setStore('global', { types: result });
+// 	}
+// 	// console.log('-----getStore');
+// 	// console.log('field');
+// 	// console.log(field);
+// 	// console.log('keys');
+// 	// console.log(keys);
+// 	// console.log('result');
+// 	// console.log(result);
+// 	return result;
+// }
 
 const reactiveVar = new ReactiveVar({});
 
-export { getStore, getStoreGlobal, setStore, reactiveVar };
+export { getStore, setStore, reactiveVar };
 
 // export function getHydrantSort() {
 // 	return _.get(StorageCollection.findOne({}), 'hydrantSort');

@@ -3,11 +3,18 @@ import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import editProfile from '../Users/edit-profile';
 import rateLimit from '../../../modules/server/rate-limit';
+import Companies from '../Collections/Companies';
 
 Meteor.methods({
 	'users.sendVerificationEmail': () => {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
+	'users.get.properties': () => {
+		const { companyId, role } = this.Users.findOne({ _id: this.userId });
+		const company = Companies.findOne({ _id: companyId });
+		return { company, role };
+	}
+	,
 	'users.editProfile': (profile) => {
 		check(profile, {
 			emailAddress: String,

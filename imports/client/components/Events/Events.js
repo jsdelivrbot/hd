@@ -36,7 +36,6 @@ export default compose(
 	}),
 	withStateHandlers(
 		p => ({
-			types: {},
 			data: p.getStore('data') || [],
 			cntAbusedUnits: p.getStore('cntAbusedUnits') || 0,
 			loading: false,
@@ -46,7 +45,6 @@ export default compose(
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => ({ loading }),
-			setTypes: () => types => ({ types }),
 			setCntAbusedUnits: ({}, p) => cntAbusedUnits => p.setStore({ cntAbusedUnits }),
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -99,7 +97,6 @@ export default compose(
 				p.setLoading(false);
 				this.storeEmpty = true;
 			}
-			p.setTypes(await getStoreGlobal('types'));
 			console.log('initialized');
 			this.props.setInitialized(true);
 		},
