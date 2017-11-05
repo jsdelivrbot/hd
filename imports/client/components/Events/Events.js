@@ -23,7 +23,6 @@ import MultiSelect from '../MultiSelect/MultiSelect';
 import {
 	getStore,
 	setStore,
-	getStoreGlobal,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';

@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
-	withHandlers,
 	compose,
 	renderComponent,
 	branch,
@@ -20,9 +19,9 @@ import { Button } from 'react-bootstrap';
 import '../../../stylesheets/table.scss';
 import './Css/ViewHydrant.scss';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
-import Map from '../../components/Map/Map';
-import Events from '../../components/Events/Events';
+import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Map from '../../../components/Map/Map';
+import Events from '../../../components/Events/Events';
 
 export default compose(
 	withStateHandlers(

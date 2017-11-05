@@ -28,7 +28,6 @@ import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
-	getStoreGlobal,
 	reactiveVar,
 } from '../../Storage/Storage';
 

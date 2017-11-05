@@ -10,7 +10,6 @@ import {
 	branch,
 	withStateHandlers,
 	lifecycle,
-	withState,
 } from 'recompose';
 import {
 	withScriptjs,
