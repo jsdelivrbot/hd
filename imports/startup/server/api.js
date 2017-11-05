@@ -1,13 +1,13 @@
 
-import '../../server/api/Hydrants/methods';
-import '../../server/api/Events/methods';
-import '../../server/api/Utility/methods';
+import '../../server/api/Methods/Hydrants';
+import '../../server/api/Methods/Events';
+import '../../server/api/Methods/Utility';
 // import '../../api/Hydrants/server/publications';
 // import '../../api/Events/server/publications';
 
-import '../../server/api/OAuth/methods';
+import '../../server/api/Methods/OAuth';
 
-import '../../server/api/Users/methods';
+import '../../server/api/Methods/Users';
 import '../../server/api/Users/publications';
 
-import '../../server/api/Utility/methods';
+import '../../server/api/Methods/Utility';

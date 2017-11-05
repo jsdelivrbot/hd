@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveAggregate } from 'meteor/jcbernack:reactive-aggregate';
 import { check } from 'meteor/check';
 import _ from 'lodash';
-import Events from '../imports/server/api/Events/Events';
+import Events from '../imports/server/api/Collections/Events';
 
 Meteor.publish('eventsH', function eventsH(p) {
 	check(p, Object);

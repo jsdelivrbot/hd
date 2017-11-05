@@ -4,7 +4,7 @@ import getPrivateFile from '../../../modules/server/get-private-file';
 import parseMarkdown from '../../../modules/parse-markdown';
 import initDb from '../../../startup/server/fixtures';
 import rateLimit from '../../../modules/server/rate-limit';
-import Static from './Static';
+import Static from '../Collections/Static';
 
 Meteor.methods({
 	'get.types': function getEventsH() {

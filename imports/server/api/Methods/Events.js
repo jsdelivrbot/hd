@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
-import Events from './Events';
-import Hydrants from '../Hydrants/Hydrants';
-import Static from '../Utility/Static';
+import Events from '../Collections/Events';
+import Hydrants from '../Collections/Hydrants';
+import Static from '../Collections/Static';
 import rateLimit from '../../../modules/server/rate-limit';
 
 function buildFilter(fromFilter) {
