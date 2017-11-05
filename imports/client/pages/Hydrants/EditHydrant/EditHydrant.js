@@ -9,13 +9,13 @@ import {
 	lifecycle,
 } from 'recompose';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
-import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
+import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import HydrantEditor from '../../../components/HydrantEditor/HydrantEditor';
 
 import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
-} from '../../Storage/Storage';
+} from '../../../Storage/Storage';
 
 const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);

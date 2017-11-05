@@ -1,5 +1,5 @@
 import React from 'react';
-import HydrantEditor from '../../components/HydrantEditor/HydrantEditor';
+import HydrantEditor from '../../../components/HydrantEditor/HydrantEditor';
 
 const NewHydrant = ({ history }) => (
 	<div className="NewHydrant">

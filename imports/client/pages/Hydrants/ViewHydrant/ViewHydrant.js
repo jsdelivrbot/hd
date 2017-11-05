@@ -17,7 +17,7 @@ import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
 
 import { Button } from 'react-bootstrap';
-import '../../stylesheets/table.scss';
+import '../../../stylesheets/table.scss';
 import './Css/ViewHydrant.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';

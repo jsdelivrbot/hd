@@ -17,9 +17,9 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
 import Hydrants from '../../pages/Hydrants/Hydrants';
-import NewHydrant from '../../pages/NewHydrant/NewHydrant';
-import ViewHydrant from '../../pages/ViewHydrant/ViewHydrant';
-import EditHydrant from '../../pages/EditHydrant/EditHydrant';
+import NewHydrant from '../../pages/Hydrants/NewHydrant/NewHydrant';
+import ViewHydrant from '../../pages/Hydrants/ViewHydrant/ViewHydrant';
+import EditHydrant from '../../pages/Hydrants/EditHydrant/EditHydrant';
 import Companies from '../../pages/Companies/Companies';
 import Users from '../../pages/Users/Users';
 

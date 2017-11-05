@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Main/App/App.js" afterPath="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" afterPath="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,8 +29,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js">
+      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
               <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
@@ -71,8 +66,8 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="92" column="8" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+            <state relative-caret-position="600">
+              <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -98,11 +93,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+            <state relative-caret-position="240">
+              <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="835">
+              <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewHydrant.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/Css/ViewHydrant.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -138,20 +163,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="53" column="17" lean-forward="false" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="835">
               <caret line="110" column="0" lean-forward="true" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding />
             </state>
@@ -238,9 +253,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/client/components/Footer/Footer.js" />
-        <option value="$PROJECT_DIR$/client/.babel.rc" />
-        <option value="$PROJECT_DIR$/imports/api/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/api/Events/Events.js" />
         <option value="$PROJECT_DIR$/imports/api/Events/server/publications.js" />
         <option value="$APPLICATION_CONFIG_DIR$/idea64.exe.vmoptions" />
@@ -339,6 +351,9 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
       </list>
     </option>
   </component>
@@ -363,7 +378,7 @@
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -456,30 +471,8 @@
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
               <item name="pup" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="Collections" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="Methods" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -533,11 +526,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Hydrants" />
       <recent name="C:\Users\PSG\m\pup\imports\client\components\LayoutLoginAndNavigationAndGeneral\Navigation" />
       <recent name="C:\Users\PSG\m\pup\imports\server\api\Collections" />
       <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
       <recent name="C:\Users\PSG\m\pup\imports\server\api\Utility" />
-      <recent name="C:\Users\PSG\m\pup\imports\server\api\Hydrants" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
@@ -675,11 +668,10 @@
     <option name="totallyTimeSpent" value="607244000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15595363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15595363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="7" side_tool="true" content_ui="tabs" />
@@ -1150,14 +1142,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/methods.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1189,25 +1173,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
           <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/Css/ViewHydrant.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1394,14 +1363,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
@@ -1440,14 +1401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="92" column="8" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
@@ -1464,9 +1417,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="835">
           <caret line="110" column="0" lean-forward="true" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
           <folding />
         </state>
@@ -1474,8 +1435,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+        <state relative-caret-position="240">
+          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="835">
+          <caret line="56" column="27" lean-forward="false" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/Css/ViewHydrant.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
