@@ -7,10 +7,10 @@ import rateLimit from '../../../modules/server/rate-limit';
 import Static from '../Collections/Static';
 
 Meteor.methods({
-	'get.types': function getEventsH() {
+	'get.types': () => {
 		return Static.findOne({}).types;
 	},
-	'db.init': function fixture() {
+	'db.init': () => {
 		console.log('clearing database');
 		try {
 			console.log('ok');
@@ -20,7 +20,7 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'utility.getPage': function utilityGetPage(fileName) {
+	'utility.getPage': (fileName) => {
 		check(fileName, String);
 		return parseMarkdown(getPrivateFile(`pages/${fileName}.md`));
 	},

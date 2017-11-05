@@ -1,11 +1,13 @@
 
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import {
 	withHandlers,
 	compose,
 	withStateHandlers,
 	lifecycle,
+	branch,
+	renderComponent,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -15,30 +17,34 @@ import '../../stylesheets/table.scss';
 
 import './Css/Companies.scss';
 
+import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+
 import {
+	getStore as getStoreHydrantsPage,
+	setStore as setStoreHydrantsPage,
+	getStoreGlobal,
 	reactiveVar,
 } from '../../Storage/Storage';
 
+const getStore = keys => getStoreHydrantsPage('companiesPage', keys);
+const setStore = obj => setStoreHydrantsPage('companiesPage', obj);
+
 export default compose(
-	withTracker(() => {
-		console.log('tracker Companies');
-		return {
-			company: reactiveVar.get().company || { key: 1, number: 1, name: 'עין אפק 1' },
-		};
-	}),
 	withStateHandlers(
-		({ company }) => ({
-			data: [],
+		() => ({
+			data: getStore('data') || [],
 			initialized: false,
-			selected: [company.key],
+			loading: false,
+			selected: [_.get(reactiveVar.get(), 'company._id')],
 		}), {
 			setSelected: () => (row) => {
 				reactiveVar.set({ company: row });
 				console.log('reactiveVar.get()');
 				console.log(reactiveVar.get());
-				return { selected: [row.key] };
+				return { selected: [row._id] };
 			},
-			setData: () => data => ({ data }),
+			setData: () => data => setStore({ data }),
+			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
 	),
@@ -55,22 +61,21 @@ export default compose(
 		},
 	}),
 	lifecycle({
-		componentDidMount() {
+		async componentDidMount() {
 			console.log('initializing');
-			this.props.setData([
-				{ key: 0, number: 0, name: 'תאגיד עין אפק 0' },
-				{ key: 1, number: 1, name: 'תאגיד עין אפק 1' },
-				{ key: 2, number: 2, name: 'תאגיד עין אפק 2' },
-				{ key: 3, number: 3, name: 'תאגיד עין אפק 3' },
-				{ key: 4, number: 4, name: 'תאגיד עין אפק 4' },
-				{ key: 5, number: 5, name: 'תאגיד עין אפק 5' },
-				{ key: 6, number: 6, name: 'תאגיד עין אפק 6' },
-				{ key: 7, number: 7, name: 'תאגיד עין אפק 7' },
-				{ key: 8, number: 8, name: 'תאגיד עין אפק 8' },
-			]);
+			const p = this.props;
+			if (!getStore()) {
+				this.props.setLoading(true);
+				const data = await Meteor.callPromise('companies.get.all');
+				reactiveVar.set({ company: data[0] });
+				p.setData(data);
+				p.setLoading(false);
+			}
+			console.log('initialized');
 			this.props.setInitialized(true);
 		},
 	}),
+	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
 		console.log('rendering');
@@ -83,7 +88,7 @@ export default compose(
 				<Flex>
 					<Box w={11 / 12}>
 						<BootstrapTable
-							keyField="key"
+							keyField="_id"
 							containerClass="table_container_class"
 							tableContainerClass="table_class"
 							data={p.data}

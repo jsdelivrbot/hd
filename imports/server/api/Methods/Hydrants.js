@@ -20,7 +20,7 @@ function buildFilter(fromfilter) {
 }
 
 Meteor.methods({
-	'hydrants.get.total.counts': function getEventsH() {
+	'hydrants.get.total.counts': () => {
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: { enabled: true } },
 			{ $group: {
@@ -43,7 +43,7 @@ Meteor.methods({
 			cntTotalUnits: cntEnabledUnits + cntDisabledUnits,
 		};
 	},
-	'hydrants.get.lenQuery': function getHydrantsH(p) {
+	'hydrants.get.lenQuery': (p) => {
 		check(p, Object);
 		const { filter } = p;
 		const array = Hydrants.aggregate([
@@ -55,7 +55,7 @@ Meteor.methods({
 		]);
 		return _.get(array, '[0].count', 0);
 	},
-	'hydrants.get.data': function getHydrantsH(p) {
+	'hydrants.get.data': (p) => {
 		check(p, Object);
 		const { filter, sort, skip } = p;
 
@@ -72,7 +72,7 @@ Meteor.methods({
 				description: 1,
 			} }], { allowDiskUse: true });
 	},
-	'hydrants.get.data.one': function getHydrantsH(p) {
+	'hydrants.get.data.one': () => {
 		check(p, Object);
 		const { filter } = p;
 		console.log('filter');
@@ -82,7 +82,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'map.get.total.counts': function mapGetInit() {
+	'map.get.total.counts': () => {
 		console.log('init map');
 		const array = Hydrants.aggregate([
 			{ $group: {
@@ -92,7 +92,7 @@ Meteor.methods({
 		]);
 		return { cntActiveUnits: _.get(array, '[0].count', 0) };
 	},
-	'map.get.data': function mapGetData(p) {
+	'map.get.data': (p) => {
 		check(p, Object);
 		const { bounds, hydrantId } = p;
 		console.log('getting map in bounds');
@@ -114,8 +114,8 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'hydrants.insert': function hydrantsInsert(doc) {
-		check(doc, Match.Any);
+	'hydrants.insert': (doc) => {
+		check(doc, Match.Object);
 		console.log('inserting');
 		try {
 			console.log('ok');
@@ -125,8 +125,8 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'hydrants.update': function hydrantsUpdate(doc) {
-		check(doc, Match.Any);
+	'hydrants.update': (doc) => {
+		check(doc, Match.Object);
 		console.log('updating');
 		try {
 			console.log('ok');
@@ -138,8 +138,8 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'hydrants.remove': function hydrantsRemove(hydrantId) {
-		check(hydrantId, Match.Any);
+	'hydrants.remove': (hydrantId) => {
+		check(hydrantId, Match.String);
 		try {
 			return Hydrants.remove(hydrantId);
 		} catch (exception) {

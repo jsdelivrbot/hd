@@ -5,10 +5,10 @@ import editProfile from '../Users/edit-profile';
 import rateLimit from '../../../modules/server/rate-limit';
 
 Meteor.methods({
-	'users.sendVerificationEmail': function usersSendVerificationEmail() {
+	'users.sendVerificationEmail': () => {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
-	'users.editProfile': function usersEditProfile(profile) {
+	'users.editProfile': (profile) => {
 		check(profile, {
 			emailAddress: String,
 			profile: {

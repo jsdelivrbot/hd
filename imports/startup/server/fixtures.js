@@ -191,8 +191,8 @@ const fillCompanies = () => {
 
 export default function initDb() {
 	// resetDb();
-	fillCompanies();
-	fillUsers();
+	// fillCompanies();
+	// fillUsers();
 	// fillHydrantsAndEvents();
 }
 

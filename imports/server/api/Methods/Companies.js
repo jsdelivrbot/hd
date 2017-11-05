@@ -2,28 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
-import Events from '../Collections/Events';
-import Hydrants from '../Collections/Hydrants';
-import Static from '../Collections/Static';
+import Companies from '../Collections/Companies';
 import rateLimit from '../../../modules/server/rate-limit';
 
 Meteor.methods({
-	'companies.get.all': function getEventsH(p) {
-		check(p, Object);
+	'companies.get.all': () => {
+		return Companies.find({}).fetch();
 	},
 });
-
-rateLimit({
-	methods: [
-		'hydrants.insert',
-		'hydrants.update',
-		'hydrants.remove',
-	],
-	limit: 5,
-	timeRange: 1000,
-});
-
-
 
 
 //construct a Promise that will take 2500ms to resolve
