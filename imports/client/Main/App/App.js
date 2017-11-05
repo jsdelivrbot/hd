@@ -8,7 +8,7 @@ import { Grid, Alert, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
+// import { Roles } from 'meteor/alanning:roles';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation';
 import Authenticated from '../../components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated';
@@ -107,7 +107,6 @@ App.defaultProps = {
 };
 
 App.propTypes = {
-	loading: PropTypes.bool.isRequired,
 	userId: PropTypes.string,
 	emailAddress: PropTypes.string,
 	emailVerified: PropTypes.bool.isRequired,
@@ -121,8 +120,10 @@ const getUserName = name => ({
 export default createContainer(() => {
 	const loggingIn = Meteor.loggingIn();
 	const user = Meteor.user();
+	console.log('user');
+	console.log(user);
 	const userId = Meteor.userId();
-	const loading = !Roles.subscription.ready();
+	// const loading = !Roles.subscription.ready();
 	const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
 	const emailAddress = user && user.emails && user.emails[0].address;
 	const authenticated = !loggingIn && !!userId;
@@ -131,11 +132,11 @@ export default createContainer(() => {
 
 	return {
 		style,
-		loading,
+		// loading,
 		loggingIn,
 		authenticated,
 		name: name || emailAddress,
-		roles: !loading && Roles.getRolesForUser(userId),
+		// roles: !loading && Roles.getRolesForUser(userId),
 		userId,
 		emailAddress,
 		emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,

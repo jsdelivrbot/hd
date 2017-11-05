@@ -64,10 +64,10 @@ class Seeder {
 		const userToCreate = user;
 		const isExistingUser = collection.findOne({'emails.address': userToCreate.email});
 		if (!isExistingUser) {
-			const roles = userToCreate.roles;
-			if (roles) delete userToCreate.roles;
+			// const roles = userToCreate.roles;
+			// if (roles) delete userToCreate.roles;
 			const userId = Accounts.createUser(userToCreate);
-			if (roles && Roles !== 'undefined') Roles.addUsersToRoles(userId, roles);
+			// if (roles && Roles !== 'undefined') Roles.addUsersToRoles(userId, roles);
 			if (userToCreate.data) this.seedDependent(userId, userToCreate.data);
 		}
 	}

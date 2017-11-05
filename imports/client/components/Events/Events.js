@@ -100,8 +100,6 @@ export default compose(
 				this.storeEmpty = true;
 			}
 			p.setTypes(await getStoreGlobal('types'));
-			console.log('p.getStore()');
-			console.log(p.getStore());
 			console.log('initialized');
 			this.props.setInitialized(true);
 		},
@@ -159,10 +157,6 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering');
-		console.log('data');
-		console.log(p.data);
-		console.log('types');
-		console.log(p.types);
 		const formatter = cell => (<span>{cell}</span>);
 		const currentDate = moment().format('DD.MM.YYYY');
 

@@ -28,7 +28,7 @@ function buildFilter(fromFilter) {
 }
 
 Meteor.methods({
-	'events.get.total.counts': function getEventsH() {
+	'events.get.total.counts': () => {
 		const array = Events.aggregate([
 			{ $match: { code: 2 } },
 			{ $group: {

@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import faker from 'faker';
 import seeder from './seeder';
 import Hydrants from '../../server/api/Collections/Hydrants';
+import Companies from '../../server/api/Collections/Companies';
 import Static from '../../server/api/Collections/Static';
 import Events from '../../server/api/Collections/Events';
 import { words, streets, cities } from './local/he';
@@ -9,6 +11,18 @@ import { words, streets, cities } from './local/he';
 const Counts = new Mongo.Collection('Counts');
 
 const rn = n => faker.random.number(n);
+
+const fakeSentence = (len) => {
+	let sentence = '';
+	for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
+		const temp = `${sentence} ${words[rn(words.length)]}`;
+		if (temp.length > len) break;
+		else sentence = temp;
+	}
+	return sentence;
+};
+
+const fakeAddress = () => `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`;
 
 const randomHydrant = (ind) => {
 	let sentence1 = '';
@@ -24,7 +38,7 @@ const randomHydrant = (ind) => {
 		else sentence2 = temp;
 	}
 	const dt = faker.date.past(1).toISOString();
-	return Hydrants.schema.clean({
+	return {
 		companyId: 1,
 		sim: rn(999999999),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
@@ -34,12 +48,12 @@ const randomHydrant = (ind) => {
 		createdAt: dt,
 		lastComm: faker.date.past(1).toISOString(),
 		disableDate: faker.date.past(1).toISOString(),
-		address: `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`,
-		description: sentence1,
-		disableText: sentence2,
+		address: fakeAddress(),
+		description: fakeSentence(50),
+		disableText: fakeSentence(100),
 		enabled: faker.random.boolean(),
 		number: ind,
-	});
+	};
 };
 
 const randomEvent = (hydrantId, ind) => {
@@ -99,25 +113,87 @@ const fillUsers = () => {
 	seeder(Meteor.users, {
 		environments: ['development', 'staging'],
 		noLimit: true,
-		wipe: false,
-		data: [{
-			email: 'a@a.a',
-			password: 'aaaaaa',
-			profile: {
-				name: {
-					first: 'משה',
-					last: 'בן-משה',
+		wipe: true,
+		data: [
+			{
+				email: 'a@a.a',
+				password: 'aaaaaa',
+				profile: {
+					name: {
+						first: 'משה',
+						last: 'בן-משה',
+					},
 				},
 			},
-			roles: ['admin'],
-		}],
+			{
+				email: 'user1@a.a',
+				password: 'aaaaaa',
+				profile: {
+					name: {
+						first: 'משתמש 1',
+						last: 'שם משתמש 1',
+					},
+				},
+				companyId: Companies.find({}).fetch()[0]._id,
+				role: 0,
+			},
+			{
+				email: 'user2@a.a',
+				password: 'aaaaaa',
+				profile: {
+					name: {
+						first: 'משתמש 2',
+						last: 'שם משתמש 2',
+					},
+				},
+				companyId: Companies.find({}).fetch()[1]._id,
+				role: 1,
+			},
+			{
+				email: 'user3@a.a',
+				password: 'aaaaaa',
+				profile: {
+					name: {
+						first: 'משתמש 3',
+						last: 'שם משתמש 3',
+					},
+				},
+				companyId: Companies.find({}).fetch()[2]._id,
+				role: 2,
+			},
+		],
+	});
+};
+const fillCompanies = () => {
+	seeder(Companies, {
+		environments: ['development', 'staging'],
+		noLimit: true,
+		wipe: true,
+		data: [
+			{
+				name: 'עין אפק 1',
+				address: fakeAddress(),
+				contactPerson: 'יוצר קשר 1'
+			},
+			{
+				name: 'עין אפק 2',
+				address: fakeAddress(),
+				contactPerson: 'יוצר קשר 2'
+			},
+			{
+				name: 'עין אפק 3',
+				address: fakeAddress(),
+				contactPerson: 'יוצר קשר 3'
+			},
+		],
 	});
 };
 
 export default function initDb() {
 	// resetDb();
-	// fillHydrantsAndEvents();
+	fillCompanies();
 	fillUsers();
+	// fillHydrantsAndEvents();
 }
 
 initDb();
