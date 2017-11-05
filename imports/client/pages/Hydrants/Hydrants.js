@@ -28,8 +28,11 @@ import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
+	getStoreGlobal,
 	reactiveVar,
 } from '../../Storage/Storage';
+
+import Map from '../../components/Map/Map';
 
 const { create, env } = require('sanctuary');
 
@@ -48,7 +51,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		() => ({
-			types: undefined,
+			types: {},
 			data: getStore('data') || [],
 			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
@@ -59,8 +62,8 @@ export default compose(
 			filter: getStore('filter') || { status: {} },
 			slider: getStore('slider') || { max: 0, value: 0 },
 		}), {
-			setLoading: () => loading => setStore({ loading }),
-			setTypes: () => types => setStore({ types }),
+			setLoading: () => loading => ({ loading }),
+			setTypes: () => types => ({ types }),
 			setCntEnabledUnits: () => cntEnabledUnits => setStore({ cntEnabledUnits }),
 			setCntDisabledUnits: () => cntDisabledUnits => setStore({ cntDisabledUnits }),
 			setCntTotalUnits: () => cntTotalUnits => setStore({ cntTotalUnits }),
@@ -124,16 +127,14 @@ export default compose(
 			this.storeEmpty = false;
 			if (!getStore()) {
 				p.setLoading(true);
-				let types = getStore('types');
-				if (!types) types = await Meteor.callPromise('get.types');
 				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
-				p.setLoading(false);
-				p.setTypes(types);
 				p.setCntTotalUnits(cntTotalUnits);
 				p.setCntEnabledUnits(cntEnabledUnits);
 				p.setCntDisabledUnits(cntDisabledUnits);
+				p.setLoading(false);
 				this.storeEmpty = true;
 			}
+			p.setTypes(await getStoreGlobal('types'));
 			p.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
@@ -187,6 +188,8 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering');
+		console.log('types');
+		console.log(p.types);
 		const currentDate = moment().format('DD.MM.YYYY');
 		const formatter = cell => (<span>{cell}</span>);
 

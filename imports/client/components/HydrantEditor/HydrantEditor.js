@@ -20,7 +20,7 @@ class HydrantEditor extends React.Component {
 			messages: {
 				number: { maxlength: 'אורך מקסימלי 8' },
 				sim: { required: 'נא לציין מספר סים', maxlength: 'אורך מקסימלי 24' },
-				disableText: { maxlength: 'אורך מקסימלי 250'},
+				disableText: { maxlength: 'אורך מקסימלי 250' },
 				address: { maxlength: 'אורך מקסימלי 50' },
 				description: { maxlength: 'אורך מקסימלי 50' },
 			},

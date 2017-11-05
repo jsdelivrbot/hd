@@ -99,8 +99,8 @@ Meteor.methods({
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: { $and: [{ _id: { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
-			{ $limit: 5 },
+			{ $match: { $and: [{ _id: hydrantId || { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
+			{ $limit: 40 },
 			{ $project: {
 				lat: 1,
 				lon: 1,

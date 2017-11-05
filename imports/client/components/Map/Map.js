@@ -130,9 +130,9 @@ export default compose(
 					onTilesLoaded={p.onTilesLoaded}
 				>
 					<MarkerClusterer
-						averageCenter
+						// averageCenter
 						enableRetinaIcons
-						gridSize={60}
+						gridSize={50}
 					>
 						{p.data.map((d) => {
 							let icon, color, eventType;

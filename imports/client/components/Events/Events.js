@@ -23,6 +23,7 @@ import MultiSelect from '../MultiSelect/MultiSelect';
 import {
 	getStore,
 	setStore,
+	getStoreGlobal,
 } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
@@ -35,7 +36,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		p => ({
-			types: p.getStore('types') || {},
+			types: {},
 			data: p.getStore('data') || [],
 			cntAbusedUnits: p.getStore('cntAbusedUnits') || 0,
 			loading: false,
@@ -44,8 +45,8 @@ export default compose(
 			filter: p.getStore('filter') || { code: {}, hydrantId: p.id },
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
-			setLoading: ({}, p) => loading => p.setStore({ loading }),
-			setTypes: ({}, p) => types => p.setStore({ types }),
+			setLoading: () => loading => ({ loading }),
+			setTypes: () => types => ({ types }),
 			setCntAbusedUnits: ({}, p) => cntAbusedUnits => p.setStore({ cntAbusedUnits }),
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -93,15 +94,19 @@ export default compose(
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				this.props.setLoading(true);
-				const { types, cntAbusedUnits } = await Meteor.callPromise('events.get.init');
-				p.setLoading(false);
-				p.setTypes(types);
+				const cntAbusedUnits = await Meteor.callPromise('events.get.init');
 				p.setCntAbusedUnits(cntAbusedUnits);
+				p.setLoading(false);
 				this.storeEmpty = true;
 			}
+			p.setTypes(await getStoreGlobal('types'));
+			console.log('p.getStore()');
+			console.log(p.getStore());
+			console.log('initialized');
 			this.props.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
+			console.log('componentWillReceiveProps');
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
@@ -154,6 +159,10 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering');
+		console.log('data');
+		console.log(p.data);
+		console.log('types');
+		console.log(p.types);
 		const formatter = cell => (<span>{cell}</span>);
 		const currentDate = moment().format('DD.MM.YYYY');
 

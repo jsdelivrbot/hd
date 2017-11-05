@@ -25,24 +25,17 @@ import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
 
 import {
-	getStore as getStoreHydrantsPage,
-	setStore as setStoreHydrantsPage,
-	reactiveVar,
+	getStoreGlobal,
 } from '../../Storage/Storage';
-
-const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
-const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
 	withStateHandlers(
 		p => ({
 			id: p.match.params._id,
-			types: undefined,
 			data: [],
 			loading: false,
 			initialized: false,
 		}), {
-			setTypes: () => types => setStore({ types }),
 			setLoading: () => loading => ({ loading }),
 			setData: () => data => ({ data }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -53,13 +46,13 @@ export default compose(
 			const p = this.props;
 			console.log('initializing');
 			p.setLoading(true);
-			let types = getStore('types');
-			if (!types) types = await Meteor.callPromise('get.types');
-			p.setTypes(types);
+
+			const types = await getStoreGlobal('types');
 			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.id } });
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = types.status[data.status];
 			p.setData([data]);
+
 			p.setLoading(false);
 			p.setInitialized(true);
 		},
@@ -125,13 +118,17 @@ export default compose(
 					</TableHeaderColumn>
 				</BootstrapTable>
 				<div>
-					<Button
-						bsStyle="primary"
-						onClick={() => p.history.push(`${p.match.url}/edit`)}
-						block
-					>
-						ערוך
-					</Button>
+					<Flex>
+						<Box w={1} />
+						<Box w={1}>
+							<Button
+								bsStyle="primary"
+								onClick={() => p.history.push(`${p.match.url}/edit`)}
+								block
+							>ערוך</Button>
+						</Box>
+						<Box w={1} />
+					</Flex>
 				</div>
 				<Events id={p.id} />
 				<Map id={p.id} />

@@ -79,6 +79,7 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		label: 'Disable text',
 		defaultValue: '',
+		optional: true,
 		max: 250,
 	},
 	address: {
