@@ -131,7 +131,7 @@ export default compose(
 							</Alert>
 							:
 							''}
-						<Navigation {...p} />
+						{p.authenticated ? <Navigation {...p} /> : ''}
 						<Grid>
 							<Switch>
 								<Authenticated exact path="/" component={Index} {...p} />
