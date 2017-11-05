@@ -94,7 +94,7 @@ export default compose(
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				this.props.setLoading(true);
-				const cntAbusedUnits = await Meteor.callPromise('events.get.init');
+				const { cntAbusedUnits } = await Meteor.callPromise('events.get.total.counts');
 				p.setCntAbusedUnits(cntAbusedUnits);
 				p.setLoading(false);
 				this.storeEmpty = true;

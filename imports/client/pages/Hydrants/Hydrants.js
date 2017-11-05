@@ -32,13 +32,6 @@ import {
 	reactiveVar,
 } from '../../Storage/Storage';
 
-import Map from '../../components/Map/Map';
-
-const { create, env } = require('sanctuary');
-
-const checkTypes = true;
-const S = create({ checkTypes, env });
-
 const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
@@ -93,13 +86,10 @@ export default compose(
 			},
 			setFilterSelectAndSearch: ({ filter }) => (filterObj) => {
 				console.log(filterObj);
-				// const createdAt = S.gets(true, ['createdAt', 'value'], filterObj);
-
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				const address = _.get(filterObj, 'address.value');
 				const description = _.get(filterObj, 'description.value');
 				const number = _.get(filterObj, 'number.value');
-
 
 				if (createdAt) filter = Object.assign({}, filter, { createdAt });
 				if (address) filter = Object.assign({}, filter, { address });
@@ -127,7 +117,7 @@ export default compose(
 			this.storeEmpty = false;
 			if (!getStore()) {
 				p.setLoading(true);
-				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.init');
+				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
 				p.setCntTotalUnits(cntTotalUnits);
 				p.setCntEnabledUnits(cntEnabledUnits);
 				p.setCntDisabledUnits(cntDisabledUnits);
@@ -329,6 +319,11 @@ export default compose(
 		);
 	});
 
+
+// const createdAt = S.gets(true, ['createdAt', 'value'], filterObj);
+// const { create, env } = require('sanctuary');
+// const checkTypes = true;
+// const S = create({ checkTypes, env });
 
 // {_.isEmpty(getSelectedHydrants()) ?
 // 	<Button

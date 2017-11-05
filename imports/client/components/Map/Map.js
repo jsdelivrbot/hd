@@ -75,7 +75,8 @@ export default compose(
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				p.setLoading(true);
-				p.setCountActiveUnits(await Meteor.callPromise('map.get.init'));
+				const { countActiveUnits } = await Meteor.callPromise('map.get.total.counts');
+				p.setCountActiveUnits(countActiveUnits);
 				p.setLoading(false);
 				this.storeEmpty = true;
 			}

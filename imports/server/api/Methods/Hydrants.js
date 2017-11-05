@@ -20,7 +20,7 @@ function buildFilter(fromfilter) {
 }
 
 Meteor.methods({
-	'hydrants.get.init': function getEventsH() {
+	'hydrants.get.total.counts': function getEventsH() {
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: { enabled: true } },
 			{ $group: {
@@ -82,7 +82,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'map.get.init': function mapGetInit() {
+	'map.get.total.counts': function mapGetInit() {
 		console.log('init map');
 		const array = Hydrants.aggregate([
 			{ $group: {
@@ -90,7 +90,7 @@ Meteor.methods({
 				count: { $sum: 1 }
 			} },
 		]);
-		return _.get(array, '[0].count', 0);
+		return { cntActiveUnits: _.get(array, '[0].count', 0) };
 	},
 	'map.get.data': function mapGetData(p) {
 		check(p, Object);

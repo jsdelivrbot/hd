@@ -5,7 +5,6 @@ import Hydrants from '../../server/api/Collections/Hydrants';
 import Static from '../../server/api/Collections/Static';
 import Events from '../../server/api/Collections/Events';
 import { words, streets, cities } from './local/he';
-import SimpleSchema from 'simpl-schema';
 
 const Counts = new Mongo.Collection('Counts');
 
@@ -53,14 +52,16 @@ const randomEvent = (hydrantId, ind) => {
 	};
 };
 
-export default function initDb() {
+const resetDb = () => {
 	Static.remove({});
 	Static.insert({});
 	Events.remove({});
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+};
 
+const fillHydrantsAndEvents = () => {
 	console.log('starting');
 	const first = (new Date()).getTime();
 	console.log(first);
@@ -92,8 +93,9 @@ export default function initDb() {
 	console.log(last);
 	console.log('dif');
 	console.log(last-first);
+};
 
-
+const fillUsers = () => {
 	seeder(Meteor.users, {
 		environments: ['development', 'staging'],
 		noLimit: true,
@@ -110,7 +112,15 @@ export default function initDb() {
 			roles: ['admin'],
 		}],
 	});
+};
+
+export default function initDb() {
+	// resetDb();
+	// fillHydrantsAndEvents();
+	fillUsers();
 }
+
+initDb();
 
 //
 // const eventsSeed = hydrantId => ({
@@ -130,7 +140,6 @@ export default function initDb() {
 // });
 
 
-// initDb();
 
 
 // return;
