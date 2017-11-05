@@ -1,5 +1,15 @@
 /* eslint-disable jsx-a11y/no-href */
 
+import {
+	withHandlers,
+	compose,
+	renderComponent,
+	branch,
+	withStateHandlers,
+	lifecycle,
+} from 'recompose';
+import { meteorData } from '../../Utils/Utils';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -32,8 +42,14 @@ import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/F
 import DownloadApp from '../../pages/DownloadApp/DownloadApp';
 import Companies from '../../pages/Companies/Companies';
 import Users from '../../pages/Users/Users';
+import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
 import './Css/App.scss';
+
+import {
+	getStoreGlobal,
+	reactiveVar,
+} from '../../Storage/Storage';
 
 const handleResendVerificationEmail = (emailAddress) => {
 	Meteor.call('users.sendVerificationEmail', (error) => {
@@ -45,100 +61,108 @@ const handleResendVerificationEmail = (emailAddress) => {
 	});
 };
 
-const App = props => (
-	<Router>
-		{!props.loading ?
-			<div className={`App ${props.style}`}>
-				{0 && props.userId && !props.emailVerified ?
-					<Alert className="verify-email text-center">
-						<p>
-							הי חבר!
-							<strong>האם אתה יכול לוודות את כתובת האימייל</strong>
-							({props.emailAddress})
-							בשבילינו?
-							<Button
-								bsStyle="link"
-								onClick={() => handleResendVerificationEmail(props.emailAddress)}
-								href="#"
-							>
-								שלח אימייל זיהוי מחדש
-							</Button>
-						</p>
-					</Alert>
-					:
-					''}
-				<Navigation {...props} />
-				<Grid>
-					<Switch>
-						<Authenticated exact path="/" component={Index} {...props} />
-						<Authenticated exact path="/download_app" component={DownloadApp} {...props} />
-						<Authenticated exact path="/companies" component={Companies} {...props} />
-						<Authenticated exact path="/users" component={Users} {...props} />
-						<Authenticated exact path="/map" component={Map} {...props} />
-						<Authenticated exact path="/events" component={Events} {...props} />
-						<Authenticated exact path="/hydrants" component={Hydrants} {...props} />
-						<Authenticated exact path="/hydrants/new" component={NewHydrant} {...props} />
-						<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...props} />
-						<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...props} />
-						<Authenticated exact path="/profile" component={Profile} {...props} />
-						<Public path="/signup" component={Signup} {...props} />
-						<Public path="/login" component={Login} {...props} />
-						<Route path="/logout" component={Logout} {...props} />
-						<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-						<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-						<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-						<Route component={NotFound} />
-					</Switch>
-				</Grid>
-				{ props.authenticated ?
-					<Footer {...props} />
-					:
-					''
-				}
-			</div>
-			:
-			''}
-	</Router>
-);
-
-App.defaultProps = {
-	userId: '',
-	emailAddress: '',
-};
-
-App.propTypes = {
-	userId: PropTypes.string,
-	emailAddress: PropTypes.string,
-	emailVerified: PropTypes.bool.isRequired,
-};
-
 const getUserName = name => ({
 	string: name,
 	object: `${name.first} ${name.last}`,
 }[typeof name]);
 
-export default createContainer(() => {
-	const loggingIn = Meteor.loggingIn();
-	const user = Meteor.user();
-	console.log('user');
-	console.log(user);
-	const userId = Meteor.userId();
-	// const loading = !Roles.subscription.ready();
-	const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
-	const emailAddress = user && user.emails && user.emails[0].address;
-	const authenticated = !loggingIn && !!userId;
-	// const style = 'bck';
-	const style = authenticated ? '' : 'bck';
+export default compose(
+	meteorData(() => {
+		const loggingIn = Meteor.loggingIn();
+		const user = Meteor.user();
+		const userId = Meteor.userId();
+		const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
+		const emailAddress = user && user.emails && user.emails[0].address;
+		const authenticated = !loggingIn && !!userId;
+		const style = authenticated ? '' : 'bck';
+		return {
+			style,
+			loggingIn,
+			authenticated,
+			name: name || emailAddress,
+			userId,
+			emailAddress,
+			emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
+		};
+	}),
+	withStateHandlers(
+		() => ({
+			types: {},
+			loading: false,
+			initialized: false,
+		}), {
+			setLoading: () => loading => ({ loading }),
+			setTypes: () => types => ({ types }),
+			setInitialized: () => initialized => ({ initialized }),
+		}
+	),
+	lifecycle({
+		async componentDidMount() {
+			const p = this.props;
+			console.log('initializing');
+			p.setLoading(true);
+			p.setTypes(await getStoreGlobal('types'));
+			p.setLoading(false);
+			p.setInitialized(true);
+		},
+	}),
+	branch(p => !p.initialized, renderComponent(Loading)),
+)(
+	(p) => {
+		return (
+			<Router>
+				{!p.loading ?
+					<div className={`App ${p.style}`}>
+						{0 && p.userId && !p.emailVerified ?
+							<Alert className="verify-email text-center">
+								<p>
+									הי חבר!
+									<strong>האם אתה יכול לוודא את כתובת האימייל</strong>
+									({p.emailAddress})
+									בשבילינו?
+									<Button
+										bsStyle="link"
+										onClick={() => handleResendVerificationEmail(p.emailAddress)}
+										href="#"
+									>
+										שלח אימייל זיהוי מחדש
+									</Button>
+								</p>
+							</Alert>
+							:
+							''}
+						<Navigation {...p} />
+						<Grid>
+							<Switch>
+								<Authenticated exact path="/" component={Index} {...p} />
+								<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
+								<Authenticated exact path="/companies" component={Companies} {...p} />
+								<Authenticated exact path="/users" component={Users} {...p} />
+								<Authenticated exact path="/map" component={Map} {...p} />
+								<Authenticated exact path="/events" component={Events} {...p} />
+								<Authenticated exact path="/hydrants" component={Hydrants} {...p} />
+								<Authenticated exact path="/hydrants/new" component={NewHydrant} {...p} />
+								<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
+								<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
+								<Authenticated exact path="/profile" component={Profile} {...p} />
+								<Public path="/signup" component={Signup} {...p} />
+								<Public path="/login" component={Login} {...p} />
+								<Route path="/logout" component={Logout} {...p} />
+								<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+								<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+								<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+								<Route component={NotFound} />
+							</Switch>
+						</Grid>
+						{ p.authenticated ?
+							<Footer {...p} />
+							:
+							''
+						}
+					</div>
+					:
+					''}
+			</Router>
+		);
+	});
 
-	return {
-		style,
-		// loading,
-		loggingIn,
-		authenticated,
-		name: name || emailAddress,
-		// roles: !loading && Roles.getRolesForUser(userId),
-		userId,
-		emailAddress,
-		emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
-	};
-}, App);

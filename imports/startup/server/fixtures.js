@@ -124,6 +124,7 @@ const fillUsers = () => {
 						last: 'בן-משה',
 					},
 				},
+				role: 0,
 			},
 			{
 				email: 'user1@a.a',
