@@ -6,15 +6,36 @@ import rateLimit from '../../../modules/server/rate-limit';
 import Companies from '../Collections/Companies';
 
 Meteor.methods({
-	'users.sendVerificationEmail': () => {
+	'users.sendVerificationEmail': function anon() {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
-	'users.get.properties': () => {
-		const { companyId, role } = Meteor.user;
-		const company = Companies.findOne({ _id: companyId });
+	'users.get.properties': function anon() {
+		let { companyId, role } = Meteor.user();
+
+		console.log('Meteor.user()');
+		console.log(Meteor.user());
+		console.log('this.user()');
+		console.log(Meteor.user());
+		let company;
+		if (companyId) company = Companies.findOne({ _id: companyId });
+		else {
+			company = Companies.findOne({});
+			companyId = company._id;
+			Meteor.users.update(this.userId, { $set: { companyId } });
+		}
+		console.log('role');
+		console.log(role);
+		console.log('company');
+		console.log(company);
+		console.log('companyId');
+		console.log(companyId);
 		return { company, role };
 	},
-	'users.editProfile': (profile) => {
+	'user.set.companyId': function anon(companyId) {
+		check(companyId, String);
+		Meteor.users.update(this.userId, { $set: { companyId } });
+	},
+	'users.editProfile': function anon(profile) {
 		check(profile, {
 			emailAddress: String,
 			profile: {

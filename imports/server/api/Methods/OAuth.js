@@ -1,6 +1,6 @@
-import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
-import {ServiceConfiguration} from 'meteor/service-configuration';
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+import { ServiceConfiguration } from 'meteor/service-configuration';
 import rateLimit from '../../../modules/server/rate-limit';
 
 Meteor.methods({

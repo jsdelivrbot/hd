@@ -20,14 +20,13 @@ import './Css/Companies.scss';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
 import {
-	getStore as getStoreHydrantsPage,
-	setStore as setStoreHydrantsPage,
-	getStoreGlobal,
+	getStore as getStoreCompaniesPage,
+	setStore as setStoreCompaniesPage,
 	reactiveVar,
 } from '../../Storage/Storage';
 
-const getStore = keys => getStoreHydrantsPage('companiesPage', keys);
-const setStore = obj => setStoreHydrantsPage('companiesPage', obj);
+const getStore = keys => getStoreCompaniesPage('companiesPage', keys);
+const setStore = obj => setStoreCompaniesPage('companiesPage', obj);
 
 export default compose(
 	withStateHandlers(

@@ -28,7 +28,7 @@ function buildFilter(fromFilter) {
 }
 
 Meteor.methods({
-	'events.get.total.counts': () => {
+	'events.get.total.counts': function anon() {
 		const array = Events.aggregate([
 			{ $match: { code: 2 } },
 			{ $group: {
@@ -38,7 +38,7 @@ Meteor.methods({
 		]);
 		return { cntAbusedUnits: _.get(array, '[0].count', 0) };
 	},
-	'events.get.lenQuery': (p) => {
+	'events.get.lenQuery': function anon(p) {
 		check(p, Object);
 		const { filter } = p;
 		const array = Events.aggregate([
@@ -50,7 +50,7 @@ Meteor.methods({
 		]);
 		return _.get(array, '[0].count', 0);
 	},
-	'events.get.data': (p) => {
+	'events.get.data': function anon(p) {
 		check(p, Object);
 		const { filter, sort, skip } = p;
 

@@ -17,9 +17,7 @@ import {
 export default compose(
 	withTracker(() => {
 		console.log('tracker footer');
-		return {
-			company: reactiveVar.get().company || { key: 1, number: 1, name: 'תאגיד עין אפק 1' }
-		};
+		return { company: reactiveVar.get().company };
 	}),
 )(
 	(p) => {

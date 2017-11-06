@@ -9,7 +9,7 @@ import {
 } from 'recompose';
 
 import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
-import HydrantEditor from '../HydrantEditor/HydrantEditor';
+import HydrantEditor from '../../Hydrants/HydrantEditor/HydrantEditor';
 
 import {
 	getStore as getStoreHydrantsPage,

@@ -20,7 +20,7 @@ function buildFilter(fromfilter) {
 }
 
 Meteor.methods({
-	'hydrants.get.total.counts': () => {
+	'hydrants.get.total.counts': function anon() {
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: { enabled: true } },
 			{ $group: {
@@ -43,7 +43,7 @@ Meteor.methods({
 			cntTotalUnits: cntEnabledUnits + cntDisabledUnits,
 		};
 	},
-	'hydrants.get.lenQuery': (p) => {
+	'hydrants.get.lenQuery': function anon(p) {
 		check(p, Object);
 		const { filter } = p;
 		const array = Hydrants.aggregate([
@@ -55,7 +55,7 @@ Meteor.methods({
 		]);
 		return _.get(array, '[0].count', 0);
 	},
-	'hydrants.get.data': (p) => {
+	'hydrants.get.data': function anon(p) {
 		check(p, Object);
 		const { filter, sort, skip } = p;
 
@@ -72,7 +72,7 @@ Meteor.methods({
 				description: 1,
 			} }], { allowDiskUse: true });
 	},
-	'hydrants.get.data.one': () => {
+	'hydrants.get.data.one': function anon() {
 		check(p, Object);
 		const { filter } = p;
 		console.log('filter');
@@ -82,7 +82,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'map.get.total.counts': () => {
+	'map.get.total.counts': function anon() {
 		console.log('init map');
 		const array = Hydrants.aggregate([
 			{ $group: {
@@ -92,7 +92,7 @@ Meteor.methods({
 		]);
 		return { cntActiveUnits: _.get(array, '[0].count', 0) };
 	},
-	'map.get.data': (p) => {
+	'map.get.data': function anon(p) {
 		check(p, Object);
 		const { bounds, hydrantId } = p;
 		console.log('getting map in bounds');
@@ -114,7 +114,7 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'hydrants.insert': (doc) => {
+	'hydrants.insert': function anon(doc) {
 		check(doc, Match.Object);
 		console.log('inserting');
 		try {
@@ -125,7 +125,7 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'hydrants.update': (doc) => {
+	'hydrants.update': function anon(doc) {
 		check(doc, Match.Object);
 		console.log('updating');
 		try {
@@ -138,7 +138,7 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'hydrants.remove': (hydrantId) => {
+	'hydrants.remove': function anon(hydrantId) {
 		check(hydrantId, Match.String);
 		try {
 			return Hydrants.remove(hydrantId);

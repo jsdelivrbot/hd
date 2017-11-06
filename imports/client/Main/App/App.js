@@ -118,19 +118,27 @@ export default compose(
 		}
 	),
 	lifecycle({
-		async componentDidMount() {
-			const p = this.props;
-			console.log('initializing');
-			p.setAppLoading(true);
-			p.setTypes(await Meteor.callPromise('get.types'));
-			const { company, role } = await Meteor.callPromise('users.get.properties');
-			reactiveVar.set({ company });
-			p.setRole(role);
-			p.setAppLoading(false);
-			p.setAppInitialized(true);
+		async componentWillReceiveProps(p) {
+			console.log('p.loggingIn');
+			console.log(p.loggingIn);
+			console.log('p.authenticated');
+			console.log(p.authenticated);
+			if (p.authenticated && !p.appInitialized) {
+				p.setAppLoading(true);
+				p.setTypes(await Meteor.callPromise('get.types'));
+				const { company, role } = await Meteor.callPromise('users.get.properties');
+				reactiveVar.set({ company });
+				console.log('role');
+				console.log(role);
+				console.log('company');
+				console.log(company);
+				p.setRole(role);
+				p.setAppLoading(false);
+				p.setAppInitialized(true);
+			}
 		},
 	}),
-	branch(p => p.authenticated && !p.appInitialized, renderComponent(Loading)),
+	branch(p => p.loggingIn || p.authenticated && !p.appInitialized, renderComponent(Loading)),
 )(
 	(p) => {
 		return (

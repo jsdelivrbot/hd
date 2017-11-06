@@ -6,7 +6,7 @@ import Companies from '../Collections/Companies';
 import rateLimit from '../../../modules/server/rate-limit';
 
 Meteor.methods({
-	'companies.get.all': () => {
+	'companies.get.all': function anon() {
 		return Companies.find({}).fetch();
 	},
 });

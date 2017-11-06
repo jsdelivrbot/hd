@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import faker from 'faker';
 import seeder from './seeder';
@@ -110,60 +111,59 @@ const fillHydrantsAndEvents = () => {
 };
 
 const fillUsers = () => {
-	seeder(Meteor.users, {
-		environments: ['development', 'staging'],
-		noLimit: true,
-		wipe: true,
-		data: [
-			{
-				email: 'a@a.a',
-				password: 'aaaaaa',
-				profile: {
-					name: {
-						first: 'משה',
-						last: 'בן-משה',
-					},
+	Meteor.users.remove({});
+	const data = [
+		{
+			email: 'a@a.a',
+			password: 'aaaaaa',
+			profile: {
+				name: {
+					first: 'משה',
+					last: 'בן-משה',
 				},
-				role: 0,
 			},
-			{
-				email: 'user1@a.a',
-				password: 'aaaaaa',
-				profile: {
-					name: {
-						first: 'משתמש 1',
-						last: 'שם משתמש 1',
-					},
+			role: 0,
+		},
+		{
+			email: 'user1@a.a',
+			password: 'aaaaaa',
+			profile: {
+				name: {
+					first: 'משתמש 1',
+					last: 'שם משתמש 1',
 				},
-				companyId: Companies.find({}).fetch()[0]._id,
-				role: 0,
 			},
-			{
-				email: 'user2@a.a',
-				password: 'aaaaaa',
-				profile: {
-					name: {
-						first: 'משתמש 2',
-						last: 'שם משתמש 2',
-					},
+			companyId: Companies.find({}).fetch()[0]._id,
+			role: 0,
+		},
+		{
+			email: 'user2@a.a',
+			password: 'aaaaaa',
+			profile: {
+				name: {
+					first: 'משתמש 2',
+					last: 'שם משתמש 2',
 				},
-				companyId: Companies.find({}).fetch()[1]._id,
-				role: 1,
 			},
-			{
-				email: 'user3@a.a',
-				password: 'aaaaaa',
-				profile: {
-					name: {
-						first: 'משתמש 3',
-						last: 'שם משתמש 3',
-					},
+			companyId: Companies.find({}).fetch()[1]._id,
+			role: 1,
+		},
+		{
+			email: 'user3@a.a',
+			password: 'aaaaaa',
+			profile: {
+				name: {
+					first: 'משתמש 3',
+					last: 'שם משתמש 3',
 				},
-				companyId: Companies.find({}).fetch()[2]._id,
-				role: 2,
 			},
-		],
-	});
+			companyId: Companies.find({}).fetch()[2]._id,
+			role: 2,
+		},
+	];
+	for (let i = 0; i < data.length; i += 1) {
+		Meteor.users.update(Accounts.createUser(data[i]), { $set: { companyId: data[i].companyId, role: data[i].role } });
+	}
 };
 const fillCompanies = () => {
 	seeder(Companies, {
