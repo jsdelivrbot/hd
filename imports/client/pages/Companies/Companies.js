@@ -83,13 +83,13 @@ export default compose(
 		console.log('p.selected');
 		console.log(p.selected);
 		const formatName = cell => (<span>{cell}</span>);
-		const formatEdit = cell => (
+		const formatView = cell => (
 			<span>
 				<Button
 					bsStyle="primary"
-					onClick={() => p.history.push(`${p.match.url}/${cell}/edit`)}
+					onClick={() => p.history.push(`${p.match.url}/${cell}`)}
 					block
-				>ערוך</Button>
+				>פתח</Button>
 			</span>
 		);
 
@@ -123,7 +123,7 @@ export default compose(
 								שם תאגיד
 							</TableHeaderColumn>
 							<TableHeaderColumn
-								dataFormat={formatEdit}
+								dataFormat={formatView}
 								width="125px"
 								dataField="_id"
 								dataAlign="center"
