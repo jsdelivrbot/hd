@@ -12,8 +12,6 @@ Meteor.methods({
 	'companies.get.data.one': function anon(p) {
 		check(p, Object);
 		const { filter } = p;
-		console.log('filter');
-		console.log(filter);
 		return Companies.findOne({ _id: filter._id });
 	},
 });

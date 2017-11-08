@@ -26,7 +26,7 @@ import Events from '../../../components/Events/Events';
 export default compose(
 	withStateHandlers(
 		p => ({
-			id: p.match.params._id,
+			_id: p.match.params._id,
 			data: [],
 			loading: false,
 			initialized: false,
@@ -42,7 +42,7 @@ export default compose(
 			console.log('initializing');
 			p.setLoading(true);
 
-			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p.id } });
+			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p._id } });
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = p.types.status[data.status];
 			p.setData([data]);
@@ -124,8 +124,8 @@ export default compose(
 						<Box w={1} />
 					</Flex>
 				</div>
-				<Events id={p.id} />
-				<Map id={p.id} />
+				<Events _id={p._id} types={p.types} />
+				<Map _id={p._id} />
 			</div>
 		);
 	});

@@ -47,15 +47,11 @@ class HydrantEditor extends React.Component {
 		};
 
 		if (existingHydrant) data._id = existingHydrant;
-		console.log('inserting');
 
 		Meteor.call(methodToCall, data, (error, hydrantId) => {
-			console.log('here');
 			if (error) {
-				console.log('here');
 				Bert.alert(error.reason, 'danger');
 			} else {
-				console.log('here');
 				const confirmation = existingHydrant ? '&emsp; התעדכן הידרנט! ' : '&emsp; נוסף הידרנט! ';
 				this.form.reset();
 				Bert.alert(confirmation, 'success', 'growl-top-left');

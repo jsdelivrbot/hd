@@ -80,8 +80,6 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering');
-		console.log('p.selected');
-		console.log(p.selected);
 		const formatName = cell => (<span>{cell}</span>);
 		const formatView = cell => (
 			<span>
@@ -105,9 +103,9 @@ export default compose(
 							remote
 							selectRow={{
 								mode: 'radio',
-								hideSelectColumn: true,
-								clickToSelect: true,
-								bgColor: '#0c98e2',
+								hideSelectColumn: false,
+								clickToSelect: false,
+								// bgColor: '#0c98e2',
 								onSelect: p.onSelect,
 								selected: p.selected,
 							}}
@@ -115,7 +113,7 @@ export default compose(
 						>
 							<TableHeaderColumn
 								dataFormat={formatName}
-								width="125px"
+								// width="125px"
 								dataField="name"
 								dataAlign="center"
 								headerAlign="center"

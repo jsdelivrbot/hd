@@ -34,8 +34,8 @@ import {
 
 export default compose(
 	withHandlers({
-		getStore: p => keys => getStore(`map_${p.id}`, keys),
-		setStore: p => obj => setStore(`map_${p.id}`, obj),
+		getStore: p => keys => getStore(`map_${p._id}`, keys),
+		setStore: p => obj => setStore(`map_${p._id}`, obj),
 	}),
 	withStateHandlers(
 		p => ({
@@ -91,7 +91,7 @@ export default compose(
 				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
-				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds, hydrantId: p.id }));
+				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds, _id: p._id }));
 				console.log('received data');
 				p.setLoading(false);
 			}
@@ -110,8 +110,8 @@ export default compose(
 	withStateHandlers(() => ({
 		infoWindowsId: undefined,
 	}), {
-		onClickMarker: () => id => ({
-			infoWindowsId: id,
+		onClickMarker: () => _id => ({
+			infoWindowsId: _id,
 		}),
 	}),
 )(
@@ -167,7 +167,7 @@ export default compose(
 						})}
 					</MarkerClusterer>
 				</GoogleMap>
-				{!p.id ?
+				{!p._id ?
 					<Segment raised textAlign="center" size="big">
 						סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
 						נכון לתאריך: {currentDate}

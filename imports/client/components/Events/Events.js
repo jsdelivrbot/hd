@@ -30,8 +30,8 @@ import './Css/Events.scss';
 
 export default compose(
 	withHandlers({
-		getStore: p => keys => getStore(`events_${p.id}`, keys),
-		setStore: p => obj => setStore(`events_${p.id}`, obj),
+		getStore: p => keys => getStore(`events_${p._id}`, keys),
+		setStore: p => obj => setStore(`events_${p._id}`, obj),
 	}),
 	withStateHandlers(
 		p => ({
@@ -40,7 +40,7 @@ export default compose(
 			loading: false,
 			initialized: false,
 			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
-			filter: p.getStore('filter') || { code: {}, hydrantId: p.id },
+			filter: p.getStore('filter') || { code: {}, hydrantId: p._id },
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => ({ loading }),
@@ -224,7 +224,7 @@ export default compose(
 						</BootstrapTable>
 					</Box>
 				</Flex>
-				{!p.id ?
+				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 						סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAbusedUnits} <br />
 						נכון לתאריך: {currentDate}

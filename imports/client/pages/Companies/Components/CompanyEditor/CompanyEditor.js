@@ -37,15 +37,11 @@ class CompanyEditor extends React.Component {
 		};
 
 		if (existingCompany) data._id = existingCompany;
-		console.log('inserting');
 
 		Meteor.call(methodToCall, data, (error, _id) => {
-			console.log('here');
 			if (error) {
-				console.log('here');
 				Bert.alert(error.reason, 'danger');
 			} else {
-				console.log('here');
 				const confirmation = existingCompany ? '&emsp; החברה התעדכנה! ' : '&emsp; נוספה חברה! ';
 				this.form.reset();
 				Bert.alert(confirmation, 'success', 'growl-top-left');
