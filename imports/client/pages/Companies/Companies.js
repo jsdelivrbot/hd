@@ -11,6 +11,7 @@ import {
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import { Button } from 'react-bootstrap';
 import _ from 'lodash';
 import { Flex, Box } from 'reflexbox';
 import '../../stylesheets/table.scss';
@@ -81,7 +82,16 @@ export default compose(
 		console.log('rendering');
 		console.log('p.selected');
 		console.log(p.selected);
-		const formatter = cell => (<span>{cell}</span>);
+		const formatName = cell => (<span>{cell}</span>);
+		const formatEdit = cell => (
+			<span>
+				<Button
+					bsStyle="primary"
+					onClick={() => p.history.push(`${p.match.url}/${cell}/edit`)}
+					block
+				>ערוך</Button>
+			</span>
+		);
 
 		return (
 			<div className="hydrants">
@@ -103,9 +113,22 @@ export default compose(
 							}}
 							height="600px"
 						>
-							<TableHeaderColumn dataFormat={formatter} width="125px" dataField="name" dataAlign="center" headerAlign="center">
+							<TableHeaderColumn
+								dataFormat={formatName}
+								width="125px"
+								dataField="name"
+								dataAlign="center"
+								headerAlign="center"
+							>
 								שם תאגיד
 							</TableHeaderColumn>
+							<TableHeaderColumn
+								dataFormat={formatEdit}
+								width="125px"
+								dataField="_id"
+								dataAlign="center"
+								headerAlign="center"
+							/>
 						</BootstrapTable>
 					</Box>
 				</Flex>

@@ -1,11 +1,10 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Flex, Box } from 'reflexbox'
 import { Bert } from 'meteor/themeteorchef:bert';
-import validate from '../../../../modules/validate';
+import validate from '../../../../../modules/validate';
 
 class HydrantEditor extends React.Component {
 	componentDidMount() {
@@ -203,25 +202,14 @@ class HydrantEditor extends React.Component {
 	}
 }
 
-HydrantEditor.defaultProps = {
-	data: { },
-};
-
-HydrantEditor.propTypes = {
-	data: PropTypes.object,
-	history: PropTypes.object.isRequired,
-};
-
 export default HydrantEditor;
 
+// import PropTypes from 'prop-types';
+// HydrantEditor.defaultProps = {
+// 	data: { },
+// };
 //
-// sim: { required: true, maxlength: 24 },
-// // lat: { required: false },
-// // lon: { required: false },
-// // status: { required: false },
-// // lastComm: { required: false },
-// // disableDate: { required: false },
-// disableText: {  required: false, maxlength: 250 },
-// address: { required: false, maxlength: 50 },
-// description: { required: false, maxlength: 50 },
-// // enabled: { required: false },
+// HydrantEditor.propTypes = {
+// 	data: PropTypes.object,
+// 	history: PropTypes.object.isRequired,
+// };

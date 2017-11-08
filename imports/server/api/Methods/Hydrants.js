@@ -72,7 +72,7 @@ Meteor.methods({
 				description: 1,
 			} }], { allowDiskUse: true });
 	},
-	'hydrants.get.data.one': function anon() {
+	'hydrants.get.data.one': function anon(p) {
 		check(p, Object);
 		const { filter } = p;
 		console.log('filter');
@@ -94,12 +94,12 @@ Meteor.methods({
 	},
 	'map.get.data': function anon(p) {
 		check(p, Object);
-		const { bounds, hydrantId } = p;
+		const { bounds, _id } = p;
 		console.log('getting map in bounds');
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: { $and: [{ _id: hydrantId || { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
+			{ $match: { $and: [{ _id: _id || { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
 			{ $limit: 40 },
 			{ $project: {
 				lat: 1,
@@ -130,18 +130,18 @@ Meteor.methods({
 		console.log('updating');
 		try {
 			console.log('ok');
-			const hydrantId = doc._id;
-			Hydrants.update(hydrantId, { $set: doc });
-			return hydrantId; // Return _id so we can redirect to document after update.
+			const _id = doc._id;
+			Hydrants.update(_id, { $set: doc });
+			return _id; // Return _id so we can redirect to document after update.
 		} catch (exception) {
 			console.log(exception);
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'hydrants.remove': function anon(hydrantId) {
-		check(hydrantId, Match.String);
+	'hydrants.remove': function anon(_id) {
+		check(_id, Match.String);
 		try {
-			return Hydrants.remove(hydrantId);
+			return Hydrants.remove(_id);
 		} catch (exception) {
 			throw new Meteor.Error('500', exception);
 		}

@@ -97,7 +97,6 @@ export default compose(
 			},
 		}
 	),
-
 	withHandlers({
 		select: p => row => p.history.push(`${p.match.url}/${row._id}`),
 		sliderInc: ({ slider, setSlider }) => () => {

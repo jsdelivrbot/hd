@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Companies from '../Collections/Companies';
@@ -9,7 +9,50 @@ Meteor.methods({
 	'companies.get.all': function anon() {
 		return Companies.find({}).fetch();
 	},
+	'companies.get.data.one': function anon(p) {
+		check(p, Object);
+		const { filter } = p;
+		console.log('filter');
+		console.log(filter);
+		return Companies.findOne({ _id: filter._id });
+	},
 });
+
+Meteor.methods({
+	'companies.insert': function anon(doc) {
+		check(doc, Match.Object);
+		console.log('inserting');
+		try {
+			console.log('ok');
+			return Companies.insert({ ...doc });
+		} catch (exception) {
+			console.log(exception);
+			throw new Meteor.Error('500', exception);
+		}
+	},
+	'companies.update': function anon(doc) {
+		check(doc, Match.Object);
+		console.log('updating');
+		try {
+			console.log('ok');
+			const _id = doc._id;
+			Companies.update(_id, { $set: doc });
+			return _id; // Return _id so we can redirect to document after update.
+		} catch (exception) {
+			console.log(exception);
+			throw new Meteor.Error('500', exception);
+		}
+	},
+	'companies.remove': function anon(_id) {
+		check(_id, Match.String);
+		try {
+			return Companies.remove(_id);
+		} catch (exception) {
+			throw new Meteor.Error('500', exception);
+		}
+	},
+});
+
 
 
 //construct a Promise that will take 2500ms to resolve
