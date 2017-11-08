@@ -16,12 +16,17 @@ import { Bert } from 'meteor/themeteorchef:bert';
 
 import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
+import Users from '../../pages/Users/Users';
+
 import Hydrants from '../../pages/Hydrants/Hydrants';
 import NewHydrant from '../../pages/Hydrants/NewHydrant/NewHydrant';
 import ViewHydrant from '../../pages/Hydrants/ViewHydrant/ViewHydrant';
 import EditHydrant from '../../pages/Hydrants/EditHydrant/EditHydrant';
+
 import Companies from '../../pages/Companies/Companies';
-import Users from '../../pages/Users/Users';
+import NewCompany from '../../pages/Companies/NewCompany/NewCompany';
+import ViewCompany from '../../pages/Companies/ViewCompany/ViewCompany';
+import EditCompany from '../../pages/Companies/EditCompany/EditCompany';
 
 import Signup from '../../pages/Administrative/LoginPages/Signup/Signup';
 import Login from '../../pages/Administrative/LoginPages/Login/Login';
@@ -119,19 +124,11 @@ export default compose(
 	),
 	lifecycle({
 		async componentWillReceiveProps(p) {
-			console.log('p.loggingIn');
-			console.log(p.loggingIn);
-			console.log('p.authenticated');
-			console.log(p.authenticated);
 			if (p.authenticated && !p.appInitialized) {
 				p.setAppLoading(true);
 				p.setTypes(await Meteor.callPromise('get.types'));
 				const { company, role } = await Meteor.callPromise('users.get.properties');
 				reactiveVar.set({ company });
-				console.log('role');
-				console.log(role);
-				console.log('company');
-				console.log(company);
 				p.setRole(role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);
@@ -141,6 +138,7 @@ export default compose(
 	branch(p => p.loggingIn || p.authenticated && !p.appInitialized, renderComponent(Loading)),
 )(
 	(p) => {
+		console.log('rendering app');
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
@@ -150,14 +148,20 @@ export default compose(
 						<Switch>
 							<Authenticated exact path="/" component={Index} {...p} />
 							<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
-							<Authenticated exact path="/companies" component={Companies} {...p} />
 							<Authenticated exact path="/users" component={Users} {...p} />
 							<Authenticated exact path="/map" component={Map} {...p} />
 							<Authenticated exact path="/events" component={Events} {...p} />
+
+							<Authenticated exact path="/companies" component={Companies} {...p} />
+							<Authenticated exact path="/companies/new" component={NewCompany} {...p} />
+							<Authenticated exact path="/companies/:_id" component={ViewCompany} {...p} />
+							<Authenticated exact path="/companies/:_id/edit" component={EditCompany} {...p} />
+
 							<Authenticated exact path="/hydrants" component={Hydrants} {...p} />
 							<Authenticated exact path="/hydrants/new" component={NewHydrant} {...p} />
 							<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
 							<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
+
 							<Authenticated exact path="/profile" component={Profile} {...p} />
 							<Public path="/signup" component={Signup} {...p} />
 							<Public path="/login" component={Login} {...p} />
@@ -165,6 +169,7 @@ export default compose(
 							<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
 							<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
 							<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+
 							<Route component={NotFound} />
 						</Switch>
 					</Grid>
