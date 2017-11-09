@@ -6,10 +6,24 @@ import rateLimit from '../../../modules/server/rate-limit';
 import Companies from '../Collections/Companies';
 
 Meteor.methods({
-	'users.sendVerificationEmail': function anon() {
+	'users.get.all': function anon() {
+		return Meteor.users.aggregate([
+			{ $project: {
+				name: 1,
+				email: { $arrayElemAt: ['$emails', 0] },
+				role: 1,
+			} },
+			{ $project: {
+				name: 1,
+				email: '$email.address',
+				role: 1,
+			} }
+		]);
+	},
+	'user.sendVerificationEmail': function anon() {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
-	'users.get.properties': function anon() {
+	'user.get.properties': function anon() {
 		let { companyId, role } = Meteor.user();
 		let company;
 		if (companyId) company = Companies.findOne({ _id: companyId });
@@ -24,7 +38,7 @@ Meteor.methods({
 		check(companyId, String);
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
-	'users.editProfile': function anon(profile) {
+	'user.editProfile': function anon(profile) {
 		check(profile, {
 			emailAddress: String,
 			profile: {
@@ -45,8 +59,8 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'users.sendVerificationEmail',
-		'users.editProfile',
+		'user.sendVerificationEmail',
+		'user.editProfile',
 	],
 	limit: 5,
 	timeRange: 1000,

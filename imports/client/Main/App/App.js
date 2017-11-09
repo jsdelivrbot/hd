@@ -53,7 +53,7 @@ import {
 } from '../../Storage/Storage';
 
 const handleResendVerificationEmail = (emailAddress) => {
-	Meteor.call('users.sendVerificationEmail', (error) => {
+	Meteor.call('user.sendVerificationEmail', (error) => {
 		if (error) {
 			Bert.alert(error.reason, 'danger');
 		} else {
@@ -127,7 +127,7 @@ export default compose(
 			if (p.authenticated && !p.appInitialized) {
 				p.setAppLoading(true);
 				p.setTypes(await Meteor.callPromise('get.types'));
-				const { company, role } = await Meteor.callPromise('users.get.properties');
+				const { company, role } = await Meteor.callPromise('user.get.properties');
 				reactiveVar.set({ company });
 				p.setRole(role);
 				p.setAppLoading(false);

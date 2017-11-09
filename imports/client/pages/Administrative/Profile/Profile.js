@@ -94,7 +94,7 @@ class Profile extends React.Component {
 			},
 		};
 
-		Meteor.call('users.editProfile', profile, (error) => {
+		Meteor.call('user.editProfile', profile, (error) => {
 			if (error) {
 				Bert.alert(error.reason, 'danger');
 			} else {
@@ -223,7 +223,7 @@ Profile.propTypes = {
 };
 
 export default createContainer(() => {
-	const subscription = Meteor.subscribe('users.editProfile');
+	const subscription = Meteor.subscribe('user.editProfile');
 
 	return {
 		loading: !subscription.ready(),
