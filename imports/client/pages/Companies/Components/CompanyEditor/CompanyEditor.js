@@ -31,15 +31,19 @@ class CompanyEditor extends React.Component {
 		const existingCompany = this.props.data && this.props.data._id;
 		const methodToCall = existingCompany ? 'companies.update' : 'companies.insert';
 		const data = {
-			name: this.sim.value,
-			address: this.sim.value,
-			contactPerson: this.sim.value,
+			name: this.name.value,
+			address: this.address.value,
+			contactPerson: this.contactPerson.value,
 		};
 
 		if (existingCompany) data._id = existingCompany;
-
+		console.log('data');
+		console.log(data);
+		console.log('methodToCall');
+		console.log(methodToCall);
 		Meteor.call(methodToCall, data, (error, _id) => {
 			if (error) {
+				console.log('here');
 				Bert.alert(error.reason, 'danger');
 			} else {
 				const confirmation = existingCompany ? '&emsp; החברה התעדכנה! ' : '&emsp; נוספה חברה! ';

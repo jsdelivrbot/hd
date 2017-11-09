@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check, Match } from 'meteor/check';
+import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Companies from '../Collections/Companies';
@@ -18,7 +18,7 @@ Meteor.methods({
 
 Meteor.methods({
 	'companies.insert': function anon(doc) {
-		check(doc, Match.Object);
+		check(doc, Object);
 		console.log('inserting');
 		try {
 			console.log('ok');
@@ -29,7 +29,7 @@ Meteor.methods({
 		}
 	},
 	'companies.update': function anon(doc) {
-		check(doc, Match.Object);
+		check(doc, Object);
 		console.log('updating');
 		try {
 			console.log('ok');
@@ -42,7 +42,7 @@ Meteor.methods({
 		}
 	},
 	'companies.remove': function anon(_id) {
-		check(_id, Match.String);
+		check(_id, String);
 		try {
 			return Companies.remove(_id);
 		} catch (exception) {

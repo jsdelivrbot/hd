@@ -9,6 +9,8 @@ import {
 	withStateHandlers,
 	lifecycle,
 } from 'recompose';
+
+import { Bert } from 'meteor/themeteorchef:bert';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
@@ -20,6 +22,19 @@ import '../../../stylesheets/table.scss';
 import './Css/ViewCompany.scss';
 
 import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+
+const handleRemove = (_id, history) => {
+	if (confirm('האם אתה בטוח? אין דרך חזרה!')) {
+		Meteor.call('companies.remove', _id, (error) => {
+			if (error) {
+				Bert.alert(error.reason, 'danger');
+			} else {
+				Bert.alert('&emsp;החברה נמחקה!', 'success', 'growl-top-left');
+				history.push('/companies');
+			}
+		});
+	}
+};
 
 export default compose(
 	withStateHandlers(
@@ -40,9 +55,7 @@ export default compose(
 			console.log('initializing');
 			p.setLoading(true);
 
-			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p._id } });
-			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
-			data.status = p.types.status[data.status];
+			const data = await Meteor.callPromise('companies.get.data.one', { filter: { _id: p._id } });
 			p.setData([data]);
 
 			p.setLoading(false);
@@ -57,7 +70,7 @@ export default compose(
 		const formatter = cell => (<span>{cell}</span>);
 
 		return (
-			<div className="viewHydrant">
+			<div className="ViewCompany">
 				<BootstrapTable
 					containerClass="table_container_class"
 					tableContainerClass="table_class"
@@ -74,44 +87,34 @@ export default compose(
 						מספר מזהה
 					</TableHeaderColumn>
 					<TableHeaderColumn
+						width="125"
 						dataFormat={formatter}
-						width="135px"
-						dataField="status"
-						dataAlign="center"
+						dataField="name"
+						dataAlign="right"
 						headerAlign="center"
 					>
-						סטטוס
+						שם
 					</TableHeaderColumn>
 					<TableHeaderColumn
-						dataField="createdAt"
-						width="155"
-						dataFormat={formatter}
-						dataAlign="center"
-						headerAlign="center"
-					>
-						תאריך התקנה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						width="200"
+						width="150"
 						dataFormat={formatter}
 						dataField="address"
 						dataAlign="right"
 						headerAlign="center"
 					>
-						כתובת ההתקנה
+						כתובת
 					</TableHeaderColumn>
 					<TableHeaderColumn
 						dataFormat={formatter}
-						dataField="description"
+						dataField="contactPerson"
 						dataAlign="right"
 						headerAlign="center"
 					>
-						תאור מקום
+						שם איש קשר
 					</TableHeaderColumn>
 				</BootstrapTable>
 				<div>
 					<Flex>
-						<Box w={1} />
 						<Box w={1}>
 							<Button
 								bsStyle="primary"
@@ -120,6 +123,13 @@ export default compose(
 							>ערוך</Button>
 						</Box>
 						<Box w={1} />
+						<Box w={1}>
+							<Button
+								bsStyle="primary"
+								onClick={() => handleRemove(p._id, p.hystory)}
+								block
+							>מחק</Button>
+						</Box>
 					</Flex>
 				</div>
 			</div>

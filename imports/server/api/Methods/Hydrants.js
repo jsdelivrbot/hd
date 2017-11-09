@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check, Match } from 'meteor/check';
+import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Hydrants from '../Collections/Hydrants';
@@ -115,7 +115,7 @@ Meteor.methods({
 
 Meteor.methods({
 	'hydrants.insert': function anon(doc) {
-		check(doc, Match.Object);
+		check(doc, Object);
 		console.log('inserting');
 		try {
 			console.log('ok');
@@ -126,7 +126,7 @@ Meteor.methods({
 		}
 	},
 	'hydrants.update': function anon(doc) {
-		check(doc, Match.Object);
+		check(doc, Object);
 		console.log('updating');
 		try {
 			console.log('ok');
@@ -139,7 +139,7 @@ Meteor.methods({
 		}
 	},
 	'hydrants.remove': function anon(_id) {
-		check(_id, Match.String);
+		check(_id, String);
 		try {
 			return Hydrants.remove(_id);
 		} catch (exception) {

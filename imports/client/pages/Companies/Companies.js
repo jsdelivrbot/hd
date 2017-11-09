@@ -92,7 +92,7 @@ export default compose(
 		);
 
 		return (
-			<div className="hydrants">
+			<div className="companies">
 				<Flex>
 					<Box w={11 / 12}>
 						<BootstrapTable
@@ -126,7 +126,17 @@ export default compose(
 								dataField="_id"
 								dataAlign="center"
 								headerAlign="center"
-							/>
+							>
+								<Button
+									bsStyle="primary"
+									block
+									onClick={() => p.history.push(
+										`${p.match.url}/new`
+									)}
+								>
+									חדש
+								</Button>
+							</TableHeaderColumn>
 						</BootstrapTable>
 					</Box>
 				</Flex>
