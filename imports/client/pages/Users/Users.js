@@ -6,6 +6,8 @@ import {
 	compose,
 	withStateHandlers,
 	lifecycle,
+	renderComponent,
+	branch,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -15,16 +17,43 @@ import '../../stylesheets/table.scss';
 
 import './Css/Users.scss';
 
+import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+
+import {
+	getStore as getStoreUsersPage,
+	setStore as setStoreUsersPage,
+} from '../../Storage/Storage';
+
+const getStore = keys => getStoreUsersPage('usersPage', keys);
+const setStore = obj => setStoreUsersPage('usersPage', obj);
+
 export default compose(
 	withStateHandlers(
 		() => ({
-			data: [],
+			data: getStore('data') || [],
 			initialized: false,
+			loading: false,
 		}), {
-			setData: () => data => ({ data }),
+			setData: () => data => setStore({ data }),
+			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
 	),
+	lifecycle({
+		async componentDidMount() {
+			console.log('initializing');
+			const p = this.props;
+			if (!getStore()) {
+				this.props.setLoading(true);
+				const data = await Meteor.callPromise('companies.get.all');
+				reactiveVar.set({ company: data[0] });
+				p.setData(data);
+				p.setLoading(false);
+			}
+			console.log('initialized');
+			this.props.setInitialized(true);
+		},
+	}),
 	lifecycle({
 		componentDidMount() {
 			console.log('initializing');
@@ -51,6 +80,7 @@ export default compose(
 			setData(data.slice());
 		},
 	}),
+	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
 		console.log('rendering');
@@ -61,7 +91,7 @@ export default compose(
 		};
 
 		return (
-			<div className="hydrants">
+			<div className="users">
 				<Flex>
 					<Box w={11 / 12}>
 						<BootstrapTable

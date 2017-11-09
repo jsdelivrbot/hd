@@ -126,7 +126,7 @@ export default compose(
 						<Box w={1}>
 							<Button
 								bsStyle="primary"
-								onClick={() => handleRemove(p._id, p.hystory)}
+								onClick={() => handleRemove(p._id, p.history)}
 								block
 							>מחק</Button>
 						</Box>
