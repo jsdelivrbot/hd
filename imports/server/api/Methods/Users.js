@@ -11,11 +11,6 @@ Meteor.methods({
 	},
 	'users.get.properties': function anon() {
 		let { companyId, role } = Meteor.user();
-
-		console.log('Meteor.user()');
-		console.log(Meteor.user());
-		console.log('this.user()');
-		console.log(Meteor.user());
 		let company;
 		if (companyId) company = Companies.findOne({ _id: companyId });
 		else {
@@ -23,12 +18,6 @@ Meteor.methods({
 			companyId = company._id;
 			Meteor.users.update(this.userId, { $set: { companyId } });
 		}
-		console.log('role');
-		console.log(role);
-		console.log('company');
-		console.log(company);
-		console.log('companyId');
-		console.log(companyId);
 		return { company, role };
 	},
 	'user.set.companyId': function anon(companyId) {
