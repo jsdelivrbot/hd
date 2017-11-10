@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
@@ -13,8 +14,11 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Flex, Box } from 'reflexbox';
-import '../../stylesheets/table.scss';
+import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
+import '../../stylesheets/table.scss';
 import './Css/Users.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
@@ -33,7 +37,11 @@ export default compose(
 			data: getStore('data') || [],
 			initialized: false,
 			loading: false,
+			editCompany: undefined,
+			editRole: undefined,
 		}), {
+			setEditRole: () => editRole => ({ editRole }),
+			setEditCompany: () => editCompany => ({ editCompany }),
 			setData: () => data => setStore({ data }),
 			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -45,46 +53,79 @@ export default compose(
 			const p = this.props;
 			if (!getStore()) {
 				this.props.setLoading(true);
-				const data = await Meteor.callPromise('companies.get.all');
-				reactiveVar.set({ company: data[0] });
+				const uData = await Meteor.callPromise('users.get.all');
+				const data = uData.map(({ role, ...row }) => ({
+					edit: 0,
+					role1: role === 0,
+					role2: role === 1,
+					role3: role === 2,
+					...row }));
 				p.setData(data);
 				p.setLoading(false);
 			}
 			console.log('initialized');
-			this.props.setInitialized(true);
-		},
-	}),
-	lifecycle({
-		componentDidMount() {
-			console.log('initializing');
-			this.props.setData([
-				{ name: 'משה1 בן משה', email: 'moshe1@gmail.com', role1: true, role2: false, role3: false, role4: false, role5: false, role6: false, role7: false },
-				{ name: 'משה2 בן משה', email: 'moshe2@gmail.com', role1: false, role2: true, role3: false, role4: false, role5: false, role6: false, role7: false },
-				{ name: 'משה3 בן משה', email: 'moshe3@gmail.com', role1: false, role2: false, role3: true, role4: false, role5: false, role6: false, role7: false },
-				{ name: 'משה4 בן משה', email: 'moshe4@gmail.com', role1: false, role2: false, role3: false, role4: true, role5: false, role6: false, role7: false },
-				{ name: 'משה5 בן משה', email: 'moshe5@gmail.com', role1: false, role2: false, role3: false, role4: false, role5: true, role6: false, role7: false },
-				{ name: 'משה6 בן משה', email: 'moshe6@gmail.com', role1: false, role2: false, role3: false, role4: false, role5: false, role6: true, role7: false },
-				{ name: 'משה7 בן משה', email: 'moshe7@gmail.com', role1: false, role2: false, role3: false, role4: false, role5: false, role6: false, role7: true },
-				{ name: 'משה8 בן משה', email: 'moshe8@gmail.com', role1: true, role2: false, role3: false, role4: false, role5: false, role6: false, role7: false },
-				{ name: 'משה9 בן משה', email: 'moshe9@gmail.com', role1: false, role2: true, role3: false, role4: false, role5: false, role6: false, role7: false },
-			]);
-			this.props.setInitialized(true);
+			p.setInitialized(true);
 		},
 	}),
 	withHandlers({
 		select: ({ data, setData }) => (orow, ncol, nrow) => {
+			if (!ncol) return;
 			const row = Object.assign({}, data[nrow]);
-			for (let i = 1; i <= 7; i += 1) if (i !== ncol - 1) row[`role${i}`] = false;
+			for (let i = 1; i <= 3; i += 1) if (i !== ncol - 1) row[`role${i}`] = false;
 			row[`role${ncol - 1}`] = true;
 			data[nrow] = row;
 			setData(data.slice());
 		},
+		onClick: p => (nrow) => {
+			p.setData(_.clone(_.update(p.data, `[${nrow}].edit`, boolean => !boolean)));
+			if (p.data[nrow].edit) {
+				p.setEditCompany(p.data[nrow].company);
+			}
+		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
+
 	(p) => {
 		console.log('rendering');
+		console.log('data');
+		console.log(p.data);
 		const formatter = cell => (<span>{cell}</span>);
+		const formatButton = (cell, row, ncol, nrow) => (
+			<span>
+				{!cell ?
+					<Button
+						bsStyle="primary"
+						block
+						onClick={() => p.onClick(nrow)}
+					>
+						ערוך
+					</Button>
+					:
+					<Button
+						bsStyle="success"
+						onClick={() => p.onClick(nrow)}
+						block
+					>
+						שמור
+					</Button>
+				}
+			</span>
+		);
+		const formatList = (cell, row, ncol, nrow) => (
+			<span>
+				{!row.edit ?
+					cell
+					:
+					<Select
+						name="select"
+						value={cell}
+						options={p.companies}
+						onChange={p.setEditCompany}
+					/>
+				}
+			</span>
+		);
 
 		const columnClassNameFormat = (fieldValue, row, rowIdx, colIdx) => {
 			return fieldValue === true ? 'selected-cell' : 'not-selected-cell';
@@ -105,33 +146,25 @@ export default compose(
 							}}
 							height="600px"
 						>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="125px" dataField="name" dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="name" dataFormat={formatter} width="125px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
 								שם
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="165px" dataField="email" dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
 								אימייל
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role1" dataAlign="center" headerAlign="center">
-								תפקיד 1
+							<TableHeaderColumn dataField="company"  dataFormat={formatList} width="165px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+								חברה
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role2" dataAlign="center" headerAlign="center">
-								תפקיד 2
+							<TableHeaderColumn dataField="role1" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+								אדמין
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role3" dataAlign="center" headerAlign="center">
-								תפקיד 3
+							<TableHeaderColumn dataField="role2" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+								מוקד
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role4" dataAlign="center" headerAlign="center">
-								תפקיד 4
+							<TableHeaderColumn dataField="role3" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+								אבטחה
 							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role5" dataAlign="center" headerAlign="center">
-								תפקיד 5
-							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role6" dataAlign="center" headerAlign="center">
-								תפקיד 6
-							</TableHeaderColumn>
-							<TableHeaderColumn columnClassName={ columnClassNameFormat } dataFormat={formatter} width="85px" dataField="role7" dataAlign="center" headerAlign="center">
-								תפקיד 7
-							</TableHeaderColumn>
+							<TableHeaderColumn dataField="edit" dataFormat={formatButton} columnClassName={columnClassNameFormat}dataAlign="center" headerAlign="center"/>
 						</BootstrapTable>
 					</Box>
 				</Flex>

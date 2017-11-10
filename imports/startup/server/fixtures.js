@@ -74,6 +74,7 @@ const resetDb = () => {
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+	// add other counts
 };
 
 const fillHydrantsAndEvents = () => {
@@ -123,6 +124,7 @@ const fillUsers = () => {
 				},
 			},
 			role: 0,
+			companyId: Companies.find({}).fetch()[0]._id,
 		},
 		{
 			email: 'user1@a.a',

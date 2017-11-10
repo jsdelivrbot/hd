@@ -8,15 +8,25 @@ import Companies from '../Collections/Companies';
 Meteor.methods({
 	'users.get.all': function anon() {
 		return Meteor.users.aggregate([
+			{ $lookup: {
+				from: 'Companies',
+				localField: 'companyId',
+				foreignField: '_id',
+				as: 'c'
+			} },
+			{ $unwind: '$c' },
 			{ $project: {
-				name: 1,
+				name: { $concat: ['$profile.name.first', { $literal: ' ' }, '$profile.name.last'] },
 				email: { $arrayElemAt: ['$emails', 0] },
 				role: 1,
+				companyId: 1,
+				companyName: '$c.name',
 			} },
 			{ $project: {
 				name: 1,
 				email: '$email.address',
 				role: 1,
+				companyName: 1,
 			} }
 		]);
 	},
@@ -24,14 +34,14 @@ Meteor.methods({
 		return Accounts.sendVerificationEmail(this.userId);
 	},
 	'user.get.properties': function anon() {
-		let { companyId, role } = Meteor.user();
-		let company;
-		if (companyId) company = Companies.findOne({ _id: companyId });
-		else {
-			company = Companies.findOne({});
-			companyId = company._id;
-			Meteor.users.update(this.userId, { $set: { companyId } });
-		}
+		const { companyId, role } = Meteor.user();
+		const company = Companies.findOne({ _id: companyId });
+		// if (companyId) company = Companies.findOne({ _id: companyId });
+		// else {
+		// 	company = Companies.findOne({});
+		// 	companyId = company._id;
+		// 	Meteor.users.update(this.userId, { $set: { companyId } });
+		// }
 		return { company, role };
 	},
 	'user.set.companyId': function anon(companyId) {

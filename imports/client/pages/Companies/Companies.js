@@ -73,7 +73,7 @@ export default compose(
 				p.setLoading(false);
 			}
 			console.log('initialized');
-			this.props.setInitialized(true);
+			p.setInitialized(true);
 		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),

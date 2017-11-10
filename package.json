@@ -36,6 +36,7 @@
     "react-icons": "^2.2.5",
     "react-router-bootstrap": "^0.24.3",
     "react-router-dom": "^4.2.2",
+    "react-select": "^1.0.0-rc.10",
     "react-simple-range": "^1.5.4",
     "react-table": "^6.7.4",
     "recompose": "^0.26.0",

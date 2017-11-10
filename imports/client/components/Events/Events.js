@@ -97,7 +97,7 @@ export default compose(
 				this.storeEmpty = true;
 			}
 			console.log('initialized');
-			this.props.setInitialized(true);
+			p.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
 			console.log('componentWillReceiveProps');
