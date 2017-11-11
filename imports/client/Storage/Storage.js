@@ -36,7 +36,7 @@ function setStore(field, obj) {
 // 		result = result[keys];
 // 	}
 // 	if (keys === 'types' && !result) {
-// 		result = await Meteor.callPromise('get.types');
+// 		result = await Meteor.callPromise('utility.get.types');
 // 		setStore('global', { types: result });
 // 	}
 // 	// console.log('-----getStore');

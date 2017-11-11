@@ -126,7 +126,7 @@ export default compose(
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
 				p.setAppLoading(true);
-				p.setTypes(await Meteor.callPromise('get.types'));
+				p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');
 				reactiveVar.set({ company });
 				p.setRole(role);
@@ -135,10 +135,12 @@ export default compose(
 			}
 		},
 	}),
-	branch(p => p.loggingIn || p.authenticated && !p.appInitialized, renderComponent(Loading)),
+	branch(p => p.loggingIn || (p.authenticated && !p.appInitialized), renderComponent(Loading)),
 )(
 	(p) => {
 		console.log('rendering app');
+		console.log('types');
+		console.log(p.types);
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>

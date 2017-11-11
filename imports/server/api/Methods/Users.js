@@ -27,6 +27,7 @@ Meteor.methods({
 				email: '$email.address',
 				role: 1,
 				companyName: 1,
+				companyId: 1,
 			} }
 		]);
 	},

@@ -7,7 +7,7 @@ import rateLimit from '../../../modules/server/rate-limit';
 import Static from '../Collections/Static';
 
 Meteor.methods({
-	'get.types': function anon() {
+	'utility.get.types': function anon() {
 		return Static.findOne({}).types;
 	},
 	'db.init': function anon() {

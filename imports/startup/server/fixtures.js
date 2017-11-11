@@ -193,6 +193,8 @@ const fillCompanies = () => {
 };
 
 export default function initDb() {
+	Static.remove({});
+	Static.insert({});
 	// resetDb();
 	// fillCompanies();
 	// fillUsers();

@@ -14,8 +14,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Flex, Box } from 'reflexbox';
-import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
-import Select from 'react-select';
+import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 
 import '../../stylesheets/table.scss';
@@ -34,12 +33,14 @@ const setStore = obj => setStoreUsersPage('usersPage', obj);
 export default compose(
 	withStateHandlers(
 		() => ({
+			selectData: [],
 			data: getStore('data') || [],
 			initialized: false,
 			loading: false,
 			editCompany: undefined,
 			editRole: undefined,
 		}), {
+			setSelectData: () => selectData => ({ selectData }),
 			setEditRole: () => editRole => ({ editRole }),
 			setEditCompany: () => editCompany => ({ editCompany }),
 			setData: () => data => setStore({ data }),
@@ -53,13 +54,19 @@ export default compose(
 			const p = this.props;
 			if (!getStore()) {
 				this.props.setLoading(true);
+
+				const cData = await Meteor.callPromise('companies.get.all');
+				const sData = cData.map(({ _id, name }) => ({
+					value: _id,
+					label: name,
+				}));
+				p.setSelectData(sData);
+
 				const uData = await Meteor.callPromise('users.get.all');
-				const data = uData.map(({ role, ...row }) => ({
+				const data = uData.map(({ ...row }) => ({
 					edit: 0,
-					role1: role === 0,
-					role2: role === 1,
-					role3: role === 2,
-					...row }));
+					...row
+				}));
 				p.setData(data);
 				p.setLoading(false);
 			}
@@ -90,6 +97,10 @@ export default compose(
 		console.log('rendering');
 		console.log('data');
 		console.log(p.data);
+		console.log('p.editCompany');
+		console.log(p.editCompany);
+		console.log('p.selectData');
+		console.log(p.selectData);
 		const formatter = cell => (<span>{cell}</span>);
 		const formatButton = (cell, row, ncol, nrow) => (
 			<span>
@@ -112,23 +123,23 @@ export default compose(
 				}
 			</span>
 		);
-		const formatList = (cell, row, ncol, nrow) => (
+		// options={p.selectData}
+
+		const formatList = (cell, row, ncol) => (
 			<span>
 				{!row.edit ?
 					cell
 					:
-					<Select
-						name="select"
-						value={cell}
-						options={p.companies}
-						onChange={p.setEditCompany}
-					/>
+					<select value={cell} onChange={p.setEditCompany}>
+						{p.selectData.map(el => (<option key={el.value} value={el.value}>{el.label}</option>))}
+					</select>
 				}
 			</span>
 		);
+		const formatRole = () => (<span />);
 
-		const columnClassNameFormat = (fieldValue, row, rowIdx, colIdx) => {
-			return fieldValue === true ? 'selected-cell' : 'not-selected-cell';
+		const columnClassNameFormat = nrole => (cell, row, ncol, nrow) => {
+			return nrole == row.role ? 'selected-cell' : 'not-selected-cell';
 		};
 
 		return (
@@ -146,28 +157,48 @@ export default compose(
 							}}
 							height="600px"
 						>
-							<TableHeaderColumn dataField="name" dataFormat={formatter} width="125px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="name" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
 								שם
 							</TableHeaderColumn>
-							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
 								אימייל
 							</TableHeaderColumn>
-							<TableHeaderColumn dataField="company"  dataFormat={formatList} width="165px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="companyName" dataFormat={formatList} width="165px" dataAlign="center" headerAlign="center">
 								חברה
 							</TableHeaderColumn>
-							<TableHeaderColumn dataField="role1" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
-								אדמין
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="role2" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
-								מוקד
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="role3" dataFormat={formatter} width="85px" columnClassName={columnClassNameFormat} dataAlign="center" headerAlign="center">
-								אבטחה
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="edit" dataFormat={formatButton} columnClassName={columnClassNameFormat}dataAlign="center" headerAlign="center"/>
+							{_.map(p.types.roles, (role, n) => (
+								<TableHeaderColumn key={n} dataField="role" dataFormat={formatRole} width="85px" columnClassName={columnClassNameFormat(n)} dataAlign="center" headerAlign="center">
+									{role}
+								</TableHeaderColumn>
+							))}
+							<TableHeaderColumn dataField="edit" dataFormat={formatButton} dataAlign="center" headerAlign="center"/>
 						</BootstrapTable>
 					</Box>
 				</Flex>
 			</div>
 		);
 	});
+
+
+// {/*<select>*/}
+// 	{/*<option value="volvo">Volvo</option>*/}
+// 	{/*<option value="saab">Saab</option>*/}
+// 	{/*<option value="mercedes">Mercedes</option>*/}
+// 	{/*<option value="audi">Audi</option>*/}
+// {/*</select>*/}
+
+
+// <FormGroup controlId="formControlsSelect">
+// 	<FormControl componentClass="select" placeholder="select1">
+// 		<option value="select1">select1</option>
+// 		<option value="select2">select2</option>
+// 		<option value="select3">select3</option>
+// 	</FormControl>
+// </FormGroup>
+// <Select
+//
+// 	name="select"
+// 	value={cell}
+// 	options={p.selectData}
+// 	onChange={p.setEditCompany}
+// />
