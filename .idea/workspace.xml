@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Main/App/App.js" afterPath="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" afterPath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,8 +31,28 @@
       <file leaf-file-name="Users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="132" column="51" lean-forward="false" selection-start-line="132" selection-start-column="51" selection-end-line="132" selection-end-column="51" />
+            <state relative-caret-position="469">
+              <caret line="80" column="49" lean-forward="false" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultiSelect.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".eslintrc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.eslintrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -56,8 +72,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>name</find>
-      <find>con</find>
       <find>hydrants</find>
       <find>Hydrants</find>
       <find>hydrantId</find>
@@ -86,10 +100,10 @@
       <find>dataFormat={formatter}</find>
       <find>selectedCompany</find>
       <find>get.types</find>
+      <find>selectData</find>
+      <find>setSelectData</find>
     </findStrings>
     <replaceStrings>
-      <replace>fromFilter</replace>
-      <replace>p</replace>
       <replace>Navigation</replace>
       <replace>appInitialized</replace>
       <replace>setAppInitialized</replace>
@@ -118,6 +132,8 @@
       <replace>p.setInitialized(true);</replace>
       <replace>editCompany</replace>
       <replace>utility.get.types</replace>
+      <replace>cData</replace>
+      <replace>set</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -188,7 +204,6 @@
         <option value="$PROJECT_DIR$/imports/server/api/Utility/methods.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/NewHydrant/NewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/EditHydrant/EditHydrant.js" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/client/pages/Events/Events.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Map/Map.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Events/methods.js" />
@@ -232,6 +247,7 @@
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
+        <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
       </list>
     </option>
@@ -271,21 +287,12 @@
             <id />
           </State>
           <State>
-            <id>Code style issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Control flow issuesJavaScript</id>
-          </State>
-          <State>
             <id>JavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript function metricsJavaScript</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>JavaScript function metricsJavaScript</id>
+            <id>JSON</id>
           </State>
         </selected-state>
       </profile-state>
@@ -331,6 +338,14 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="MultiSelect" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -413,7 +428,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="JavaScriptPreferStrict" value="true" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.meteor.project" value="true" />
@@ -948,13 +963,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/tryls.ls" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/tryls.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Css/Hydrants.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -963,13 +971,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/methods.js" />
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Css/Events.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1316,10 +1317,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="132" column="51" lean-forward="false" selection-start-line="132" selection-start-column="51" selection-end-line="132" selection-end-column="51" />
+        <state relative-caret-position="469">
+          <caret line="80" column="49" lean-forward="false" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
           <folding />
         </state>
       </provider>

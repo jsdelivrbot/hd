@@ -33,16 +33,16 @@ const setStore = obj => setStoreUsersPage('usersPage', obj);
 export default compose(
 	withStateHandlers(
 		() => ({
-			selectData: [],
+			cData: [],
 			data: getStore('data') || [],
 			initialized: false,
 			loading: false,
-			editCompany: undefined,
+			selectedCompanyId: undefined,
 			editRole: undefined,
 		}), {
-			setSelectData: () => selectData => ({ selectData }),
+			setCData: () => cData => ({ cData }),
 			setEditRole: () => editRole => ({ editRole }),
-			setEditCompany: () => editCompany => ({ editCompany }),
+			setSelectedCompanyId: () => selectedCompanyId => ({ selectedCompanyId }),
 			setData: () => data => setStore({ data }),
 			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
@@ -54,20 +54,12 @@ export default compose(
 			const p = this.props;
 			if (!getStore()) {
 				this.props.setLoading(true);
-
-				const cData = await Meteor.callPromise('companies.get.all');
-				const sData = cData.map(({ _id, name }) => ({
-					value: _id,
-					label: name,
-				}));
-				p.setSelectData(sData);
-
-				const uData = await Meteor.callPromise('users.get.all');
-				const data = uData.map(({ ...row }) => ({
-					edit: 0,
-					...row
-				}));
-				p.setData(data);
+				p.setCData(await Meteor.callPromise('companies.get.all')),
+				p.setData(_.map(await Meteor.callPromise('users.get.all'),
+					({ ...row }) => ({
+						edit: 0,
+						...row
+					})));
 				p.setLoading(false);
 			}
 			console.log('initialized');
@@ -86,8 +78,11 @@ export default compose(
 		onClick: p => (nrow) => {
 			p.setData(_.clone(_.update(p.data, `[${nrow}].edit`, boolean => !boolean)));
 			if (p.data[nrow].edit) {
-				p.setEditCompany(p.data[nrow].company);
+				p.setSelectedCompanyId(p.data[nrow].companyId);
 			}
+		},
+		onSelect: p => (event) => {
+			p.setSelectedCompanyId(event.target.value);
 		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),
@@ -97,10 +92,10 @@ export default compose(
 		console.log('rendering');
 		console.log('data');
 		console.log(p.data);
-		console.log('p.editCompany');
-		console.log(p.editCompany);
-		console.log('p.selectData');
-		console.log(p.selectData);
+		console.log('p.selectedCompanyId');
+		console.log(p.selectedCompanyId);
+		console.log('p.cData');
+		console.log(p.cData);
 		const formatter = cell => (<span>{cell}</span>);
 		const formatButton = (cell, row, ncol, nrow) => (
 			<span>
@@ -123,15 +118,13 @@ export default compose(
 				}
 			</span>
 		);
-		// options={p.selectData}
-
 		const formatList = (cell, row, ncol) => (
 			<span>
 				{!row.edit ?
 					cell
 					:
-					<select value={cell} onChange={p.setEditCompany}>
-						{p.selectData.map(el => (<option key={el.value} value={el.value}>{el.label}</option>))}
+					<select value={p.selectedCompanyId} onChange={p.onSelect}>
+						{p.cData.map(el => (<option key={el._id} value={el._id}>{el.name}</option>))}
 					</select>
 				}
 			</span>
@@ -199,6 +192,6 @@ export default compose(
 //
 // 	name="select"
 // 	value={cell}
-// 	options={p.selectData}
-// 	onChange={p.setEditCompany}
+// 	options={p.cData}
+// 	onChange={p.setSelectedCompanyId}
 // />
