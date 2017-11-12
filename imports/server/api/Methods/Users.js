@@ -8,19 +8,19 @@ import Companies from '../Collections/Companies';
 Meteor.methods({
 	'users.get.all': function anon() {
 		return Meteor.users.aggregate([
-			{ $lookup: {
-				from: 'Companies',
-				localField: 'companyId',
-				foreignField: '_id',
-				as: 'c'
-			} },
-			{ $unwind: '$c' },
+			// { $lookup: {
+			// 	from: 'Companies',
+			// 	localField: 'companyId',
+			// 	foreignField: '_id',
+			// 	as: 'c'
+			// } },
+			// { $unwind: '$c' },
 			{ $project: {
 				name: { $concat: ['$profile.name.first', { $literal: ' ' }, '$profile.name.last'] },
 				email: { $arrayElemAt: ['$emails', 0] },
 				role: 1,
 				companyId: 1,
-				companyName: '$c.name',
+				// companyName: '$c.name',
 			} },
 			{ $project: {
 				name: 1,

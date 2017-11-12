@@ -139,8 +139,6 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering app');
-		console.log('types');
-		console.log(p.types);
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>

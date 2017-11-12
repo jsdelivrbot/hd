@@ -9,10 +9,12 @@ import {
 	lifecycle,
 	renderComponent,
 	branch,
+	shallowEqual,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
+import fp from 'lodash/fp';
 import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
@@ -34,16 +36,16 @@ export default compose(
 	withStateHandlers(
 		() => ({
 			cData: [],
+			editRow: {},
 			data: getStore('data') || [],
 			initialized: false,
 			loading: false,
-			selectedCompanyId: undefined,
-			editRole: undefined,
 		}), {
-			setCData: () => cData => ({ cData }),
-			setEditRole: () => editRole => ({ editRole }),
-			setSelectedCompanyId: () => selectedCompanyId => ({ selectedCompanyId }),
-			setData: () => data => setStore({ data }),
+			assignEditRow: ({ editRow }) => obj => ({ editRow: _.assign({}, editRow, _.cloneDeep(obj)) }),
+			setEditRow: () => editRow => ({ editRow: _.cloneDeep(editRow) }),
+			setCData: () => cData => ({ cData: _.clone(cData) }),
+			setData: () => data => setStore({ data: _.clone(data) }),
+			setDataRow: ({ data }) => (row, nRow) => setStore({ data: _.clone(_.set(data, `[${nRow}]`, _.cloneDeep(row))) }),
 			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
@@ -54,12 +56,8 @@ export default compose(
 			const p = this.props;
 			if (!getStore()) {
 				this.props.setLoading(true);
-				p.setCData(await Meteor.callPromise('companies.get.all')),
-				p.setData(_.map(await Meteor.callPromise('users.get.all'),
-					({ ...row }) => ({
-						edit: 0,
-						...row
-					})));
+				p.setCData(await Meteor.callPromise('companies.get.all'));
+				p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
 				p.setLoading(false);
 			}
 			console.log('initialized');
@@ -67,22 +65,17 @@ export default compose(
 		},
 	}),
 	withHandlers({
-		select: ({ data, setData }) => (orow, ncol, nrow) => {
-			if (!ncol) return;
-			const row = Object.assign({}, data[nrow]);
-			for (let i = 1; i <= 3; i += 1) if (i !== ncol - 1) row[`role${i}`] = false;
-			row[`role${ncol - 1}`] = true;
-			data[nrow] = row;
-			setData(data.slice());
+		onClickEdit: p => (row) => {
+			p.setEditRow(row);
 		},
-		onClick: p => (nrow) => {
-			p.setData(_.clone(_.update(p.data, `[${nrow}].edit`, boolean => !boolean)));
-			if (p.data[nrow].edit) {
-				p.setSelectedCompanyId(p.data[nrow].companyId);
-			}
+		onClickSave: p => (row) => {
+			console.log('onClickSave');
+			if (!_.isEqual(row, p.editRow)) p.setDataRow(p.editRow, row.nRow);
+			p.setEditRow({});
 		},
-		onSelect: p => (event) => {
-			p.setSelectedCompanyId(event.target.value);
+		onClickRole: p => (role) => {
+			console.log('onClickRole');
+			if (role !== p.editRow.role) p.assignEditRow({ role });
 		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),
@@ -92,48 +85,62 @@ export default compose(
 		console.log('rendering');
 		console.log('data');
 		console.log(p.data);
-		console.log('p.selectedCompanyId');
-		console.log(p.selectedCompanyId);
 		console.log('p.cData');
 		console.log(p.cData);
+
 		const formatter = cell => (<span>{cell}</span>);
-		const formatButton = (cell, row, ncol, nrow) => (
+		const formatButton = (cell, row, ncol, nRow) => (
 			<span>
-				{!cell ?
+				{nRow == p.editRow.nRow ?
 					<Button
 						bsStyle="primary"
 						block
-						onClick={() => p.onClick(nrow)}
+						onClick={() => p.onClickSave(row)}
 					>
-						ערוך
+						שמור
 					</Button>
 					:
 					<Button
 						bsStyle="success"
-						onClick={() => p.onClick(nrow)}
+						onClick={() => p.editRow.nRow || p.onClickEdit(row)}
 						block
 					>
-						שמור
+						ערוך
 					</Button>
 				}
 			</span>
 		);
-		const formatList = (cell, row, ncol) => (
+		const formatList = (cell, row, ncol, nRow) => (
 			<span>
-				{!row.edit ?
-					cell
-					:
-					<select value={p.selectedCompanyId} onChange={p.onSelect}>
+				{nRow == p.editRow.nRow ?
+					<select value={p.editRow.companyId} onChange={e => p.assignEditRow({ companyId: e.target.value })}>
 						{p.cData.map(el => (<option key={el._id} value={el._id}>{el.name}</option>))}
 					</select>
+					:
+					_.find(p.cData, ['_id', cell]).name
 				}
 			</span>
 		);
-		const formatRole = () => (<span />);
-
-		const columnClassNameFormat = nrole => (cell, row, ncol, nrow) => {
-			return nrole == row.role ? 'selected-cell' : 'not-selected-cell';
-		};
+		const formatRole = role => (cell, row, ncol, nRow) => (
+			<span>
+				{nRow == p.editRow.nRow ?
+					<Button
+						bsStyle="primary" block
+						className={(role == p.editRow.role) ? 'selected-cell' : 'not-selected-cell'}
+						onClick={() => p.onClickRole(role)}
+					>
+						&nbsp;
+					</Button>
+					:
+					<Button
+						bsStyle="primary" block
+						className={(role == row.role) ? 'selected-cell' : 'not-selected-cell'}
+					>
+						&nbsp;
+					</Button>
+				}
+			</span>
+		);
 
 		return (
 			<div className="users">
@@ -145,9 +152,6 @@ export default compose(
 							tableContainerClass="table_class"
 							data={p.data}
 							remote
-							options={{
-								onRowClick: p.select,
-							}}
 							height="600px"
 						>
 							<TableHeaderColumn dataField="name" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
@@ -156,21 +160,35 @@ export default compose(
 							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
 								אימייל
 							</TableHeaderColumn>
-							<TableHeaderColumn dataField="companyName" dataFormat={formatList} width="165px" dataAlign="center" headerAlign="center">
+							<TableHeaderColumn dataField="companyId" dataFormat={formatList} width="165px" dataAlign="center" headerAlign="center">
 								חברה
 							</TableHeaderColumn>
 							{_.map(p.types.roles, (role, n) => (
-								<TableHeaderColumn key={n} dataField="role" dataFormat={formatRole} width="85px" columnClassName={columnClassNameFormat(n)} dataAlign="center" headerAlign="center">
+								<TableHeaderColumn key={n} dataField="role" dataFormat={formatRole(n)} width="85px" dataAlign="center" headerAlign="center">
 									{role}
 								</TableHeaderColumn>
 							))}
-							<TableHeaderColumn dataField="edit" dataFormat={formatButton} dataAlign="center" headerAlign="center"/>
+							<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center" />
 						</BootstrapTable>
 					</Box>
 				</Flex>
 			</div>
 		);
 	});
+
+
+// options={{
+// 	onRowClick: p.select,
+// }}
+// select: ({ data, setData }) => (orow, ncol, nRow, a) => {
+// 	console.log('select');
+// 	if (!ncol) return;
+// 	const row = Object.assign({}, data[nRow]);
+// 	for (let i = 1; i <= 3; i += 1) if (i !== ncol - 1) row[`role${i}`] = false;
+// 	row[`role${ncol - 1}`] = true;
+// 	data[nRow] = row;
+// 	setData(data.slice());
+// },
 
 
 // {/*<select>*/}
