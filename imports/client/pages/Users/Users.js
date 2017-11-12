@@ -104,8 +104,7 @@ export default compose(
 						<Flex>
 							<Box w={1} ml={1} mr={1}>
 								<Button
-									bsStyle="primary"
-									block
+									bsStyle="primary" block
 									onClick={() => p.onClickSave(row)}
 								>
 									שמור
@@ -154,7 +153,7 @@ export default compose(
 					</Button>
 					:
 					<Button
-						bsStyle="primary" block
+						bsStyle="primary" block disabled
 						className={(role == row.role) ? 'selected-cell' : 'not-selected-cell'}
 					>
 						&nbsp;
