@@ -68,9 +68,14 @@ export default compose(
 		onClickEdit: p => (row) => {
 			p.setEditRow(row);
 		},
-		onClickSave: p => (row) => {
+		onClickSave: p => async (row) => {
 			console.log('onClickSave');
-			if (!_.isEqual(row, p.editRow)) p.setDataRow(p.editRow, row.nRow);
+			if (!_.isEqual(row, p.editRow)) {
+				let { companyId, role } = p.editRow;
+				[companyId, role] = await Meteor.callPromise('users.update', { companyId, role });
+				p.assignEditRow({ companyId, role });
+				p.setDataRow(p.editRow, row.nRow);
+			}
 			p.setEditRow({});
 		},
 		onClickRole: p => (role) => {

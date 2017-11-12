@@ -49,6 +49,12 @@ Meteor.methods({
 		check(companyId, String);
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
+	'user.update': function anon(p) {
+		check(p, Object);
+		const { companyId, role } = p;
+		Meteor.users.update(this.userId, { $set: { companyId, role } });
+		return Meteor.user();
+	},
 	'user.editProfile': function anon(profile) {
 		check(profile, {
 			emailAddress: String,
