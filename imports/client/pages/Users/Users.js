@@ -68,11 +68,14 @@ export default compose(
 		onClickEdit: p => (row) => {
 			p.setEditRow(row);
 		},
+		onClickCancel: p => () => {
+			p.setEditRow({});
+		},
 		onClickSave: p => async (row) => {
 			console.log('onClickSave');
 			if (!_.isEqual(row, p.editRow)) {
-				let { companyId, role } = p.editRow;
-				[companyId, role] = await Meteor.callPromise('users.update', { companyId, role });
+				let { _id, companyId, role } = p.editRow;
+				({ _id, companyId, role } = await Meteor.callPromise('user.update', { _id, companyId, role }));
 				p.assignEditRow({ companyId, role });
 				p.setDataRow(p.editRow, row.nRow);
 			}
@@ -97,18 +100,31 @@ export default compose(
 		const formatButton = (cell, row, ncol, nRow) => (
 			<span>
 				{nRow == p.editRow.nRow ?
-					<Button
-						bsStyle="primary"
-						block
-						onClick={() => p.onClickSave(row)}
-					>
-						שמור
-					</Button>
+					<div>
+						<Flex>
+							<Box w={1} ml={1} mr={1}>
+								<Button
+									bsStyle="primary"
+									block
+									onClick={() => p.onClickSave(row)}
+								>
+									שמור
+								</Button>
+							</Box>
+							<Box w={1} ml={1} mr={1}>
+								<Button
+									bsStyle="primary" block
+									onClick={p.onClickCancel}
+								>
+									בטל
+								</Button>
+							</Box>
+						</Flex>
+					</div>
 					:
 					<Button
-						bsStyle="success"
+						bsStyle="success" block
 						onClick={() => p.editRow.nRow || p.onClickEdit(row)}
-						block
 					>
 						ערוך
 					</Button>

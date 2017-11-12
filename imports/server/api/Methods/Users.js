@@ -51,9 +51,9 @@ Meteor.methods({
 	},
 	'user.update': function anon(p) {
 		check(p, Object);
-		const { companyId, role } = p;
-		Meteor.users.update(this.userId, { $set: { companyId, role } });
-		return Meteor.user();
+		let { _id, companyId, role } = p;
+		Meteor.users.update(_id, { $set: { companyId, role } });
+		return ({ _id, companyId, role } = Meteor.user());
 	},
 	'user.editProfile': function anon(profile) {
 		check(profile, {
