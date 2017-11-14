@@ -1,5 +1,5 @@
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import getPrivateFile from '../../../modules/server/get-private-file';
 import templateToHTML from '../../../modules/server/handlebars-email-to-html';
 import templateToText from '../../../modules/server/handlebars-email-to-text';

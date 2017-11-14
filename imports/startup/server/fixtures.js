@@ -74,6 +74,7 @@ const resetDb = () => {
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	// add other counts
 };
 
@@ -193,15 +194,15 @@ const fillCompanies = () => {
 };
 
 export default function initDb() {
-	Static.remove({});
-	Static.insert({});
-	// resetDb();
-	// fillCompanies();
-	// fillUsers();
-	// fillHydrantsAndEvents();
+	// Static.remove({});
+	// Static.insert({});
+	resetDb();
+	fillCompanies();
+	fillUsers();
+	fillHydrantsAndEvents();
 }
 
-initDb();
+// initDb();
 
 //
 // const eventsSeed = hydrantId => ({

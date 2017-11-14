@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Meteor} from 'meteor/meteor';
-import {createContainer} from 'meteor/react-meteor-data';
-import {ReactiveVar} from 'meteor/reactive-var';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
+import { ReactiveVar } from 'meteor/reactive-var';
 import OAuthLoginButton from '../OAuthLoginButton/OAuthLoginButton';
 
 import './OAuthLoginButtons.scss';
@@ -14,7 +14,7 @@ const OAuthLoginButtons = ({services, emailMessage}) => (services.length ? (
 			{emailMessage.text}
 		</p> : ''}
 	</div>
-) : <div/>);
+) : <div />);
 
 OAuthLoginButtons.propTypes = {
 	services: PropTypes.array.isRequired,
@@ -24,7 +24,7 @@ OAuthLoginButtons.propTypes = {
 const verificationComplete = new ReactiveVar(false);
 const verifiedServices = new ReactiveVar([]);
 
-export default createContainer(({services}) => {
+export default createContainer(({ services }) => {
 	if (!verificationComplete.get()) {
 		Meteor.call('oauth.verifyConfiguration', services, (error, response) => {
 			if (error) {

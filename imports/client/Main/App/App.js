@@ -57,32 +57,9 @@ const handleResendVerificationEmail = (emailAddress) => {
 		if (error) {
 			Bert.alert(error.reason, 'danger');
 		} else {
-			Bert.alert(`Check ${emailAddress} for a verification link!`, 'success', 'growl-top-left');
+			Bert.alert(`בדוק בדואר שלך ${emailAddress} את קישור האימות`, 'success', 'growl-top-left');
 		}
 	});
-};
-
-const verificationAlert = (p) => {
-	if (0 && p.userId && !p.emailVerified) {
-		return (
-			<Alert className="verify-email text-center">
-				<p>
-					הי חבר!
-					<strong>האם אתה יכול לוודא את כתובת האימייל</strong>
-					({p.emailAddress})
-					בשבילינו?
-					<Button
-						bsStyle="link"
-						onClick={() => handleResendVerificationEmail(p.emailAddress)}
-						href="#"
-					>
-						שלח אימייל זיהוי מחדש
-					</Button>
-				</p>
-			</Alert>
-		);
-	}
-	return '';
 };
 
 const getUserName = name => ({
@@ -122,6 +99,30 @@ export default compose(
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
 		}
 	),
+	withHandlers({
+		verificationAlert: p => () => {
+			if (p.userId && !p.emailVerified) {
+				return (
+					<Alert className="verify-email text-center">
+						<p>
+							הי חבר!
+							<strong>האם אתה יכול לוודא את כתובת האימייל</strong>
+							({p.emailAddress})
+							בשבילינו?
+							<Button
+								bsStyle="link"
+								onClick={() => handleResendVerificationEmail(p.emailAddress)}
+								href="#"
+							>
+								שלח אימייל זיהוי מחדש
+							</Button>
+						</p>
+					</Alert>
+				);
+			}
+			return '';
+		},
+	}),
 	lifecycle({
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
@@ -142,7 +143,7 @@ export default compose(
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
-					{() => verificationAlert(p)}
+					{p.verificationAlert()}
 					{ p.authenticated ? <Navigation {...p} /> : '' }
 					<Grid>
 						<Switch>

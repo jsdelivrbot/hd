@@ -188,7 +188,17 @@ export default compose(
 									{role}
 								</TableHeaderColumn>
 							))}
-							<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center" />
+							<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center">
+								<Button
+									bsStyle="primary"
+									block
+									onClick={() => p.history.push(
+										`${p.match.url}/new`
+									)}
+								>
+									חדש
+								</Button>
+							</TableHeaderColumn>
 						</BootstrapTable>
 					</Box>
 				</Flex>

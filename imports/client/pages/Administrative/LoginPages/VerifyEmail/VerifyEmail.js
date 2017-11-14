@@ -19,18 +19,20 @@ class VerifyEmail extends React.Component {
 			} else {
 				setTimeout(() => {
 					Bert.alert('&emsp;הכל מוכן, תודה!', 'success', 'growl-top-left');
-					history.push('/hydrants');
-				}, 1500);
+					history.push('/');
+				}, 2500);
 			}
 		});
 	}
 
 	render() {
-		return (<div className="VerifyEmail">
-			<Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
-				{!this.state.error ? 'מוודאים...' : this.state.error}
-			</Alert>
-		</div>);
+		return (
+			<div className="VerifyEmail">
+				<Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
+					{!this.state.error ? 'מוודאים...' : this.state.error}
+				</Alert>
+			</div>
+		);
 	}
 }
 

@@ -34,6 +34,9 @@ Meteor.methods({
 	'user.sendVerificationEmail': function anon() {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
+	'user.sendEnrollmentEmail': function anon() {
+		return Accounts.sendEnrollmentEmail(this.userId);
+	},
 	'user.get.properties': function anon() {
 		const { companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
