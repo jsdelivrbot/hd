@@ -34,7 +34,7 @@ Meteor.methods({
 	'user.sendVerificationEmail': function anon() {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
-	'user.sendEnrollmentEmail': function anon() {
+	'user.new': function anon() {
 		return Accounts.sendEnrollmentEmail(this.userId);
 	},
 	'user.get.properties': function anon() {
