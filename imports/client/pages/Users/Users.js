@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -14,7 +13,7 @@ import {
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
-import fp from 'lodash/fp';
+// import fp from 'lodash/fp';
 import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
@@ -24,28 +23,20 @@ import './Css/Users.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
-import {
-	getStore as getStoreUsersPage,
-	setStore as setStoreUsersPage,
-} from '../../Storage/Storage';
-
-const getStore = keys => getStoreUsersPage('usersPage', keys);
-const setStore = obj => setStoreUsersPage('usersPage', obj);
-
 export default compose(
 	withStateHandlers(
 		() => ({
 			cData: [],
 			editRow: {},
-			data: getStore('data') || [],
+			data: [],
 			initialized: false,
 			loading: false,
 		}), {
 			assignEditRow: ({ editRow }) => obj => ({ editRow: _.assign({}, editRow, _.cloneDeep(obj)) }),
 			setEditRow: () => editRow => ({ editRow: _.cloneDeep(editRow) }),
 			setCData: () => cData => ({ cData: _.clone(cData) }),
-			setData: () => data => setStore({ data: _.clone(data) }),
-			setDataRow: ({ data }) => (row, nRow) => setStore({ data: _.clone(_.set(data, `[${nRow}]`, _.cloneDeep(row))) }),
+			setData: () => data => ({ data: _.clone(data) }),
+			setDataRow: ({ data }) => (row, nRow) => ({ data: _.clone(_.set(data, `[${nRow}]`, _.cloneDeep(row))) }),
 			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
@@ -54,12 +45,10 @@ export default compose(
 		async componentDidMount() {
 			console.log('initializing');
 			const p = this.props;
-			if (!getStore()) {
-				this.props.setLoading(true);
-				p.setCData(await Meteor.callPromise('companies.get.all'));
-				p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
-				p.setLoading(false);
-			}
+			p.setLoading(true);
+			p.setCData(await Meteor.callPromise('companies.get.all'));
+			p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
+			p.setLoading(false);
 			console.log('initialized');
 			p.setInitialized(true);
 		},
@@ -97,6 +86,7 @@ export default compose(
 		console.log(p.cData);
 
 		const formatter = cell => (<span>{cell}</span>);
+		const formatReset = cell => (<span> {cell ? 'בתהליך' : 'OK'} </span>);
 		const formatButton = (cell, row, ncol, nRow) => (
 			<span>
 				{nRow == p.editRow.nRow ?
@@ -177,6 +167,9 @@ export default compose(
 							<TableHeaderColumn dataField="name" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
 								שם
 							</TableHeaderColumn>
+							<TableHeaderColumn dataField="reset" dataFormat={formatReset} width="85px" dataAlign="center" headerAlign="center">
+								נרשם
+							</TableHeaderColumn>
 							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
 								אימייל
 							</TableHeaderColumn>
@@ -205,142 +198,6 @@ export default compose(
 			</div>
 		);
 	});
-
-
-
-
-
-
-
-import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
-import AccountPageFooter from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
-import validate from '../../../../../modules/validate';
-
-class Signup extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount() {
-		const component = this;
-
-		validate(component.form, {
-			rules: {
-				firstName: {
-					required: true,
-				},
-				lastName: {
-					required: true,
-				},
-				emailAddress: {
-					required: true,
-					email: true,
-				},
-			},
-			messages: {
-				firstName: {
-					required: 'מה שמך?',
-				},
-				lastName: {
-					required: 'מה שם משפחתך?',
-				},
-				emailAddress: {
-					required: 'דרוש אימייל',
-					email: 'האם כתובת האימייל נכונה?',
-				},
-			},
-			submitHandler() {
-				component.handleSubmit();
-			},
-		});
-	}
-
-	handleSubmit() {
-		const { history } = this.props;
-
-// Accounts.createUser({
-// 	email: this.emailAddress.value,
-// 	password: this.password.value,
-// 	profile: {
-// 		name: {
-// 			first: this.firstName.value,
-// 			last: this.lastName.value,
-// 		},
-// 	},
-// }, (error) => {
-// 	if (error) {
-// 		Bert.alert(error.reason, 'danger');
-// 	} else {
-// 		Meteor.call('user.sendVerificationEmail');
-// 		Bert.alert('&emsp;ברוך הבא!', 'success', 'growl-top-left');
-// 		history.push('/');
-// 	}
-// });
-
-	}
-
-	render() {
-		return (<div className="Signup">
-			<Row>
-				<Col xs={12} sm={6} md={5} lg={4}>
-					<h4 className="page-header">פתח חשבון</h4>
-					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-						<Row>
-							<Col xs={6}>
-								<FormGroup>
-									<ControlLabel>שם</ControlLabel>
-									<input
-										type="text"
-										name="firstName"
-										ref={firstName => (this.firstName = firstName)}
-										className="form-control"
-									/>
-								</FormGroup>
-							</Col>
-							<Col xs={6}>
-								<FormGroup>
-									<ControlLabel>שם משפחה</ControlLabel>
-									<input
-										type="text"
-										name="lastName"
-										ref={lastName => (this.lastName = lastName)}
-										className="form-control"
-									/>
-								</FormGroup>
-							</Col>
-						</Row>
-						<FormGroup>
-							<ControlLabel>אימייל</ControlLabel>
-							<input
-								type="email"
-								name="emailAddress"
-								ref={emailAddress => (this.emailAddress = emailAddress)}
-								className="form-control"
-							/>
-						</FormGroup>
-						<Button type="submit" bsStyle="success">הירשם</Button>
-					</form>
-				</Col>
-			</Row>
-		</div>);
-	}
-}
-
-Signup.propTypes = {
-	history: PropTypes.object.isRequired,
-};
-
-export default Signup;
-
-
-
-
 
 // options={{
 // 	onRowClick: p.select,

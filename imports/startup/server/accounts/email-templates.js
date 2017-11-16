@@ -11,7 +11,6 @@ const emailTemplates = Accounts.emailTemplates;
 
 emailTemplates.siteName = name;
 emailTemplates.from = from;
-
 emailTemplates.verifyEmail = {
 	subject() {
 		return `[${name}] Verify Your Email Address`;
@@ -35,6 +34,30 @@ emailTemplates.verifyEmail = {
 };
 
 emailTemplates.resetPassword = {
+	subject() {
+		return `[${name}] Reset Your Password`;
+	},
+	html(user, url) {
+		return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
+			firstName: user.profile.name.first,
+			applicationName: name,
+			emailAddress: user.emails[0].address,
+			resetUrl: url.replace('#/', ''),
+		});
+	},
+	text(user, url) {
+		const urlWithoutHash = url.replace('#/', '');
+		if (Meteor.isDevelopment) console.info(`Reset Password Link: ${urlWithoutHash}`); // eslint-disable-line
+		return templateToText(getPrivateFile('email-templates/reset-password.txt'), {
+			firstName: user.profile.name.first,
+			applicationName: name,
+			emailAddress: user.emails[0].address,
+			resetUrl: urlWithoutHash,
+		});
+	},
+};
+
+emailTemplates.enrollAccount = {
 	subject() {
 		return `[${name}] Reset Your Password`;
 	},

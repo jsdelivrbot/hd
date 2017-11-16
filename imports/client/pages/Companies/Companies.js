@@ -21,18 +21,13 @@ import './Css/Companies.scss';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
 import {
-	getStore as getStoreCompaniesPage,
-	setStore as setStoreCompaniesPage,
 	reactiveVar,
 } from '../../Storage/Storage';
-
-const getStore = keys => getStoreCompaniesPage('companiesPage', keys);
-const setStore = obj => setStoreCompaniesPage('companiesPage', obj);
 
 export default compose(
 	withStateHandlers(
 		() => ({
-			data: getStore('data') || [],
+			data: [],
 			initialized: false,
 			loading: false,
 			selected: [_.get(reactiveVar.get(), 'company._id')],
@@ -44,7 +39,7 @@ export default compose(
 				console.log(reactiveVar.get());
 				return { selected: [row._id] };
 			},
-			setData: () => data => setStore({ data }),
+			setData: () => data => ({ data }),
 			setLoading: () => loading => ({ loading }),
 			setInitialized: () => initialized => ({ initialized }),
 		}
@@ -65,13 +60,11 @@ export default compose(
 		async componentDidMount() {
 			console.log('initializing');
 			const p = this.props;
-			if (!getStore()) {
-				this.props.setLoading(true);
-				const data = await Meteor.callPromise('companies.get.all');
-				reactiveVar.set({ company: data[0] });
-				p.setData(data);
-				p.setLoading(false);
-			}
+			p.setLoading(true);
+			const data = await Meteor.callPromise('companies.get.all');
+			reactiveVar.set({ company: data[0] });
+			p.setData(data);
+			p.setLoading(false);
 			console.log('initialized');
 			p.setInitialized(true);
 		},

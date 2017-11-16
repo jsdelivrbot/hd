@@ -16,7 +16,9 @@ import { Bert } from 'meteor/themeteorchef:bert';
 
 import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
+
 import Users from '../../pages/Users/Users';
+import NewUser from '../../pages/Users/NewUser/NewUser';
 
 import Hydrants from '../../pages/Hydrants/Hydrants';
 import NewHydrant from '../../pages/Hydrants/NewHydrant/NewHydrant';
@@ -99,30 +101,6 @@ export default compose(
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
 		}
 	),
-	withHandlers({
-		verificationAlert: p => () => {
-			if (p.userId && !p.emailVerified) {
-				return (
-					<Alert className="verify-email text-center">
-						<p>
-							הי חבר!
-							<strong>האם אתה יכול לוודא את כתובת האימייל</strong>
-							({p.emailAddress})
-							בשבילינו?
-							<Button
-								bsStyle="link"
-								onClick={() => handleResendVerificationEmail(p.emailAddress)}
-								href="#"
-							>
-								שלח אימייל זיהוי מחדש
-							</Button>
-						</p>
-					</Alert>
-				);
-			}
-			return '';
-		},
-	}),
 	lifecycle({
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
@@ -143,13 +121,13 @@ export default compose(
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
-					{p.verificationAlert()}
 					{ p.authenticated ? <Navigation {...p} /> : '' }
 					<Grid>
 						<Switch>
 							<Authenticated exact path="/" component={Index} {...p} />
 							<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
 							<Authenticated exact path="/users" component={Users} {...p} />
+							<Authenticated exact path="/users/new" component={NewUser} {...p} />
 							<Authenticated exact path="/map" component={Map} {...p} />
 							<Authenticated exact path="/events" component={Events} {...p} />
 
@@ -170,6 +148,7 @@ export default compose(
 							<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
 							<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
 							<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+							<Route name="enroll-account" path="/enroll-account/:token" component={ResetPassword} />
 
 							<Route component={NotFound} />
 						</Switch>
@@ -180,3 +159,28 @@ export default compose(
 		);
 	});
 
+// {p.verificationAlert()}
+// withHandlers({
+// 	verificationAlert: p => () => {
+// 		if (p.userId && !p.emailVerified) {
+// 			return (
+// 				<Alert className="verify-email text-center">
+// 					<p>
+// 						הי חבר!
+// 						<strong>האם אתה יכול לוודא את כתובת האימייל</strong>
+// 						({p.emailAddress})
+// 						בשבילינו?
+// 						<Button
+// 							bsStyle="link"
+// 							onClick={() => handleResendVerificationEmail(p.emailAddress)}
+// 							href="#"
+// 						>
+// 							שלח אימייל זיהוי מחדש
+// 						</Button>
+// 					</p>
+// 				</Alert>
+// 			);
+// 		}
+// 		return '';
+// 	},
+// }),

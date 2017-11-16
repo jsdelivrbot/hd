@@ -20,6 +20,7 @@ Meteor.methods({
 				email: { $arrayElemAt: ['$emails', 0] },
 				role: 1,
 				companyId: 1,
+				reset: '$services.password.reset',
 				// companyName: '$c.name',
 			} },
 			{ $project: {
@@ -28,14 +29,31 @@ Meteor.methods({
 				role: 1,
 				companyName: 1,
 				companyId: 1,
+				reset: { $not: { $not: '$reset' } },
 			} }
 		]);
 	},
 	'user.sendVerificationEmail': function anon() {
 		return Accounts.sendVerificationEmail(this.userId);
 	},
-	'user.new': function anon() {
-		return Accounts.sendEnrollmentEmail(this.userId);
+	'user.new': function anon(p) {
+		check(p, Object);
+		const { email, firstName, lastName, companyId, role } = p;
+		console.log('creating user');
+		const userId = Accounts.createUser({ email });
+		console.log('userId');
+		console.log(userId);
+		Meteor.users.update(userId, { $set: {
+			profile: {
+				name: {
+					first: firstName,
+					last: lastName,
+				},
+			},
+			companyId,
+			role,
+		} });
+		return Accounts.sendEnrollmentEmail(userId);
 	},
 	'user.get.properties': function anon() {
 		const { companyId, role } = Meteor.user();
