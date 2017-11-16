@@ -12,6 +12,7 @@
     "bcrypt": "^1.0.3",
     "commonmark": "^0.28.1",
     "core-js": "^2.5.1",
+    "eslint-config-react-tools": "^1.0.10",
     "faker": "^4.1.0",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",

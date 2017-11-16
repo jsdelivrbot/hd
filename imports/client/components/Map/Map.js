@@ -20,7 +20,9 @@ import {
 } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import { Label, Segment } from 'semantic-ui-react';
+import { Flex, Box } from 'reflexbox';
 import _ from 'lodash';
+import { Button } from 'react-bootstrap';
 
 import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
@@ -39,6 +41,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		p => ({
+			filterStatus: p.getStore('filterStatus'),
 			zoom: p.getStore('zoom') || 13,
 			data: p.getStore('data') || [],
 			loading: false,
@@ -49,6 +52,7 @@ export default compose(
 			bounds: {},
 		}), {
 			setMapRef: () => mapRef => ({ mapRef }),
+			toggleFilterStatus: ({ filterStatus }) => () => ({ filterStatus: !filterStatus }),
 			setZoom: ({ mapRef }, p) => () => p.setStore({ zoom: mapRef.getZoom() }),
 			setCountActiveUnits: ({}, p) => countTotalUnits => p.setStore({ countTotalUnits }),
 			setBounds: ({ mapRef }, p) => () => p.setStore({ bounds: mapRef.getBounds().toJSON() }),
@@ -84,14 +88,18 @@ export default compose(
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
 			if (p.loading) return;
-			const { bounds } = difProps({ prevProps: this.props, nextProps: p });
-			if (bounds || this.storeEmpty) {
-				console.log('bounds');
-				console.log(bounds);
+			const { bounds, filterStatus } = difProps({ prevProps: this.props, nextProps: p });
+			if (bounds || filterStatus || this.storeEmpty) {
+				console.log('p.filterStatus');
+				console.log(p.filterStatus);
 				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
-				p.setData(await Meteor.callPromise('map.get.data', { bounds: p.bounds, _id: p._id }));
+				p.setData(await Meteor.callPromise('map.get.data', {
+					filterStatus: p.filterStatus,
+					bounds: p.bounds,
+					_id: p._id,
+				}));
 				console.log('received data');
 				p.setLoading(false);
 			}
@@ -135,15 +143,14 @@ export default compose(
 						gridSize={50}
 					>
 						{p.data.map((d) => {
-							let icon, color, eventType;
-							if (d.status) {
+							const eventType = p.types.status[d.status];
+							let icon, color;
+							if (d.status <= 2) {
 								icon = 'marker_blue.ico';
 								color = '#0000ff';
-								eventType = 'פעיל';
 							} else {
 								icon = 'marker_red.ico';
 								color = '#ff0000';
-								eventType = 'מושבת';
 							}
 							return (
 								<Marker
@@ -169,8 +176,22 @@ export default compose(
 				</GoogleMap>
 				{!p._id ?
 					<Segment raised textAlign="center" size="big">
-						סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
-						נכון לתאריך: {currentDate}
+						<Flex align="center">
+							<Box w={1 / 8}>
+								<Button
+									bsStyle={p.filterStatus ? 'danger' : 'default'}
+									block
+									onClick={p.toggleFilterStatus}
+								>
+									{p.filterStatus ? 'אדומים' : 'כולם'}
+								</Button>
+							</Box>
+							<Box w={6 / 8}>
+								סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
+								נכון לתאריך: {currentDate}
+							</Box>
+							<Box w={1 / 8} />
+						</Flex>
 					</Segment>
 					: ''}
 			</div>

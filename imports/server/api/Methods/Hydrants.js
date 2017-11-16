@@ -94,12 +94,17 @@ Meteor.methods({
 	},
 	'map.get.data': function anon(p) {
 		check(p, Object);
-		const { bounds, _id } = p;
+		const { bounds, _id, filterStatus } = p;
 		console.log('getting map in bounds');
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: { $and: [{ _id: _id || { $exists: true }, lat: { $gt: south, $lt: north } }, { lon: { $gt: west, $lt: east } }] } },
+			{ $match: { $and: [
+				{ status: (filterStatus && { $gt: 2 }) || { $exists: true } },
+				{ _id: _id || { $exists: true } },
+				{ lat: { $gt: south, $lt: north } },
+				{ lon: { $gt: west, $lt: east } }
+			] } },
 			{ $limit: 40 },
 			{ $project: {
 				lat: 1,

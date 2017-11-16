@@ -202,7 +202,7 @@ export default function initDb() {
 	fillHydrantsAndEvents();
 }
 
-// initDb();
+ // initDb();
 
 //
 // const eventsSeed = hydrantId => ({
