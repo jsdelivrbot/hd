@@ -28,15 +28,15 @@ function buildFilter(fromFilter) {
 }
 
 Meteor.methods({
-	'events.get.total.counts': function anon() {
+	'events.get.counts': function anon() {
 		const array = Events.aggregate([
-			{ $match: { code: 2 } },
+			// { $match: { code: 2 } },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
 		]);
-		return { cntAbusedUnits: _.get(array, '[0].count', 0) };
+		return { cntAllUnits: _.get(array, '[0].count', 0) };
 	},
 	'events.get.lenQuery': function anon(p) {
 		check(p, Object);

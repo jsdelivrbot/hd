@@ -172,9 +172,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
-		console.log('types');
-		console.log(p.types);
+		console.log('rendering hydrants');
 		const currentDate = moment().format('DD.MM.YYYY');
 		const formatter = cell => (<span>{cell}</span>);
 

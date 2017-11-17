@@ -85,15 +85,25 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'map.get.total.counts': function anon() {
-		console.log('init map');
-		const array = Hydrants.aggregate([
+	'map.get.counts': function anon() {
+		const array_cntAllUnits = Hydrants.aggregate([
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
 		]);
-		return { cntActiveUnits: _.get(array, '[0].count', 0) };
+
+		const array_cntTroubledUnits = Hydrants.aggregate([
+			{ $match: { status: { $gt: 2 } } },
+			{ $group: {
+				_id: null,
+				count: { $sum: 1 }
+			} },
+		]);
+		return {
+			cntAllUnits: _.get(array_cntAllUnits, '[0].count', 0),
+			cntTroubledUnits: _.get(array_cntTroubledUnits, '[0].count', 0)
+		};
 	},
 	'map.get.data': function anon(p) {
 		check(p, Object);

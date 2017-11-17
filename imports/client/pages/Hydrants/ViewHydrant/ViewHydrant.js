@@ -69,7 +69,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering ViewHydrant');
 		const formatter = cell => (<span>{cell}</span>);
 
 		return (

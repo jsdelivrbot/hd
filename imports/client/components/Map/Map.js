@@ -47,14 +47,16 @@ export default compose(
 			loading: false,
 			initialized: false,
 			dataInitialized: false,
-			countTotalUnits: p.getStore('countTotalUnits') || 0,
+			cntAllUnits: p.getStore('cntAllUnits') || 0,
+			cntTroubledUnits: p.getStore('cntTroubledUnits') || 0,
 			mapRef: undefined,
 			bounds: {},
 		}), {
 			setMapRef: () => mapRef => ({ mapRef }),
 			toggleFilterStatus: ({ filterStatus }) => () => ({ filterStatus: !filterStatus }),
 			setZoom: ({ mapRef }, p) => () => p.setStore({ zoom: mapRef.getZoom() }),
-			setCountActiveUnits: ({}, p) => countTotalUnits => p.setStore({ countTotalUnits }),
+			setCntAllUnits: ({}, p) => cntAllUnits => p.setStore({ cntAllUnits }),
+			setCntTroubledUnits: ({}, p) => cntTroubledUnits => p.setStore({ cntTroubledUnits }),
 			setBounds: ({ mapRef }, p) => () => p.setStore({ bounds: mapRef.getBounds().toJSON() }),
 			setLoading: ({}, p) => loading => p.setStore({ loading }),
 			setData: ({}, p) => data => p.setStore({ data }),
@@ -74,13 +76,13 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing data');
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				p.setLoading(true);
-				const { countActiveUnits } = await Meteor.callPromise('map.get.total.counts');
-				p.setCountActiveUnits(countActiveUnits);
+				const { cntTroubledUnits, cntAllUnits } = await Meteor.callPromise('map.get.counts');
 				p.setLoading(false);
+				p.setCntTroubledUnits(cntTroubledUnits);
+				p.setCntAllUnits(cntAllUnits);
 				this.storeEmpty = true;
 			}
 			p.setDataInitialized(true);
@@ -90,9 +92,6 @@ export default compose(
 			if (p.loading) return;
 			const { bounds, filterStatus } = difProps({ prevProps: this.props, nextProps: p });
 			if (bounds || filterStatus || this.storeEmpty) {
-				console.log('p.filterStatus');
-				console.log(p.filterStatus);
-				console.log('loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
 				p.setData(await Meteor.callPromise('map.get.data', {
@@ -100,7 +99,6 @@ export default compose(
 					bounds: p.bounds,
 					_id: p._id,
 				}));
-				console.log('received data');
 				p.setLoading(false);
 			}
 		},
@@ -124,7 +122,8 @@ export default compose(
 	}),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering map');
+		console.log('p.data');
 		console.log(p.data);
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
@@ -187,8 +186,11 @@ export default compose(
 								</Button>
 							</Box>
 							<Box w={6 / 8}>
-								סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.countTotalUnits} יח&#39;<br />
-								נכון לתאריך: {currentDate}
+								<span>
+									סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.cntAllUnits} יח&#39;<br />
+									 מתוכם מוצרים בארוע מתוך תאגיד עין אפק:  {p.cntTroubledUnits} יח&#39;<br />
+									נכון לתאריך: {currentDate}
+								</span>
 							</Box>
 							<Box w={1 / 8} />
 						</Flex>

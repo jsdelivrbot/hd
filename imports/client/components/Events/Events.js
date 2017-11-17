@@ -36,7 +36,7 @@ export default compose(
 	withStateHandlers(
 		p => ({
 			data: p.getStore('data') || [],
-			cntAbusedUnits: p.getStore('cntAbusedUnits') || 0,
+			cntAllUnits: p.getStore('cntAllUnits') || 0,
 			loading: false,
 			initialized: false,
 			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
@@ -44,7 +44,7 @@ export default compose(
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => ({ loading }),
-			setCntAbusedUnits: ({}, p) => cntAbusedUnits => p.setStore({ cntAbusedUnits }),
+			setCntAllUnits: ({}, p) => cntAllUnits => p.setStore({ cntAllUnits }),
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }, p) => (obj) => {
@@ -91,8 +91,8 @@ export default compose(
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				this.props.setLoading(true);
-				const { cntAbusedUnits } = await Meteor.callPromise('events.get.total.counts');
-				p.setCntAbusedUnits(cntAbusedUnits);
+				const { cntAllUnits } = await Meteor.callPromise('events.get.counts');
+				p.setCntAllUnits(cntAllUnits);
 				p.setLoading(false);
 				this.storeEmpty = true;
 			}
@@ -226,7 +226,7 @@ export default compose(
 				</Flex>
 				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-						סה&quot;כ ארועי התעללות בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAbusedUnits} <br />
+						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
 					: ''}
