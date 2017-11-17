@@ -8,6 +8,7 @@ import {
 	branch,
 	withStateHandlers,
 	lifecycle,
+	withHandlers,
 } from 'recompose';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -36,10 +37,8 @@ export default compose(
 			setInitialized: () => initialized => ({ initialized }),
 		}
 	),
-	lifecycle({
-		async componentDidMount() {
-			const p = this.props;
-			console.log('initializing');
+	withHandlers({
+		loadData: p => async () => {
 			p.setLoading(true);
 
 			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p._id } });
@@ -48,9 +47,21 @@ export default compose(
 			p.setData([data]);
 
 			p.setLoading(false);
+		},
+	}),
+	lifecycle({
+		async componentDidMount() {
+			const p = this.props;
+			console.log('initializing');
+			await p.loadData();
 			p.setInitialized(true);
 		},
 
+	}),
+	withHandlers({
+		zeroStatus: p => () => {
+			p.loadData();
+		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
@@ -113,6 +124,13 @@ export default compose(
 				</BootstrapTable>
 				<div>
 					<Flex>
+						<Box w={1}>
+							<Button
+								bsStyle="primary"
+								onClick={() => p.zeroStatus}
+								block
+							>אפס סטטוס</Button>
+						</Box>
 						<Box w={1} />
 						<Box w={1}>
 							<Button
@@ -121,7 +139,6 @@ export default compose(
 								block
 							>ערוך</Button>
 						</Box>
-						<Box w={1} />
 					</Flex>
 				</div>
 				<Events _id={p._id} types={p.types} />
