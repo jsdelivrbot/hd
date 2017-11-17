@@ -59,7 +59,10 @@ export default compose(
 
 	}),
 	withHandlers({
-		zeroStatus: p => () => {
+		zeroStatus: p => async () => {
+			console.log('here1');
+			await Meteor.callPromise('hydrants.zero.status', { _id: p._id });
+			console.log('here2');
 			p.loadData();
 		},
 	}),
@@ -126,23 +129,21 @@ export default compose(
 					<Flex>
 						<Box w={1}>
 							<Button
-								bsStyle="primary"
-								onClick={() => p.zeroStatus}
-								block
+								bsStyle="primary" block
+								onClick={p.zeroStatus}
 							>אפס סטטוס</Button>
 						</Box>
 						<Box w={1} />
 						<Box w={1}>
 							<Button
-								bsStyle="primary"
+								bsStyle="primary" block
 								onClick={() => p.history.push(`${p.match.url}/edit`)}
-								block
 							>ערוך</Button>
 						</Box>
 					</Flex>
 				</div>
 				<Events _id={p._id} types={p.types} />
-				<Map _id={p._id} />
+				<Map _id={p._id} types={p.types} />
 			</div>
 		);
 	});

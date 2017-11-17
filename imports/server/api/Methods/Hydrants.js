@@ -75,9 +75,12 @@ Meteor.methods({
 	'hydrants.get.data.one': function anon(p) {
 		check(p, Object);
 		const { filter } = p;
-		console.log('filter');
-		console.log(filter);
 		return Hydrants.findOne({ _id: filter._id });
+	},
+	'hydrants.zero.status': function anon(p) {
+		check(p, Object);
+		const { _id } = p;
+		Hydrants.update(_id, { $set: { status: 0 } });
 	},
 });
 
