@@ -12,9 +12,12 @@ class HydrantEditor extends React.Component {
 		validate(this.form, {
 			rules: {
 				sim: { required: true, maxlength: 24 },
+				bodyBarcode: { required: true, maxlength: 25 },
 				disableText: { maxlength: 250 },
 				address: { maxlength: 50 },
 				description: { maxlength: 50 },
+				history: { maxlength: 50 },
+				comments: { maxlength: 50 },
 			},
 			messages: {
 				number: { maxlength: 'אורך מקסימלי 8' },
@@ -22,6 +25,9 @@ class HydrantEditor extends React.Component {
 				disableText: { maxlength: 'אורך מקסימלי 250' },
 				address: { maxlength: 'אורך מקסימלי 50' },
 				description: { maxlength: 'אורך מקסימלי 50' },
+				history: { maxlength: 'אורך מקסימלי 50' },
+				comments: { maxlength: 'אורך מקסימלי 50' },
+				bodyBarcode: { required: 'נא לציין ברקוד', maxlength: 'אורך מקסימלי 25' },
 			},
 			submitHandler() {
 				component.handleSubmit();
@@ -44,6 +50,10 @@ class HydrantEditor extends React.Component {
 			address: this.address.value,
 			description: this.description.value,
 			enabled: this.enabled.checked,
+			bodyBarcode: this.bodyBarcode.checked,
+			batchDate: this.batchDate.checked,
+			history: this.history.checked,
+			comments: this.comments.checked,
 		};
 
 		if (existingHydrant) data._id = existingHydrant;
@@ -184,6 +194,50 @@ class HydrantEditor extends React.Component {
 								name="enabled"
 								ref={enabled => (this.enabled = enabled)}
 								defaultChecked={(data && data.enabled) ? 'checked' : ''}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>הערות</ControlLabel>
+							<input
+								type="text"
+								className="form-control"
+								name="comments"
+								ref={comments => (this.comments = comments)}
+								defaultValue={data && data.comments}
+								placeholder=""
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>היסטוריה</ControlLabel>
+							<input
+								type="text"
+								className="form-control"
+								name="history"
+								ref={history => (this.history = history)}
+								defaultValue={data && data.history}
+								placeholder=""
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>תאריך סדרה</ControlLabel>
+							<input
+								type="text"
+								className="form-control"
+								name="batchDate"
+								ref={batchDate => (this.batchDate = batchDate)}
+								defaultValue={data && data.batchDate}
+								placeholder=""
+							/>
+						</FormGroup>
+						<FormGroup>
+							<ControlLabel>ברקוד</ControlLabel>
+							<input
+								type="text"
+								className="form-control"
+								name="bodyBarcode"
+								ref={bodyBarcode => (this.bodyBarcode = bodyBarcode)}
+								defaultValue={data && data.bodyBarcode}
+								placeholder=""
 							/>
 						</FormGroup>
 						<Button type="submit" bsStyle="success">

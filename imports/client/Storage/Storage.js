@@ -1,13 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-// import { ReactiveDict } from 'meteor/reactive-dict';
-import { ReactiveVar } from 'meteor/reactive-var'
+import { ReactiveVar } from 'meteor/reactive-var';
 import _ from 'lodash';
 
 const StorageCollection = new Mongo.Collection(null);
 
+const reactiveVar = new ReactiveVar({});
+
+// const noneReactiveVar = new ReactiveVar({});
+
 function getStore(field, keys) {
 	let result = _.get(StorageCollection.findOne({}), field);
+	// console.log('all result');
+	// console.log(result);
 	if (result && keys) {
 		result = result[keys];
 	}
@@ -22,6 +27,10 @@ function getStore(field, keys) {
 }
 function setStore(field, obj) {
 	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
+	// console.log('{set:');
+	// console.log({ $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
+	// console.log('_.values(obj)[0]');
+	// console.log(_.values(obj)[0]);
 	// console.log('-----setStore');
 	// console.log('field');
 	// console.log(field);
@@ -49,7 +58,6 @@ function setStore(field, obj) {
 // 	return result;
 // }
 
-const reactiveVar = new ReactiveVar({});
 
 export { getStore, setStore, reactiveVar };
 

@@ -39,6 +39,7 @@ const randomHydrant = (ind) => {
 		else sentence2 = temp;
 	}
 	const dt = faker.date.past(1).toISOString();
+	const enabled = faker.random.boolean();
 	return {
 		companyId: 1,
 		sim: rn(999999999),
@@ -48,12 +49,16 @@ const randomHydrant = (ind) => {
 		updatedAt: dt,
 		createdAt: dt,
 		lastComm: faker.date.past(1).toISOString(),
-		disableDate: faker.date.past(1).toISOString(),
+		enabled,
+		disableDate: enabled ? faker.date.past(1).toISOString() : '0',
 		address: fakeAddress(),
 		description: fakeSentence(50),
 		disableText: fakeSentence(100),
-		enabled: faker.random.boolean(),
 		number: ind,
+		bodyBarcode: rn(999999999),
+		batchDate: faker.date.past(1).toISOString(),
+		history: fakeSentence(50),
+		comments: fakeSentence(50),
 	};
 };
 
@@ -194,15 +199,13 @@ const fillCompanies = () => {
 };
 
 export default function initDb() {
-	// Static.remove({});
-	// Static.insert({});
 	resetDb();
 	fillCompanies();
 	fillUsers();
 	fillHydrantsAndEvents();
 }
 
- // initDb();
+// initDb();
 
 //
 // const eventsSeed = hydrantId => ({

@@ -31,7 +31,7 @@ import {
 	reactiveVar,
 } from '../../Storage/Storage';
 
-const getStore = keys => getStoreHydrantsPage('hydrantPage', keys);
+const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
@@ -293,9 +293,12 @@ export default compose(
 							<Button
 								bsStyle="primary"
 								block
-								onClick={() => p.history.push(
-									`${p.match.url}/new`
-								)}
+								onClick={() => {
+									// p.setData(undefined); // Next time data will be downloaded
+									p.history.push(
+										`${p.match.url}/new`
+									);
+								}}
 							>
 								חדש
 							</Button>

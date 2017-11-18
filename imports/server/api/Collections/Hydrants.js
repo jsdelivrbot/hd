@@ -21,6 +21,7 @@ Hydrants.deny({
 Hydrants.schema = new SimpleSchema({
 	createdAt: {
 		type: String,
+		max: 25,
 		label: 'The date this document was created.',
 		autoValue() {
 			if (this.isInsert && !this.isSet) return (new Date()).toISOString();
@@ -28,6 +29,7 @@ Hydrants.schema = new SimpleSchema({
 	},
 	updatedAt: {
 		type: String,
+		max: 25,
 		label: 'The date this document was last updated.',
 		autoValue() {
 			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
@@ -40,6 +42,7 @@ Hydrants.schema = new SimpleSchema({
 	},
 	number: {
 		type: String,
+		max: 25,
 		label: 'Unique hydrant serial number.',
 		autoValue() {
 			if (this.isInsert) return String(incrementCounter('Counts', 'HydrantsSerialNumber'));
@@ -67,32 +70,34 @@ Hydrants.schema = new SimpleSchema({
 	},
 	lastComm: {
 		type: String,
+		max: 25,
 		label: 'Last communication date',
 		defaultValue: '0',
 	},
 	disableDate: {
 		type: String,
+		max: 25,
 		label: 'Disable date',
 		defaultValue: '0',
 	},
 	disableText: {
 		type: String,
+		max: 250,
 		label: 'Disable text',
 		defaultValue: '',
 		optional: true,
-		max: 250,
 	},
 	address: {
 		type: String,
-		label: 'Address',
 		max: 50,
+		label: 'Address',
 		optional: true,
 		defaultValue: '',
 	},
 	description: {
 		type: String,
-		label: 'Description',
 		max: 50,
+		label: 'Description',
 		optional: true,
 		defaultValue: '',
 	},
@@ -100,6 +105,33 @@ Hydrants.schema = new SimpleSchema({
 		type: Boolean,
 		label: 'Enabled',
 		defaultValue: false,
+	},
+	bodyBarcode: {
+		type: String,
+		max: 25,
+		label: 'Body barcode',
+		optional: true,
+		defaultValue: '',
+	},
+	batchDate: {
+		type: String,
+		max: 25,
+		label: 'Batch date',
+		defaultValue: '0',
+	},
+	history: {
+		type: String,
+		max: 50,
+		label: 'History',
+		optional: true,
+		defaultValue: '',
+	},
+	comments: {
+		type: String,
+		max: 50,
+		label: 'Comments',
+		optional: true,
+		defaultValue: '',
 	},
 });
 

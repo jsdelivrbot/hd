@@ -9,6 +9,7 @@ import {
 	branch,
 	withStateHandlers,
 	lifecycle,
+	withProps,
 } from 'recompose';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid, Alert, Button } from 'react-bootstrap';
@@ -101,6 +102,19 @@ export default compose(
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
 		}
 	),
+	// withProps((p) => {
+	// 	console.log('p.authenticated');
+	// 	console.log(p.authenticated);
+	// 	console.log('p.initialized');
+	// 	console.log(p.initialized);
+	// 	console.log('p.loggingIn');
+	// 	console.log(p.loggingIn);
+	// }),
+	withHandlers({
+		isUserAdmin: ({ role }) => () => (role === 0),
+		isUserControl: ({ role }) => () => (role === 1),
+		isUserSecurity: ({ role }) => () => (role === 2),
+	}),
 	lifecycle({
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
