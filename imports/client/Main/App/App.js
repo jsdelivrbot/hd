@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -31,10 +32,8 @@ import NewCompany from '../../pages/Companies/NewCompany/NewCompany';
 import ViewCompany from '../../pages/Companies/ViewCompany/ViewCompany';
 import EditCompany from '../../pages/Companies/EditCompany/EditCompany';
 
-import Signup from '../../pages/Administrative/LoginPages/Signup/Signup';
 import Login from '../../pages/Administrative/LoginPages/Login/Login';
 import Logout from '../../pages/Administrative/LoginPages/Logout/Logout';
-import VerifyEmail from '../../pages/Administrative/LoginPages/VerifyEmail/VerifyEmail';
 import RecoverPassword from '../../pages/Administrative/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/Administrative/LoginPages/ResetPassword/ResetPassword';
 import DownloadApp from '../../pages/DownloadApp/DownloadApp';
@@ -51,7 +50,6 @@ import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading
 
 import './Css/App.scss';
 
-import { meteorData } from '../../Utils/Utils';
 import {
 	reactiveVar,
 } from '../../Storage/Storage';
@@ -72,7 +70,8 @@ const getUserName = name => ({
 }[typeof name]);
 
 export default compose(
-	meteorData(() => {
+	withTracker(() => {
+		console.log('app tracker');
 		const loggingIn = Meteor.loggingIn();
 		const user = Meteor.user();
 		const userId = Meteor.userId();
