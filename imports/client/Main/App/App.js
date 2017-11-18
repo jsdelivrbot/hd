@@ -44,30 +44,36 @@ import Public from '../../components/LayoutLoginAndNavigationAndGeneral/Public/P
 import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation';
 import Authenticated from '../../components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated';
 import AuthenticatedSite from '../../components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite';
+import AuthenticatedAdmin from '../../components/LayoutLoginAndNavigationAndGeneral/AuthenticatedAdmin/AuthenticatedAdmin';
 import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
 import './Css/App.scss';
 
-import {
-	reactiveVar,
-} from '../../Storage/Storage';
+import { reactiveVar } from '../../Storage/Storage';
 
-const handleResendVerificationEmail = (emailAddress) => {
-	Meteor.call('user.sendVerificationEmail', (error) => {
-		if (error) {
-			Bert.alert(error.reason, 'danger');
-		} else {
-			Bert.alert(`בדוק בדואר שלך ${emailAddress} את קישור האימות`, 'success', 'growl-top-left');
-		}
-	});
-};
 
 const getUserName = name => ({
 	string: name,
 	object: `${name.first} ${name.last}`,
 }[typeof name]);
+
+export default ({ loggingIn, authenticated, isUserSecurity, component, path, exact, ...rest }) => (
+	<Route
+		path={path}
+		exact={exact}
+		render={props => (
+			authenticated ?
+				!isUserSecurity ?
+					(React.createElement(component, { ...props, ...rest, loggingIn, authenticated }))
+					:
+					(<Redirect to="/NotFound" />)
+				:
+				(<Redirect to="/login" />)
+		)}
+	/>
+);
 
 export default compose(
 	withTracker(() => {
@@ -142,21 +148,21 @@ export default compose(
 							<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
 							<Authenticated exact path="/profile" component={Profile} {...p} />
 
-							<AuthenticatedSite exact path="/users" component={Users} {...p} />
-							<AuthenticatedSite exact path="/users/new" component={NewUser} {...p} />
+							<AuthenticatedAdmin exact path="/users" component={Users} {...p} />
+							<AuthenticatedAdmin exact path="/users/new" component={NewUser} {...p} />
+
 							<AuthenticatedSite exact path="/map" component={Map} {...p} />
 							<AuthenticatedSite exact path="/events" component={Events} {...p} />
 
-							<AuthenticatedSite exact path="/companies" component={Companies} {...p} />
-							<AuthenticatedSite exact path="/companies/new" component={NewCompany} {...p} />
-							<AuthenticatedSite exact path="/companies/:_id" component={ViewCompany} {...p} />
-							<AuthenticatedSite exact path="/companies/:_id/edit" component={EditCompany} {...p} />
+							<AuthenticatedSiteAdmin exact path="/companies" component={Companies} {...p} />
+							<AuthenticatedSiteAdmin exact path="/companies/new" component={NewCompany} {...p} />
+							<AuthenticatedSiteAdmin exact path="/companies/:_id" component={ViewCompany} {...p} />
+							<AuthenticatedSiteAdmin exact path="/companies/:_id/edit" component={EditCompany} {...p} />
 
 							<AuthenticatedSite exact path="/hydrants" component={Hydrants} {...p} />
-							<AuthenticatedSite exact path="/hydrants/new" component={NewHydrant} {...p} />
+							<AuthenticatedSiteAdmin exact path="/hydrants/new" component={NewHydrant} {...p} />
 							<AuthenticatedSite exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
-							<AuthenticatedSite exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
-
+							<AuthenticatedSiteAdmin exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
 
 							<Public path="/login" component={Login} {...p} />
 
@@ -199,3 +205,13 @@ export default compose(
 // 		return '';
 // 	},
 // }),
+
+// const handleResendVerificationEmail = (emailAddress) => {
+// 	Meteor.call('user.sendVerificationEmail', (error) => {
+// 		if (error) {
+// 			Bert.alert(error.reason, 'danger');
+// 		} else {
+// 			Bert.alert(`בדוק בדואר שלך ${emailAddress} את קישור האימות`, 'success', 'growl-top-left');
+// 		}
+// 	});
+// };

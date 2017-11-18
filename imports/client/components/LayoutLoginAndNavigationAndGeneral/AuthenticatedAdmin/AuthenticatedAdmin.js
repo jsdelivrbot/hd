@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-export default ({ loggingIn, authenticated, isUserSecurity, component, path, exact, ...rest }) => (
+const Authenticated = ({ loggingIn, authenticated, isUserSecurity, component, path, exact, ...rest }) => (
 	<Route
 		path={path}
 		exact={exact}
@@ -20,3 +20,12 @@ export default ({ loggingIn, authenticated, isUserSecurity, component, path, exa
 	/>
 );
 
+Authenticated.propTypes = {
+	loggingIn: PropTypes.bool.isRequired,
+	authenticated: PropTypes.bool.isRequired,
+	component: PropTypes.func.isRequired,
+	exact: PropTypes.bool.isRequired,
+	path: PropTypes.string.isRequired,
+};
+
+export default Authenticated;
