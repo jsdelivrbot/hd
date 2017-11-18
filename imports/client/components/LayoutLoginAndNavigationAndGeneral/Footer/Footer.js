@@ -10,14 +10,12 @@ import {
 
 import './Footer.scss';
 
-import {
-	reactiveVar,
-} from '../../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../../Storage/Storage';
 
 export default compose(
 	withTracker(() => {
 		console.log('tracker footer');
-		return { company: reactiveVar.get().company };
+		return { company: reactiveGlobalCompany.get() };
 	}),
 )(
 	(p) => {

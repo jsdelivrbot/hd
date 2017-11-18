@@ -49,7 +49,7 @@ import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading
 
 import './Css/App.scss';
 
-import { reactiveVar } from '../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../Storage/Storage';
 
 const getUserName = name => ({
 	string: name,
@@ -120,7 +120,7 @@ export default compose(
 				p.setAppLoading(true);
 				p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');
-				reactiveVar.set({ company });
+				reactiveGlobalCompany.set(company);
 				p.setRole(role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);
@@ -134,7 +134,7 @@ export default compose(
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
-					{ p.authenticated && !p.isUserSecurity ? <Navigation {...p} /> : '' }
+					{ p.authenticated ? <Navigation {...p} /> : '' }
 					<Grid>
 						<Switch>
 							<AllUser exact path="/" component={Index} {...p} />

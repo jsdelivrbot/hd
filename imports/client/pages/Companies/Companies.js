@@ -20,9 +20,7 @@ import './Css/Companies.scss';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
-import {
-	reactiveVar,
-} from '../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../Storage/Storage';
 
 export default compose(
 	withStateHandlers(
@@ -30,13 +28,13 @@ export default compose(
 			data: [],
 			initialized: false,
 			loading: false,
-			selected: [_.get(reactiveVar.get(), 'company._id')],
+			selected: [reactiveGlobalCompany.get()._id],
 		}), {
 			setSelected: () => (row) => {
-				reactiveVar.set({ company: row });
+				reactiveGlobalCompany.set({ company: row });
 				Meteor.callPromise('user.set.companyId', row._id);
-				console.log('reactiveVar.get()');
-				console.log(reactiveVar.get());
+				console.log('reactiveGlobalCompany.get()');
+				console.log(reactiveGlobalCompany.get());
 				return { selected: [row._id] };
 			},
 			setData: () => data => ({ data }),
@@ -62,7 +60,7 @@ export default compose(
 			const p = this.props;
 			p.setLoading(true);
 			const data = await Meteor.callPromise('companies.get.all');
-			reactiveVar.set({ company: data[0] });
+			reactiveGlobalCompany.set(data[0]);
 			p.setData(data);
 			p.setLoading(false);
 			console.log('initialized');

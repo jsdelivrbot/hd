@@ -28,7 +28,7 @@ import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
-	reactiveVar,
+	reactiveGlobalCompany,
 } from '../../Storage/Storage';
 
 const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
@@ -38,7 +38,7 @@ export default compose(
 	withTracker(() => {
 		console.log('tracker');
 		return {
-			companyId: reactiveVar.get().companyId,
+			companyId: reactiveGlobalCompany.get().companyId,
 		};
 	}),
 	withStateHandlers(

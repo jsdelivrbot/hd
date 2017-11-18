@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 const StorageCollection = new Mongo.Collection(null);
 
-const reactiveVar = new ReactiveVar({});
+const reactiveGlobalCompany = new ReactiveVar(undefined);
 
 // const noneReactiveVar = new ReactiveVar({});
 
@@ -59,7 +59,7 @@ function setStore(field, obj) {
 // }
 
 
-export { getStore, setStore, reactiveVar };
+export { getStore, setStore, reactiveGlobalCompany };
 
 // export function getHydrantSort() {
 // 	return _.get(StorageCollection.findOne({}), 'hydrantSort');
