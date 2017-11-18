@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Main/App/App.js" afterPath="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Storage/Storage.js" afterPath="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -84,8 +80,18 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="112" column="18" lean-forward="true" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
+            <state relative-caret-position="1536">
+              <caret line="141" column="42" lean-forward="false" selection-start-line="141" selection-start-column="42" selection-end-line="141" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthenticatedSite.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -94,8 +100,8 @@
       <file leaf-file-name="Static.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+            <state relative-caret-position="0">
+              <caret line="0" column="16" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,8 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>histo</find>
-      <find>password</find>
       <find>recover-password</find>
       <find>createUser</find>
       <find>handleSubmit</find>
@@ -155,9 +159,10 @@
       <find>reactiveVar</find>
       <find>mapP</find>
       <find>role</find>
+      <find>Authenticated</find>
+      <find>eslint</find>
     </findStrings>
     <replaceStrings>
-      <replace>address</replace>
       <replace>contactPerson</replace>
       <replace>companies</replace>
       <replace>Companies</replace>
@@ -187,6 +192,7 @@
       <replace>countAllUnits</replace>
       <replace>cntAllUnits</replace>
       <replace>CntAllUnits</replace>
+      <replace>AuthenticatedSite</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -201,7 +207,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/api/server/Events/methods.js" />
         <option value="$PROJECT_DIR$/imports/api/server/OAuth/methods.js" />
         <option value="$PROJECT_DIR$/imports/api/server/Users/send-welcome-email.js" />
         <option value="$PROJECT_DIR$/imports/api/server/Utility/methods.js" />
@@ -302,6 +307,7 @@
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
+        <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" />
       </list>
     </option>
   </component>
@@ -419,6 +425,32 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Events" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="LayoutLoginAndNavigationAndGeneral" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="LayoutLoginAndNavigationAndGeneral" type="462c0819:PsiDirectoryNode" />
+              <item name="Authenticated" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="LayoutLoginAndNavigationAndGeneral" type="462c0819:PsiDirectoryNode" />
+              <item name="AuthenticatedSite" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -760,11 +792,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PSG\m\pup\imports\client\components\LayoutLoginAndNavigationAndGeneral" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Users\NewUser" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Users" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Companies" />
       <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
-      <recent name="C:\Users\PSG\m\pup\imports\server\api\Collections" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Companies\Components" />
@@ -862,7 +894,7 @@
       <workItem from="1510671815056" duration="90000" />
       <workItem from="1510671992146" duration="29000" />
       <workItem from="1510672081936" duration="34000" />
-      <workItem from="1510672177496" duration="53510000" />
+      <workItem from="1510672177496" duration="54725000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -903,7 +935,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="660907000" />
+    <option name="totallyTimeSpent" value="662122000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -951,13 +983,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/InputHint/InputHint.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/InputHint/InputHint.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1520,16 +1545,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+        <state relative-caret-position="0">
+          <caret line="0" column="16" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="112" column="18" lean-forward="true" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
+        <state relative-caret-position="1536">
+          <caret line="141" column="42" lean-forward="false" selection-start-line="141" selection-start-column="42" selection-end-line="141" selection-end-column="42" />
           <folding />
         </state>
       </provider>

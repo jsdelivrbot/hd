@@ -44,6 +44,7 @@ import Index from '../Index/Index';
 import Public from '../../components/LayoutLoginAndNavigationAndGeneral/Public/Public';
 import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation';
 import Authenticated from '../../components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated';
+import AuthenticatedSite from '../../components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite';
 import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
@@ -135,31 +136,32 @@ export default compose(
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
-					{ p.authenticated ? <Navigation {...p} /> : '' }
+					{ p.authenticated && !p.isUserSecurity ? <Navigation {...p} /> : '' }
 					<Grid>
 						<Switch>
 							<Authenticated exact path="/" component={Index} {...p} />
 							<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
-							<Authenticated exact path="/users" component={Users} {...p} />
-							<Authenticated exact path="/users/new" component={NewUser} {...p} />
-							<Authenticated exact path="/map" component={Map} {...p} />
-							<Authenticated exact path="/events" component={Events} {...p} />
-
-							<Authenticated exact path="/companies" component={Companies} {...p} />
-							<Authenticated exact path="/companies/new" component={NewCompany} {...p} />
-							<Authenticated exact path="/companies/:_id" component={ViewCompany} {...p} />
-							<Authenticated exact path="/companies/:_id/edit" component={EditCompany} {...p} />
-
-							<Authenticated exact path="/hydrants" component={Hydrants} {...p} />
-							<Authenticated exact path="/hydrants/new" component={NewHydrant} {...p} />
-							<Authenticated exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
-							<Authenticated exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
-
 							<Authenticated exact path="/profile" component={Profile} {...p} />
-							<Public path="/signup" component={Signup} {...p} />
+
+							<AuthenticatedSite exact path="/users" component={Users} {...p} />
+							<AuthenticatedSite exact path="/users/new" component={NewUser} {...p} />
+							<AuthenticatedSite exact path="/map" component={Map} {...p} />
+							<AuthenticatedSite exact path="/events" component={Events} {...p} />
+
+							<AuthenticatedSite exact path="/companies" component={Companies} {...p} />
+							<AuthenticatedSite exact path="/companies/new" component={NewCompany} {...p} />
+							<AuthenticatedSite exact path="/companies/:_id" component={ViewCompany} {...p} />
+							<AuthenticatedSite exact path="/companies/:_id/edit" component={EditCompany} {...p} />
+
+							<AuthenticatedSite exact path="/hydrants" component={Hydrants} {...p} />
+							<AuthenticatedSite exact path="/hydrants/new" component={NewHydrant} {...p} />
+							<AuthenticatedSite exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
+							<AuthenticatedSite exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
+
+
 							<Public path="/login" component={Login} {...p} />
+
 							<Route path="/logout" component={Logout} {...p} />
-							<Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
 							<Route name="recover-password" path="/recover-password" component={RecoverPassword} />
 							<Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
 							<Route name="enroll-account" path="/enroll-account/:token" component={ResetPassword} />
