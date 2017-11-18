@@ -56,22 +56,28 @@ const getUserName = name => ({
 	object: `${name.first} ${name.last}`,
 }[typeof name]);
 
-const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => (
-	<Route
-		path={p.path}
-		exact={p.exact}
-		render={props => (
-			p.authenticated &&
-			(allUser ||
-				(adminUser && p.isUserAdmin) ||
-				(controlUser && p.isUserControl)
-			) ?
-				(React.createElement(p.component, { ...props, ...p }))
-				:
-				(<Redirect to="/login" />)
-		)}
-	/>
-);
+const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => {
+	console.log('p.isUserAdmin()');
+	console.log(p.isUserAdmin());
+	console.log('p.isUserControl()');
+	console.log(p.isUserControl());
+	return (
+		<Route
+			path={p.path}
+			exact={p.exact}
+			render={props => (
+				p.authenticated &&
+				(allUser ||
+					(adminUser && p.isUserAdmin()) ||
+					(controlUser && p.isUserControl())
+				) ?
+					(React.createElement(p.component, { ...props, ...p }))
+					:
+					(<Redirect to="/login" />)
+			)}
+		/>
+	);
+};
 const AllUser = p => Authenticated({ allUser: true, ...p });
 const ControlUser = p => Authenticated({ controlUser: true, adminUser: true, ...p });
 const AdminUser = p => Authenticated({ adminUser: true, ...p });
@@ -101,7 +107,7 @@ export default compose(
 			types: {},
 			role: undefined,
 			appLoading: false,
-			appInitialized: false,
+			appInitialized: undefined,
 		}), {
 			setAppLoading: () => appLoading => ({ appLoading }),
 			setTypes: () => types => ({ types }),
@@ -114,7 +120,21 @@ export default compose(
 		isUserControl: ({ role }) => () => (role === 1),
 		isUserSecurity: ({ role }) => () => (role === 2),
 	}),
+	withProps((p) => {
+		console.log('p.authenticated');
+		console.log(p.authenticated);
+		console.log('p.appInitialized');
+		console.log(p.appInitialized);
+		console.log('p.appLoading');
+		console.log(p.appLoading);
+		console.log('p.loggingIn');
+		console.log(p.loggingIn);
+	}),
 	lifecycle({
+		componentDidMount() {
+			const p = this.props;
+			p.setAppInitialized(false);
+		},
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
 				p.setAppLoading(true);
@@ -147,10 +167,10 @@ export default compose(
 							<ControlUser exact path="/map" component={Map} {...p} />
 							<ControlUser exact path="/events" component={Events} {...p} />
 
-							<ControlUser exact path="/companies" component={Companies} {...p} />
-							<ControlUser exact path="/companies/new" component={NewCompany} {...p} />
-							<ControlUser exact path="/companies/:_id" component={ViewCompany} {...p} />
-							<ControlUser exact path="/companies/:_id/edit" component={EditCompany} {...p} />
+							<AdminUser exact path="/companies" component={Companies} {...p} />
+							<AdminUser exact path="/companies/new" component={NewCompany} {...p} />
+							<AdminUser exact path="/companies/:_id" component={ViewCompany} {...p} />
+							<AdminUser exact path="/companies/:_id/edit" component={EditCompany} {...p} />
 
 							<ControlUser exact path="/hydrants" component={Hydrants} {...p} />
 							<AdminUser exact path="/hydrants/new" component={NewHydrant} {...p} />

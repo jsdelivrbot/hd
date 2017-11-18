@@ -134,7 +134,7 @@ export default compose(
 							>אפס סטטוס</Button>
 						</Box>
 						<Box w={1} />
-						{p.isUserAdmin ?
+						{p.isUserAdmin() ?
 							<Box w={1}>
 								<Button
 									bsStyle="primary" block
