@@ -142,10 +142,10 @@ export default compose(
 							const eventType = p.types.status[d.status];
 							let icon, color;
 							if (d.status <= 2) {
-								icon = 'marker_blue.ico';
+								icon = '/marker_blue.ico';
 								color = '#0000ff';
 							} else {
-								icon = 'marker_red.ico';
+								icon = '/marker_red.ico';
 								color = '#ff0000';
 							}
 							return (
