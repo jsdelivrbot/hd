@@ -1,7 +1,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
+// import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -35,14 +35,14 @@ const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
-	withTracker(() => {
-		console.log('tracker');
-		return {
-			companyId: reactiveGlobalCompany.get().companyId,
-		};
-	}),
+	// withTracker(() => {
+	// 	console.log('tracker');
+	// 	return {
+	// 		companyId: reactiveGlobalCompany.get().companyId,
+	// 	};
+	// }),
 	withStateHandlers(
-		() => ({
+		({ companyId }) => ({
 			data: getStore('data') || [],
 			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,

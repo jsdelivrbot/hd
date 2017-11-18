@@ -44,12 +44,6 @@ export default compose(
 	),
 	withHandlers({
 		onSelect: ({ selected, setSelected }) => (row, isSelected) => {
-			console.log('row');
-			console.log(row);
-			console.log('isSelected');
-			console.log(isSelected);
-			console.log('selected');
-			console.log(selected);
 			if (isSelected) setSelected(row);
 			return isSelected;
 		},

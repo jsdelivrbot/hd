@@ -29,10 +29,7 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
-import {
-	getStore,
-	setStore,
-} from '../../Storage/Storage';
+import { getStore, setStore } from '../../Storage/Storage';
 
 export default compose(
 	withHandlers({

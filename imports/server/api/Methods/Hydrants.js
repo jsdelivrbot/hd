@@ -9,6 +9,8 @@ function buildFilter(fromfilter) {
 	const filter = {};
 	console.log('hydrants uploading');
 
+	// filter.companyId = { companyId: fromfilter.company.Id };
+
 	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
 	filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
 

@@ -40,8 +40,9 @@ const randomHydrant = (ind) => {
 	}
 	const dt = faker.date.past(1).toISOString();
 	const enabled = faker.random.boolean();
+	const companies = Companies.find({}).fetch();
 	return {
-		companyId: 1,
+		companyId: companies[rn(companies.length - 1)]._id,
 		sim: rn(999999999),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
