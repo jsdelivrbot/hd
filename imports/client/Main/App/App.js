@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/no-href */
+/* eslint-disable no-nested-ternary */
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
@@ -12,7 +13,7 @@ import {
 	lifecycle,
 	withProps,
 } from 'recompose';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Grid, Alert, Button } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
 
@@ -42,9 +43,6 @@ import Index from '../Index/Index';
 
 import Public from '../../components/LayoutLoginAndNavigationAndGeneral/Public/Public';
 import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation';
-import Authenticated from '../../components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated';
-import AuthenticatedSite from '../../components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite';
-import AuthenticatedAdmin from '../../components/LayoutLoginAndNavigationAndGeneral/AuthenticatedAdmin/AuthenticatedAdmin';
 import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
 import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
@@ -53,27 +51,30 @@ import './Css/App.scss';
 
 import { reactiveVar } from '../../Storage/Storage';
 
-
 const getUserName = name => ({
 	string: name,
 	object: `${name.first} ${name.last}`,
 }[typeof name]);
 
-export default ({ loggingIn, authenticated, isUserSecurity, component, path, exact, ...rest }) => (
+const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => (
 	<Route
-		path={path}
-		exact={exact}
+		path={p.path}
+		exact={p.exact}
 		render={props => (
-			authenticated ?
-				!isUserSecurity ?
-					(React.createElement(component, { ...props, ...rest, loggingIn, authenticated }))
-					:
-					(<Redirect to="/NotFound" />)
+			p.authenticated &&
+			(allUser ||
+				(adminUser && p.isUserAdmin) ||
+				(controlUser && p.isUserControl)
+			) ?
+				(React.createElement(p.component, { ...props, ...p }))
 				:
 				(<Redirect to="/login" />)
 		)}
 	/>
 );
+const AllUser = p => Authenticated({ allUser: true, ...p });
+const ControlUser = p => Authenticated({ controlUser: true, adminUser: true, ...p });
+const AdminUser = p => Authenticated({ adminUser: true, ...p });
 
 export default compose(
 	withTracker(() => {
@@ -108,14 +109,6 @@ export default compose(
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
 		}
 	),
-	// withProps((p) => {
-	// 	console.log('p.authenticated');
-	// 	console.log(p.authenticated);
-	// 	console.log('p.initialized');
-	// 	console.log(p.initialized);
-	// 	console.log('p.loggingIn');
-	// 	console.log(p.loggingIn);
-	// }),
 	withHandlers({
 		isUserAdmin: ({ role }) => () => (role === 0),
 		isUserControl: ({ role }) => () => (role === 1),
@@ -144,25 +137,25 @@ export default compose(
 					{ p.authenticated && !p.isUserSecurity ? <Navigation {...p} /> : '' }
 					<Grid>
 						<Switch>
-							<Authenticated exact path="/" component={Index} {...p} />
-							<Authenticated exact path="/download_app" component={DownloadApp} {...p} />
-							<Authenticated exact path="/profile" component={Profile} {...p} />
+							<AllUser exact path="/" component={Index} {...p} />
+							<AllUser exact path="/download_app" component={DownloadApp} {...p} />
+							<AllUser exact path="/profile" component={Profile} {...p} />
 
-							<AuthenticatedAdmin exact path="/users" component={Users} {...p} />
-							<AuthenticatedAdmin exact path="/users/new" component={NewUser} {...p} />
+							<AdminUser exact path="/users" component={Users} {...p} />
+							<AdminUser exact path="/users/new" component={NewUser} {...p} />
 
-							<AuthenticatedSite exact path="/map" component={Map} {...p} />
-							<AuthenticatedSite exact path="/events" component={Events} {...p} />
+							<ControlUser exact path="/map" component={Map} {...p} />
+							<ControlUser exact path="/events" component={Events} {...p} />
 
-							<AuthenticatedSiteAdmin exact path="/companies" component={Companies} {...p} />
-							<AuthenticatedSiteAdmin exact path="/companies/new" component={NewCompany} {...p} />
-							<AuthenticatedSiteAdmin exact path="/companies/:_id" component={ViewCompany} {...p} />
-							<AuthenticatedSiteAdmin exact path="/companies/:_id/edit" component={EditCompany} {...p} />
+							<ControlUser exact path="/companies" component={Companies} {...p} />
+							<ControlUser exact path="/companies/new" component={NewCompany} {...p} />
+							<ControlUser exact path="/companies/:_id" component={ViewCompany} {...p} />
+							<ControlUser exact path="/companies/:_id/edit" component={EditCompany} {...p} />
 
-							<AuthenticatedSite exact path="/hydrants" component={Hydrants} {...p} />
-							<AuthenticatedSiteAdmin exact path="/hydrants/new" component={NewHydrant} {...p} />
-							<AuthenticatedSite exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
-							<AuthenticatedSiteAdmin exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
+							<ControlUser exact path="/hydrants" component={Hydrants} {...p} />
+							<AdminUser exact path="/hydrants/new" component={NewHydrant} {...p} />
+							<ControlUser exact path="/hydrants/:_id" component={ViewHydrant} {...p} />
+							<AdminUser exact path="/hydrants/:_id/edit" component={EditHydrant} {...p} />
 
 							<Public path="/login" component={Login} {...p} />
 
@@ -179,6 +172,17 @@ export default compose(
 			</Router>
 		);
 	});
+
+
+
+// withProps((p) => {
+// 	console.log('p.authenticated');
+// 	console.log(p.authenticated);
+// 	console.log('p.initialized');
+// 	console.log(p.initialized);
+// 	console.log('p.loggingIn');
+// 	console.log(p.loggingIn);
+// }),
 
 // {p.verificationAlert()}
 // withHandlers({
