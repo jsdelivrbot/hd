@@ -134,12 +134,16 @@ export default compose(
 							>אפס סטטוס</Button>
 						</Box>
 						<Box w={1} />
-						<Box w={1}>
-							<Button
-								bsStyle="primary" block
-								onClick={() => p.history.push(`${p.match.url}/edit`)}
-							>ערוך</Button>
-						</Box>
+						{p.isUserAdmin ?
+							<Box w={1}>
+								<Button
+									bsStyle="primary" block
+									onClick={() => p.history.push(`${p.match.url}/edit`)}
+								>ערוך</Button>
+							</Box>
+							:
+							''
+						}
 					</Flex>
 				</div>
 				<Events _id={p._id} types={p.types} />

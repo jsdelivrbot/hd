@@ -290,18 +290,22 @@ export default compose(
 				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
-							<Button
-								bsStyle="primary"
-								block
-								onClick={() => {
-									// p.setData(undefined); // Next time data will be downloaded
-									p.history.push(
-										`${p.match.url}/new`
-									);
-								}}
-							>
-								חדש
-							</Button>
+							{p.isUserAdmin ?
+								<Button
+									bsStyle="primary"
+									block
+									onClick={() => {
+										// p.setData(undefined); // Next time data will be downloaded
+										p.history.push(
+											`${p.match.url}/new`
+										);
+									}}
+								>
+									חדש
+								</Button>
+								:
+								''
+							}
 						</Box>
 						<Box w={6 / 8}>
 							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.cntTotalUnits} יח&#39;<br />
