@@ -10,11 +10,12 @@ function buildFilter(fromfilter) {
 	const filter = {};
 	console.log('hydrants uploading');
 
-	// filter.companyId = { companyId: fromfilter.company.Id };
-
-	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-	filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
-
+	filter.companyId = Meteor.user().companyId;
+	if (!roles.isControl()) filter.enabled = true;
+	if (fromfilter.createdAt) {
+		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
+		filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
+	}
 	if (!_.isEmpty(fromfilter.status)) {
 		filter.status = { $in: _.keys(fromfilter.status).map(k => _.toNumber(k)) };
 	}
@@ -25,6 +26,7 @@ function buildFilter(fromfilter) {
 Meteor.methods({
 	'hydrants.get.total.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
+
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: { enabled: true } },
 			{ $group: {
@@ -32,20 +34,26 @@ Meteor.methods({
 				count: { $sum: 1 }
 			} },
 		]);
-		const arrayDisabled = Hydrants.aggregate([
-			{ $match: { enabled: false } },
-			{ $group: {
-				_id: null,
-				count: { $sum: 1 }
-			} },
-		]);
 		const cntEnabledUnits = _.get(arrayEnabled, '[0].count', 0);
-		const cntDisabledUnits = _.get(arrayDisabled, '[0].count', 0);
-		return {
-			cntEnabledUnits,
-			cntDisabledUnits,
-			cntTotalUnits: cntEnabledUnits + cntDisabledUnits,
-		};
+
+		if (roles.isUserControl()) {
+			return { cntTotalUnits: cntEnabledUnits };
+		} else if (roles.isUserAdmin()) {
+			const arrayDisabled = Hydrants.aggregate([
+				{ $match: { enabled: false } },
+				{ $group: {
+					_id: null,
+					count: { $sum: 1 }
+				} },
+			]);
+			const cntDisabledUnits = _.get(arrayDisabled, '[0].count', 0);
+			return {
+				cntEnabledUnits,
+				cntDisabledUnits,
+				cntTotalUnits: cntEnabledUnits + cntDisabledUnits,
+			};
+		}
+		return undefined;
 	},
 	'hydrants.get.lenQuery': function anon(p) {
 		check(p, Object);
@@ -82,11 +90,11 @@ Meteor.methods({
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
-		return Hydrants.findOne({ _id: filter._id });
+		return Hydrants.findOne(_.assign({}, buildFilter(), { _id: filter._id }));
 	},
 	'hydrants.zero.status': function anon(p) {
 		check(p, Object);
-		if (!roles.isUserAdminOrControl()) return undefined;
+		if (!roles.isUserAdminOrControl()) return;
 		const { _id } = p;
 		Hydrants.update(_id, { $set: { status: 0 } });
 	},
