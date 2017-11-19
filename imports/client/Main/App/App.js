@@ -137,6 +137,7 @@ export default compose(
 		},
 		async componentWillReceiveProps(p) {
 			if (p.authenticated && !p.appInitialized) {
+				if (p.appLoading) return;
 				p.setAppLoading(true);
 				p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');

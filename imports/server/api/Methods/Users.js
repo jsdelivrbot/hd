@@ -48,7 +48,7 @@ Meteor.methods({
 		return Accounts.sendEnrollmentEmail(userId);
 	},
 	'user.get.properties': function anon() {
-		if (!roles.isUserAdmin()) return undefined;
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
 		return { company, role };
