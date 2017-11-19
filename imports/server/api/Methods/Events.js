@@ -8,12 +8,9 @@ import Static from '../Collections/Static';
 import rateLimit from '../../../modules/server/rate-limit';
 import * as roles from '../../../modules/server/roles';
 
-function buildFilter(fromFilter) {
+function buildFilterEvents(fromFilter) {
 	const filter = {};
 	console.log('events uploading');
-
-	// filter.companyId = Meteor.user().companyId;
-	// if (!roles.isControl()) filter.enabled = true;
 
 	if (fromFilter.createdAt) {
 		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
@@ -25,11 +22,15 @@ function buildFilter(fromFilter) {
 	}
 
 	if (fromFilter.hydrantId) {
-	// 	const h = Hydrants.findOne({ _id: fromFilter.hydrantId });
 		filter.hydrantId = fromFilter.hydrantId;
 	}
-	console.log('filter');
-	console.log(filter);
+	return filter;
+}
+
+function buildFilterHydrants() {
+	const filter = {};
+	filter['h.companyId'] = Meteor.user().companyId;
+	if (!roles.isControl()) filter['h.enabled'] = true;
 	return filter;
 }
 
@@ -38,12 +39,19 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const array = Events.aggregate([
 			// { $match: { code: 2 } },
-			{ $match: buildFilter() },
+			{ $lookup: {
+				from: 'Hydrants',
+				localField: 'hydrantId',
+				foreignField: '_id',
+				as: 'h'
+			} },
+			{ $unwind: '$h' },
+			{ $match: buildFilterHydrants() },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
-		]);
+		], { allowDiskUse: true });
 		return { cntAllUnits: _.get(array, '[0].count', 0) };
 	},
 	'events.get.lenQuery': function anon(p) {
@@ -51,12 +59,20 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
 		const array = Events.aggregate([
-			{ $match: buildFilter(filter) },
+			{ $match: buildFilterEvents(filter) },
+			{ $lookup: {
+				from: 'Hydrants',
+				localField: 'hydrantId',
+				foreignField: '_id',
+				as: 'h'
+			} },
+			{ $unwind: '$h' },
+			{ $match: buildFilterHydrants() },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
 			} },
-		]);
+		], { allowDiskUse: true });
 		return _.get(array, '[0].count', 0);
 	},
 	'events.get.data': function anon(p) {
@@ -65,10 +81,7 @@ Meteor.methods({
 		const { filter, sort, skip } = p;
 
 		return Events.aggregate([
-			{ $match: buildFilter(filter) },
-			{ $sort: { [sort.name]: sort.order } },
-			{ $skip: skip },
-			{ $limit: 12 },
+			{ $match: buildFilterEvents(filter) },
 			{ $lookup: {
 				from: 'Hydrants',
 				localField: 'hydrantId',
@@ -76,6 +89,7 @@ Meteor.methods({
 				as: 'h'
 			} },
 			{ $unwind: '$h' },
+			{ $match: buildFilterHydrants() },
 			{ $project: {
 				createdAt: 1,
 				number: 1,
@@ -83,7 +97,10 @@ Meteor.methods({
 				edata: 1,
 				hydrantNumber: '$h.number',
 				description: '$h.description',
-			} }
+			} },
+			{ $sort: { [sort.name]: sort.order } },
+			{ $skip: skip },
+			{ $limit: 12 },
 		], { allowDiskUse: true });
 	},
 });

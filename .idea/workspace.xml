@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,8 +52,8 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="30">
+              <caret line="5" column="33" lean-forward="true" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -121,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>withHand</find>
       <find>countTotalUnits</find>
       <find>countAllUnits</find>
       <find>CntAbusedUnits</find>
@@ -151,9 +149,9 @@
       <find>componentWillReceiveProps</find>
       <find>withProps</find>
       <find>fromfilter</find>
+      <find>buildFilter</find>
     </findStrings>
     <replaceStrings>
-      <replace>Object</replace>
       <replace>String</replace>
       <replace>Users</replace>
       <replace>users</replace>
@@ -183,6 +181,7 @@
       <replace>roles.isUserAdmin</replace>
       <replace>reactiveGlobalCompany</replace>
       <replace>fromFilter</replace>
+      <replace>buildFilterEvents</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -772,7 +771,7 @@
       <workItem from="1510671815056" duration="90000" />
       <workItem from="1510671992146" duration="29000" />
       <workItem from="1510672081936" duration="34000" />
-      <workItem from="1510672177496" duration="79902000" />
+      <workItem from="1510672177496" duration="80518000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -813,7 +812,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="687299000" />
+    <option name="totallyTimeSpent" value="687915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1484,8 +1483,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="5" column="33" lean-forward="true" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
           <folding />
         </state>
       </provider>
