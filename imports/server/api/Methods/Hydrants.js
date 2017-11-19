@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import Hydrants from '../Collections/Hydrants';
 import rateLimit from '../../../modules/server/rate-limit';
+import * as roles from '../../../modules/server/roles';
 
 function buildFilter(fromfilter) {
 	const filter = {};
@@ -23,6 +24,7 @@ function buildFilter(fromfilter) {
 
 Meteor.methods({
 	'hydrants.get.total.counts': function anon() {
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: { enabled: true } },
 			{ $group: {
@@ -47,6 +49,7 @@ Meteor.methods({
 	},
 	'hydrants.get.lenQuery': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
 		const array = Hydrants.aggregate([
 			{ $match: buildFilter(filter) },
@@ -59,6 +62,7 @@ Meteor.methods({
 	},
 	'hydrants.get.data': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter, sort, skip } = p;
 
 		return Hydrants.aggregate([
@@ -76,11 +80,13 @@ Meteor.methods({
 	},
 	'hydrants.get.data.one': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
 		return Hydrants.findOne({ _id: filter._id });
 	},
 	'hydrants.zero.status': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { _id } = p;
 		Hydrants.update(_id, { $set: { status: 0 } });
 	},
@@ -88,6 +94,7 @@ Meteor.methods({
 
 Meteor.methods({
 	'map.get.counts': function anon() {
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const array_cntAllUnits = Hydrants.aggregate([
 			{ $group: {
 				_id: null,
@@ -109,6 +116,7 @@ Meteor.methods({
 	},
 	'map.get.data': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { bounds, _id, filterStatus } = p;
 		console.log('getting map in bounds');
 		console.log(bounds);
@@ -136,6 +144,7 @@ Meteor.methods({
 Meteor.methods({
 	'hydrants.insert': function anon(doc) {
 		check(doc, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		console.log('inserting');
 		try {
 			console.log('ok');
@@ -147,6 +156,7 @@ Meteor.methods({
 	},
 	'hydrants.update': function anon(doc) {
 		check(doc, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		console.log('updating');
 		try {
 			console.log('ok');
@@ -160,6 +170,7 @@ Meteor.methods({
 	},
 	'hydrants.remove': function anon(_id) {
 		check(_id, String);
+		if (!roles.isUserAdmin()) return undefined;
 		try {
 			return Hydrants.remove(_id);
 		} catch (exception) {

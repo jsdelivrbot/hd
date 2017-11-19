@@ -1,15 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
-import moment from 'moment';
 import Companies from '../Collections/Companies';
 import rateLimit from '../../../modules/server/rate-limit';
+import * as roles from '../../../modules/server/roles';
 
 Meteor.methods({
 	'companies.get.all': function anon() {
+		if (!roles.isUserAdmin()) return undefined;
 		return Companies.find({}).fetch();
 	},
 	'companies.get.data.one': function anon(p) {
+		if (!roles.isUserAdmin()) return undefined;
 		check(p, Object);
 		const { filter } = p;
 		return Companies.findOne({ _id: filter._id });
@@ -19,6 +21,7 @@ Meteor.methods({
 Meteor.methods({
 	'companies.insert': function anon(doc) {
 		check(doc, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		console.log('inserting');
 		try {
 			console.log('ok');
@@ -30,6 +33,7 @@ Meteor.methods({
 	},
 	'companies.update': function anon(doc) {
 		check(doc, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		console.log('updating');
 		try {
 			console.log('ok');
@@ -43,6 +47,7 @@ Meteor.methods({
 	},
 	'companies.remove': function anon(_id) {
 		check(_id, String);
+		if (!roles.isUserAdmin()) return undefined;
 		try {
 			return Companies.remove(_id);
 		} catch (exception) {
@@ -50,8 +55,6 @@ Meteor.methods({
 		}
 	},
 });
-
-
 
 //construct a Promise that will take 2500ms to resolve
 // console.log("began running")

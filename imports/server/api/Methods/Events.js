@@ -6,6 +6,7 @@ import Events from '../Collections/Events';
 import Hydrants from '../Collections/Hydrants';
 import Static from '../Collections/Static';
 import rateLimit from '../../../modules/server/rate-limit';
+import * as roles from '../../../modules/server/roles';
 
 function buildFilter(fromFilter) {
 	const filter = {};
@@ -29,6 +30,7 @@ function buildFilter(fromFilter) {
 
 Meteor.methods({
 	'events.get.counts': function anon() {
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const array = Events.aggregate([
 			// { $match: { code: 2 } },
 			{ $group: {
@@ -40,6 +42,7 @@ Meteor.methods({
 	},
 	'events.get.lenQuery': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
 		const array = Events.aggregate([
 			{ $match: buildFilter(filter) },
@@ -52,6 +55,7 @@ Meteor.methods({
 	},
 	'events.get.data': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter, sort, skip } = p;
 
 		return Events.aggregate([
@@ -77,7 +81,6 @@ Meteor.methods({
 		], { allowDiskUse: true });
 	},
 });
-
 
 rateLimit({
 	methods: [

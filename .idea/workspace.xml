@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imports/modules/server/roles.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedAdmin/AuthenticatedAdmin.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/OAuthLoginButton/OAuthLoginButton.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/OAuthLoginButton/OAuthLoginButton.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/OAuthLoginButtons/OAuthLoginButtons.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/OAuthLoginButtons/OAuthLoginButtons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/modules/get-oauth-profile.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/server/api/Methods/OAuth.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imports/startup/server/accounts/oauth.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/modules/server/rate-limit.js" afterPath="$PROJECT_DIR$/imports/modules/server/rate-limit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/accounts/index.js" afterPath="$PROJECT_DIR$/imports/startup/server/accounts/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js" afterPath="$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/api.js" afterPath="$PROJECT_DIR$/imports/startup/server/api.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,21 +39,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2190">
-              <caret line="136" column="40" lean-forward="false" selection-start-line="136" selection-start-column="40" selection-end-line="136" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewHydrant.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="835">
+              <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -42,28 +52,88 @@
       <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-335">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="210">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
+      <file leaf-file-name="Events.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HydrantEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js">
+      <file leaf-file-name="Utility.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Utility.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="232" column="62" lean-forward="true" selection-start-line="232" selection-start-column="62" selection-end-line="232" selection-end-column="62" />
+            <state relative-caret-position="240">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="send-welcome-email.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="on-create-user.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/Utils/Utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="roles.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/modules/server/roles.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1435">
+              <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -72,34 +142,14 @@
       <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="647">
-              <caret line="124" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+            <state relative-caret-position="197">
+              <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Map.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="144" column="41" lean-forward="false" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultiSelect.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-600">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
@@ -109,61 +159,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Navigation.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Navigation.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-360">
-              <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Static.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="16" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="77" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Storage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/Storage/Storage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="61" column="29" lean-forward="false" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Footer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Footer/Footer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Companies.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="767">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="900">
+              <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -171,15 +171,15 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>p.types.roles</find>
-      <find>verifyUrl</find>
-      <find>sendVer</find>
-      <find>Accounts.</find>
-      <find>MAIL</find>
-      <find>user.sendVerificationEmail</find>
-      <find>\&quot;MAIL_URL\&quot;\: \&quot;smtp\:\/\/postmaster\%40sandboxeda1ec3d9c4b4e1ebabb8b53e7adfb8a\.mailgun\.org\:e48908b3656c5f8e796384957a4ad1af\@smtp\.mailgun\.org\:587\&quot;\,\n</find>
       <find>MAIL_URL</find>
       <find>status</find>
       <find>But</find>
@@ -203,9 +203,15 @@
       <find>new</find>
       <find>createU</find>
       <find>histo</find>
+      <find>oauth.verifyConfiguration</find>
+      <find>OAuth</find>
+      <find>auth</find>
+      <find>isUserAdmin</find>
+      <find>import { roles } from '../../../modules/server/roles';</find>
+      <find>get-oauth-profile</find>
+      <find>send-wel</find>
     </findStrings>
     <replaceStrings>
-      <replace>formatView</replace>
       <replace>_id</replace>
       <replace>Object</replace>
       <replace>String</replace>
@@ -233,14 +239,16 @@
       <replace>CntAllUnits</replace>
       <replace>AuthenticatedSite</replace>
       <replace>AuthenticatedAdmin</replace>
-      <replace>reactiveGlobalCompany</replace>
       <replace>ControlUser</replace>
+      <replace>roles.isUserAdmin</replace>
+      <replace>reactiveGlobalCompany</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
       <dir>C:\Users\PSG\m\pup\imports\client\components\LayoutLoginAndNavigationAndGeneral</dir>
       <dir>C:\Users\PSG\m\pup\imports\client</dir>
       <dir>C:\Users\PSG\m\pup\imports\server\api</dir>
+      <dir>C:\Users\PSG\m\pup\imports\client\components\LayoutLoginAndNavigationAndGeneral\OAuthLoginButtons</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -249,9 +257,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/api/server/OAuth/methods.js" />
-        <option value="$PROJECT_DIR$/imports/api/server/Users/send-welcome-email.js" />
-        <option value="$PROJECT_DIR$/imports/api/server/Utility/methods.js" />
         <option value="$PROJECT_DIR$/imports/server/api/server/Hydrants/methods.js" />
         <option value="$PROJECT_DIR$/imports/server/api/OAuth/methods.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js" />
@@ -303,7 +308,6 @@
         <option value="$PROJECT_DIR$/imports/startup/server/seeder.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Static.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Companies.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/api.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Public/Public.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/ViewHydrant/ViewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" />
@@ -314,19 +318,16 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Components/CompanyEditor/CompanyEditor.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/components/CompanyEditor/CompanyEditor.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/NewCompany/NewCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/Css/ViewCompany.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/Profile/Profile.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Users/publications.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
         <option value="$PROJECT_DIR$/settings-development.json" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/LoginPages/VerifyEmail/VerifyEmail.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/LoginPages/ResetPassword/ResetPassword.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/LoginPages/Signup/Signup.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/NewUser/Css/NewUser.scss" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/email.js" />
@@ -336,20 +337,27 @@
         <option value="$PROJECT_DIR$/imports/client/Utils/Utils.js" />
         <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" />
         <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Footer/Footer.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
         <option value="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
+        <option value="$PROJECT_DIR$/imports/modules/server/rate-limit.js" />
+        <option value="$PROJECT_DIR$/imports/modules/server/roles.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/api.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
       </list>
     </option>
   </component>
@@ -686,6 +694,13 @@
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
               <item name="pup" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -785,11 +800,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PSG\m\pup\imports\modules\server" />
       <recent name="C:\Users\PSG\m\pup\imports\client\components\LayoutLoginAndNavigationAndGeneral" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Users\NewUser" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Users" />
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Companies" />
-      <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\PSG\m\pup\imports\client\pages\Companies\Components" />
@@ -887,7 +902,7 @@
       <workItem from="1510671815056" duration="90000" />
       <workItem from="1510671992146" duration="29000" />
       <workItem from="1510672081936" duration="34000" />
-      <workItem from="1510672177496" duration="67922000" />
+      <workItem from="1510672177496" duration="72585000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -928,7 +943,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="675319000" />
+    <option name="totallyTimeSpent" value="679982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -976,37 +991,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/PageHeader/PageHeader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/PageHeader/PageHeader.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Page/Page.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Page/Page.scss" />
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Privacy/Privacy.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/Profile/Profile.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/RecoverPassword/RecoverPassword.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/LoginPages/Logout/Logout.scss" />
@@ -1139,21 +1123,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/OAuth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/Css/ViewCompany.scss" />
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Authenticated/Authenticated.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1168,30 +1138,8 @@
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/components/CompanyEditor/CompanyEditor.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/Profile/Profile.js" />
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Utility.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/Css/MultiSelect.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/semantic.rtl.css" />
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="3" column="42" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/LoginPages/VerifyEmail/VerifyEmail.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -1288,14 +1236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Users/edit-profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -1308,14 +1248,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1384,34 +1316,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/Utils/Utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="38" column="23" lean-forward="false" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1496,14 +1404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-335">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6570">
@@ -1552,10 +1452,162 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="124" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        <state relative-caret-position="197">
+          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/Utils/Utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/handlebars-email-to-html.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/handlebars-email-to-text.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/send-email.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/get-private-file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/rate-limit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1435">
+          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/modules/server/roles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/OAuth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/OAuthLoginButtons/OAuthLoginButtons.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="835">
+          <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Utility.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1564,14 +1616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>

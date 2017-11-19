@@ -13,3 +13,4 @@ export default ({methods, limit, timeRange}) => {
 		}, limit, timeRange);
 	}
 };
+

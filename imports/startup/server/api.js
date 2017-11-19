@@ -4,7 +4,6 @@ import '../../server/api/Methods/Events';
 import '../../server/api/Methods/Companies';
 
 import '../../server/api/Methods/Users';
-import '../../server/api/Methods/OAuth';
 import '../../server/api/Methods/Utility';
 
 import '../../server/api/Users/publications';

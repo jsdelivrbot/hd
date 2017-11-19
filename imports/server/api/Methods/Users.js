@@ -4,24 +4,18 @@ import { Accounts } from 'meteor/accounts-base';
 import editProfile from '../Users/edit-profile';
 import rateLimit from '../../../modules/server/rate-limit';
 import Companies from '../Collections/Companies';
+import * as roles from '../../../modules/server/roles';
 
 Meteor.methods({
 	'users.get.all': function anon() {
+		if (!roles.isUserAdmin()) return undefined;
 		return Meteor.users.aggregate([
-			// { $lookup: {
-			// 	from: 'Companies',
-			// 	localField: 'companyId',
-			// 	foreignField: '_id',
-			// 	as: 'c'
-			// } },
-			// { $unwind: '$c' },
 			{ $project: {
 				name: { $concat: ['$profile.name.first', { $literal: ' ' }, '$profile.name.last'] },
 				email: { $arrayElemAt: ['$emails', 0] },
 				role: 1,
 				companyId: 1,
 				reset: '$services.password.reset',
-				// companyName: '$c.name',
 			} },
 			{ $project: {
 				name: 1,
@@ -33,11 +27,9 @@ Meteor.methods({
 			} }
 		]);
 	},
-	'user.sendVerificationEmail': function anon() {
-		return Accounts.sendVerificationEmail(this.userId);
-	},
 	'user.new': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		const { email, firstName, lastName, companyId, role } = p;
 		console.log('creating user');
 		const userId = Accounts.createUser({ email });
@@ -56,22 +48,19 @@ Meteor.methods({
 		return Accounts.sendEnrollmentEmail(userId);
 	},
 	'user.get.properties': function anon() {
+		if (!roles.isUserAdmin()) return undefined;
 		const { companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
-		// if (companyId) company = Companies.findOne({ _id: companyId });
-		// else {
-		// 	company = Companies.findOne({});
-		// 	companyId = company._id;
-		// 	Meteor.users.update(this.userId, { $set: { companyId } });
-		// }
 		return { company, role };
 	},
 	'user.set.companyId': function anon(companyId) {
 		check(companyId, String);
+		if (!roles.isUserAdmin()) return undefined;
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
 	'user.update': function anon(p) {
 		check(p, Object);
+		if (!roles.isUserAdmin()) return undefined;
 		let { _id, companyId, role } = p;
 		Meteor.users.update(_id, { $set: { companyId, role } });
 		return ({ _id, companyId, role } = Meteor.user());
@@ -103,3 +92,23 @@ rateLimit({
 	limit: 5,
 	timeRange: 1000,
 });
+
+// 'user.sendVerificationEmail': function anon() {
+// 	return Accounts.sendVerificationEmail(this.userId);
+// },
+
+// if (companyId) company = Companies.findOne({ _id: companyId });
+// else {
+// 	company = Companies.findOne({});
+// 	companyId = company._id;
+// 	Meteor.users.update(this.userId, { $set: { companyId } });
+// }
+
+// { $lookup: {
+// 	from: 'Companies',
+// 	localField: 'companyId',
+// 	foreignField: '_id',
+// 	as: 'c'
+// } },
+// { $unwind: '$c' },
+// companyName: '$c.name',
