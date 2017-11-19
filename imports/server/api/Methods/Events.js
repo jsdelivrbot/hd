@@ -12,15 +12,20 @@ function buildFilter(fromFilter) {
 	const filter = {};
 	console.log('events uploading');
 
-	const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-	filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toISOString() };
+	// filter.companyId = Meteor.user().companyId;
+	// if (!roles.isControl()) filter.enabled = true;
+
+	if (fromFilter.createdAt) {
+		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
+		filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toISOString() };
+	}
 
 	if (!_.isEmpty(fromFilter.code)) {
 		filter.code = { $in: _.keys(fromFilter.code).map(k => _.toNumber(k)) };
 	}
 
 	if (fromFilter.hydrantId) {
-	// 	const h = Hydrants.findOne({ _id: fromfilter.hydrantId });
+	// 	const h = Hydrants.findOne({ _id: fromFilter.hydrantId });
 		filter.hydrantId = fromFilter.hydrantId;
 	}
 	console.log('filter');

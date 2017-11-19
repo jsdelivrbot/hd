@@ -6,18 +6,18 @@ import Hydrants from '../Collections/Hydrants';
 import rateLimit from '../../../modules/server/rate-limit';
 import * as roles from '../../../modules/server/roles';
 
-function buildFilter(fromfilter) {
+function buildFilter(fromFilter) {
 	const filter = {};
 	console.log('hydrants uploading');
 
 	filter.companyId = Meteor.user().companyId;
 	if (!roles.isControl()) filter.enabled = true;
-	if (fromfilter.createdAt) {
+	if (fromFilter.createdAt) {
 		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-		filter.createdAt = { $gt: moment().subtract(choose[fromfilter.createdAt] || 10000, 'days').toISOString() };
+		filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toISOString() };
 	}
-	if (!_.isEmpty(fromfilter.status)) {
-		filter.status = { $in: _.keys(fromfilter.status).map(k => _.toNumber(k)) };
+	if (!_.isEmpty(fromFilter.status)) {
+		filter.status = { $in: _.keys(fromFilter.status).map(k => _.toNumber(k)) };
 	}
 
 	return filter;
