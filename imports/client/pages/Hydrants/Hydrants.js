@@ -308,7 +308,7 @@ export default compose(
 							}
 						</Box>
 						<Box w={6 / 8}>
-							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד עין אפק: {p.cntTotalUnits} יח&#39;<br />
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}: {p.cntTotalUnits} יח&#39;<br />
 							{p.isUserAdmin() ?
 								<span>
 									מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />

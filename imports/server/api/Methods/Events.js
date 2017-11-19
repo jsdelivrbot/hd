@@ -30,7 +30,7 @@ function buildFilterEvents(fromFilter) {
 function buildFilterHydrants() {
 	const filter = {};
 	filter['h.companyId'] = Meteor.user().companyId;
-	if (!roles.isControl()) filter['h.enabled'] = true;
+	if (!roles.isUserControl()) filter['h.enabled'] = true;
 	return filter;
 }
 

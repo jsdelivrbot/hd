@@ -29,7 +29,7 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
-import { getStore, setStore } from '../../Storage/Storage';
+import { getStore, setStore, reactiveGlobalCompany } from '../../Storage/Storage';
 
 export default compose(
 	withHandlers({
@@ -184,8 +184,8 @@ export default compose(
 							</Box>
 							<Box w={6 / 8}>
 								<span>
-									סה&quot;כ מוצרים מתוך תאגיד עין אפק:  {p.cntAllUnits} יח&#39;<br />
-									 מתוכם מוצרים בארוע מתוך תאגיד עין אפק:  {p.cntTroubledUnits} יח&#39;<br />
+									סה&quot;כ מוצרים מתוך תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} יח&#39;<br />
+									 מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
 									נכון לתאריך: {currentDate}
 								</span>
 							</Box>

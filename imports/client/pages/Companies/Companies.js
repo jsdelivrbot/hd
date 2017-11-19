@@ -31,7 +31,7 @@ export default compose(
 			selected: [reactiveGlobalCompany.get()._id],
 		}), {
 			setSelected: () => (row) => {
-				reactiveGlobalCompany.set({ company: row });
+				reactiveGlobalCompany.set(row);
 				Meteor.callPromise('user.set.companyId', row._id);
 				console.log('reactiveGlobalCompany.get()');
 				console.log(reactiveGlobalCompany.get());

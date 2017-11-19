@@ -20,10 +20,7 @@ import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../Slider/Slider';
 import MultiSelect from '../MultiSelect/MultiSelect';
-import {
-	getStore,
-	setStore,
-} from '../../Storage/Storage';
+import { getStore, setStore, reactiveGlobalCompany } from '../../Storage/Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
@@ -140,7 +137,7 @@ export default compose(
 
 			p.setLoading(false);
 			data = _.map(data, ({ createdAt, code, ...row }, key) => ({
-				createdAt: moment(createdAt).format('DD.MM.YYYY'),
+				createdAt: mome(createdAt).format('DD.MM.YYYY'),
 				time: moment(createdAt).format('HH:mm'),
 				code: p.types.code[code],
 				rowNumber: skip + key,
@@ -226,7 +223,7 @@ export default compose(
 				</Flex>
 				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד עין אפק:  {p.cntAllUnits} <br />
+						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
 					: ''}
