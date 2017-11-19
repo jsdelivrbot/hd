@@ -30,7 +30,7 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 
 		const arrayEnabled = Hydrants.aggregate([
-			{ $match: { enabled: true } },
+			{ $match: _.assign({}, buildFilter(), { enabled: true }) },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
@@ -42,7 +42,7 @@ Meteor.methods({
 			return { cntTotalUnits: cntEnabledUnits };
 		} else if (roles.isUserAdmin()) {
 			const arrayDisabled = Hydrants.aggregate([
-				{ $match: { enabled: false } },
+				{ $match: _.assign({}, buildFilter(), { enabled: false }) },
 				{ $group: {
 					_id: null,
 					count: { $sum: 1 }
