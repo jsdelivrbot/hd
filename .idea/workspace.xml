@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/Main/App/App.js" afterPath="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" afterPath="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,11 +33,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="159" column="2" lean-forward="true" selection-start-line="159" selection-start-column="2" selection-end-line="159" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1405">
+              <caret line="131" column="4" lean-forward="false" selection-start-line="131" selection-start-column="4" selection-end-line="131" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -43,68 +56,8 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utility.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Utility.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="send-welcome-email.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="on-create-user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/Utils/Utils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="roles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/modules/server/roles.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="7" column="57" lean-forward="false" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1435">
-              <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+            <state relative-caret-position="1285">
+              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -113,8 +66,18 @@
       <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="-720">
               <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="130" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -123,18 +86,8 @@
       <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="142" column="31" lean-forward="false" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
+            <state relative-caret-position="-420">
+              <caret line="129" column="12" lean-forward="true" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -143,8 +96,8 @@
       <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Companies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="767">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="317">
+              <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -153,8 +106,8 @@
       <file leaf-file-name="Navigation.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+            <state relative-caret-position="420">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -171,7 +124,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>status</find>
       <find>But</find>
       <find>withHand</find>
       <find>countTotalUnits</find>
@@ -201,6 +153,7 @@
       <find>get-oauth-profile</find>
       <find>send-wel</find>
       <find>componentWillReceiveProps</find>
+      <find>withProps</find>
     </findStrings>
     <replaceStrings>
       <replace>_id</replace>
@@ -336,19 +289,19 @@
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
         <option value="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
-        <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
         <option value="$PROJECT_DIR$/imports/modules/server/rate-limit.js" />
         <option value="$PROJECT_DIR$/imports/modules/server/roles.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/api.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/accounts/on-create-user.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
-        <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+        <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
+        <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
       </list>
     </option>
   </component>
@@ -473,23 +426,6 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="LayoutLoginAndNavigationAndGeneral" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="LayoutLoginAndNavigationAndGeneral" type="462c0819:PsiDirectoryNode" />
-              <item name="Navigation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Map" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -546,52 +482,6 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="HydrantEditor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="Css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="EditHydrant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="NewHydrant" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -885,7 +775,7 @@
       <workItem from="1510671815056" duration="90000" />
       <workItem from="1510671992146" duration="29000" />
       <workItem from="1510672081936" duration="34000" />
-      <workItem from="1510672177496" duration="73525000" />
+      <workItem from="1510672177496" duration="77895000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -926,7 +816,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="680922000" />
+    <option name="totallyTimeSpent" value="685292000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1403,34 +1293,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="144" column="41" lean-forward="false" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2190">
-          <caret line="136" column="40" lean-forward="false" selection-start-line="136" selection-start-column="40" selection-end-line="136" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -1483,14 +1349,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1435">
-          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/modules/server/roles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1531,22 +1389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Utility.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1563,26 +1405,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="767">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="1435">
+          <caret line="55" column="21" lean-forward="false" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -1595,10 +1421,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
-          <caret line="142" column="31" lean-forward="false" selection-start-line="142" selection-start-column="31" selection-end-line="142" selection-end-column="31" />
+          <caret line="130" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="159" column="2" lean-forward="true" selection-start-line="159" selection-start-column="2" selection-end-line="159" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-420">
+          <caret line="129" column="12" lean-forward="true" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720">
+          <caret line="11" column="6" lean-forward="true" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="144" column="41" lean-forward="false" selection-start-line="144" selection-start-column="41" selection-end-line="144" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1285">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1405">
+          <caret line="131" column="4" lean-forward="false" selection-start-line="131" selection-start-column="4" selection-end-line="131" selection-end-column="4" />
           <folding />
         </state>
       </provider>

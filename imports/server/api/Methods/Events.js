@@ -33,6 +33,7 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const array = Events.aggregate([
 			// { $match: { code: 2 } },
+			{ $match: buildFilter() },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }

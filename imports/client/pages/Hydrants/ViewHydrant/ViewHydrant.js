@@ -128,22 +128,26 @@ export default compose(
 				<div>
 					<Flex>
 						<Box w={1}>
-							<Button
-								bsStyle="primary" block
-								onClick={p.zeroStatus}
-							>אפס סטטוס</Button>
+							{p.isUserControl() ?
+								<Button
+									bsStyle="primary" block
+									onClick={p.zeroStatus}
+								>אפס סטטוס</Button>
+								:
+								''
+							}
 						</Box>
 						<Box w={1} />
-						{p.isUserAdmin() ?
-							<Box w={1}>
+						<Box w={1}>
+							{p.isUserAdmin() ?
 								<Button
 									bsStyle="primary" block
 									onClick={() => p.history.push(`${p.match.url}/edit`)}
 								>ערוך</Button>
-							</Box>
-							:
-							''
-						}
+								:
+								''
+							}
+						</Box>
 					</Flex>
 				</div>
 				<Events _id={p._id} types={p.types} />

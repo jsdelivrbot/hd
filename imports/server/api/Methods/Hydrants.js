@@ -96,6 +96,7 @@ Meteor.methods({
 	'map.get.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const array_cntAllUnits = Hydrants.aggregate([
+			{ $match: buildFilter() },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
@@ -103,7 +104,7 @@ Meteor.methods({
 		]);
 
 		const array_cntTroubledUnits = Hydrants.aggregate([
-			{ $match: { status: { $gt: 2 } } },
+			{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
 			{ $group: {
 				_id: null,
 				count: { $sum: 1 }
@@ -122,12 +123,14 @@ Meteor.methods({
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: { $and: [
-				{ status: (filterStatus && { $gt: 2 }) || { $exists: true } },
-				{ _id: _id || { $exists: true } },
-				{ lat: { $gt: south, $lt: north } },
-				{ lon: { $gt: west, $lt: east } }
-			] } },
+			{ $match: _.assign({}, buildFilter(),
+				{ $and: [
+					{ status: (filterStatus && { $gt: 2 }) || { $exists: true } },
+					{ _id: _id || { $exists: true } },
+					{ lat: { $gt: south, $lt: north } },
+					{ lon: { $gt: west, $lt: east } }
+				] }
+			) },
 			{ $limit: 40 },
 			{ $project: {
 				lat: 1,

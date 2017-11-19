@@ -47,6 +47,8 @@ import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFou
 import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
+import { difProps } from '../../Utils/Utils';
+
 import './Css/App.scss';
 
 import { reactiveGlobalCompany } from '../../Storage/Storage';
@@ -57,10 +59,6 @@ const getUserName = name => ({
 }[typeof name]);
 
 const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => {
-	console.log('p.isUserAdmin()');
-	console.log(p.isUserAdmin());
-	console.log('p.isUserControl()');
-	console.log(p.isUserControl());
 	return (
 		<Route
 			path={p.path}
@@ -120,22 +118,24 @@ export default compose(
 		isUserControl: ({ role }) => () => (role === 1),
 		isUserSecurity: ({ role }) => () => (role === 2),
 	}),
-	withProps((p) => {
-		console.log('p.authenticated');
-		console.log(p.authenticated);
-		console.log('p.appInitialized');
-		console.log(p.appInitialized);
-		console.log('p.appLoading');
-		console.log(p.appLoading);
-		console.log('p.loggingIn');
-		console.log(p.loggingIn);
-	}),
+	// withProps((p) => {
+	// 	console.log('p.authenticated');
+	// 	console.log(p.authenticated);
+	// 	console.log('p.appInitialized');
+	// 	console.log(p.appInitialized);
+	// 	console.log('p.appLoading');
+	// 	console.log(p.appLoading);
+	// 	console.log('p.loggingIn');
+	// 	console.log(p.loggingIn);
+	// }),
 	lifecycle({
-		componentDidMount() {
+		async componentDidMount() {
 			const p = this.props;
 			p.setAppInitialized(false);
 		},
 		async componentWillReceiveProps(p) {
+			const { userId } = difProps({ prevProps: this.props, nextProps: p });
+			if (userId) p.setAppInitialized(false);
 			if (p.authenticated && !p.appInitialized) {
 				if (p.appLoading) return;
 				p.setAppLoading(true);

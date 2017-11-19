@@ -17,6 +17,11 @@ const handleFixture = () => {
 };
 
 const Navigation = (p) => {
+	// console.log('rendering navigation');
+	// console.log('p.isUserAdmin()');
+	// console.log(p.isUserAdmin());
+	// console.log('p.isUserControl()');
+	// console.log(p.isUserControl());
 	return (
 		<div>
 			<Link to="/">
