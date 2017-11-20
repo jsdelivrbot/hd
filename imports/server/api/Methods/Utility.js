@@ -13,21 +13,16 @@ Meteor.methods({
 		return Static.findOne({}).types;
 	},
 	'utility.db.init': function anon() {
-		if (!roles.isUserAdmin()) return undefined;
+		if (!roles.isUserAdmin()) return;
 		console.log('clearing database');
 		try {
 			console.log('init');
 			initDb();
-			return undefined;
 		} catch (exception) {
 			console.log(exception);
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	// 'utility.getPage': function anon(fileName) {
-	// 	check(fileName, String);
-	// 	return parseMarkdown(getPrivateFile(`pages/${fileName}.md`));
-	// },
 });
 
 rateLimit({

@@ -8,7 +8,7 @@ import * as roles from '../../../modules/server/roles';
 Meteor.methods({
 	'companies.get.all': function anon() {
 		if (!roles.isUserAdmin()) return undefined;
-		return Companies.find({}).fetch();
+		return Companies.find({}, { name: 1 }).fetch();
 	},
 	'companies.get.data.one': function anon(p) {
 		if (!roles.isUserAdmin()) return undefined;

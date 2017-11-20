@@ -55,7 +55,7 @@ Meteor.methods({
 	},
 	'user.set.companyId': function anon(companyId) {
 		check(companyId, String);
-		if (!roles.isUserAdmin()) return undefined;
+		if (!roles.isUserAdmin()) return;
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
 	'user.update': function anon(p) {

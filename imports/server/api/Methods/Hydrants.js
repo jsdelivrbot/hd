@@ -5,6 +5,7 @@ import moment from 'moment';
 import Hydrants from '../Collections/Hydrants';
 import rateLimit from '../../../modules/server/rate-limit';
 import * as roles from '../../../modules/server/roles';
+import { sleep } from '../../../modules/server/utils';
 
 function buildFilter(fromFilter) {
 	const filter = {};
@@ -23,10 +24,6 @@ function buildFilter(fromFilter) {
 	}
 
 	return filter;
-}
-
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 Meteor.methods({
