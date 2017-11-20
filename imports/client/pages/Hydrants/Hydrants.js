@@ -44,7 +44,7 @@ export default compose(
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
 			cntTotalUnits: getStore('cntTotalUnits') || 0,
 			loading: false,
-			initialized: false,
+			initialized: undefined,
 			sort: getStore('sort') || { name: 'createdAt', order: 1 },
 			filter: getStore('filter') || { status: {} },
 			slider: getStore('slider') || { max: 0, value: 0 },
@@ -105,43 +105,51 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
-			this.storeEmpty = false;
-			if (!getStore()) {
-				p.setLoading(true);
-				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
-				p.setCntTotalUnits(cntTotalUnits);
-				p.setCntEnabledUnits(cntEnabledUnits);
-				p.setCntDisabledUnits(cntDisabledUnits);
-				p.setLoading(false);
-				this.storeEmpty = true;
-			}
-			p.setInitialized(true);
+			p.setInitialized(false);
 		},
 		async componentWillReceiveProps(p) {
-			if (!p.initialized) return;
+			const { companyName } = difProps({ prevProps: this.props, nextProps: p });
+			if (companyName) {
+				p.setInitialized(false);
+				this.storeEmpty = true;
+			} else if (!getStore()) {
+				this.storeEmpty = true;
+			}
+
 			if (p.loading) return;
-			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
-			if (filter || this.storeEmpty) {
-				this.storeEmpty = false;
-				p.setLoading(true);
-				const lenQuery = await Meteor.callPromise('hydrants.get.lenQuery', { filter: p.filter });
-				p.setLoading(false);
-				p.setSlider({ max: lenQuery, value: lenQuery });
-			}
-			if (sort) {
-				p.setSlider({ value: p.slider.max });
-			}
-			if (slider) {
-				const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
-				let data;
-				if (p.slider.drag) {
-					data = p.data.map(({ rowNumber, ...row }, key) => ({
-						rowNumber: skip + key,
-						...row }));
-					p.setData(data);
-				} else {
-					p.setData(await this.fetchData(p, skip));
+			if (!p.initialized) {
+				if (this.storeEmpty) {
+					p.setLoading(true);
+					const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
+					p.setCntTotalUnits(cntTotalUnits);
+					p.setCntEnabledUnits(cntEnabledUnits);
+					p.setCntDisabledUnits(cntDisabledUnits);
+					p.setLoading(false);
+				}
+				p.setInitialized(true);
+			} else {
+				const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
+				if (filter || this.storeEmpty) {
+					this.storeEmpty = false;
+					p.setLoading(true);
+					const lenQuery = await Meteor.callPromise('hydrants.get.lenQuery', { filter: p.filter });
+					p.setLoading(false);
+					p.setSlider({ max: lenQuery, value: lenQuery });
+				}
+				if (sort) {
+					p.setSlider({ value: p.slider.max });
+				}
+				if (slider) {
+					const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+					let data;
+					if (p.slider.drag) {
+						data = p.data.map(({ rowNumber, ...row }, key) => ({
+							rowNumber: skip + key,
+							...row }));
+						p.setData(data);
+					} else {
+						p.setData(await this.fetchData(p, skip));
+					}
 				}
 			}
 		},

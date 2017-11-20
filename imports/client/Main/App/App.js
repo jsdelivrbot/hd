@@ -118,16 +118,6 @@ export default compose(
 		isUserControl: ({ role }) => () => (role === 1),
 		isUserSecurity: ({ role }) => () => (role === 2),
 	}),
-	// withProps((p) => {
-	// 	console.log('p.authenticated');
-	// 	console.log(p.authenticated);
-	// 	console.log('p.appInitialized');
-	// 	console.log(p.appInitialized);
-	// 	console.log('p.appLoading');
-	// 	console.log(p.appLoading);
-	// 	console.log('p.loggingIn');
-	// 	console.log(p.loggingIn);
-	// }),
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
@@ -193,8 +183,6 @@ export default compose(
 			</Router>
 		);
 	});
-
-
 
 // withProps((p) => {
 // 	console.log('p.authenticated');
