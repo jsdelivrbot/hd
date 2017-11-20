@@ -29,7 +29,7 @@ function buildFilter(fromFilter) {
 Meteor.methods({
 	'hydrants.get.total.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
-
+		console.log('hydrants.get.total.counts');
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: _.assign({}, buildFilter(), { enabled: true }) },
 			{ $group: {

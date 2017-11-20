@@ -59,7 +59,7 @@ function setStore(field, obj) {
 // }
 
 
-export { getStore, setStore, reactiveGlobalCompany };
+// export { getStore, setStore, reactiveGlobalCompany };
 
 // export function getHydrantSort() {
 // 	return _.get(StorageCollection.findOne({}), 'hydrantSort');

@@ -11,32 +11,27 @@ import {
 } from 'recompose';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import { Button } from 'react-bootstrap';
 import { Flex, Box } from 'reflexbox';
 import Loader from 'react-loader-advanced';
 
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../stylesheets/table.scss';
 import './Css/Companies.scss';
 
-
-import { reactiveGlobalCompany } from '../../components/Storage';
-
 export default compose(
 	withStateHandlers(
-		() => ({
+		p => ({
 			data: [],
 			initialized: false,
 			loading: false,
-			selected: [reactiveGlobalCompany.get()._id],
+			selected: [p.company._id],
 		}), {
-			setSelected: () => (row) => {
-				reactiveGlobalCompany.set(row);
+			setSelected: ({}, p) => (row) => {
+				p.setCompany(row);
 				Meteor.callPromise('user.set.companyId', row._id);
-				console.log('reactiveGlobalCompany.get()');
-				console.log(reactiveGlobalCompany.get());
 				return { selected: [row._id] };
 			},
 			setData: () => data => ({ data }),
@@ -45,8 +40,8 @@ export default compose(
 		}
 	),
 	withHandlers({
-		onSelect: ({ selected, setSelected }) => (row, isSelected) => {
-			if (isSelected) setSelected(row);
+		onSelect: p => (row, isSelected) => {
+			if (isSelected) p.setSelected(row);
 			return isSelected;
 		},
 	}),
@@ -56,7 +51,6 @@ export default compose(
 			const p = this.props;
 			p.setLoading(true);
 			const data = await Meteor.callPromise('companies.get.all');
-			reactiveGlobalCompany.set(data[0]);
 			p.setData(data);
 			p.setLoading(false);
 			console.log('initialized');

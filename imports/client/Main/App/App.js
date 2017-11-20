@@ -51,8 +51,6 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/App.scss';
 
-import { reactiveGlobalCompany } from '../../components/Storage';
-
 const getUserName = name => ({
 	string: name,
 	object: `${name.first} ${name.last}`,
@@ -106,11 +104,13 @@ export default compose(
 			role: undefined,
 			appLoading: false,
 			appInitialized: undefined,
+			company: undefined,
 		}), {
 			setAppLoading: () => appLoading => ({ appLoading }),
 			setTypes: () => types => ({ types }),
 			setRole: () => role => ({ role }),
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
+			setCompany: () => company => ({ company }),
 		}
 	),
 	withHandlers({
@@ -131,7 +131,7 @@ export default compose(
 				p.setAppLoading(true);
 				p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');
-				reactiveGlobalCompany.set(company);
+				p.setCompany(company);
 				p.setRole(role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);

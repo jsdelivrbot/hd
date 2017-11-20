@@ -31,13 +31,13 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
-import { getStore, setStore, reactiveGlobalCompany } from '../Storage';
+import { getStore, setStore } from '../Storage';
 
 export default compose(
 	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
 	withHandlers({
-		getStore: p => keys => getStore(`map_${p._id}`, keys),
-		setStore: p => obj => setStore(`map_${p._id}`, obj),
+		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
+		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
 	}),
 	withStateHandlers(
 		p => ({

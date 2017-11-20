@@ -1,7 +1,6 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -26,45 +25,41 @@ import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../../components/Slider/Slider';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
-import {
-	getStore as getStoreHydrantsPage,
-	setStore as setStoreHydrantsPage,
-	reactiveGlobalCompany,
-} from '../../components/Storage';
-
-const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
-const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
+import { getStore, setStore } from '../../components/Storage';
 
 export default compose(
-	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
+	withHandlers({
+		getStore: p => keys => getStore(`hydrants_${p.company._id}`, keys),
+		setStore: p => obj => setStore(`hydrants_${p.company._id}`, obj),
+	}),
 	withStateHandlers(
-		() => ({
-			data: getStore('data') || [],
-			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
-			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
-			cntTotalUnits: getStore('cntTotalUnits') || 0,
+		p => ({
+			data: p.getStore('data') || [],
+			cntEnabledUnits: p.getStore('cntEnabledUnits') || 0,
+			cntDisabledUnits: p.getStore('cntDisabledUnits') || 0,
+			cntTotalUnits: p.getStore('cntTotalUnits') || 0,
 			loading: false,
-			initialized: undefined,
-			sort: getStore('sort') || { name: 'createdAt', order: 1 },
-			filter: getStore('filter') || { status: {} },
-			slider: getStore('slider') || { max: 0, value: 0 },
+			initialized: false,
+			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
+			filter: p.getStore('filter') || { status: {} },
+			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
 			setLoading: () => loading => ({ loading }),
-			setCntEnabledUnits: () => cntEnabledUnits => setStore({ cntEnabledUnits }),
-			setCntDisabledUnits: () => cntDisabledUnits => setStore({ cntDisabledUnits }),
-			setCntTotalUnits: () => cntTotalUnits => setStore({ cntTotalUnits }),
-			setData: () => data => setStore({ data }),
+			setCntEnabledUnits: ({}, p) => cntEnabledUnits => p.setStore({ cntEnabledUnits }),
+			setCntDisabledUnits: ({}, p) => cntDisabledUnits => p.setStore({ cntDisabledUnits }),
+			setCntTotalUnits: ({}, p) => cntTotalUnits => p.setStore({ cntTotalUnits }),
+			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
-			setSlider: ({ slider }) => (obj) => {
+			setSlider: ({ slider }, p) => (obj) => {
 				if (obj.value !== undefined && obj.value < 12) obj.value = 12;
 				slider = Object.assign({}, slider, obj);
-				return setStore({ slider });
+				return p.setStore({ slider });
 			},
-			setSort: ({ sort }) => (name, order) => {
+			setSort: ({ sort }, p) => (name, order) => {
 				sort = { name, order: (order === 'asc') ? 1 : -1 };
-				return setStore({ sort });
+				return p.setStore({ sort });
 			},
-			setFilterMultiSelect: ({ filter }) => (filterObj) => {
+			setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
 				const index = filterObj.status;
 				if (index) {
 					const statuses = filter.status;
@@ -75,9 +70,9 @@ export default compose(
 					}
 					filter = Object.assign({}, filter, { status: statuses });
 				}
-				return setStore({ filter });
+				return p.setStore({ filter });
 			},
-			setFilterSelectAndSearch: ({ filter }) => (filterObj) => {
+			setFilterSelectAndSearch: ({ filter }, p) => (filterObj) => {
 				console.log(filterObj);
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				const address = _.get(filterObj, 'address.value');
@@ -89,7 +84,7 @@ export default compose(
 				if (description) filter = Object.assign({}, filter, { description });
 				if (number) filter = Object.assign({}, filter, { number });
 
-				return setStore({ filter });
+				return p.setStore({ filter });
 			},
 		}
 	),
@@ -105,51 +100,43 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			p.setInitialized(false);
-		},
-		async componentWillReceiveProps(p) {
-			const { companyName } = difProps({ prevProps: this.props, nextProps: p });
-			if (companyName) {
-				p.setInitialized(false);
-				this.storeEmpty = true;
-			} else if (!getStore()) {
+			console.log('initializing');
+			this.storeEmpty = false;
+			if (!p.getStore()) {
+				p.setLoading(true);
+				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
+				p.setCntTotalUnits(cntTotalUnits);
+				p.setCntEnabledUnits(cntEnabledUnits);
+				p.setCntDisabledUnits(cntDisabledUnits);
+				p.setLoading(false);
 				this.storeEmpty = true;
 			}
-
+			p.setInitialized(true);
+		},
+		async componentWillReceiveProps(p) {
+			if (!p.initialized) return;
 			if (p.loading) return;
-			if (!p.initialized) {
-				if (this.storeEmpty) {
-					p.setLoading(true);
-					const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
-					p.setCntTotalUnits(cntTotalUnits);
-					p.setCntEnabledUnits(cntEnabledUnits);
-					p.setCntDisabledUnits(cntDisabledUnits);
-					p.setLoading(false);
-				}
-				p.setInitialized(true);
-			} else {
-				const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
-				if (filter || this.storeEmpty) {
-					this.storeEmpty = false;
-					p.setLoading(true);
-					const lenQuery = await Meteor.callPromise('hydrants.get.lenQuery', { filter: p.filter });
-					p.setLoading(false);
-					p.setSlider({ max: lenQuery, value: lenQuery });
-				}
-				if (sort) {
-					p.setSlider({ value: p.slider.max });
-				}
-				if (slider) {
-					const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
-					let data;
-					if (p.slider.drag) {
-						data = p.data.map(({ rowNumber, ...row }, key) => ({
-							rowNumber: skip + key,
-							...row }));
-						p.setData(data);
-					} else {
-						p.setData(await this.fetchData(p, skip));
-					}
+			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
+			if (filter || this.storeEmpty) {
+				this.storeEmpty = false;
+				p.setLoading(true);
+				const lenQuery = await Meteor.callPromise('hydrants.get.lenQuery', { filter: p.filter });
+				p.setLoading(false);
+				p.setSlider({ max: lenQuery, value: lenQuery });
+			}
+			if (sort) {
+				p.setSlider({ value: p.slider.max });
+			}
+			if (slider) {
+				const skip = (q => (q > 0 ? q : 0))(p.slider.max - p.slider.value);
+				let data;
+				if (p.slider.drag) {
+					data = p.data.map(({ rowNumber, ...row }, key) => ({
+						rowNumber: skip + key,
+						...row }));
+					p.setData(data);
+				} else {
+					p.setData(await this.fetchData(p, skip));
 				}
 			}
 		},
@@ -317,7 +304,7 @@ export default compose(
 							}
 						</Box>
 						<Box w={6 / 8}>
-							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {p.companyName}: {p.cntTotalUnits} יח&#39;<br />
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}: {p.cntTotalUnits} יח&#39;<br />
 							{p.isUserAdmin() ?
 								<span>
 									מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />
