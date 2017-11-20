@@ -9,13 +9,15 @@ import {
 	withStateHandlers,
 	lifecycle,
 } from 'recompose';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
-import { Segment } from 'semantic-ui-react';
-import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
 
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import { Segment } from 'semantic-ui-react';
+import { Flex, Box } from 'reflexbox';
+
+import Loader from 'react-loader-advanced';
 import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../Slider/Slider';
@@ -137,7 +139,7 @@ export default compose(
 
 			p.setLoading(false);
 			data = _.map(data, ({ createdAt, code, ...row }, key) => ({
-				createdAt: mome(createdAt).format('DD.MM.YYYY'),
+				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				time: moment(createdAt).format('HH:mm'),
 				code: p.types.code[code],
 				rowNumber: skip + key,
@@ -150,7 +152,7 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering');
-		const formatter = cell => (<span>{cell}</span>);
+		const formatter = cell => (<span className={p.loading ? 'blurryLoadingText' : ''}>{cell}</span>);
 		const currentDate = moment().format('DD.MM.YYYY');
 
 		return (
@@ -160,65 +162,67 @@ export default compose(
 						<Slider {...p} />
 					</Box>
 					<Box w={11 / 12}>
-						<BootstrapTable
-							keyField="_id"
-							containerClass="table_container_class"
-							tableContainerClass="table_class"
-							data={p.data}
-							remote
-							options={{
-								onSortChange: p.setSort,
-								defaultSortName: p.sort.name,
-								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
-								onFilterChange: p.setFilterSelect,
-							}}
-							height="600px"
-							striped
-							hover
-						>
-							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="rowNumber" dataAlign="left" headerAlign="center">
-								מס&quot;ד
-							</TableHeaderColumn>
-							<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
-								מספר מזהה
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								filterFormatted
-								dataFormat={formatter}
-								filter={{
-									type: 'CustomFilter',
-									getElement: () => MultiSelect({ types: p.types.code, activeCodes: p.filter.code, onChange: p.setFilterMultiSelect }),
+						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+							<BootstrapTable
+								keyField="_id"
+								containerClass="table_container_class"
+								tableContainerClass="table_class"
+								data={p.data}
+								remote
+								options={{
+									onSortChange: p.setSort,
+									defaultSortName: p.sort.name,
+									defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
+									onFilterChange: p.setFilterSelect,
 								}}
-								width="155px"
-								dataField="code"
-								dataAlign="center"
-								headerAlign="center"
-								dataSort
+								height="600px"
+								striped
+								hover
 							>
-								סוג ההתראה
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								dataField="createdAt"
-								width="135px"
-								dataAlign="center"
-								headerAlign="center"
-								dataSort
-								filterFormatted
-								dataFormat={formatter}
-								filter={{
-									type: 'SelectFilter',
-									options: p.types.createdAt,
-									selectText: 'בחר',
-									defaultValue: p.filter.createdAt,
-								}}
-							>
-								זמן האירוע
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
-							<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center">
-								תאור מקום
-							</TableHeaderColumn>
-						</BootstrapTable>
+								<TableHeaderColumn dataFormat={formatter} width="75px" dataField="rowNumber" dataAlign="left" headerAlign="center">
+									מס&quot;ד
+								</TableHeaderColumn>
+								<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
+									מספר מזהה
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									filterFormatted
+									dataFormat={formatter}
+									filter={{
+										type: 'CustomFilter',
+										getElement: () => MultiSelect({ types: p.types.code, activeCodes: p.filter.code, onChange: p.setFilterMultiSelect }),
+									}}
+									width="155px"
+									dataField="code"
+									dataAlign="center"
+									headerAlign="center"
+									dataSort
+								>
+									סוג ההתראה
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									dataField="createdAt"
+									width="135px"
+									dataAlign="center"
+									headerAlign="center"
+									dataSort
+									filterFormatted
+									dataFormat={formatter}
+									filter={{
+										type: 'SelectFilter',
+										options: p.types.createdAt,
+										selectText: 'בחר',
+										defaultValue: p.filter.createdAt,
+									}}
+								>
+									זמן האירוע
+								</TableHeaderColumn>
+								<TableHeaderColumn dataField="time" width="135px" dataAlign="center" headerAlign="center" />
+								<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center">
+									תאור מקום
+								</TableHeaderColumn>
+							</BootstrapTable>
+						</Loader>
 					</Box>
 				</Flex>
 				{!p._id ?
@@ -230,9 +234,6 @@ export default compose(
 			</div>
 		);
 	});
-
-	
-	
 
 // shouldUpdate((props, nextProps) => !shallowEqual(props, nextProps)),
 

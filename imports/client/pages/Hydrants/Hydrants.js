@@ -93,10 +93,6 @@ export default compose(
 	),
 	withHandlers({
 		select: p => row => p.history.push(`${p.match.url}/${row._id}`),
-		// onSortChange: ({ setSort }) => (sort) => {
-		// 	// setSort(sort);
-		// 	return false;
-		// },
 		sliderInc: ({ slider, setSlider }) => () => {
 			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
 		},
@@ -174,7 +170,7 @@ export default compose(
 	(p) => {
 		console.log('rendering hydrants');
 		const currentDate = moment().format('DD.MM.YYYY');
-		const formatter = cell => (<span>{cell}</span>);
+		const formatter = cell => (<span className={p.loading ? 'blurryLoadingText' : ''}>{cell}</span>);
 
 		return (
 			<div className="hydrants">
@@ -183,7 +179,7 @@ export default compose(
 						<Slider {...p} />
 					</Box>
 					<Box w={11 / 12}>
-						<Loader show={p.loading} message={Loading()} contentBlur={5} backgroundStyle={{backgroundColor: 'transparent'}}>
+						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 							<BootstrapTable
 								keyField="_id"
 								containerClass="table_container_class"
@@ -205,6 +201,7 @@ export default compose(
 									מס&quot;ד
 								</TableHeaderColumn>
 								<TableHeaderColumn
+									dataFormat={formatter}
 									filterFormatted
 									filter={{
 										type: 'TextFilter',

@@ -8,6 +8,7 @@ import {
 	lifecycle,
 } from 'recompose';
 
+import Loader from 'react-loader-advanced';
 import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import HydrantEditor from '../components/HydrantEditor/HydrantEditor';
 
@@ -43,7 +44,9 @@ export default compose(
 		return (
 			<div className="EditHydrant">
 				<h4 className="page-header">{` עריכת הידרנט מספר ${p.data.number} `}</h4>
-				<HydrantEditor {...p} />
+				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+					<HydrantEditor {...p} />
+				</Loader>
 			</div>
 		);
 	});

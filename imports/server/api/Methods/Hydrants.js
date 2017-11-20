@@ -25,6 +25,10 @@ function buildFilter(fromFilter) {
 	return filter;
 }
 
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 Meteor.methods({
 	'hydrants.get.total.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
@@ -70,11 +74,11 @@ Meteor.methods({
 		]);
 		return _.get(array, '[0].count', 0);
 	},
-	'hydrants.get.data': function anon(p) {
+	'hydrants.get.data': async function anon(p) {
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter, sort, skip } = p;
-
+		await sleep(2000);
 		return Hydrants.aggregate([
 			{ $match: buildFilter(filter) },
 			{ $sort: { [sort.name]: sort.order } },

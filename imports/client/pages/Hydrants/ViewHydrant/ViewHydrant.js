@@ -15,6 +15,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import _ from 'lodash';
 import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
+import Loader from 'react-loader-advanced';
 
 import { Button } from 'react-bootstrap';
 import '../../../stylesheets/table.scss';
@@ -74,57 +75,59 @@ export default compose(
 
 		return (
 			<div className="viewHydrant">
-				<BootstrapTable
-					containerClass="table_container_class"
-					tableContainerClass="table_class"
-					data={p.data}
-				>
-					<TableHeaderColumn
-						isKey
-						dataFormat={formatter}
-						width="125px"
-						dataField="number"
-						dataAlign="left"
-						headerAlign="center"
+				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+					<BootstrapTable
+						containerClass="table_container_class"
+						tableContainerClass="table_class"
+						data={p.data}
 					>
-						מספר מזהה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						dataFormat={formatter}
-						width="135px"
-						dataField="status"
-						dataAlign="center"
-						headerAlign="center"
-					>
-						סטטוס
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						dataField="createdAt"
-						width="155"
-						dataFormat={formatter}
-						dataAlign="center"
-						headerAlign="center"
-					>
-						תאריך התקנה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						width="200"
-						dataFormat={formatter}
-						dataField="address"
-						dataAlign="right"
-						headerAlign="center"
-					>
-						כתובת ההתקנה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						dataFormat={formatter}
-						dataField="description"
-						dataAlign="right"
-						headerAlign="center"
-					>
-						תאור מקום
-					</TableHeaderColumn>
-				</BootstrapTable>
+						<TableHeaderColumn
+							isKey
+							dataFormat={formatter}
+							width="125px"
+							dataField="number"
+							dataAlign="left"
+							headerAlign="center"
+						>
+							מספר מזהה
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							dataFormat={formatter}
+							width="135px"
+							dataField="status"
+							dataAlign="center"
+							headerAlign="center"
+						>
+							סטטוס
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							dataField="createdAt"
+							width="155"
+							dataFormat={formatter}
+							dataAlign="center"
+							headerAlign="center"
+						>
+							תאריך התקנה
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							width="200"
+							dataFormat={formatter}
+							dataField="address"
+							dataAlign="right"
+							headerAlign="center"
+						>
+							כתובת ההתקנה
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							dataFormat={formatter}
+							dataField="description"
+							dataAlign="right"
+							headerAlign="center"
+						>
+							תאור מקום
+						</TableHeaderColumn>
+					</BootstrapTable>
+				</Loader>
 				<div>
 					<Flex>
 						<Box w={1}>

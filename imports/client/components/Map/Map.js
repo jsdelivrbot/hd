@@ -10,6 +10,7 @@ import {
 	withStateHandlers,
 	lifecycle,
 } from 'recompose';
+
 import {
 	withScriptjs,
 	withGoogleMap,
@@ -18,9 +19,11 @@ import {
 	InfoWindow,
 } from 'react-google-maps';
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
+
 import { Label, Segment } from 'semantic-ui-react';
 import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
+import Loader from 'react-loader-advanced';
 
 import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
@@ -123,51 +126,53 @@ export default compose(
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Map">
-				<GoogleMap
-					defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-					zoom={p.zoom}
-					ref={p.setMapRef}
-					onBoundsChanged={p.setBounds}
-					onZoomChanged={p.setZoom}
-					onTilesLoaded={p.onTilesLoaded}
-				>
-					<MarkerClusterer
-						// averageCenter
-						enableRetinaIcons
-						gridSize={50}
+				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+					<GoogleMap
+						defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
+						zoom={p.zoom}
+						ref={p.setMapRef}
+						onBoundsChanged={p.setBounds}
+						onZoomChanged={p.setZoom}
+						onTilesLoaded={p.onTilesLoaded}
 					>
-						{p.data.map((d) => {
-							const eventType = p.types.status[d.status];
-							let icon, color;
-							if (d.status <= 2) {
-								icon = '/marker_blue.ico';
-								color = '#0000ff';
-							} else {
-								icon = '/marker_red.ico';
-								color = '#ff0000';
-							}
-							return (
-								<Marker
-									icon={icon}
-									key={d._id}
-									position={{ lat: d.lat, lng: d.lon }}
-									onClick={() => p.onClickMarker(d._id)}
-								>
-									{p.infoWindowsId === d._id &&
-										<InfoWindow onCloseClick={p.onClickMarker}>
-											<Label size="big" style={{ color, backgroundColor: '#ffffff' }} >
-												כתובת ההידרנט:<br />
-												{d.address}<br />
-												מס&quot;ד הידרנט: {d.number}<br />
-												סוג האירוע: {eventType}
-											</Label>
-										</InfoWindow>
-									}
-								</Marker>
-							);
-						})}
-					</MarkerClusterer>
-				</GoogleMap>
+						<MarkerClusterer
+							// averageCenter
+							enableRetinaIcons
+							gridSize={50}
+						>
+							{p.data.map((d) => {
+								const eventType = p.types.status[d.status];
+								let icon, color;
+								if (d.status <= 2) {
+									icon = '/marker_blue.ico';
+									color = '#0000ff';
+								} else {
+									icon = '/marker_red.ico';
+									color = '#ff0000';
+								}
+								return (
+									<Marker
+										icon={icon}
+										key={d._id}
+										position={{ lat: d.lat, lng: d.lon }}
+										onClick={() => p.onClickMarker(d._id)}
+									>
+										{p.infoWindowsId === d._id &&
+											<InfoWindow onCloseClick={p.onClickMarker}>
+												<Label size="big" style={{ color, backgroundColor: '#ffffff' }} >
+													כתובת ההידרנט:<br />
+													{d.address}<br />
+													מס&quot;ד הידרנט: {d.number}<br />
+													סוג האירוע: {eventType}
+												</Label>
+											</InfoWindow>
+										}
+									</Marker>
+								);
+							})}
+						</MarkerClusterer>
+					</GoogleMap>
+				</Loader>
 				{!p._id ?
 					<Segment raised textAlign="center" size="big">
 						<Flex align="center">

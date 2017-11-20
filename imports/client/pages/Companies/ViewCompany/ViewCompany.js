@@ -13,15 +13,15 @@ import {
 import { Bert } from 'meteor/themeteorchef:bert';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import _ from 'lodash';
 import { Flex, Box } from 'reflexbox';
-import moment from 'moment';
-
 import { Button } from 'react-bootstrap';
+import Loader from 'react-loader-advanced';
+
+import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+
 import '../../../stylesheets/table.scss';
 import './Css/ViewCompany.scss';
 
-import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 
 const handleRemove = (_id, history) => {
 	if (confirm('האם אתה בטוח? אין דרך חזרה!')) {
@@ -71,48 +71,50 @@ export default compose(
 
 		return (
 			<div className="ViewCompany">
-				<BootstrapTable
-					containerClass="table_container_class"
-					tableContainerClass="table_class"
-					data={p.data}
-				>
-					<TableHeaderColumn
-						isKey
-						dataFormat={formatter}
-						width="125px"
-						dataField="number"
-						dataAlign="left"
-						headerAlign="center"
+				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+					<BootstrapTable
+						containerClass="table_container_class"
+						tableContainerClass="table_class"
+						data={p.data}
 					>
-						מספר מזהה
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						width="125"
-						dataFormat={formatter}
-						dataField="name"
-						dataAlign="right"
-						headerAlign="center"
-					>
-						שם
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						width="150"
-						dataFormat={formatter}
-						dataField="address"
-						dataAlign="right"
-						headerAlign="center"
-					>
-						כתובת
-					</TableHeaderColumn>
-					<TableHeaderColumn
-						dataFormat={formatter}
-						dataField="contactPerson"
-						dataAlign="right"
-						headerAlign="center"
-					>
-						שם איש קשר
-					</TableHeaderColumn>
-				</BootstrapTable>
+						<TableHeaderColumn
+							isKey
+							dataFormat={formatter}
+							width="125px"
+							dataField="number"
+							dataAlign="left"
+							headerAlign="center"
+						>
+							מספר מזהה
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							width="125"
+							dataFormat={formatter}
+							dataField="name"
+							dataAlign="right"
+							headerAlign="center"
+						>
+							שם
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							width="150"
+							dataFormat={formatter}
+							dataField="address"
+							dataAlign="right"
+							headerAlign="center"
+						>
+							כתובת
+						</TableHeaderColumn>
+						<TableHeaderColumn
+							dataFormat={formatter}
+							dataField="contactPerson"
+							dataAlign="right"
+							headerAlign="center"
+						>
+							שם איש קשר
+						</TableHeaderColumn>
+					</BootstrapTable>
+				</Loader>
 				<div>
 					<Flex>
 						<Box w={1}>

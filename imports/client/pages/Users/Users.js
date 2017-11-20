@@ -10,10 +10,11 @@ import {
 	branch,
 	shallowEqual,
 } from 'recompose';
+import _ from 'lodash';
+import Loader from 'react-loader-advanced';
+
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import _ from 'lodash';
-// import fp from 'lodash/fp';
 import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
@@ -156,43 +157,45 @@ export default compose(
 			<div className="users">
 				<Flex>
 					<Box w={11 / 12}>
-						<BootstrapTable
-							keyField="_id"
-							containerClass="table_container_class"
-							tableContainerClass="table_class"
-							data={p.data}
-							remote
-							height="600px"
-						>
-							<TableHeaderColumn dataField="name" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
-								שם
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="reset" dataFormat={formatReset} width="85px" dataAlign="center" headerAlign="center">
-								נרשם
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
-								אימייל
-							</TableHeaderColumn>
-							<TableHeaderColumn dataField="companyId" dataFormat={formatList} width="165px" dataAlign="center" headerAlign="center">
-								חברה
-							</TableHeaderColumn>
-							{_.map(p.types.roles, (role, n) => (
-								<TableHeaderColumn key={n} dataField="role" dataFormat={formatRole(n)} width="85px" dataAlign="center" headerAlign="center">
-									{role}
+						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+							<BootstrapTable
+								keyField="_id"
+								containerClass="table_container_class"
+								tableContainerClass="table_class"
+								data={p.data}
+								remote
+								height="600px"
+							>
+								<TableHeaderColumn dataField="name" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
+									שם
 								</TableHeaderColumn>
-							))}
-							<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center">
-								<Button
-									bsStyle="primary"
-									block
-									onClick={() => p.history.push(
-										`${p.match.url}/new`
-									)}
-								>
-									חדש
-								</Button>
-							</TableHeaderColumn>
-						</BootstrapTable>
+								<TableHeaderColumn dataField="reset" dataFormat={formatReset} width="85px" dataAlign="center" headerAlign="center">
+									נרשם
+								</TableHeaderColumn>
+								<TableHeaderColumn dataField="email" dataFormat={formatter} width="165px" dataAlign="center" headerAlign="center">
+									אימייל
+								</TableHeaderColumn>
+								<TableHeaderColumn dataField="companyId" dataFormat={formatList} width="165px" dataAlign="center" headerAlign="center">
+									חברה
+								</TableHeaderColumn>
+								{_.map(p.types.roles, (role, n) => (
+									<TableHeaderColumn key={n} dataField="role" dataFormat={formatRole(n)} width="85px" dataAlign="center" headerAlign="center">
+										{role}
+									</TableHeaderColumn>
+								))}
+								<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center">
+									<Button
+										bsStyle="primary"
+										block
+										onClick={() => p.history.push(
+											`${p.match.url}/new`
+										)}
+									>
+										חדש
+									</Button>
+								</TableHeaderColumn>
+							</BootstrapTable>
+						</Loader>
 					</Box>
 				</Flex>
 			</div>

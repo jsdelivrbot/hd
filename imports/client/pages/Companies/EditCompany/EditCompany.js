@@ -8,6 +8,7 @@ import {
 	lifecycle,
 } from 'recompose';
 
+import Loader from 'react-loader-advanced';
 import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
 import CompanyEditor from '../components/CompanyEditor/CompanyEditor';
 
@@ -43,7 +44,9 @@ export default compose(
 		return (
 			<div className="EditCompany">
 				<h4 className="page-header">{` עריכת חברה מספר ${p.data.number} `}</h4>
-				<CompanyEditor {...p} />
+				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+					<CompanyEditor {...p} />
+				</Loader>
 			</div>
 		);
 	});

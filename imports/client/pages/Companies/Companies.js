@@ -9,16 +9,18 @@ import {
 	branch,
 	renderComponent,
 } from 'recompose';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import { Button } from 'react-bootstrap';
-import _ from 'lodash';
-import { Flex, Box } from 'reflexbox';
-import '../../stylesheets/table.scss';
 
-import './Css/Companies.scss';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Button } from 'react-bootstrap';
+import { Flex, Box } from 'reflexbox';
+import Loader from 'react-loader-advanced';
 
 import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import '../../stylesheets/table.scss';
+import './Css/Companies.scss';
+
 
 import { reactiveGlobalCompany } from '../../Storage/Storage';
 
@@ -80,49 +82,51 @@ export default compose(
 			<div className="companies">
 				<Flex>
 					<Box w={11 / 12}>
-						<BootstrapTable
-							keyField="_id"
-							containerClass="table_container_class"
-							tableContainerClass="table_class"
-							data={p.data}
-							remote
-							selectRow={{
-								mode: 'radio',
-								hideSelectColumn: false,
-								clickToSelect: false,
-								// bgColor: '#0c98e2',
-								onSelect: p.onSelect,
-								selected: p.selected,
-							}}
-							height="600px"
-						>
-							<TableHeaderColumn
-								dataFormat={formatName}
-								// width="125px"
-								dataField="name"
-								dataAlign="center"
-								headerAlign="center"
+						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
+							<BootstrapTable
+								keyField="_id"
+								containerClass="table_container_class"
+								tableContainerClass="table_class"
+								data={p.data}
+								remote
+								selectRow={{
+									mode: 'radio',
+									hideSelectColumn: false,
+									clickToSelect: false,
+									// bgColor: '#0c98e2',
+									onSelect: p.onSelect,
+									selected: p.selected,
+								}}
+								height="600px"
 							>
-								שם תאגיד
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								dataFormat={formatView}
-								width="125px"
-								dataField="_id"
-								dataAlign="center"
-								headerAlign="center"
-							>
-								<Button
-									bsStyle="primary"
-									block
-									onClick={() => p.history.push(
-										`${p.match.url}/new`
-									)}
+								<TableHeaderColumn
+									dataFormat={formatName}
+									// width="125px"
+									dataField="name"
+									dataAlign="center"
+									headerAlign="center"
 								>
-									חדש
-								</Button>
-							</TableHeaderColumn>
-						</BootstrapTable>
+									שם תאגיד
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									dataFormat={formatView}
+									width="125px"
+									dataField="_id"
+									dataAlign="center"
+									headerAlign="center"
+								>
+									<Button
+										bsStyle="primary"
+										block
+										onClick={() => p.history.push(
+											`${p.match.url}/new`
+										)}
+									>
+										חדש
+									</Button>
+								</TableHeaderColumn>
+							</BootstrapTable>
+						</Loader>
 					</Box>
 				</Flex>
 			</div>
