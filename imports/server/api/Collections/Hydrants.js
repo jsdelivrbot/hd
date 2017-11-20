@@ -6,6 +6,8 @@ import { incrementCounter } from 'meteor/osv:mongo-counter';
 
 const Hydrants = new Mongo.Collection('Hydrants');
 
+console.log('hydrants collection');
+
 Hydrants.allow({
 	insert: () => false,
 	update: () => false,
@@ -136,5 +138,20 @@ Hydrants.schema = new SimpleSchema({
 });
 
 Hydrants.attachSchema(Hydrants.schema);
+
+Hydrants.rawCollection().createIndex({ companyId: 1 });
+Hydrants.rawCollection().createIndex({ companyId: -1 });
+Hydrants.rawCollection().createIndex({ number: 1 });
+Hydrants.rawCollection().createIndex({ number: -1 });
+Hydrants.rawCollection().createIndex({ lat: 1 });
+Hydrants.rawCollection().createIndex({ lat: -1 });
+Hydrants.rawCollection().createIndex({ lon: 1 });
+Hydrants.rawCollection().createIndex({ lon: -1 });
+Hydrants.rawCollection().createIndex({ status: 1 });
+Hydrants.rawCollection().createIndex({ status: -1 });
+Hydrants.rawCollection().createIndex({ lastComm: 1 });
+Hydrants.rawCollection().createIndex({ lastComm: -1 });
+Hydrants.rawCollection().createIndex({ enabled: 1 });
+Hydrants.rawCollection().createIndex({ enabled: -1 });
 
 export default Hydrants;

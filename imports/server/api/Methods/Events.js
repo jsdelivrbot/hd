@@ -38,7 +38,6 @@ Meteor.methods({
 	'events.get.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const array = Events.aggregate([
-			// { $match: { code: 2 } },
 			{ $lookup: {
 				from: 'Hydrants',
 				localField: 'hydrantId',

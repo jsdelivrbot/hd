@@ -93,7 +93,7 @@ const fillHydrantsAndEvents = () => {
 	let r;
 
 	a = [];
-	for (let i = 0; i < 10000; i += 1) {
+	for (let i = 0; i < 1000; i += 1) {
 		a.push(randomHydrant(i));
 	}
 	r = Hydrants.batchInsert(a);
@@ -115,7 +115,7 @@ const fillHydrantsAndEvents = () => {
 	const last = (new Date()).getTime();
 	console.log(last);
 	console.log('dif');
-	console.log(last-first);
+	console.log(last - first);
 };
 
 const fillUsers = () => {
@@ -200,9 +200,16 @@ const fillCompanies = () => {
 };
 
 export default function initDb() {
-	resetDb();
-	fillCompanies();
-	fillUsers();
+	// resetDb();
+	// Static.remove({});
+	// Static.insert({});
+	Events.remove({});
+	Hydrants.remove({});
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
+	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
+	// fillCompanies();
+	// fillUsers();
 	fillHydrantsAndEvents();
 }
 

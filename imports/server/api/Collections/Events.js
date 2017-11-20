@@ -6,7 +6,6 @@ import { incrementCounter } from 'meteor/osv:mongo-counter';
 
 const Events = new Mongo.Collection('Events');
 
-
 Events.allow({
 	insert: () => false,
 	update: () => false,
@@ -46,6 +45,16 @@ Events.schema = new SimpleSchema({
 	},
 });
 
-Events.attachSchema(Events.schema);
+// Events.attachSchema(Events.schema);
+
+Events.rawCollection().createIndex({ createdAt: 1 });
+Events.rawCollection().createIndex({ createdAt: -1 });
+
+Events.rawCollection().createIndex({ hydrantId: 1 });
+Events.rawCollection().createIndex({ hydrantId: -1 });
+Events.rawCollection().createIndex({ number: 1 });
+Events.rawCollection().createIndex({ number: -1 });
+Events.rawCollection().createIndex({ code: 1 });
+Events.rawCollection().createIndex({ code: -1 });
 
 export default Events;

@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/LoginPages/Login/Login.js" afterPath="$PROJECT_DIR$/imports/client/pages/LoginPages/Login/Login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/LoginPages/Profile/Profile.js" afterPath="$PROJECT_DIR$/imports/client/pages/LoginPages/Profile/Profile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/LoginPages/RecoverPassword/RecoverPassword.js" afterPath="$PROJECT_DIR$/imports/client/pages/LoginPages/RecoverPassword/RecoverPassword.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" afterPath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/SubManager.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/pages/example-page.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/pages/privacy.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/pages/terms.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/publications_events.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/private/publications_hydrants.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,11 +28,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-185">
               <caret line="158" column="29" lean-forward="false" selection-start-line="158" selection-start-column="29" selection-end-line="158" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2700">
+              <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Events.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Events.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="835">
+              <caret line="57" column="44" lean-forward="false" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="625">
+              <caret line="216" column="0" lean-forward="true" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,8 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>oauth.verifyConfiguration</find>
-      <find>OAuth</find>
       <find>auth</find>
       <find>isUserAdmin</find>
       <find>import { roles } from '../../../modules/server/roles';</find>
@@ -96,6 +147,8 @@
       <find>validate from</find>
       <find>AccountPageFooter</find>
       <find>Hint</find>
+      <find>enabkle</find>
+      <find>Collections/Hydrants</find>
     </findStrings>
     <replaceStrings>
       <replace>users</replace>
@@ -143,7 +196,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/client/pages/Administrative/Page/Page.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/Privacy/Privacy.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Page/Page.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Page/Privacy/Privacy.js" />
@@ -204,12 +256,10 @@
         <option value="$PROJECT_DIR$/imports/startup/server/accounts/email-templates.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.eslintrc" />
-        <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" />
         <option value="$PROJECT_DIR$/imports/client/Storage/Storage.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Footer/Footer.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/modules/server/rate-limit.js" />
         <option value="$PROJECT_DIR$/imports/modules/server/roles.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/api.js" />
@@ -225,7 +275,6 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/EditCompany/EditCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
         <option value="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
@@ -244,6 +293,10 @@
         <option value="$PROJECT_DIR$/imports/client/pages/LoginPages/Profile/Profile.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/InputHint/InputHint.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
       </list>
     </option>
   </component>
@@ -346,110 +399,6 @@
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
               <item name="pup" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="LoginLayoutNavigation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="LoginLayoutNavigation" type="462c0819:PsiDirectoryNode" />
-              <item name="AccountPageFooter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="LoginLayoutNavigation" type="462c0819:PsiDirectoryNode" />
-              <item name="InputHint" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="Main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Hydrants" type="462c0819:PsiDirectoryNode" />
-              <item name="Css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Users" type="462c0819:PsiDirectoryNode" />
-              <item name="NewUser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="Users" type="462c0819:PsiDirectoryNode" />
-              <item name="NewUser" type="462c0819:PsiDirectoryNode" />
-              <item name="Css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -479,21 +428,6 @@
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
               <item name="pup" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="Users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="startup" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -502,25 +436,6 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="startup" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="startup" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="accounts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="private" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name="private" type="462c0819:PsiDirectoryNode" />
-              <item name="email-templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -660,7 +575,7 @@
       <workItem from="1510672177496" duration="80530000" />
       <workItem from="1511124202159" duration="14274000" />
       <workItem from="1511187600908" duration="818000" />
-      <workItem from="1511189037802" duration="3938000" />
+      <workItem from="1511189037802" duration="7381000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -701,13 +616,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="706957000" />
+    <option name="totallyTimeSpent" value="710400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15595363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15595363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -749,20 +663,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/client/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -776,13 +676,6 @@
     <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Css/Events.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/Map/Css/Map.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/Slider/Slider.js" />
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedNavigation/AuthenticatedNavigation.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Css/Navigation.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Public/Public.js" />
@@ -917,25 +810,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedAdmin/AuthenticatedAdmin.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/AuthenticatedSite/AuthenticatedSite.js" />
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1495">
-          <caret line="122" column="12" lean-forward="true" selection-start-line="122" selection-start-column="12" selection-end-line="122" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-600">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,6 +845,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-630">
           <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1128,22 +1007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1375">
           <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1328,6 +1191,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-185">
           <caret line="158" column="29" lean-forward="false" selection-start-line="158" selection-start-column="29" selection-end-line="158" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.meteor/packages">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2700">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/publications_hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="4" column="44" lean-forward="false" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="143" column="0" lean-forward="false" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="835">
+          <caret line="57" column="44" lean-forward="false" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="216" column="0" lean-forward="true" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
