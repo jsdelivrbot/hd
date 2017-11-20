@@ -86,10 +86,9 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'user.sendVerificationEmail',
-		'user.editProfile',
+		'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
 	],
-	limit: 5,
+	limit: 2,
 	timeRange: 1000,
 });
 

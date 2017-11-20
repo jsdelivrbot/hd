@@ -32,8 +32,8 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'fixture',
+		'utility.get.types', 'db.init', 'utility.getPage'
 	],
-	limit: 1,
+	limit: 2,
 	timeRange: 1000,
 });

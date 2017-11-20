@@ -198,10 +198,10 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'hydrants.insert',
-		'hydrants.update',
-		'hydrants.remove',
+		'map.get.data', 'map.get.counts',
+		'hydrants.zero.status', 'hydrants.get.total.counts', 'hydrants.get.lenQuery', 'hydrants.get.data', 'hydrants.get.data.one',
+		'hydrants.insert', 'hydrants.update', 'hydrants.remove'
 	],
-	limit: 5,
+	limit: 2,
 	timeRange: 1000,
 });

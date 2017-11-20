@@ -17,7 +17,6 @@ Meteor.methods({
 		return Companies.findOne({ _id: filter._id });
 	},
 });
-
 Meteor.methods({
 	'companies.insert': function anon(doc) {
 		check(doc, Object);
@@ -54,6 +53,15 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
+});
+
+rateLimit({
+	methods: [
+		'companies.get.all', 'companies.get.data.one',
+		'companies.insert', 'companies.update', 'companies.remove'
+	],
+	limit: 2,
+	timeRange: 1000,
 });
 
 //construct a Promise that will take 2500ms to resolve

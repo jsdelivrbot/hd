@@ -107,11 +107,9 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'hydrants.insert',
-		'hydrants.update',
-		'hydrants.remove',
+		'events.get.data', 'events.get.lenQuery', 'events.get.counts'
 	],
-	limit: 5,
+	limit: 2,
 	timeRange: 1000,
 });
 
