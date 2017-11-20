@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
 import Companies from '../Collections/Companies';
-import rateLimit from '../../../modules/server/rate-limit';
-import * as roles from '../../../modules/server/roles';
+import rateLimit from '../../Utils/rate-limit';
+import * as roles from '../../Utils/roles';
 
 Meteor.methods({
 	'companies.get.all': function anon() {

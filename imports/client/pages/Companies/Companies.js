@@ -22,7 +22,7 @@ import '../../stylesheets/table.scss';
 import './Css/Companies.scss';
 
 
-import { reactiveGlobalCompany } from '../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../components/Storage';
 
 export default compose(
 	withStateHandlers(

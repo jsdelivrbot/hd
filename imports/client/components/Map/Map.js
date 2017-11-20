@@ -30,7 +30,7 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
-import { getStore, setStore, reactiveGlobalCompany } from '../../Storage/Storage';
+import { getStore, setStore, reactiveGlobalCompany } from '../Storage';
 
 export default compose(
 	withHandlers({

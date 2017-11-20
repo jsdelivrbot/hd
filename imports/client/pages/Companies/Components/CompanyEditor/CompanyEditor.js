@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
-import validate from '../../../../../modules/validate';
+import validate from '../../../../Utils/validate';
 
 class CompanyEditor extends React.Component {
 	componentDidMount() {

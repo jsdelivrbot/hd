@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AccountPageFooter from '../../../components/LoginLayoutNavigation/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
-import validate from '../../../../modules/validate';
+import validate from '../../../Utils/validate';
 
 class RecoverPassword extends React.Component {
 	constructor(props) {

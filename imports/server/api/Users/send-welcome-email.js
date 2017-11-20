@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import sendEmail from '../../../modules/server/send-email';
+import sendEmail from '../../Utils/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 
 export default (options, user) => {

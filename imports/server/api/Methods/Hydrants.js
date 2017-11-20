@@ -3,9 +3,9 @@ import { check } from 'meteor/check';
 import _ from 'lodash';
 import moment from 'moment';
 import Hydrants from '../Collections/Hydrants';
-import rateLimit from '../../../modules/server/rate-limit';
-import * as roles from '../../../modules/server/roles';
-import { sleep } from '../../../modules/server/utils';
+import rateLimit from '../../Utils/rate-limit';
+import * as roles from '../../Utils/roles';
+import { sleep } from '../../Utils/utils';
 
 function buildFilter(fromFilter) {
 	const filter = {};

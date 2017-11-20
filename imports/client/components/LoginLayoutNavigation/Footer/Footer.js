@@ -10,7 +10,7 @@ import {
 
 import './Footer.scss';
 
-import { reactiveGlobalCompany } from '../../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../Storage';
 
 export default compose(
 	withTracker(() => {

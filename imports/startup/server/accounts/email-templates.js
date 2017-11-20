@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import getPrivateFile from '../../../modules/server/get-private-file';
-import templateToHTML from '../../../modules/server/handlebars-email-to-html';
-import templateToText from '../../../modules/server/handlebars-email-to-text';
+import getPrivateFile from '../../../server/Utils/get-private-file';
+import templateToHTML from '../../../server/Utils/handlebars-email-to-html';
+import templateToText from '../../../server/Utils/handlebars-email-to-text';
 
 const name = 'Application Name';
 const email = '<support@application.com>';

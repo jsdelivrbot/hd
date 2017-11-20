@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
-import validate from '../../../../modules/validate';
+import validate from '../../../Utils/validate';
 
 class ResetPassword extends React.Component {
 	constructor(props) {

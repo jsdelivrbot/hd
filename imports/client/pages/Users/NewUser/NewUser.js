@@ -20,7 +20,7 @@ import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
 import 'react-select/dist/react-select.css';
 
-import validate from '../../../../modules/validate';
+import validate from '../../../Utils/validate';
 
 import './Css/NewUser.scss';
 

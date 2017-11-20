@@ -29,7 +29,7 @@ import {
 	getStore as getStoreHydrantsPage,
 	setStore as setStoreHydrantsPage,
 	reactiveGlobalCompany,
-} from '../../Storage/Storage';
+} from '../../components/Storage';
 
 const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);

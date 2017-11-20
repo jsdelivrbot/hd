@@ -5,8 +5,8 @@ import moment from 'moment';
 import Events from '../Collections/Events';
 import Hydrants from '../Collections/Hydrants';
 import Static from '../Collections/Static';
-import rateLimit from '../../../modules/server/rate-limit';
-import * as roles from '../../../modules/server/roles';
+import rateLimit from '../../Utils/rate-limit';
+import * as roles from '../../Utils/roles';
 
 function buildFilterEvents(fromFilter) {
 	const filter = {};

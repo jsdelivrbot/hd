@@ -51,7 +51,7 @@ import { difProps } from '../../Utils/Utils';
 
 import './Css/App.scss';
 
-import { reactiveGlobalCompany } from '../../Storage/Storage';
+import { reactiveGlobalCompany } from '../../components/Storage';
 
 const getUserName = name => ({
 	string: name,

@@ -22,7 +22,7 @@ import Loading from '../LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../Slider/Slider';
 import MultiSelect from '../MultiSelect/MultiSelect';
-import { getStore, setStore, reactiveGlobalCompany } from '../../Storage/Storage';
+import { getStore, setStore, reactiveGlobalCompany } from '../Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';

@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import editProfile from '../Users/edit-profile';
-import rateLimit from '../../../modules/server/rate-limit';
+import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
-import * as roles from '../../../modules/server/roles';
+import * as roles from '../../Utils/roles';
 
 Meteor.methods({
 	'users.get.all': function anon() {
