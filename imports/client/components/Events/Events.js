@@ -1,5 +1,6 @@
 
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import {
 	withHandlers,
@@ -28,6 +29,7 @@ import '../../stylesheets/table.scss';
 import './Css/Events.scss';
 
 export default compose(
+	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
 	withHandlers({
 		getStore: p => keys => getStore(`events_${p._id}`, keys),
 		setStore: p => obj => setStore(`events_${p._id}`, obj),
@@ -227,7 +229,7 @@ export default compose(
 				</Flex>
 				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} <br />
+						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {p.companyName}:  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
 					: ''}

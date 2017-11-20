@@ -1,6 +1,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -35,8 +36,9 @@ const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
+	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
 	withStateHandlers(
-		({ companyId }) => ({
+		() => ({
 			data: getStore('data') || [],
 			cntEnabledUnits: getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: getStore('cntDisabledUnits') || 0,
@@ -307,7 +309,7 @@ export default compose(
 							}
 						</Box>
 						<Box w={6 / 8}>
-							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}: {p.cntTotalUnits} יח&#39;<br />
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {p.companyName}: {p.cntTotalUnits} יח&#39;<br />
 							{p.isUserAdmin() ?
 								<span>
 									מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />

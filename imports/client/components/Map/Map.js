@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	withProps,
@@ -33,6 +34,7 @@ import './Css/Map.scss';
 import { getStore, setStore, reactiveGlobalCompany } from '../Storage';
 
 export default compose(
+	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
 	withHandlers({
 		getStore: p => keys => getStore(`map_${p._id}`, keys),
 		setStore: p => obj => setStore(`map_${p._id}`, obj),
@@ -187,7 +189,7 @@ export default compose(
 							</Box>
 							<Box w={6 / 8}>
 								<span>
-									סה&quot;כ מוצרים מתוך תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} יח&#39;<br />
+									סה&quot;כ מוצרים מתוך תאגיד {p.companyName}:  {p.cntAllUnits} יח&#39;<br />
 									מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
 									נכון לתאריך: {currentDate}
 								</span>
