@@ -100,7 +100,6 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
 			this.storeEmpty = false;
 			if (!p.getStore()) {
 				p.setLoading(true);
@@ -144,14 +143,12 @@ export default compose(
 		async fetchData(p, skip) {
 			let data;
 			p.setLoading(true);
-			console.log('starting loading');
 			data = await Meteor.callPromise('hydrants.get.data', {
 				filter: p.filter,
 				sort: p.sort,
 				skip,
 			});
 
-			console.log('ending loading');
 			p.setLoading(false);
 			data = _.map(data, ({ createdAt, status, ...row }, key) => ({
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
@@ -304,7 +301,7 @@ export default compose(
 							}
 						</Box>
 						<Box w={6 / 8}>
-							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}: {p.cntTotalUnits} יח&#39;<br />
+							סה&quot;כ מוצרים מותקנים על הידרנטים ברחבי תאגיד {p.company.name}: {p.cntTotalUnits} יח&#39;<br />
 							{p.isUserAdmin() ?
 								<span>
 									מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />

@@ -80,11 +80,7 @@ export default compose(
 )(
 
 	(p) => {
-		console.log('rendering');
-		console.log('data');
-		console.log(p.data);
-		console.log('p.cData');
-		console.log(p.cData);
+		console.log('rendering users');
 
 		const formatter = cell => (<span>{cell}</span>);
 		const formatReset = cell => (<span> {cell ? 'בתהליך' : 'OK'} </span>);

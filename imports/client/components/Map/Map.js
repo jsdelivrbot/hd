@@ -34,7 +34,6 @@ import './Css/Map.scss';
 import { getStore, setStore } from '../Storage';
 
 export default compose(
-	withTracker(() => ({ companyName: reactiveGlobalCompany.get().name })),
 	withHandlers({
 		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
 		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
@@ -123,8 +122,6 @@ export default compose(
 )(
 	(p) => {
 		console.log('rendering map');
-		console.log('p.data');
-		console.log(p.data);
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		return (
 			<div className="Map">
@@ -189,7 +186,7 @@ export default compose(
 							</Box>
 							<Box w={6 / 8}>
 								<span>
-									סה&quot;כ מוצרים מתוך תאגיד {p.companyName}:  {p.cntAllUnits} יח&#39;<br />
+									סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits} יח&#39;<br />
 									מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
 									נכון לתאריך: {currentDate}
 								</span>

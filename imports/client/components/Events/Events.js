@@ -22,7 +22,7 @@ import Loading from '../LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../Slider/Slider';
 import MultiSelect from '../MultiSelect/MultiSelect';
-import { getStore, setStore, reactiveGlobalCompany } from '../Storage';
+import { getStore, setStore } from '../Storage';
 
 import '../../stylesheets/table.scss';
 import './Css/Events.scss';
@@ -85,7 +85,6 @@ export default compose(
 	}),
 	lifecycle({
 		async componentDidMount() {
-			console.log('initializing');
 			const p = this.props;
 			this.storeEmpty = false;
 			if (!p.getStore()) {
@@ -95,18 +94,15 @@ export default compose(
 				p.setLoading(false);
 				this.storeEmpty = true;
 			}
-			console.log('initialized');
 			p.setInitialized(true);
 		},
 		async componentWillReceiveProps(p) {
-			console.log('componentWillReceiveProps');
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
 			if (filter || this.storeEmpty) {
 				this.storeEmpty = false;
 				p.setLoading(true);
-				console.log('getting lenquery');
 				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });
 				p.setLoading(false);
 				p.setSlider({ max: lenQuery, value: lenQuery });
@@ -227,7 +223,7 @@ export default compose(
 				</Flex>
 				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} <br />
+						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {p.company.name}:  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
 					: ''}
