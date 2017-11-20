@@ -11,7 +11,7 @@ function buildFilter(fromFilter) {
 	console.log('hydrants uploading');
 
 	filter.companyId = Meteor.user().companyId;
-	if (!roles.isUserControl()) filter.enabled = true;
+	if (roles.isUserControl()) filter.enabled = true;
 	if (fromFilter) {
 		if (fromFilter.createdAt) {
 			const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };

@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Alert } from 'react-bootstrap';
 import {
 	withHandlers,
 	withProps,
@@ -21,7 +20,6 @@ import {
 import MarkerClusterer from 'react-google-maps/lib/components/addons/MarkerClusterer';
 import { Label, Segment } from 'semantic-ui-react';
 import { Flex, Box } from 'reflexbox';
-import _ from 'lodash';
 import { Button } from 'react-bootstrap';
 
 import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
@@ -185,7 +183,7 @@ export default compose(
 							<Box w={6 / 8}>
 								<span>
 									סה&quot;כ מוצרים מתוך תאגיד {reactiveGlobalCompany.get().name}:  {p.cntAllUnits} יח&#39;<br />
-									 מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
+									מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
 									נכון לתאריך: {currentDate}
 								</span>
 							</Box>
