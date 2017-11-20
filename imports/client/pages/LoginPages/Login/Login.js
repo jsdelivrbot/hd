@@ -3,8 +3,7 @@ import { Row, Col, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import AccountPageFooter from '../../../../components/LoginLayoutNavigation/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
-import validate from '../../../../../modules/validate';
+import validate from '../../../Utils/validate';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -88,9 +87,6 @@ class Login extends React.Component {
 									/>
 								</FormGroup>
 								<Button type="submit" bsStyle="success">היכנס</Button>
-								<AccountPageFooter>
-									<p>{'אין לך חשבון?'} <Link to="/signup">הירשם</Link>.</p>
-								</AccountPageFooter>
 							</form>
 						</Row>
 					</Col>

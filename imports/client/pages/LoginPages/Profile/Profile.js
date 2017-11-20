@@ -8,7 +8,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { createContainer } from 'meteor/react-meteor-data';
-import InputHint from '../../../components/LoginLayoutNavigation/MaybeNotNeeded/InputHint/InputHint';
+import InputHint from '../../../components/LoginLayoutNavigation/InputHint/InputHint';
 import validate from '../../../Utils/validate';
 
 import './Profile.scss';

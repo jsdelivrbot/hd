@@ -156,7 +156,7 @@ export default compose(
 		return (
 			<div className="users">
 				<Flex>
-					<Box w={11 / 12}>
+					<Box w={1}>
 						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 							<BootstrapTable
 								keyField="_id"
@@ -183,7 +183,7 @@ export default compose(
 										{role}
 									</TableHeaderColumn>
 								))}
-								<TableHeaderColumn dataFormat={formatButton} dataAlign="center" headerAlign="center">
+								<TableHeaderColumn dataFormat={formatButton} width="165px" dataAlign="center" headerAlign="center">
 									<Button
 										bsStyle="primary"
 										block
