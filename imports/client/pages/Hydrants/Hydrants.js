@@ -1,7 +1,6 @@
 
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-// import { withTracker } from 'meteor/react-meteor-data';
 import {
 	withHandlers,
 	compose,
@@ -16,6 +15,7 @@ import _ from 'lodash';
 import { Segment } from 'semantic-ui-react';
 import { Flex, Box } from 'reflexbox';
 import moment from 'moment';
+import Loader from 'react-loader-advanced';
 
 import { Button } from 'react-bootstrap';
 import '../../stylesheets/table.scss';
@@ -35,12 +35,6 @@ const getStore = keys => getStoreHydrantsPage('hydrantsPage', keys);
 const setStore = obj => setStoreHydrantsPage('hydrantsPage', obj);
 
 export default compose(
-	// withTracker(() => {
-	// 	console.log('tracker');
-	// 	return {
-	// 		companyId: reactiveGlobalCompany.get().companyId,
-	// 	};
-	// }),
 	withStateHandlers(
 		({ companyId }) => ({
 			data: getStore('data') || [],
@@ -99,6 +93,10 @@ export default compose(
 	),
 	withHandlers({
 		select: p => row => p.history.push(`${p.match.url}/${row._id}`),
+		// onSortChange: ({ setSort }) => (sort) => {
+		// 	// setSort(sort);
+		// 	return false;
+		// },
 		sliderInc: ({ slider, setSlider }) => () => {
 			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
 		},
@@ -153,12 +151,14 @@ export default compose(
 		async fetchData(p, skip) {
 			let data;
 			p.setLoading(true);
+			console.log('starting loading');
 			data = await Meteor.callPromise('hydrants.get.data', {
 				filter: p.filter,
 				sort: p.sort,
 				skip,
 			});
 
+			console.log('ending loading');
 			p.setLoading(false);
 			data = _.map(data, ({ createdAt, status, ...row }, key) => ({
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
@@ -183,108 +183,110 @@ export default compose(
 						<Slider {...p} />
 					</Box>
 					<Box w={11 / 12}>
-						<BootstrapTable
-							keyField="_id"
-							containerClass="table_container_class"
-							tableContainerClass="table_class"
-							data={p.data}
-							remote
-							options={{
-								onSortChange: p.setSort,
-								defaultSortName: p.sort.name,
-								defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
-								onFilterChange: p.setFilterSelectAndSearch,
-								onRowClick: p.select,
-							}}
-							height="600px"
-							striped
-							hover
-						>
-							<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
-								מס&quot;ד
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								filterFormatted
-								filter={{
-									type: 'TextFilter',
-									delay: 1000,
-									placeholder: 'חפש',
-									defaultValue: p.filter.number,
+						<Loader show={p.loading} message={Loading()} contentBlur={5} backgroundStyle={{backgroundColor: 'transparent'}}>
+							<BootstrapTable
+								keyField="_id"
+								containerClass="table_container_class"
+								tableContainerClass="table_class"
+								data={p.data}
+								remote
+								options={{
+									onSortChange: p.setSort,
+									defaultSortName: p.sort.name,
+									defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
+									onFilterChange: p.setFilterSelectAndSearch,
+									onRowClick: p.select,
 								}}
-								width="125px"
-								dataField="number"
-								dataAlign="left"
-								headerAlign="center"
-								dataSort
+								height="600px"
+								striped
+								hover
 							>
-								מספר מזהה
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								filterFormatted
-								dataFormat={formatter}
-								filter={{
-									type: 'CustomFilter',
-									getElement: () => MultiSelect({ types: p.types.status, activeCodes: p.filter.status, onChange: p.setFilterMultiSelect }),
-								}}
-								width="135px"
-								dataField="status"
-								dataAlign="center"
-								headerAlign="center"
-								dataSort
-							>
-								סטטוס
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								dataField="createdAt"
-								width="155"
-								dataAlign="center"
-								headerAlign="center"
-								dataSort
-								filterFormatted
-								dataFormat={formatter}
-								filter={{
-									type: 'SelectFilter',
-									options: p.types.createdAt,
-									placeholder: 'בחר',
-									defaultValue: p.filter.createdAt,
-								}}
-							>
-								תאריך התקנה
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								filterFormatted
-								filter={{
-									type: 'TextFilter',
-									delay: 1000,
-									placeholder: 'חפש',
-									defaultValue: p.filter.address,
-								}}
-								width="200"
-								dataFormat={formatter}
-								dataField="address"
-								dataAlign="right"
-								headerAlign="center"
-								dataSort
-							>
-								כתובת ההתקנה
-							</TableHeaderColumn>
-							<TableHeaderColumn
-								filterFormatted
-								filter={{
-									type: 'TextFilter',
-									delay: 1000,
-									placeholder: 'חפש',
-									defaultValue: p.filter.description,
-								}}
-								dataFormat={formatter}
-								dataField="description"
-								dataAlign="right"
-								headerAlign="center"
-								dataSort
-							>
-								תאור מקום
-							</TableHeaderColumn>
-						</BootstrapTable>
+								<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+									מס&quot;ד
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									filterFormatted
+									filter={{
+										type: 'TextFilter',
+										delay: 1000,
+										placeholder: 'חפש',
+										defaultValue: p.filter.number,
+									}}
+									width="125px"
+									dataField="number"
+									dataAlign="left"
+									headerAlign="center"
+									dataSort
+								>
+									מספר מזהה
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									filterFormatted
+									dataFormat={formatter}
+									filter={{
+										type: 'CustomFilter',
+										getElement: () => MultiSelect({ types: p.types.status, activeCodes: p.filter.status, onChange: p.setFilterMultiSelect }),
+									}}
+									width="135px"
+									dataField="status"
+									dataAlign="center"
+									headerAlign="center"
+									dataSort
+								>
+									סטטוס
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									dataField="createdAt"
+									width="155"
+									dataAlign="center"
+									headerAlign="center"
+									dataSort
+									filterFormatted
+									dataFormat={formatter}
+									filter={{
+										type: 'SelectFilter',
+										options: p.types.createdAt,
+										placeholder: 'בחר',
+										defaultValue: p.filter.createdAt,
+									}}
+								>
+									תאריך התקנה
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									filterFormatted
+									filter={{
+										type: 'TextFilter',
+										delay: 1000,
+										placeholder: 'חפש',
+										defaultValue: p.filter.address,
+									}}
+									width="200"
+									dataFormat={formatter}
+									dataField="address"
+									dataAlign="right"
+									headerAlign="center"
+									dataSort
+								>
+									כתובת ההתקנה
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									filterFormatted
+									filter={{
+										type: 'TextFilter',
+										delay: 1000,
+										placeholder: 'חפש',
+										defaultValue: p.filter.description,
+									}}
+									dataFormat={formatter}
+									dataField="description"
+									dataAlign="right"
+									headerAlign="center"
+									dataSort
+								>
+									תאור מקום
+								</TableHeaderColumn>
+							</BootstrapTable>
+						</Loader>
 					</Box>
 				</Flex>
 				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
