@@ -12,7 +12,7 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		return Static.findOne({}).types;
 	},
-	'db.init': function anon() {
+	'utility.db.init': function anon() {
 		if (!roles.isUserAdmin()) return undefined;
 		console.log('clearing database');
 		try {
@@ -24,15 +24,15 @@ Meteor.methods({
 			throw new Meteor.Error('500', exception);
 		}
 	},
-	'utility.getPage': function anon(fileName) {
-		check(fileName, String);
-		return parseMarkdown(getPrivateFile(`pages/${fileName}.md`));
-	},
+	// 'utility.getPage': function anon(fileName) {
+	// 	check(fileName, String);
+	// 	return parseMarkdown(getPrivateFile(`pages/${fileName}.md`));
+	// },
 });
 
 rateLimit({
 	methods: [
-		'utility.get.types', 'db.init', 'utility.getPage'
+		'utility.get.types', 'utility.db.init', 'utility.getPage'
 	],
 	limit: 2,
 	timeRange: 1000,

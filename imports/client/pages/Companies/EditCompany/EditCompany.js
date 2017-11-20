@@ -9,7 +9,7 @@ import {
 } from 'recompose';
 
 import Loader from 'react-loader-advanced';
-import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
 import CompanyEditor from '../components/CompanyEditor/CompanyEditor';
 
 export default compose(

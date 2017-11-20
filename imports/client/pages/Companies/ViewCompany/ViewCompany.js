@@ -17,7 +17,7 @@ import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
 import Loader from 'react-loader-advanced';
 
-import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
 
 import '../../../stylesheets/table.scss';
 import './Css/ViewCompany.scss';

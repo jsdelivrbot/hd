@@ -3,7 +3,7 @@ import { Row, Col, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import AccountPageFooter from '../../../../components/LayoutLoginAndNavigationAndGeneral/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
+import AccountPageFooter from '../../../../components/LoginLayoutNavigation/MaybeNotNeeded/AccountPageFooter/AccountPageFooter';
 import validate from '../../../../../modules/validate';
 
 class Login extends React.Component {

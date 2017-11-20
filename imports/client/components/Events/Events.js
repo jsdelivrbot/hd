@@ -18,7 +18,7 @@ import { Segment } from 'semantic-ui-react';
 import { Flex, Box } from 'reflexbox';
 
 import Loader from 'react-loader-advanced';
-import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../Slider/Slider';
 import MultiSelect from '../MultiSelect/MultiSelect';

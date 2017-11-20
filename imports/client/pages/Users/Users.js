@@ -22,7 +22,7 @@ import 'react-select/dist/react-select.css';
 import '../../stylesheets/table.scss';
 import './Css/Users.scss';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 export default compose(
 	withStateHandlers(

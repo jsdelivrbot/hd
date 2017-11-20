@@ -7,7 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import './Css/Navigation.scss';
 
 const handleFixture = () => {
-	Meteor.call('db.init', (error) => {
+	Meteor.call('utility.db.init', (error) => {
 		if (error) {
 			console.log('error');
 		} else {
@@ -17,11 +17,6 @@ const handleFixture = () => {
 };
 
 const Navigation = (p) => {
-	// console.log('rendering navigation');
-	// console.log('p.isUserAdmin()');
-	// console.log(p.isUserAdmin());
-	// console.log('p.isUserControl()');
-	// console.log(p.isUserControl());
 	return (
 		<div>
 			<Link to="/">

@@ -21,7 +21,7 @@ import { Button } from 'react-bootstrap';
 import '../../../stylesheets/table.scss';
 import './Css/ViewHydrant.scss';
 
-import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
 import Map from '../../../components/Map/Map';
 import Events from '../../../components/Events/Events';
 

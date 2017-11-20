@@ -21,7 +21,7 @@ import { Button } from 'react-bootstrap';
 import '../../stylesheets/table.scss';
 import './Css/Hydrants.scss';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 import Slider from '../../components/Slider/Slider';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';

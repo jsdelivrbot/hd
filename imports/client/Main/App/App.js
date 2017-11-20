@@ -33,19 +33,19 @@ import NewCompany from '../../pages/Companies/NewCompany/NewCompany';
 import ViewCompany from '../../pages/Companies/ViewCompany/ViewCompany';
 import EditCompany from '../../pages/Companies/EditCompany/EditCompany';
 
-import Login from '../../pages/Administrative/LoginPages/Login/Login';
-import Logout from '../../pages/Administrative/LoginPages/Logout/Logout';
-import RecoverPassword from '../../pages/Administrative/RecoverPassword/RecoverPassword';
-import ResetPassword from '../../pages/Administrative/LoginPages/ResetPassword/ResetPassword';
+import Login from '../../pages/LoginPages/Login/Login';
+import Logout from '../../pages/LoginPages/Logout/Logout';
+import RecoverPassword from '../../pages/LoginPages/RecoverPassword/RecoverPassword';
+import ResetPassword from '../../pages/LoginPages/ResetPassword/ResetPassword';
 import DownloadApp from '../../pages/DownloadApp/DownloadApp';
-import Profile from '../../pages/Administrative/Profile/Profile';
+import Profile from '../../pages/LoginPages/Profile/Profile';
 import Index from '../Index/Index';
 
-import Public from '../../components/LayoutLoginAndNavigationAndGeneral/Public/Public';
-import Navigation from '../../components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation';
-import NotFound from '../../components/LayoutLoginAndNavigationAndGeneral/NotFound/NotFound';
-import Footer from '../../components/LayoutLoginAndNavigationAndGeneral/Footer/Footer';
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Public from '../../components/LoginLayoutNavigation/Public/Public';
+import Navigation from '../../components/LoginLayoutNavigation/Navigation/Navigation';
+import NotFound from '../../components/LoginLayoutNavigation/NotFound/NotFound';
+import Footer from '../../components/LoginLayoutNavigation/Footer/Footer';
+import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 import { difProps } from '../../Utils/Utils';
 

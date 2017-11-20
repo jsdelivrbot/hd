@@ -25,7 +25,7 @@ import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
 import Loader from 'react-loader-advanced';
 
-import Loading from '../LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../LoginLayoutNavigation/Loading/Loading';
 import { difProps } from '../../Utils/Utils';
 
 import './Css/Map.scss';

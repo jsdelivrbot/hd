@@ -15,7 +15,7 @@ import { Button } from 'react-bootstrap';
 import { Flex, Box } from 'reflexbox';
 import Loader from 'react-loader-advanced';
 
-import Loading from '../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../stylesheets/table.scss';

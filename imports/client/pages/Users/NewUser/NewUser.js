@@ -24,7 +24,7 @@ import validate from '../../../../modules/validate';
 
 import './Css/NewUser.scss';
 
-import Loading from '../../../components/LayoutLoginAndNavigationAndGeneral/Loading/Loading';
+import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
 
 class NewUser extends React.Component {
 	componentDidMount() {
