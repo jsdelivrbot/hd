@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/Css/HydrantEditor.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,21 +20,81 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HydrantEditor.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HydrantEditor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+            <state relative-caret-position="47">
+              <caret line="50" column="29" lean-forward="true" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NewHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="685">
+              <caret line="78" column="6" lean-forward="false" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Static.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1020">
+              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="835">
+              <caret line="156" column="49" lean-forward="false" selection-start-line="156" selection-start-column="49" selection-end-line="156" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewUser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditHydrant.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -53,8 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>db.init</find>
-      <find>LayoutLoginAndNavigationAndGeneral</find>
       <find>lodash</find>
       <find>parse-mar</find>
       <find>AccountPageFoot</find>
@@ -80,9 +136,11 @@
       <find>1900</find>
       <find>But</find>
       <find>Button</find>
-      <find>nb</find>
       <find>startin</find>
       <find>lat</find>
+      <find>nb</find>
+      <find>types.</find>
+      <find>number</find>
     </findStrings>
     <replaceStrings>
       <replace>user.get.properties</replace>
@@ -194,7 +252,6 @@
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/Css/ViewHydrant.scss" />
         <option value="$PROJECT_DIR$/imports/client/stylesheets/app.scss" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Companies/EditCompany/EditCompany.js" />
         <option value="$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Navigation/Navigation.js" />
@@ -227,9 +284,10 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.meteor/packages" />
         <option value="$PROJECT_DIR$/imports/startup/client/index.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/Css/HydrantEditor.scss" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js" />
       </list>
     </option>
@@ -323,11 +381,6 @@
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
               <item name="pup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pup" type="462c0819:PsiDirectoryNode" />
-              <item name=".meteor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -507,6 +560,15 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="Users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pup" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pup" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Users" type="462c0819:PsiDirectoryNode" />
+              <item name="NewUser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pup" type="b2602c69:ProjectViewProjectNode" />
@@ -702,7 +764,7 @@
       <workItem from="1510672177496" duration="80530000" />
       <workItem from="1511124202159" duration="14274000" />
       <workItem from="1511187600908" duration="818000" />
-      <workItem from="1511189037802" duration="33984000" />
+      <workItem from="1511189037802" duration="35467000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -743,12 +805,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="737003000" />
+    <option name="totallyTimeSpent" value="738486000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1691254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1691254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -970,14 +1033,6 @@
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Loading/Loading.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/VerifyEmail/VerifyEmail.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/Signup/Signup.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -1024,14 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-900">
-          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1252,14 +1299,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="156" column="49" lean-forward="false" selection-start-line="156" selection-start-column="49" selection-end-line="156" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1326,22 +1365,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="41" column="12" lean-forward="true" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="41" lean-forward="false" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="530">
@@ -1366,14 +1389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="78" column="6" lean-forward="false" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/Utils/validate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1390,18 +1405,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+        <state relative-caret-position="450">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="685">
+          <caret line="78" column="6" lean-forward="false" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Static.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1020">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="835">
+          <caret line="156" column="49" lean-forward="false" selection-start-line="156" selection-start-column="49" selection-end-line="156" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+        <state relative-caret-position="90">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/HydrantEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="50" column="29" lean-forward="true" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
           <folding />
         </state>
       </provider>

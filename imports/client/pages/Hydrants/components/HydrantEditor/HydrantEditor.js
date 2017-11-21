@@ -7,12 +7,14 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+	compose,
+	withStateHandlers,
+	lifecycle,
+} from 'recompose';
 import _ from 'lodash';
 
 import validate from '../../../../Utils/validate';
-
-console.log('hydrants moment.locale()');
-console.log(moment.locale());
 
 class CustomDateInput extends React.Component {
 	render() {
@@ -29,7 +31,10 @@ class HydrantEditor extends React.Component {
 	constructor(props) {
 		super(props);
 		const { data } = this.props;
+		const p = this.props;
 		this.state = {
+			status: data.status || 0,
+			companyId: data.companyId || p.company._id,
 			lastComm: data.lastComm ? moment(data.lastComm) : undefined,
 			disableDate: data.disableDate ? moment(data.disableDate) : undefined,
 			batchDate: data.batchDate ? moment(data.batchDate) : undefined,
@@ -76,7 +81,7 @@ class HydrantEditor extends React.Component {
 			sim: this.sim.value,
 			lat: this.lat.value,
 			lon: this.lon.value,
-			status: this.status.value,
+			status: this.state.status,
 			disableDate: this.state.disableDate.toISOString(),
 			disableText: this.disableText.value,
 			lastComm: this.state.lastComm.toISOString(),
@@ -87,9 +92,8 @@ class HydrantEditor extends React.Component {
 			batchDate: this.state.batchDate.toISOString(),
 			history: this.history.value,
 			comments: this.comments.value,
+			companyId: this.state.companyId,
 		};
-		console.log('data');
-		console.log(data);
 
 		if (existingHydrant) data._id = existingHydrant;
 
@@ -98,7 +102,6 @@ class HydrantEditor extends React.Component {
 				Bert.alert(error.reason, 'danger');
 			} else {
 				const confirmation = existingHydrant ? '&emsp; התעדכן הידרנט! ' : '&emsp; נוסף הידרנט! ';
-				// this.form.reset();
 				Bert.alert(confirmation, 'success', 'growl-top-left');
 				history.push(`/hydrants/${hydrantId}`);
 			}
@@ -107,20 +110,18 @@ class HydrantEditor extends React.Component {
 
 	render() {
 		const { data } = this.props;
+		const p = this.props;
 		return (
 			<Flex align="center">
 				<Box w={1 / 5}>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
 							<ControlLabel>מספר חברה</ControlLabel>
-							<input
-								type="number"
-								className="form-control"
-								name="companyId"
-								ref={companyId => (this.companyId = companyId)}
-								defaultValue={data && data.companyId}
-								placeholder=""
-							/>
+							<span>
+								<select value={p.state.companyId} onChange={e => p.setState({ companyId: e.target.value })}>
+									{p.cData.map(el => (<option key={el._id} value={el._id}>{el.name}</option>))}
+								</select>
+							</span>
 						</FormGroup>
 						<FormGroup className="has-warning">
 							<ControlLabel>מספר סים</ControlLabel>
@@ -157,14 +158,12 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>סטטוס</ControlLabel>
-							<input
-								type="text"
-								className="form-control"
-								name="status"
-								ref={status => (this.status = status)}
-								defaultValue={data && data.status}
-								placeholder=""
-							/>
+							<span>
+								<select value={p.state.status} onChange={e => p.setState({ status: e.target.value })}>
+									{_.map(p.types.status,
+										(statusName, n) => (<option key={n} value={n}>{statusName}</option>))}
+								</select>
+							</span>
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תקשורת אחרונה</ControlLabel>
@@ -278,14 +277,23 @@ class HydrantEditor extends React.Component {
 	}
 }
 
-export default HydrantEditor;
+export default compose(
+	withStateHandlers(
+		() => ({
+			cData: [],
+			loading: false,
+		}), {
+			setCData: () => cData => ({ cData: _.clone(cData) }),
+			setLoading: () => loading => ({ loading }),
+		}
+	),
+	lifecycle({
+		async componentDidMount() {
+			const p = this.props;
+			p.setLoading(true);
+			p.setCData(await Meteor.callPromise('companies.get.all'));
+			p.setLoading(false);
+		},
+	}),
+)(HydrantEditor);
 
-// import PropTypes from 'prop-types';
-// HydrantEditor.defaultProps = {
-// 	data: { },
-// };
-//
-// HydrantEditor.propTypes = {
-// 	data: PropTypes.object,
-// 	history: PropTypes.object.isRequired,
-// };
