@@ -18,8 +18,8 @@ class CustomDateInput extends React.Component {
 	render() {
 		const p = this.props;
 		return (
-			<Button onClick={p.onClick}>
-				{p.value}
+			<Button style={{ width: '120px' }} bsStyle="success" onClick={p.onClick}>
+				{p.value || <span>&nbsp;</span>}
 			</Button>
 		);
 	}
@@ -41,6 +41,8 @@ class HydrantEditor extends React.Component {
 		validate(this.form, {
 			rules: {
 				sim: { required: true, maxlength: 24 },
+				lat: { number: true, minlength: 9, maxlength: 9 },
+				lon: { number: true, minlength: 9, maxlength: 9 },
 				bodyBarcode: { required: true, maxlength: 25 },
 				disableText: { maxlength: 250 },
 				address: { maxlength: 50 },
@@ -49,7 +51,8 @@ class HydrantEditor extends React.Component {
 				comments: { maxlength: 50 },
 			},
 			messages: {
-				number: { maxlength: 'אורך מקסימלי 8' },
+				lat: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456', minlength: 'הפורמט: 12.123456' },
+				lon: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456', minlength: 'הפורמט: 12.123456' },
 				sim: { required: 'נא לציין מספר סים', maxlength: 'אורך מקסימלי 24' },
 				disableText: { maxlength: 'אורך מקסימלי 250' },
 				address: { maxlength: 'אורך מקסימלי 50' },
@@ -138,7 +141,7 @@ class HydrantEditor extends React.Component {
 								name="lat"
 								ref={lat => (this.lat = lat)}
 								defaultValue={data && data.lat}
-								placeholder=""
+								placeholder="12.123456"
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -149,7 +152,7 @@ class HydrantEditor extends React.Component {
 								name="lon"
 								ref={lon => (this.lon = lon)}
 								defaultValue={data && data.lon}
-								placeholder=""
+								placeholder="12.123456"
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -166,7 +169,6 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>תקשורת אחרונה</ControlLabel>
 							<DatePicker
-								placeholderText="בחר תאריך"
 								customInput={<CustomDateInput />}
 								selected={this.state.lastComm}
 								onChange={date => this.setState({ lastComm: date })}
@@ -174,7 +176,11 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך ההשבתה</ControlLabel>
-							<DatePicker selected={this.state.disableDate} onChange={date => this.setState({ disableDate: date})} />
+							<DatePicker
+								customInput={<CustomDateInput />}
+								selected={this.state.disableDate}
+								onChange={date => this.setState({ disableDate: date })}
+							/>
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאור ההשבתה</ControlLabel>
@@ -243,7 +249,11 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך סדרה</ControlLabel>
-							<DatePicker selected={this.state.batchDate} onChange={date => this.setState({ batchDate: date})} />
+							<DatePicker
+								customInput={<CustomDateInput />}
+								selected={this.state.batchDate}
+								onChange={date => this.setState({ batchDate: date })}
+							/>
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>ברקוד</ControlLabel>
