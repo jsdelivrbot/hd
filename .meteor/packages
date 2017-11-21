@@ -39,3 +39,6 @@ jcbernack:reactive-aggregate
 deanius:promise
 mikowals:batch-insert
 reactive-dict
+react-meteor-data
+rzymek:moment-locale-he
+rzymek:moment

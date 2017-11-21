@@ -3,6 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { incrementCounter } from 'meteor/osv:mongo-counter';
+import moment from 'moment';
 
 const Hydrants = new Mongo.Collection('Hydrants');
 
@@ -74,13 +75,13 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		max: 25,
 		label: 'Last communication date',
-		defaultValue: '0',
+		// defaultValue: moment({ year: 1900 }).toISOString(),
 	},
 	disableDate: {
 		type: String,
 		max: 25,
 		label: 'Disable date',
-		defaultValue: '0',
+		// defaultValue: moment({ year: 1900 }).toISOString(),
 	},
 	disableText: {
 		type: String,
@@ -119,7 +120,7 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		max: 25,
 		label: 'Batch date',
-		defaultValue: '0',
+		// defaultValue: moment({ year: 1900 }).toISOString(),
 	},
 	history: {
 		type: String,

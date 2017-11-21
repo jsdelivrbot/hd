@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import faker from 'faker';
+import moment from 'moment';
 import seeder from './seeder';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Companies from '../../server/api/Collections/Companies';
@@ -51,7 +52,7 @@ const randomHydrant = (ind) => {
 		createdAt: dt,
 		lastComm: faker.date.past(1).toISOString(),
 		enabled,
-		disableDate: enabled ? faker.date.past(1).toISOString() : '0',
+		disableDate: enabled ? faker.date.past(1).toISOString() : '', // moment({ year: 1900 }).toISOString(),
 		address: fakeAddress(),
 		description: fakeSentence(50),
 		disableText: fakeSentence(100),
@@ -213,7 +214,7 @@ export default function initDb() {
 	fillHydrantsAndEvents();
 }
 
-// initDb();
+initDb();
 
 //
 // const eventsSeed = hydrantId => ({

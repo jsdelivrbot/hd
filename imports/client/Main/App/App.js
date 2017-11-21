@@ -14,7 +14,7 @@ import {
 	withProps,
 } from 'recompose';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { Grid, Alert, Button } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
 
 import Map from '../../components/Map/Map';

@@ -153,8 +153,8 @@ export default compose(
 						</Box>
 					</Flex>
 				</div>
-				<Events _id={p._id} types={p.types} />
-				<Map _id={p._id} types={p.types} />
+				<Events _id={p._id} types={p.types} company={p.company} />
+				<Map _id={p._id} types={p.types} company={p.company} />
 			</div>
 		);
 	});

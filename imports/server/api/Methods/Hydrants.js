@@ -174,6 +174,8 @@ Meteor.methods({
 		console.log('updating');
 		try {
 			console.log('ok');
+			console.log('doc');
+			console.log(doc);
 			const _id = doc._id;
 			Hydrants.update(_id, { $set: doc });
 			return _id; // Return _id so we can redirect to document after update.

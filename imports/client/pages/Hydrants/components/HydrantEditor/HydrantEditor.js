@@ -11,15 +11,28 @@ import _ from 'lodash';
 
 import validate from '../../../../Utils/validate';
 
+console.log('hydrants moment.locale()');
+console.log(moment.locale());
+
+class CustomDateInput extends React.Component {
+	render() {
+		const p = this.props;
+		return (
+			<Button onClick={p.onClick}>
+				{p.value}
+			</Button>
+		);
+	}
+}
 
 class HydrantEditor extends React.Component {
 	constructor(props) {
 		super(props);
 		const { data } = this.props;
 		this.state = {
-			lastComm: _.get(data.lastComm, 0),
-			disableDate: _.get(data.disableDate, 0),
-			batchDate: _.get(data.batchDate, 0),
+			lastComm: data.lastComm ? moment(data.lastComm) : undefined,
+			disableDate: data.disableDate ? moment(data.disableDate) : undefined,
+			batchDate: data.batchDate ? moment(data.batchDate) : undefined,
 		};
 	}
 
@@ -55,22 +68,25 @@ class HydrantEditor extends React.Component {
 		const { history } = this.props;
 		const existingHydrant = this.props.data && this.props.data._id;
 		const methodToCall = existingHydrant ? 'hydrants.update' : 'hydrants.insert';
+
 		const data = {
 			sim: this.sim.value,
 			lat: this.lat.value,
 			lon: this.lon.value,
 			status: this.status.value,
-			disableDate: this.state.disableDate,
+			disableDate: this.state.disableDate.toISOString(),
 			disableText: this.disableText.value,
-			lastComm: this.state.lastComm,
+			lastComm: this.state.lastComm.toISOString(),
 			address: this.address.value,
 			description: this.description.value,
 			enabled: this.enabled.checked,
 			bodyBarcode: this.bodyBarcode.value,
-			batchDate: this.state.batchDate,
+			batchDate: this.state.batchDate.toISOString(),
 			history: this.history.value,
 			comments: this.comments.value,
 		};
+		console.log('data');
+		console.log(data);
 
 		if (existingHydrant) data._id = existingHydrant;
 
@@ -79,26 +95,10 @@ class HydrantEditor extends React.Component {
 				Bert.alert(error.reason, 'danger');
 			} else {
 				const confirmation = existingHydrant ? '&emsp; התעדכן הידרנט! ' : '&emsp; נוסף הידרנט! ';
-				this.form.reset();
+				// this.form.reset();
 				Bert.alert(confirmation, 'success', 'growl-top-left');
 				history.push(`/hydrants/${hydrantId}`);
 			}
-		});
-	}
-
-	setLastComm(date) {
-		this.setState({
-			lastComm: date
-		});
-	}
-	setDisableDate(date) {
-		this.setState({
-			disableDate: date
-		});
-	}
-	setBatchDate(date) {
-		this.setState({
-			batchDate: date
 		});
 	}
 
@@ -165,11 +165,16 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תקשורת אחרונה</ControlLabel>
-							<DatePicker selected={this.state.lastComm} onChange={this.setLastComm} />
+							<DatePicker
+								placeholderText="בחר תאריך"
+								customInput={<CustomDateInput />}
+								selected={this.state.lastComm}
+								onChange={date => this.setState({ lastComm: date })}
+							/>
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך ההשבתה</ControlLabel>
-							<DatePicker selected={this.state.disableDate} onChange={this.setDisableDate} />
+							<DatePicker selected={this.state.disableDate} onChange={date => this.setState({ disableDate: date})} />
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאור ההשבתה</ControlLabel>
@@ -238,7 +243,7 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך סדרה</ControlLabel>
-							<DatePicker selected={this.state.batchDate} onChange={this.setBatchDate} />
+							<DatePicker selected={this.state.batchDate} onChange={date => this.setState({ batchDate: date})} />
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>ברקוד</ControlLabel>

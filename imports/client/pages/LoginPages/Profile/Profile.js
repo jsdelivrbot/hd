@@ -1,5 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 
+import {
+	compose,
+} from 'recompose';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
@@ -7,7 +11,7 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import InputHint from '../../../components/LoginLayoutNavigation/InputHint/InputHint';
 import validate from '../../../Utils/validate';
 
@@ -222,11 +226,12 @@ Profile.propTypes = {
 	user: PropTypes.object.isRequired,
 };
 
-export default createContainer(() => {
-	const subscription = Meteor.subscribe('user.editProfile');
+export default compose(
+	withTracker(() => {
+		const subscription = Meteor.subscribe('user.editProfile');
 
-	return {
-		loading: !subscription.ready(),
-		user: Meteor.user(),
-	};
-}, Profile);
+		return {
+			loading: !subscription.ready(),
+			user: Meteor.user(),
+		};
+	}))(Profile);
