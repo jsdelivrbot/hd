@@ -2,9 +2,11 @@
 import React from 'react';
 import { FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { Flex, Box } from 'reflexbox'
+import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
 import validate from '../../../../Utils/validate';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 class HydrantEditor extends React.Component {
 	componentDidMount() {
