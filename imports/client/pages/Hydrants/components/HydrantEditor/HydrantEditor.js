@@ -82,14 +82,14 @@ class HydrantEditor extends React.Component {
 			lat: this.lat.value,
 			lon: this.lon.value,
 			status: this.state.status,
-			disableDate: this.state.disableDate.toISOString(),
+			disableDate: this.state.disableDate ? this.state.disableDate.toISOString() : '',
 			disableText: this.disableText.value,
-			lastComm: this.state.lastComm.toISOString(),
+			lastComm: this.state.lastComm ? this.state.lastComm.toISOString() : '',
 			address: this.address.value,
 			description: this.description.value,
 			enabled: this.enabled.checked,
 			bodyBarcode: this.bodyBarcode.value,
-			batchDate: this.state.batchDate.toISOString(),
+			batchDate: this.state.batchDate ? this.state.batchDate.toISOString() : '',
 			history: this.history.value,
 			comments: this.comments.value,
 			companyId: this.state.companyId,
@@ -103,7 +103,8 @@ class HydrantEditor extends React.Component {
 			} else {
 				const confirmation = existingHydrant ? '&emsp; התעדכן הידרנט! ' : '&emsp; נוסף הידרנט! ';
 				Bert.alert(confirmation, 'success', 'growl-top-left');
-				history.push(`/hydrants/${hydrantId}`);
+				if (this.state.companyId === this.props.company._id) history.push(`/hydrants/${hydrantId}`);
+				else history.push('/hydrants');
 			}
 		});
 	}
@@ -118,7 +119,7 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>מספר חברה</ControlLabel>
 							<span>
-								<select value={p.state.companyId} onChange={e => p.setState({ companyId: e.target.value })}>
+								<select value={this.state.companyId} onChange={e => this.setState({ companyId: e.target.value })}>
 									{p.cData.map(el => (<option key={el._id} value={el._id}>{el.name}</option>))}
 								</select>
 							</span>
@@ -159,7 +160,7 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>סטטוס</ControlLabel>
 							<span>
-								<select value={p.state.status} onChange={e => p.setState({ status: e.target.value })}>
+								<select value={this.state.status} onChange={e => this.setState({ status: e.target.value })}>
 									{_.map(p.types.status,
 										(statusName, n) => (<option key={n} value={n}>{statusName}</option>))}
 								</select>

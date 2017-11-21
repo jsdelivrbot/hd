@@ -101,7 +101,10 @@ export default compose(
 		async componentDidMount() {
 			const p = this.props;
 			this.storeEmpty = false;
-			if (!p.getStore()) {
+			// console.log('p.hydrantEdited');
+			// console.log(p.hydrantEdited);
+			if (!p.getStore() || p.hydrantEdited) {
+				p.setHydrantEdited(false);
 				p.setLoading(true);
 				const { cntTotalUnits, cntEnabledUnits, cntDisabledUnits } = await Meteor.callPromise('hydrants.get.total.counts');
 				p.setCntTotalUnits(cntTotalUnits);
@@ -288,10 +291,8 @@ export default compose(
 									bsStyle="primary"
 									block
 									onClick={() => {
-										// p.setData(undefined); // Next time data will be downloaded
-										p.history.push(
-											`${p.match.url}/new`
-										);
+										p.setHydrantEdited(true);
+										p.history.push(`${p.match.url}/new`);
 									}}
 								>
 									חדש

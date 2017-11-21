@@ -39,7 +39,8 @@ Hydrants.schema = new SimpleSchema({
 		},
 	},
 	companyId: {
-		type: Number,
+		type: String,
+		max: 25,
 		label: 'Company Id',
 		defaultValue: 0,
 	},
@@ -75,13 +76,13 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		max: 25,
 		label: 'Last communication date',
-		// defaultValue: moment({ year: 1900 }).toISOString(),
+		optional: true,
 	},
 	disableDate: {
 		type: String,
 		max: 25,
 		label: 'Disable date',
-		// defaultValue: moment({ year: 1900 }).toISOString(),
+		optional: true,
 	},
 	disableText: {
 		type: String,

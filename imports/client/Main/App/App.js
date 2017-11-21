@@ -105,7 +105,9 @@ export default compose(
 			appLoading: false,
 			appInitialized: undefined,
 			company: undefined,
+			hydrantEdited: false,
 		}), {
+			setHydrantEdited: () => hydrantEdited => ({ hydrantEdited }),
 			setAppLoading: () => appLoading => ({ appLoading }),
 			setTypes: () => types => ({ types }),
 			setRole: () => role => ({ role }),

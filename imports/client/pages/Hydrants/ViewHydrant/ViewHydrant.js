@@ -43,6 +43,8 @@ export default compose(
 			p.setLoading(true);
 
 			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p._id } });
+			console.log('data');
+			console.log(data);
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = p.types.status[data.status];
 			p.setData([data]);
@@ -145,7 +147,7 @@ export default compose(
 							{p.isUserAdmin() ?
 								<Button
 									bsStyle="primary" block
-									onClick={() => p.history.push(`${p.match.url}/edit`)}
+									onClick={() => { p.setHydrantEdited(true); p.history.push(`${p.match.url}/edit`);}}
 								>ערוך</Button>
 								:
 								''
