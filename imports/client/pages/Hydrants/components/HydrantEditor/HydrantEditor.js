@@ -4,11 +4,25 @@ import { FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
-import validate from '../../../../Utils/validate';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import _ from 'lodash';
+
+import validate from '../../../../Utils/validate';
+
 
 class HydrantEditor extends React.Component {
+	constructor(props) {
+		super(props);
+		const { data } = this.props;
+		this.state = {
+			lastComm: _.get(data.lastComm, 0),
+			disableDate: _.get(data.disableDate, 0),
+			batchDate: _.get(data.batchDate, 0),
+		};
+	}
+
 	componentDidMount() {
 		const component = this;
 		validate(this.form, {
@@ -46,16 +60,16 @@ class HydrantEditor extends React.Component {
 			lat: this.lat.value,
 			lon: this.lon.value,
 			status: this.status.value,
-			disableDate: this.disableDate.value,
+			disableDate: this.state.disableDate,
 			disableText: this.disableText.value,
-			lastComm: this.lastComm.value,
+			lastComm: this.state.lastComm,
 			address: this.address.value,
 			description: this.description.value,
 			enabled: this.enabled.checked,
-			bodyBarcode: this.bodyBarcode.checked,
-			batchDate: this.batchDate.checked,
-			history: this.history.checked,
-			comments: this.comments.checked,
+			bodyBarcode: this.bodyBarcode.value,
+			batchDate: this.state.batchDate,
+			history: this.history.value,
+			comments: this.comments.value,
 		};
 
 		if (existingHydrant) data._id = existingHydrant;
@@ -69,6 +83,22 @@ class HydrantEditor extends React.Component {
 				Bert.alert(confirmation, 'success', 'growl-top-left');
 				history.push(`/hydrants/${hydrantId}`);
 			}
+		});
+	}
+
+	setLastComm(date) {
+		this.setState({
+			lastComm: date
+		});
+	}
+	setDisableDate(date) {
+		this.setState({
+			disableDate: date
+		});
+	}
+	setBatchDate(date) {
+		this.setState({
+			batchDate: date
 		});
 	}
 
@@ -135,25 +165,11 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תקשורת אחרונה</ControlLabel>
-							<input
-								type="text"
-								className="form-control"
-								name="lastComm"
-								ref={lastComm => (this.lastComm = lastComm)}
-								defaultValue={data && data.lastComm}
-								placeholder=""
-							/>
+							<DatePicker selected={this.state.lastComm} onChange={this.setLastComm} />
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך ההשבתה</ControlLabel>
-							<input
-								type="text"
-								className="form-control"
-								name="disableDate"
-								ref={disableDate => (this.disableDate = disableDate)}
-								defaultValue={data && data.disableDate}
-								placeholder=""
-							/>
+							<DatePicker selected={this.state.disableDate} onChange={this.setDisableDate} />
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאור ההשבתה</ControlLabel>
@@ -222,14 +238,7 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>תאריך סדרה</ControlLabel>
-							<input
-								type="text"
-								className="form-control"
-								name="batchDate"
-								ref={batchDate => (this.batchDate = batchDate)}
-								defaultValue={data && data.batchDate}
-								placeholder=""
-							/>
+							<DatePicker selected={this.state.batchDate} onChange={this.setBatchDate} />
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>ברקוד</ControlLabel>
