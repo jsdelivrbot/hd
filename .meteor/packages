@@ -42,3 +42,4 @@ reactive-dict
 react-meteor-data
 rzymek:moment-locale-he
 rzymek:moment
+mdg:meteor-apm-agent

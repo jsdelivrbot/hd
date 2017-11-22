@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "add-react-displayname",
+	"jsx-control-statements"
+  ]
+}
+

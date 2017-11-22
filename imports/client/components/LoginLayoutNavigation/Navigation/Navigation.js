@@ -6,16 +6,6 @@ import { Meteor } from 'meteor/meteor';
 
 import './Css/Navigation.scss';
 
-const initDb = async() => {
-	Meteor.call('utility.db.init', (error) => {
-		if (error) {
-			console.log('error');
-		} else {
-			console.log('database zeroed');
-		}
-	});
-};
-
 const Navigation = (p) => {
 	return (
 		<div>
@@ -81,7 +71,17 @@ const Navigation = (p) => {
 							<MenuItem eventKey={2.5} onClick={() => p.history.push('/logout')}>לצאת</MenuItem>
 							<MenuItem divider />
 							{p.isUserAdmin ?
-								<MenuItem eventKey={2.6} onClick={() => handleFixture()}>איפוס</MenuItem>
+								<MenuItem eventKey={2.6} onClick={() => Meteor.callPromise('utility.db.reset')}>איפוס</MenuItem>
+								:
+								''
+							}
+							{p.isUserAdmin() ?
+								<MenuItem divider />
+								:
+								''
+							}
+							{p.isUserAdmin ?
+								<MenuItem eventKey={2.6} onClick={() => Meteor.callPromise('utility.db.init')}>פיקטיבי</MenuItem>
 								:
 								''
 							}

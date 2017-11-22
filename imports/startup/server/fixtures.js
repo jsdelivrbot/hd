@@ -203,15 +203,17 @@ function initDb() {
 	fillHydrantsAndEvents();
 }
 
-const resetDb = () => {
+function resetDb() {
 	Static.remove({});
 	Static.insert({});
+
+	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
+
 	Events.remove({});
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
-	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
-};
+}
 
 export { initDb, resetDb };
 // initDb();
