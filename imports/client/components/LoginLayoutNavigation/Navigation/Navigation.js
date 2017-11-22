@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 
 import './Css/Navigation.scss';
 
-const handleFixture = () => {
+const initDb = async() => {
 	Meteor.call('utility.db.init', (error) => {
 		if (error) {
 			console.log('error');

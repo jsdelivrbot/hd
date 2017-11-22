@@ -121,7 +121,8 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		max: 25,
 		label: 'Batch date',
-		// defaultValue: moment({ year: 1900 }).toISOString(),
+		optional: true,
+		defaultValue: '',
 	},
 	history: {
 		type: String,

@@ -15,13 +15,13 @@ function buildFilter(fromFilter) {
 	if (roles.isUserControl()) filter.enabled = true;
 	if (fromFilter) {
 		if (fromFilter.number) {
-			filter.number = fromFilter.number;
+			filter.number = { $regex: `${fromFilter.number}` };
 		}
 		if (fromFilter.address) {
-			filter.address = fromFilter.address;
+			filter.address = { $regex: `${fromFilter.address}` };
 		}
 		if (fromFilter.description) {
-			filter.description = fromFilter.description;
+			filter.description = { $regex: `${fromFilter.description}` };
 		}
 		if (fromFilter.createdAt) {
 			const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };

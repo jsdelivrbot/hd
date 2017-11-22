@@ -44,7 +44,7 @@ const randomHydrant = (ind) => {
 	const companies = Companies.find({}).fetch();
 	return {
 		companyId: companies[rn(companies.length - 1)]._id,
-		sim: rn(999999999),
+		sim: rn(999999999).toString(),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
 		status: rn(5),
@@ -56,8 +56,8 @@ const randomHydrant = (ind) => {
 		address: fakeAddress(),
 		description: fakeSentence(50),
 		disableText: fakeSentence(100),
-		number: ind,
-		bodyBarcode: rn(999999999),
+		number: ind.toString(),
+		bodyBarcode: rn(999999999).toString(),
 		batchDate: faker.date.past(1).toISOString(),
 		history: fakeSentence(50),
 		comments: fakeSentence(50),
@@ -72,17 +72,6 @@ const randomEvent = (hydrantId, ind) => {
 		edata: faker.random.number(),
 		createdAt: faker.date.past(1).toISOString(),
 	};
-};
-
-const resetDb = () => {
-	Static.remove({});
-	Static.insert({});
-	Events.remove({});
-	Hydrants.remove({});
-	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
-	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
-	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
-	// add other counts
 };
 
 const fillHydrantsAndEvents = () => {
@@ -200,7 +189,7 @@ const fillCompanies = () => {
 	});
 };
 
-export default function initDb() {
+function initDb() {
 	// resetDb();
 	// Static.remove({});
 	// Static.insert({});
@@ -214,6 +203,17 @@ export default function initDb() {
 	fillHydrantsAndEvents();
 }
 
+const resetDb = () => {
+	Static.remove({});
+	Static.insert({});
+	Events.remove({});
+	Hydrants.remove({});
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
+	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
+};
+
+export { initDb, resetDb };
 // initDb();
 
 //

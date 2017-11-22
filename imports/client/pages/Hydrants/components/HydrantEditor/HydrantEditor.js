@@ -46,8 +46,8 @@ class HydrantEditor extends React.Component {
 		validate(this.form, {
 			rules: {
 				sim: { required: true, maxlength: 24 },
-				lat: { number: true, minlength: 9, maxlength: 9 },
-				lon: { number: true, minlength: 9, maxlength: 9 },
+				lat: { number: true, maxlength: 9 },
+				lon: { number: true, maxlength: 9 },
 				bodyBarcode: { required: true, maxlength: 25 },
 				disableText: { maxlength: 250 },
 				address: { maxlength: 50 },
@@ -255,7 +255,7 @@ class HydrantEditor extends React.Component {
 								onChange={date => this.setState({ batchDate: date })}
 							/>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup className="has-warning">
 							<ControlLabel>ברקוד</ControlLabel>
 							<input
 								type="text"
@@ -263,7 +263,7 @@ class HydrantEditor extends React.Component {
 								name="bodyBarcode"
 								ref={bodyBarcode => (this.bodyBarcode = bodyBarcode)}
 								defaultValue={data && data.bodyBarcode}
-								placeholder=""
+								placeholder="חובה"
 							/>
 						</FormGroup>
 						<Button type="submit" bsStyle="danger">

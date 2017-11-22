@@ -51,7 +51,7 @@ export default compose(
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }, p) => (obj) => {
-				if (obj.value !== undefined && obj.value < 12) obj.value = 12;
+				if (obj.value !== undefined && (_.isUndefined(obj.max) ? slider.max > 12 : obj.max > 12) && obj.value < 12) obj.value = 12;
 				slider = Object.assign({}, slider, obj);
 				return p.setStore({ slider });
 			},
@@ -79,11 +79,12 @@ export default compose(
 				const description = _.get(filterObj, 'description.value');
 				const number = _.get(filterObj, 'number.value');
 
-				if (createdAt) filter = Object.assign({}, filter, { createdAt });
-				if (address) filter = Object.assign({}, filter, { address });
-				if (description) filter = Object.assign({}, filter, { description });
-				if (number) filter = Object.assign({}, filter, { number });
+				filter = _.assign(filter, { createdAt });
+				filter = _.assign(filter, { address });
+				filter = _.assign(filter, { description });
+				filter = _.assign(filter, { number });
 
+				filter = _.clone(filter);
 				return p.setStore({ filter });
 			},
 		}
@@ -117,6 +118,8 @@ export default compose(
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
+			console.log('filter');
+			console.log(filter);
 			if (filter || this.storeEmpty) {
 				this.storeEmpty = false;
 				p.setLoading(true);
