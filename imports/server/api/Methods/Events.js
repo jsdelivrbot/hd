@@ -10,7 +10,6 @@ import * as roles from '../../Utils/roles';
 
 function buildFilterEvents(fromFilter) {
 	const filter = {};
-	console.log('events uploading');
 
 	if (fromFilter.createdAt) {
 		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };

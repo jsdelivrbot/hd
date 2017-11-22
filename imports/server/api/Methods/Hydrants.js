@@ -9,7 +9,6 @@ import { sleep } from '../../Utils/utils';
 
 function buildFilter(fromFilter) {
 	const filter = {};
-	console.log('hydrants uploading');
 
 	filter.companyId = Meteor.user().companyId;
 	if (roles.isUserControl()) filter.enabled = true;
@@ -38,7 +37,6 @@ function buildFilter(fromFilter) {
 Meteor.methods({
 	'hydrants.get.total.counts': function anon() {
 		if (!roles.isUserAdminOrControl()) return undefined;
-		console.log('hydrants.get.total.counts');
 		const arrayEnabled = Hydrants.aggregate([
 			{ $match: _.assign({}, buildFilter(), { enabled: true }) },
 			{ $group: {
@@ -138,7 +136,6 @@ Meteor.methods({
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { bounds, _id, filterStatus } = p;
-		console.log('getting map in bounds');
 		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
@@ -158,7 +155,6 @@ Meteor.methods({
 				address: 1,
 				number: 1,
 			} }]);
-		console.log('finished');
 		return result;
 	},
 });
@@ -169,7 +165,6 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return undefined;
 		console.log('inserting');
 		try {
-			console.log('ok');
 			return Hydrants.insert({ ...doc });
 		} catch (exception) {
 			console.log(exception);
@@ -181,9 +176,6 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return undefined;
 		console.log('updating');
 		try {
-			console.log('ok');
-			console.log('doc');
-			console.log(doc);
 			const _id = doc._id;
 			Hydrants.update(_id, { $set: doc });
 			return _id; // Return _id so we can redirect to document after update.

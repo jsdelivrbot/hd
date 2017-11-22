@@ -27,7 +27,6 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
 
 			p.setLoading(true);
 			const _id = p.match.params._id;

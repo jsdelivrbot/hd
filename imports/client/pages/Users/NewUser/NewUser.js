@@ -170,13 +170,11 @@ export default compose(
 	),
 	lifecycle({
 		async componentDidMount() {
-			console.log('initializing');
 			const p = this.props;
 			p.setLoading(true);
 			p.setCData(await Meteor.callPromise('companies.get.all'));
 			p.setLoading(false);
 			p.setInitialized(true);
-			console.log('initialized');
 		},
 	}),
 	branch(p => !p.initialized, renderComponent(Loading)),

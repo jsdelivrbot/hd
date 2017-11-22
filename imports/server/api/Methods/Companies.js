@@ -23,7 +23,6 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return undefined;
 		console.log('inserting');
 		try {
-			console.log('ok');
 			return Companies.insert({ ...doc });
 		} catch (exception) {
 			console.log(exception);
@@ -35,7 +34,6 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return undefined;
 		console.log('updating');
 		try {
-			console.log('ok');
 			const _id = doc._id;
 			Companies.update(_id, { $set: doc });
 			return _id; // Return _id so we can redirect to document after update.

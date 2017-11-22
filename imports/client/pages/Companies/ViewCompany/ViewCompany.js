@@ -52,7 +52,6 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
 			p.setLoading(true);
 
 			const data = await Meteor.callPromise('companies.get.data.one', { filter: { _id: p._id } });
@@ -66,7 +65,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering ViewCompany');
 		const formatter = cell => (<span>{cell}</span>);
 
 		return (

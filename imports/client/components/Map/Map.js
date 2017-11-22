@@ -65,7 +65,6 @@ export default compose(
 	),
 	withHandlers(() => ({
 		onTilesLoaded: ({ initialized, setBounds, setInitialized }) => () => {
-			console.log('tiles');
 			if (!initialized) {
 				setBounds();
 				setInitialized(true);

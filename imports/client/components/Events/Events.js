@@ -147,7 +147,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering Events');
 		const formatter = cell => (<span className={p.loading ? 'blurryLoadingText' : ''}>{cell}</span>);
 		const currentDate = moment().format('DD.MM.YYYY');
 

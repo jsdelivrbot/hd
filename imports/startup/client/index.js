@@ -11,7 +11,6 @@ import '../../client/stylesheets/app.scss';
 
 moment.locale('he');
 
-console.log('index.html start-up');
 // Raven.config('https://61d91ce1100c4f3696b5a196179a35d7@sentry.io/249201').install();
 
 Meteor.startup(() => render(<App />, document.getElementById('react-root')));

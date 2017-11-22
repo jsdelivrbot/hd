@@ -73,7 +73,6 @@ export default compose(
 				return p.setStore({ filter });
 			},
 			setFilterSelectAndSearch: ({ filter }, p) => (filterObj) => {
-				console.log(filterObj);
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				const address = _.get(filterObj, 'address.value');
 				const description = _.get(filterObj, 'description.value');
@@ -118,8 +117,6 @@ export default compose(
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
-			console.log('filter');
-			console.log(filter);
 			if (filter || this.storeEmpty) {
 				this.storeEmpty = false;
 				p.setLoading(true);

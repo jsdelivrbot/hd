@@ -47,7 +47,6 @@ export default compose(
 	}),
 	lifecycle({
 		async componentDidMount() {
-			console.log('initializing');
 			const p = this.props;
 			p.setLoading(true);
 			const data = await Meteor.callPromise('companies.get.all');
@@ -60,7 +59,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering Companies');
 		const formatName = cell => (<span>{cell}</span>);
 		const formatView = cell => (
 			<span>

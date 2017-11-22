@@ -13,7 +13,7 @@ import './Footer.scss';
 export default compose(
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering Footer');
 
 		return (
 			<footer className="Footer">

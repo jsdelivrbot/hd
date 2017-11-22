@@ -33,8 +33,6 @@ Meteor.methods({
 		const { email, firstName, lastName, companyId, role } = p;
 		console.log('creating user');
 		const userId = Accounts.createUser({ email });
-		console.log('userId');
-		console.log(userId);
 		Meteor.users.update(userId, { $set: {
 			profile: {
 				name: {

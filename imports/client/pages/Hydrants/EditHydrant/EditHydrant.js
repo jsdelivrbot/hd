@@ -27,7 +27,6 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
 
 			p.setLoading(true);
 			const _id = p.match.params._id;
@@ -40,7 +39,7 @@ export default compose(
 	branch(p => !p.initialized, renderComponent(Loading)),
 )(
 	(p) => {
-		console.log('rendering');
+		console.log('rendering EditHydrant');
 		return (
 			<div className="EditHydrant">
 				<h4 className="page-header">{` עריכת הידרנט מספר ${p.data.number} `}</h4>

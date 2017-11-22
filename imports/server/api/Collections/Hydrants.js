@@ -7,8 +7,6 @@ import moment from 'moment';
 
 const Hydrants = new Mongo.Collection('Hydrants');
 
-console.log('hydrants collection');
-
 Hydrants.allow({
 	insert: () => false,
 	update: () => false,

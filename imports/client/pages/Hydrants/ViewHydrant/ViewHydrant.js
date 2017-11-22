@@ -43,8 +43,6 @@ export default compose(
 			p.setLoading(true);
 
 			const data = await Meteor.callPromise('hydrants.get.data.one', { filter: { _id: p._id } });
-			console.log('data');
-			console.log(data);
 			data.createdAt = moment(data.createdAt).format('DD.MM.YYYY');
 			data.status = p.types.status[data.status];
 			p.setData([data]);
@@ -55,7 +53,6 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			console.log('initializing');
 			await p.loadData();
 			p.setInitialized(true);
 		},
@@ -63,9 +60,7 @@ export default compose(
 	}),
 	withHandlers({
 		zeroStatus: p => async () => {
-			console.log('here1');
 			await Meteor.callPromise('hydrants.zero.status', { _id: p._id });
-			console.log('here2');
 			p.loadData();
 		},
 	}),

@@ -44,13 +44,11 @@ export default compose(
 	),
 	lifecycle({
 		async componentDidMount() {
-			console.log('initializing');
 			const p = this.props;
 			p.setLoading(true);
 			p.setCData(await Meteor.callPromise('companies.get.all'));
 			p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
 			p.setLoading(false);
-			console.log('initialized');
 			p.setInitialized(true);
 		},
 	}),
@@ -62,7 +60,6 @@ export default compose(
 			p.setEditRow({});
 		},
 		onClickSave: p => async (row) => {
-			console.log('onClickSave');
 			if (!_.isEqual(row, p.editRow)) {
 				let { _id, companyId, role } = p.editRow;
 				({ _id, companyId, role } = await Meteor.callPromise('user.update', { _id, companyId, role }));
@@ -72,7 +69,6 @@ export default compose(
 			p.setEditRow({});
 		},
 		onClickRole: p => (role) => {
-			console.log('onClickRole');
 			if (role !== p.editRow.role) p.assignEditRow({ role });
 		},
 	}),
@@ -80,7 +76,7 @@ export default compose(
 )(
 
 	(p) => {
-		console.log('rendering users');
+		console.log('rendering Users');
 
 		const formatter = cell => (<span>{cell}</span>);
 		const formatReset = cell => (<span> {cell ? 'בתהליך' : 'OK'} </span>);

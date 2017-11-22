@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/imports/client/components/Map/Map.js" line="146" />
+    <bookmark url="file://$PROJECT_DIR$/imports/client/components/Map/Map.js" line="145" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.html" afterPath="$PROJECT_DIR$/client/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" afterPath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Footer/Footer.js" afterPath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Footer/Footer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/components/Map/Map.js" afterPath="$PROJECT_DIR$/imports/client/components/Map/Map.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" afterPath="$PROJECT_DIR$/imports/client/pages/Companies/Companies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Companies/EditCompany/EditCompany.js" afterPath="$PROJECT_DIR$/imports/client/pages/Companies/EditCompany/EditCompany.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" afterPath="$PROJECT_DIR$/imports/client/pages/Companies/ViewCompany/ViewCompany.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Companies/components/CompanyEditor/CompanyEditor.js" afterPath="$PROJECT_DIR$/imports/client/pages/Companies/components/CompanyEditor/CompanyEditor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/EditHydrant/EditHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js" afterPath="$PROJECT_DIR$/imports/client/pages/Users/NewUser/NewUser.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" afterPath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Companies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/client/index.js" afterPath="$PROJECT_DIR$/imports/startup/client/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,8 +49,8 @@
       <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+            <state relative-caret-position="660">
+              <caret line="181" column="12" lean-forward="true" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -62,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="331">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="29">
-              <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -208,7 +216,6 @@
       <find>withTracker</find>
       <find>reset</find>
       <find>mome</find>
-      <find>console.log</find>
       <find>moment</find>
       <find>1900</find>
       <find>But</find>
@@ -221,6 +228,7 @@
       <find>איפוס</find>
       <find>setSlider</find>
       <find>export</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace>user.get.properties</replace>
@@ -644,7 +652,7 @@
       <workItem from="1510672177496" duration="80530000" />
       <workItem from="1511124202159" duration="14274000" />
       <workItem from="1511187600908" duration="818000" />
-      <workItem from="1511189037802" duration="59158000" />
+      <workItem from="1511189037802" duration="60153000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -685,7 +693,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="762177000" />
+    <option name="totallyTimeSpent" value="763172000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1268,7 +1276,7 @@
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1284,7 +1292,7 @@
     <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1365,8 +1373,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+        <state relative-caret-position="660">
+          <caret line="181" column="12" lean-forward="true" selection-start-line="181" selection-start-column="12" selection-end-line="181" selection-end-column="12" />
           <folding />
         </state>
       </provider>
