@@ -266,7 +266,7 @@ class HydrantEditor extends React.Component {
 								placeholder=""
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">
+						<Button type="submit" bsStyle="danger">
 							{data && data._id ? 'לשמור שינויים' : 'להוסיף הידרנט'}
 						</Button>
 					</form>

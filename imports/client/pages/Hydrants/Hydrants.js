@@ -101,8 +101,6 @@ export default compose(
 		async componentDidMount() {
 			const p = this.props;
 			this.storeEmpty = false;
-			// console.log('p.hydrantEdited');
-			// console.log(p.hydrantEdited);
 			if (!p.getStore() || p.hydrantEdited) {
 				p.setHydrantEdited(false);
 				p.setLoading(true);
