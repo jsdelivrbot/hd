@@ -192,7 +192,7 @@ export default compose(
 								striped
 								hover
 							>
-								<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center" dataSort>
+								<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center">
 									מס&quot;ד
 								</TableHeaderColumn>
 								<TableHeaderColumn

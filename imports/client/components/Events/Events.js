@@ -178,7 +178,7 @@ export default compose(
 								<TableHeaderColumn dataFormat={formatter} width="75px" dataField="rowNumber" dataAlign="left" headerAlign="center">
 									מס&quot;ד
 								</TableHeaderColumn>
-								<TableHeaderColumn dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
+								<TableHeaderColumn dataSort dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
 									מספר מזהה
 								</TableHeaderColumn>
 								<TableHeaderColumn
