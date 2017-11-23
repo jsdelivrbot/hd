@@ -136,7 +136,6 @@ Meteor.methods({
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { bounds, _id, filterStatus } = p;
-		console.log(bounds);
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
 			{ $match: _.assign({}, buildFilter(),

@@ -13,6 +13,7 @@ import {
 	lifecycle,
 	withProps,
 } from 'recompose';
+
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -48,6 +49,16 @@ import Footer from '../../components/LoginLayoutNavigation/Footer/Footer';
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 import { difProps } from '../../Utils/Utils';
+
+import moment from 'moment';
+import 'moment/locale/he';
+
+import LogRocket from 'logrocket';
+require('logrocket-react')(LogRocket);
+LogRocket.init('kdcqzb/hdapp');
+//# sourceMappingURL=https://github.com/LiShine/hd
+
+moment.locale('he');
 
 import './Css/App.scss';
 
@@ -118,6 +129,7 @@ export default compose(
 	withHandlers({
 		isUserAdmin: ({ role }) => () => (role === 0),
 		isUserControl: ({ role }) => () => (role === 1),
+		isUserAdminOrControl: ({ role }) => () => (role === 1) || (role === 0),
 		isUserSecurity: ({ role }) => () => (role === 2),
 	}),
 	lifecycle({
@@ -127,16 +139,28 @@ export default compose(
 		},
 		async componentWillReceiveProps(p) {
 			const { userId } = difProps({ prevProps: this.props, nextProps: p });
-			if (userId) p.setAppInitialized(false);
+			if (userId) {
+				p.setAppInitialized(false);
+			}
 			if (p.authenticated && !p.appInitialized) {
 				if (p.appLoading) return;
 				p.setAppLoading(true);
-				p.setTypes(await Meteor.callPromise('utility.get.types'));
+				if (p.isUserAdminOrControl()) p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');
 				p.setCompany(company);
 				p.setRole(role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);
+				console.log('p.userId');
+				console.log(p.userId);
+				LogRocket.startNewSession();
+				LogRocket.identify(
+					p.userId, {
+						name: p.name,
+						email: p.emailAddress,
+						role,
+						company: company.name,
+					});
 			}
 		},
 	}),
