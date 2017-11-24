@@ -53,10 +53,12 @@ import { difProps } from '../../Utils/Utils';
 import moment from 'moment';
 import 'moment/locale/he';
 
-import LogRocket from 'logrocket';
-require('logrocket-react')(LogRocket);
-LogRocket.init('kdcqzb/hdapp');
+// import LogRocket from 'logrocket';
+// require('logrocket-react')(LogRocket);
+// LogRocket.init('kdcqzb/hdapp');
 //# sourceMappingURL=https://github.com/LiShine/hd
+
+// Raven.config('https://61d91ce1100c4f3696b5a196179a35d7@sentry.io/249201').install()
 
 moment.locale('he');
 
@@ -153,14 +155,14 @@ export default compose(
 				p.setAppInitialized(true);
 				console.log('p.userId');
 				console.log(p.userId);
-				LogRocket.startNewSession();
-				LogRocket.identify(
-					p.userId, {
-						name: p.name,
-						email: p.emailAddress,
-						role,
-						company: company.name,
-					});
+				// LogRocket.startNewSession();
+				// LogRocket.identify(
+				// 	p.userId, {
+				// 		name: p.name,
+				// 		email: p.emailAddress,
+				// 		role,
+				// 		company: company.name,
+				// 	});
 			}
 		},
 	}),
