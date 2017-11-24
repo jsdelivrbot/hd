@@ -1,10 +1,10 @@
 import { Picker } from 'meteor/meteorhacks:picker';
-// import bodyParser from 'body-parser';
 
-// Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
+Picker.route('/input', (params, req, res, next) => {
+	console.log('params.query');
+	console.log(params.query);
 
-Picker.route('/inmsg.aspx/:_id', (params, req, res, next) => {
-	console.log('params');
-	console.log(params);
+
+
 	res.end('response');
 });

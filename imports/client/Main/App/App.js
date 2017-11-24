@@ -129,10 +129,10 @@ export default compose(
 		}
 	),
 	withHandlers({
-		isUserAdmin: ({ role }) => () => (role === 0),
-		isUserControl: ({ role }) => () => (role === 1),
-		isUserAdminOrControl: ({ role }) => () => (role === 1) || (role === 0),
-		isUserSecurity: ({ role }) => () => (role === 2),
+		isUserAdmin: ({ role }) => () => (role == 0),
+		isUserControl: ({ role }) => () => (role == 1),
+		isUserAdminOrControl: ({ role }) => () => (role == 1) || (role == 0),
+		isUserSecurity: ({ role }) => () => (role == 2),
 	}),
 	lifecycle({
 		async componentDidMount() {
@@ -149,6 +149,8 @@ export default compose(
 				p.setAppLoading(true);
 				if (p.isUserAdminOrControl()) p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, role } = await Meteor.callPromise('user.get.properties');
+				console.log('role');
+				console.log(role);
 				p.setCompany(company);
 				p.setRole(role);
 				p.setAppLoading(false);
