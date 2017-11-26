@@ -26,49 +26,58 @@ const update = ({ sim, code, edata }) => {
 		newHydrant.status = 0;
 	}
 
+	///////////// update lastComm every hour
 	// Message will update LastComm field of hydrant
 	newHydrant.lastComm = moment().toISOString();
 
-	let estimatedFlow;
 	// Message will trigger status change of hydrant if needed
+	let estimatedFlow;
 	switch (code) {
 		// All OK
+		// edata <-- (edata = battery voltage)
+		// maximal frequency = 24 hours
+		// status <-- NO CHANGE
+		// edata <-- (edata = flow rate)
+		// edata <-- 0
+		// flowSum <-- 0
+		// flowSum <-- previous flowSum + edata
+		// flowDuration <-- 0
+		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 0:
-			// * No status change
 			break;
-		// Low Battery
+		// Low Battery lb
 		case 1:
 			if (status == 0) newHydrant.status = 1;
 			// status <-- Low Battery
 			break;
-		// Abused
+		// Abused 0
 		case 2:
 			if (status < 3) newHydrant.status = 3;
 			// status <-- Abused event
 			break;
-		// Normal Flow Start
+		// Normal Flow Start flow rate
 		case 3:
 			if (status < 4) newHydrant.status = 4;
 			// status <-- Normal Flow event
 			break;
-		// Normal Flow Continue
+		// Normal Flow Continue flow rate
 		case 4:
 			if (status < 4) newHydrant.status = 4;
 			// status <-- Normal Flow event
 			break;
-		// Normal Flow End
+		// Normal Flow End flow rate. sum -> estimated
 		case 5:
 			// * Will calculate total water flow from start of event and enter to events Estimated Flow field
 			estimatedFlow = 0;
 			if (status < 4) newHydrant.status = 4;
 			// status <-- Normal Flow event
 			break;
-		// Reverse Flow Start
+		// Reverse Flow Start, 0
 		case 6:
 			newHydrant.status = 5;
 			// status <-- Reverse Flow event
 			break;
-		// Reverse Flow End
+		// Reverse Flow End, 0
 		case 7:
 			estimatedFlow = 0;
 			// * No status change
@@ -77,18 +86,20 @@ const update = ({ sim, code, edata }) => {
 		default: break;
 	}
 
-	// estimate normal flow
-	// estimate reverse flow
-	// add estimatedFlow field
+	Events.find(
+		{ code: { in: [4, 3] } },
+		{ fields: { createdAt: 1, code: 1 } },
+		{ sort: { createdAt: -1 } },
+		{ limit: 1000 }
+	);
 
-	// * Need to add event auto ID ?
-	// * enter estimated data into edata or into estimated ?
-	// * Is it estimated flow or estimated time ?
-	// * When status reset to OK from either flow ?
-	// * What to to with edata ?
-	// * Message will add a line to Events table <if needed>
-	// * When to disable hydrant ?
-	// * What about the return value ?
+
+	// * What about the return value ?  200 - everytime
+	// * How ofthen the event transmitted - once a day regularly, at flow 10minutes, abused - 10minutes, lb - daily
+	// lastcom 72hours
+
+	// write errors to database
+
 
 	Events.insert({ hydrantId, code, edata, estimatedFlow });
 
