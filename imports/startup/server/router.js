@@ -31,58 +31,105 @@ const update = ({ sim, code, edata }) => {
 	newHydrant.lastComm = moment().toISOString();
 
 	// Message will trigger status change of hydrant if needed
-	let estimatedFlow;
 	switch (code) {
 		// All OK
-		// edata <-- (edata = battery voltage)
-		// maximal frequency = 24 hours
+		// max-frequency = 24 hours
 		// status <-- NO CHANGE
+		// edata <-- (edata = battery voltage)
+		case 0:
+			break;
+
+		// Low Battery
+		// max-frequency = 24 hours
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
+		case 1:
+			if (status == 0) newHydrant.status = 1;
+			break;
+
+		// Abused
+		// status <-- Abused event
+		// max-frequency = 10 minutes
+		// status <-- Low Battery
+		// edata <-- 0
+		case 2:
+			if (status < 3) newHydrant.status = 3;
+			break;
+
+		// Normal Flow Start flow rate
+		// status <-- Normal Flow event
+		// max-frequency = 10m minutes
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
+		// edata <-- (edata = flow rate)
+		// edata <-- 0
+q		// flowSum <-- 0
+		// flowSum <-- previous flowSum + edata
+		// flowDuration <-- 0
+		// flowDuration <-- previous flowDuration + calculate duration delta
+		case 3:
+			if (status < 4) newHydrant.status = 4;
+			break;
+
+		// Normal Flow Continue flow rate
+		// status <-- NO CHANGE *change from srs
+		// max-frequency = 10 minutes
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
 		// edata <-- 0
 		// flowSum <-- 0
 		// flowSum <-- previous flowSum + edata
 		// flowDuration <-- 0
 		// flowDuration <-- previous flowDuration + calculate duration delta
-		case 0:
-			break;
-		// Low Battery lb
-		case 1:
-			if (status == 0) newHydrant.status = 1;
-			// status <-- Low Battery
-			break;
-		// Abused 0
-		case 2:
-			if (status < 3) newHydrant.status = 3;
-			// status <-- Abused event
-			break;
-		// Normal Flow Start flow rate
-		case 3:
-			if (status < 4) newHydrant.status = 4;
-			// status <-- Normal Flow event
-			break;
-		// Normal Flow Continue flow rate
 		case 4:
 			if (status < 4) newHydrant.status = 4;
-			// status <-- Normal Flow event
 			break;
+
 		// Normal Flow End flow rate. sum -> estimated
+		// status <-- NO CHANGE
+		// max-frequency = 10 minutes
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
+		// edata <-- (edata = flow rate)
+		// edata <-- 0
+		// flowSum <-- 0
+		// flowSum <-- previous flowSum + edata
+		// flowDuration <-- 0
+		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 5:
-			// * Will calculate total water flow from start of event and enter to events Estimated Flow field
-			estimatedFlow = 0;
 			if (status < 4) newHydrant.status = 4;
-			// status <-- Normal Flow event
 			break;
+
 		// Reverse Flow Start, 0
+		// status <-- Reverse Flow event
+		// max-frequency = 10 minutes
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
+		// edata <-- (edata = flow rate)
+		// edata <-- 0
+		// flowSum <-- 0
+		// flowSum <-- previous flowSum + edata
+		// flowDuration <-- 0
+		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 6:
 			newHydrant.status = 5;
-			// status <-- Reverse Flow event
 			break;
+
 		// Reverse Flow End, 0
+		// status <-- NO CHANGE *change from srs
+		// max-frequency = 10 minutes
+		// status <-- Low Battery
+		// edata <-- (edata = battery voltage)
+		// edata <-- (edata = flow rate)
+		// edata <-- 0
+		// flowSum <-- 0
+		// flowSum <-- previous flowSum + edata
+		// flowDuration <-- 0
+		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 7:
-			estimatedFlow = 0;
-			// * No status change
-			// * Enter length(Time in minutes) of event since start to EventData field
 			break;
+
 		default: break;
 	}
 
