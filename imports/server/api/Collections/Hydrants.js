@@ -75,21 +75,22 @@ Hydrants.schema = new SimpleSchema({
 	},
 	lastComm: {
 		type: String,
-		max: 25,
 		label: 'Last communication date',
+		min: 24,
+		max: 24,
 		optional: true,
 	},
 	disableDate: {
 		type: String,
-		max: 25,
 		label: 'Disable date',
+		min: 24,
+		max: 24,
 		optional: true,
 	},
 	disableText: {
 		type: String,
-		max: 250,
 		label: 'Disable text',
-		defaultValue: '',
+		max: 250,
 		optional: true,
 	},
 	address: {
@@ -97,14 +98,12 @@ Hydrants.schema = new SimpleSchema({
 		max: 50,
 		label: 'Address',
 		optional: true,
-		defaultValue: '',
 	},
 	description: {
 		type: String,
 		max: 50,
 		label: 'Description',
 		optional: true,
-		defaultValue: '',
 	},
 	enabled: {
 		type: Boolean,
@@ -113,31 +112,28 @@ Hydrants.schema = new SimpleSchema({
 	},
 	bodyBarcode: {
 		type: String,
-		max: 25,
 		label: 'Body barcode',
+		max: 25,
 		optional: true,
-		defaultValue: '',
 	},
 	batchDate: {
 		type: String,
-		max: 25,
 		label: 'Batch date',
+		min: 24,
+		max: 24,
 		optional: true,
-		defaultValue: '',
 	},
 	history: {
 		type: String,
-		max: 50,
 		label: 'History',
+		max: 50,
 		optional: true,
-		defaultValue: '',
 	},
 	comments: {
 		type: String,
-		max: 50,
 		label: 'Comments',
+		max: 50,
 		optional: true,
-		defaultValue: '',
 	},
 });
 

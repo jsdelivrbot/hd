@@ -34,7 +34,7 @@ Events.schema = new SimpleSchema({
 	},
 	hydrantId: {
 		type: String,
-		label: 'Hydrant number',
+		label: 'Hydrant id',
 	},
 	code: {
 		type: Number,
@@ -45,7 +45,7 @@ Events.schema = new SimpleSchema({
 		label: 'Event data',
 		optional: true,
 	},
-	flowSum: {
+	totalFlow: {
 		type: Number,
 		label: 'Flow sum',
 		optional: true,
@@ -57,7 +57,7 @@ Events.schema = new SimpleSchema({
 	},
 });
 
-// Events.attachSchema(Events.schema);
+Events.attachSchema(Events.schema);
 
 Events.rawCollection().createIndex({ createdAt: 1 });
 Events.rawCollection().createIndex({ createdAt: -1 });
