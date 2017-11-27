@@ -39,26 +39,26 @@ const randomHydrant = (ind) => {
 		if (temp.length > 100) break;
 		else sentence2 = temp;
 	}
-	const dt = faker.date.past(1).toISOString();
+	const dt = faker.date.past(1);
 	const enabled = faker.random.boolean();
 	const companies = Companies.find({}).fetch();
 	return {
 		companyId: companies[rn(companies.length - 1)]._id,
 		sim: rn(999999999).toString(),
-		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
-		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)),
+		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
+		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		status: rn(5),
 		updatedAt: dt,
 		createdAt: dt,
-		lastComm: faker.date.past(1).toISOString(),
+		lastComm: faker.date.past(1),
 		enabled,
-		disableDate: enabled ? faker.date.past(1).toISOString() : '', // moment({ year: 1900 }).toISOString(),
+		disableDate: enabled ? faker.date.past(1) : undefined, // moment({ year: 1900 }).toISOString(),
 		address: fakeAddress(),
 		description: fakeSentence(50),
 		disableText: fakeSentence(100),
 		number: ind.toString(),
 		bodyBarcode: rn(999999999).toString(),
-		batchDate: faker.date.past(1).toISOString(),
+		batchDate: faker.date.past(1),
 		history: fakeSentence(50),
 		comments: fakeSentence(50),
 	};
@@ -69,11 +69,11 @@ const randomEvent = (hydrantId, ind) => {
 		hydrantId,
 		code: rn(7),
 		edata: faker.random.number(),
-		createdAt: faker.date.past(1).toISOString(),
+		createdAt: faker.date.past(1),
 	};
 };
 
-const fillHydrantsAndEvents = () => {
+const fillHydrantsAndEvents = (nHydrants, nEvents) => {
 	console.log('starting');
 	const first = (new Date()).getTime();
 	console.log(first);
@@ -82,7 +82,7 @@ const fillHydrantsAndEvents = () => {
 	let r;
 
 	a = [];
-	for (let i = 0; i < 1000; i += 1) {
+	for (let i = 0; i < nHydrants; i += 1) {
 		a.push(randomHydrant(i));
 	}
 	r = Hydrants.batchInsert(a);
@@ -90,13 +90,15 @@ const fillHydrantsAndEvents = () => {
 	console.log('hydrants length');
 	console.log(r.length);
 
-	a = [];
-	for (let i = 0; i < r.length; i += 1) {
-		for (let j = 0; j < 10; j += 1) {
-			a.push(randomEvent(r[i], (i * 10) + j));
+	if (nEvents) {
+		a = [];
+		for (let i = 0; i < r.length; i += 1) {
+			for (let j = 0; j < nEvents; j += 1) {
+				a.push(randomEvent(r[i], (i * nEvents) + j));
+			}
 		}
+		r = Events.batchInsert(a);
 	}
-	r = Events.batchInsert(a);
 
 	console.log('eevents length');
 	console.log(r.length);
@@ -196,7 +198,7 @@ function initDb() {
 	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	// fillCompanies();
 	// fillUsers();
-	fillHydrantsAndEvents();
+	fillHydrantsAndEvents(1000, 10);
 }
 
 function resetDb() {
@@ -212,6 +214,18 @@ function resetDb() {
 
 export { initDb, resetDb };
 
+function initSmallDb() {
+	Events.remove({});
+	Hydrants.remove({});
+	// Counts.remove({});
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10 } });
+	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
+	// fillCompanies();
+	// fillUsers();
+	fillHydrantsAndEvents(10, 0);
+}
+
+// initSmallDb();
 
 // Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
 

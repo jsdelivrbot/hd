@@ -3,6 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { incrementCounter } from 'meteor/osv:mongo-counter';
+import moment from 'moment';
 
 const Events = new Mongo.Collection('Events');
 
@@ -20,16 +21,16 @@ Events.deny({
 
 Events.schema = new SimpleSchema({
 	createdAt: {
-		type: String,
+		type: Date,
 		label: 'The date this document was created.',
-		defaultValue: (new Date()).toISOString(),
+		defaultValue: moment().toDate(),
 	},
 	updatedAt: {
-		type: String,
+		type: Date,
 		max: 25,
 		label: 'The date this document was last updated.',
 		autoValue() {
-			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
+			if (this.isInsert || this.isUpdate) return moment().toDate();
 		},
 	},
 	hydrantId: {
@@ -45,7 +46,7 @@ Events.schema = new SimpleSchema({
 		label: 'Event data',
 		optional: true,
 	},
-	totalFlow: {
+	flowTotal: {
 		type: Number,
 		label: 'Flow sum',
 		optional: true,
