@@ -144,7 +144,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// flowTotal <-- sum of previous edata from flow start
 		// flowDuration <-- delta time to flow start
 		case 8:
-			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 5 }));
+			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 8 }));
 			if (!error) _.assign(newEvent, { flowTotal, flowDuration });
 			break;
 

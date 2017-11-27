@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Companies.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Companies.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/router.js" afterPath="$PROJECT_DIR$/imports/startup/server/router.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1896">
-              <caret line="136" column="96" lean-forward="false" selection-start-line="136" selection-start-column="96" selection-end-line="136" selection-end-column="96" />
+            <state relative-caret-position="396">
+              <caret line="146" column="80" lean-forward="false" selection-start-line="146" selection-start-column="80" selection-end-line="146" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -775,7 +771,7 @@
       <workItem from="1511567716962" duration="28000" />
       <workItem from="1511567977827" duration="18000" />
       <workItem from="1511568071512" duration="2197000" />
-      <workItem from="1511604806788" duration="42806000" />
+      <workItem from="1511604806788" duration="43398000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -816,7 +812,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="839767000" />
+    <option name="totallyTimeSpent" value="840359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1450,8 +1446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1896">
-          <caret line="136" column="96" lean-forward="false" selection-start-line="136" selection-start-column="96" selection-end-line="136" selection-end-column="96" />
+        <state relative-caret-position="396">
+          <caret line="146" column="80" lean-forward="false" selection-start-line="146" selection-start-column="80" selection-end-line="146" selection-end-column="80" />
           <folding />
         </state>
       </provider>
