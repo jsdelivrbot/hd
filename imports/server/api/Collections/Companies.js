@@ -50,14 +50,12 @@ Companies.schema = new SimpleSchema({
 		label: 'Address',
 		max: 50,
 		optional: true,
-		defaultValue: '',
 	},
 	contactPerson: {
 		type: String,
 		label: 'Contact Person',
 		max: 50,
 		optional: true,
-		defaultValue: '',
 	},
 });
 

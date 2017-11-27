@@ -67,7 +67,6 @@ const randomHydrant = (ind) => {
 const randomEvent = (hydrantId, ind) => {
 	return {
 		hydrantId,
-		number: ind,
 		code: rn(7),
 		edata: faker.random.number(),
 		createdAt: faker.date.past(1).toISOString(),
@@ -190,9 +189,6 @@ const fillCompanies = () => {
 };
 
 function initDb() {
-	// resetDb();
-	// Static.remove({});
-	// Static.insert({});
 	Events.remove({});
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
@@ -212,10 +208,13 @@ function resetDb() {
 	Events.remove({});
 	Hydrants.remove({});
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
-	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
 }
 
 export { initDb, resetDb };
+
+
+// Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
+
 // fillUsers();
 // initDb();
 

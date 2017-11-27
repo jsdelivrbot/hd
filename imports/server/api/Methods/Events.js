@@ -90,7 +90,6 @@ Meteor.methods({
 			{ $match: buildFilterHydrants() },
 			{ $project: {
 				createdAt: 1,
-				number: 1,
 				code: 1,
 				edata: 1,
 				hydrantNumber: '$h.number',

@@ -26,7 +26,8 @@ const update = ({ sim, code, edata }) => {
 		newHydrant.status = 0;
 	}
 
-	///////////// update lastComm every hour
+	// lastcom 72hours
+	// update lastComm every hour
 	// Message will update LastComm field of hydrant
 	newHydrant.lastComm = moment().toISOString();
 
@@ -50,7 +51,6 @@ const update = ({ sim, code, edata }) => {
 		// Abused
 		// status <-- Abused event
 		// max-frequency = 10 minutes
-		// status <-- Low Battery
 		// edata <-- 0
 		case 2:
 			if (status < 3) newHydrant.status = 3;
@@ -59,14 +59,9 @@ const update = ({ sim, code, edata }) => {
 		// Normal Flow Start flow rate
 		// status <-- Normal Flow event
 		// max-frequency = 10m minutes
-		// status <-- Low Battery
-		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
-		// edata <-- 0
-q		// flowSum <-- 0
-		// flowSum <-- previous flowSum + edata
+		// flowSum <-- 0
 		// flowDuration <-- 0
-		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 3:
 			if (status < 4) newHydrant.status = 4;
 			break;
@@ -74,28 +69,18 @@ q		// flowSum <-- 0
 		// Normal Flow Continue flow rate
 		// status <-- NO CHANGE *change from srs
 		// max-frequency = 10 minutes
-		// status <-- Low Battery
-		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
-		// edata <-- 0
-		// flowSum <-- 0
 		// flowSum <-- previous flowSum + edata
-		// flowDuration <-- 0
 		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 4:
 			if (status < 4) newHydrant.status = 4;
 			break;
 
 		// Normal Flow End flow rate. sum -> estimated
-		// status <-- NO CHANGE
+		// status <-- NO CHANGE *change from srs
 		// max-frequency = 10 minutes
-		// status <-- Low Battery
-		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
-		// edata <-- 0
-		// flowSum <-- 0
 		// flowSum <-- previous flowSum + edata
-		// flowDuration <-- 0
 		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 5:
 			if (status < 4) newHydrant.status = 4;
@@ -104,14 +89,9 @@ q		// flowSum <-- 0
 		// Reverse Flow Start, 0
 		// status <-- Reverse Flow event
 		// max-frequency = 10 minutes
-		// status <-- Low Battery
-		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
-		// edata <-- 0
 		// flowSum <-- 0
-		// flowSum <-- previous flowSum + edata
 		// flowDuration <-- 0
-		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 6:
 			newHydrant.status = 5;
 			break;
@@ -119,13 +99,8 @@ q		// flowSum <-- 0
 		// Reverse Flow End, 0
 		// status <-- NO CHANGE *change from srs
 		// max-frequency = 10 minutes
-		// status <-- Low Battery
-		// edata <-- (edata = battery voltage)
 		// edata <-- (edata = flow rate)
-		// edata <-- 0
-		// flowSum <-- 0
 		// flowSum <-- previous flowSum + edata
-		// flowDuration <-- 0
 		// flowDuration <-- previous flowDuration + calculate duration delta
 		case 7:
 			break;
@@ -140,14 +115,6 @@ q		// flowSum <-- 0
 		{ limit: 1000 }
 	);
 
-
-	// * What about the return value ?  200 - everytime
-	// * How ofthen the event transmitted - once a day regularly, at flow 10minutes, abused - 10minutes, lb - daily
-	// lastcom 72hours
-
-	// write errors to database
-
-
 	Events.insert({ hydrantId, code, edata, estimatedFlow });
 
 	Hydrants.update({ _id: hydrantId }, { $set: newHydrant });
@@ -160,8 +127,10 @@ Picker.route('/input', (params, req, res, next) => {
 
 	const { h: sim, e: code, d: edata } = query.params;
 	if (testData({ sim, code, edata }) && update({ sim, code, edata })) {
-		res.end('success');
+		console.log('inserted events row');
 	} else {
-		res.end('nosuccess');
+		console.log('inserting error row');
 	}
+	res.statusCode = 200;
+	res.end('received input route');
 });

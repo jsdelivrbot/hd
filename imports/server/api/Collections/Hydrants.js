@@ -40,7 +40,6 @@ Hydrants.schema = new SimpleSchema({
 		type: String,
 		max: 25,
 		label: 'Company Id',
-		defaultValue: 0,
 	},
 	number: {
 		type: String,
@@ -56,14 +55,18 @@ Hydrants.schema = new SimpleSchema({
 		max: 24,
 	},
 	lat: {
-		type: Number,
+		type: String,
 		label: 'Latitude',
-		defaultValue: 0,
+		min: 9,
+		max: 9,
+		optional: true,
 	},
 	lon: {
-		type: Number,
+		type: String,
 		label: 'Longitude',
-		defaultValue: 0,
+		min: 9,
+		max: 9,
+		optional: true,
 	},
 	status: {
 		type: Number,

@@ -24,16 +24,17 @@ Events.schema = new SimpleSchema({
 		label: 'The date this document was created.',
 		defaultValue: (new Date()).toISOString(),
 	},
+	updatedAt: {
+		type: String,
+		max: 25,
+		label: 'The date this document was last updated.',
+		autoValue() {
+			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
+		},
+	},
 	hydrantId: {
 		type: String,
 		label: 'Hydrant number',
-	},
-	number: {
-		type: Number,
-		label: 'Unique event autoincrement number.',
-		autoValue() {
-			if (this.isInsert) return incrementCounter('Counts', 'EventsSerialNumber');
-		},
 	},
 	code: {
 		type: Number,
@@ -42,6 +43,17 @@ Events.schema = new SimpleSchema({
 	edata: {
 		type: Number,
 		label: 'Event data',
+		optional: true,
+	},
+	flowSum: {
+		type: Number,
+		label: 'Flow sum',
+		optional: true,
+	},
+	flowDuration: {
+		type: Number,
+		label: 'Flow duration',
+		optional: true,
 	},
 });
 

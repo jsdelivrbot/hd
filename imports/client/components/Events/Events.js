@@ -175,10 +175,10 @@ export default compose(
 								striped
 								hover
 							>
-								<TableHeaderColumn dataFormat={formatter} width="75px" dataField="rowNumber" dataAlign="left" headerAlign="center">
+								<TableHeaderColumn dataField="rowNumber" dataFormat={formatter} width="75px" dataAlign="left" headerAlign="center">
 									מס&quot;ד
 								</TableHeaderColumn>
-								<TableHeaderColumn dataSort dataFormat={formatter} width="75px" dataField="hydrantNumber" dataAlign="center" headerAlign="center">
+								<TableHeaderColumn dataField="hydrantNumber" dataSort dataFormat={formatter} width="75px" dataAlign="center" headerAlign="center">
 									מספר מזהה
 								</TableHeaderColumn>
 								<TableHeaderColumn
