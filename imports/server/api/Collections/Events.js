@@ -23,11 +23,12 @@ Events.schema = new SimpleSchema({
 	createdAt: {
 		type: Date,
 		label: 'The date this document was created.',
-		defaultValue: moment().toDate(),
+		autoValue() {
+			if (this.isInsert && !this.isSet) return moment().toDate();
+		},
 	},
 	updatedAt: {
 		type: Date,
-		max: 25,
 		label: 'The date this document was last updated.',
 		autoValue() {
 			if (this.isInsert || this.isUpdate) return moment().toDate();

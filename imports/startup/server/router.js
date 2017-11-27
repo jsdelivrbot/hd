@@ -41,10 +41,18 @@ const calculateFlow = ({ flowEndCode }) => {
 };
 
 const updateDb = ({ sim, code, edata }) => {
+	if (!_.isEmpty(edata)) {
+		edata = Number(edata);
+		if (!_.isNumber(edata)) return { error: 'Event received, faulty edata parameter' };
+	}
+
+	console.log('edata');
+	console.log(edata);
+	code = Number(code);
+
 	// Message will be accepted only if a matching <hydrantKeyID> is found
-	const hydrantCursor = Hydrants.findOne({ sim });
-	if (!hydrantCursor) return { error: 'Event received, sim not found' };
-	const hydrant = hydrantCursor.fetch();
+	const hydrant = Hydrants.findOne({ sim });
+	if (!hydrant) return { error: 'Event received, sim not found' };
 	const { _id: hydrantId, status, lastComm } = hydrant;
 
 	// Message will update LastComm field of hydrant
@@ -59,7 +67,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// status <-- NO CHANGE
 		// edata <-- (edata = battery voltage)
 		case 0:
-			if (!_.isNumber(edata) || edata < 0) return { error: 'Event received, faulty parameters' };
+			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 		// Low Battery
@@ -70,7 +78,7 @@ const updateDb = ({ sim, code, edata }) => {
 			if (status == 0) {
 				_.assign(newHydrant, { status: 1 });
 			}
-			if (!_.isNumber(edata) || edata < 0) return { error: 'Event received, faulty parameters' };
+			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -98,7 +106,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// max-frequency = 10 minutes
 		// edata <-- (edata = flow rate)
 		case 4:
-			if (!_.isNumber(edata) || edata < 0) return { error: 'Event received, faulty parameters' };
+			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -126,7 +134,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// max-frequency = 10 minutes
 		// edata <-- (edata = flow rate)
 		case 7:
-			if (!_.isNumber(edata) || edata < 0) return { error: 'Event received, faulty parameters' };
+			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -144,12 +152,10 @@ const updateDb = ({ sim, code, edata }) => {
 			return { error: 'Event received, faulty parameters' };
 	}
 
-	if (!error) {
-		Events.insert(newEvent);
-		Hydrants.update({ _id: hydrantId }, { $set: newHydrant });
-	}
+	Events.insert(newEvent);
+	Hydrants.update({ _id: hydrantId }, { $set: newHydrant });
 
-	return error;
+	return {};
 };
 
 Picker.route('/input', (params, req, res, next) => {
@@ -172,7 +178,7 @@ Picker.route('/input', (params, req, res, next) => {
 const updateHydrantStatusEveryHour = () => {
 	console.log('running no communication check');
 	// status=2=No communication
-	Hydrants.update({ createdAt: { lt: moment().subtract({ hours: 72 }).toDate() } },
+	Hydrants.update({ lastComm: { lt: moment().subtract({ hours: 72 }).toDate() } },
 		{ $set: { status: 2 } }
 	);
 };

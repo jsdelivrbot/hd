@@ -21,19 +21,17 @@ Hydrants.deny({
 
 Hydrants.schema = new SimpleSchema({
 	createdAt: {
-		type: String,
-		max: 25,
+		type: Date,
 		label: 'The date this document was created.',
 		autoValue() {
-			if (this.isInsert && !this.isSet) return (new Date()).toISOString();
+			if (this.isInsert && !this.isSet) return moment().toDate();
 		},
 	},
 	updatedAt: {
-		type: String,
-		max: 25,
+		type: Date,
 		label: 'The date this document was last updated.',
 		autoValue() {
-			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
+			if (this.isInsert || this.isUpdate) return moment().toDate();
 		},
 	},
 	companyId: {
@@ -74,17 +72,13 @@ Hydrants.schema = new SimpleSchema({
 		defaultValue: 0,
 	},
 	lastComm: {
-		type: String,
+		type: Date,
 		label: 'Last communication date',
-		min: 24,
-		max: 24,
 		optional: true,
 	},
 	disableDate: {
-		type: String,
+		type: Date,
 		label: 'Disable date',
-		min: 24,
-		max: 24,
 		optional: true,
 	},
 	disableText: {
@@ -117,10 +111,8 @@ Hydrants.schema = new SimpleSchema({
 		optional: true,
 	},
 	batchDate: {
-		type: String,
+		type: Date,
 		label: 'Batch date',
-		min: 24,
-		max: 24,
 		optional: true,
 	},
 	history: {

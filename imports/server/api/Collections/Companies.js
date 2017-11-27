@@ -3,6 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { incrementCounter } from 'meteor/osv:mongo-counter';
+import moment from 'moment';
 
 const Companies = new Mongo.Collection('Companies');
 
@@ -20,17 +21,17 @@ Companies.deny({
 
 Companies.schema = new SimpleSchema({
 	createdAt: {
-		type: String,
+		type: Date,
 		label: 'The date this document was created.',
 		autoValue() {
-			if (this.isInsert && !this.isSet) return (new Date()).toISOString();
+			if (this.isInsert && !this.isSet) return moment().toDate();
 		},
 	},
 	updatedAt: {
-		type: String,
+		type: Date,
 		label: 'The date this document was last updated.',
 		autoValue() {
-			if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
+			if (this.isInsert || this.isUpdate) return moment().toDate();
 		},
 	},
 	number: {
