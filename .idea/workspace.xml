@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/startup/server/router.js" afterPath="$PROJECT_DIR$/imports/startup/server/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +33,8 @@
       <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="227" column="0" lean-forward="false" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+            <state relative-caret-position="-90">
+              <caret line="47" column="35" lean-forward="false" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -46,8 +43,8 @@
       <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="715">
-              <caret line="223" column="34" lean-forward="true" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+            <state relative-caret-position="-1764">
+              <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -154,9 +151,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.log</find>
-      <find>time</find>
-      <find>fixtur</find>
       <find>MAIL</find>
       <find>staging</find>
       <find>collect/</find>
@@ -184,10 +178,11 @@
       <find>e=</find>
       <find>ind</find>
       <find>lodash</find>
+      <find>552282329</find>
+      <find>sleep</find>
+      <find>isNumber</find>
     </findStrings>
     <replaceStrings>
-      <replace>set</replace>
-      <replace>selectedCompanyId</replace>
       <replace>nrow</replace>
       <replace>editRow.row.companyId</replace>
       <replace>assignEditRow</replace>
@@ -216,6 +211,8 @@
       <replace>flowTotal</replace>
       <replace>if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };</replace>
       <replace>c=</replace>
+      <replace>111</replace>
+      <replace>isFinite</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -390,8 +387,8 @@
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Companies.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/router.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/router.js" />
       </list>
     </option>
   </component>
@@ -537,6 +534,12 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="pup" type="cbb8eebc:String" user="pup" />
               <item name="imports" type="cbb8eebc:String" user="imports" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="server" type="cbb8eebc:String" user="server" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
@@ -694,7 +697,7 @@
       <workItem from="1511567716962" duration="28000" />
       <workItem from="1511567977827" duration="18000" />
       <workItem from="1511568071512" duration="2197000" />
-      <workItem from="1511604806788" duration="50707000" />
+      <workItem from="1511604806788" duration="52373000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -735,7 +738,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="847668000" />
+    <option name="totallyTimeSpent" value="849334000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1361,16 +1364,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/fixtures.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="227" column="0" lean-forward="false" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
+        <state relative-caret-position="-90">
+          <caret line="47" column="35" lean-forward="false" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="223" column="34" lean-forward="true" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+        <state relative-caret-position="-1764">
+          <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
           <folding />
         </state>
       </provider>

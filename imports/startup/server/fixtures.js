@@ -45,7 +45,7 @@ const randomHydrant = (ind, sim) => {
 	const companies = Companies.find({}).fetch();
 	return {
 		companyId: companies[rn(companies.length - 1)]._id,
-		sim: sim || rn(999999999).toString(),
+		sim: sim ? sim.toString() : rn(999999999).toString(),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		status: rn(5),
@@ -213,19 +213,20 @@ function resetDb() {
 	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 }
 
-export { initDb, resetDb };
-
 function initTestDb() {
 	Events.remove({});
 	Hydrants.remove({});
 	// Counts.remove({});
-	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10 } });
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 3 } });
 	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	// fillCompanies();
 	// fillUsers();
 	const sims = [111, 222, 333];
 	fillHydrantsAndEvents(3, 0, sims);
 }
+
+export { initTestDb, initDb, resetDb };
+
 
 // initSmallDb();
 
