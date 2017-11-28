@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Picker } from 'meteor/meteorhacks:picker';
 import _ from 'lodash';
 import moment from 'moment';
+import axios from 'axios';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Events from '../../server/api/Collections/Events';
 import Errors from '../../server/api/Collections/Errors';
@@ -26,13 +27,13 @@ const calculateFlow = ({ flowEndCode }) => {
 		.value();
 
 	// Any flow-continue events?
-	if (flows.length < 1) return { error: 'Event received, no flow continue event' };
-
+	if (flows.length < 1) return { error: `Event received, no flow continue ${flowContinueCode} event` };
+	
 	// Read one before
 	const { code, startCreatedAt } = _.head(events);
 
 	// Is it flow-start event
-	if (code != flowStartCode) return { error: 'Event received, no flow start event' };
+	if (code != flowStartCode) return { error: `Event received, no flow continue ${flowStartCode} event` };
 
 	return ({
 		flowTotal: _.sum(flows),
@@ -67,7 +68,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// status <-- NO CHANGE
 		// edata <-- (edata = battery voltage)
 		case 0:
-			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
+			if (!_.isNumber(edata)) return { error: 'Event received, case 0 missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 		// Low Battery
@@ -78,7 +79,7 @@ const updateDb = ({ sim, code, edata }) => {
 			if (status == 0) {
 				_.assign(newHydrant, { status: 1 });
 			}
-			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
+			if (!_.isNumber(edata)) return { error: 'Event received, case 1 missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -106,7 +107,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// max-frequency = 10 minutes
 		// edata <-- (edata = flow rate)
 		case 4:
-			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
+			if (!_.isNumber(edata)) return { error: 'Event received, case 4 missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -117,7 +118,8 @@ const updateDb = ({ sim, code, edata }) => {
 		// flowDuration <-- delta time to flow start
 		case 5:
 			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 5 }));
-			if (!error) _.assign(newEvent, { flowTotal, flowDuration });
+			if (error) return { error };
+			_.assign(newEvent, { flowTotal, flowDuration });
 			break;
 
 		// Reverse Flow Start flow rate
@@ -134,7 +136,7 @@ const updateDb = ({ sim, code, edata }) => {
 		// max-frequency = 10 minutes
 		// edata <-- (edata = flow rate)
 		case 7:
-			if (!_.isNumber(edata)) return { error: 'Event received, missing edata parameter' };
+			if (!_.isNumber(edata)) return { error: 'Event received, case 7 missing edata parameter' };
 			_.assign(newEvent, { edata });
 			break;
 
@@ -145,12 +147,18 @@ const updateDb = ({ sim, code, edata }) => {
 		// flowDuration <-- delta time to flow start
 		case 8:
 			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 8 }));
-			if (!error) _.assign(newEvent, { flowTotal, flowDuration });
+			if (error) return { error };
+			_.assign(newEvent, { flowTotal, flowDuration });
 			break;
 
 		default:
-			return { error: 'Event received, faulty parameters' };
+			return { error: 'Event received, faulty code parameter' };
 	}
+
+	console.log('newEvent');
+	console.log(newEvent);
+	console.log('newHydrant');
+	console.log(newHydrant);
 
 	Events.insert(newEvent);
 	Hydrants.update({ _id: hydrantId }, { $set: newHydrant });
@@ -159,15 +167,12 @@ const updateDb = ({ sim, code, edata }) => {
 };
 
 Picker.route('/input', (params, req, res, next) => {
-	const { h: sim, e: code, d: edata } = params.query;
+	const { h: sim, c: code, d: edata } = params.query;
 	const { error } = updateDb({ sim, code, edata });
 	if (error) {
-		console.log('inserting error row');
 		console.log('error');
 		console.log(error);
 		Errors.insert({ description: error });
-	} else {
-		console.log('inserted events row');
 	}
 	res.statusCode = 200;
 	res.end('received input route');
@@ -183,3 +188,48 @@ const updateHydrantStatusEveryHour = () => {
 	);
 };
 Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 1000);
+
+const test = async () => {
+	// Faulty parameters
+	console.log('should be: faulty edata parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=0&d=a');
+
+	console.log('should be: sim not found');
+	await axios.get('http://localhost:3000/input?h=99999999999&c=0&d=a');
+
+	console.log('should be: case 0 missing edata parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=0&d=');
+
+	console.log('should be: case 1 missing edata parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=1&d=');
+
+	console.log('should be: case 4 missing edata parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=4&d=');
+
+	console.log('should be: case 7 missing edata parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=7&d=');
+
+	console.log('should be: faulty code parameter');
+	await axios.get('http://localhost:3000/input?h=552282329&c=9&d=0');
+
+
+	// Insertations
+	console.log('should be: inserting code 0 ok event, no status change');
+	await axios.get('http://localhost:3000/input?h=552282329&c=0&d=0');
+
+	console.log('should be: inserting code 0 low battery event, updating status 1');
+	await axios.get('http://localhost:3000/input?h=552282329&c=1&d=0');
+
+	console.log('should be: inserting code 0 abused event, updating status 3');
+	await axios.get('http://localhost:3000/input?h=552282329&c=2&d=');
+
+
+
+	Events.remove({});
+	console.log('should be: no flow continue 4 event');
+	await axios.get('http://localhost:3000/input?h=552282329&c=5&d=');
+	console.log('should be: inserting code 4 event');
+	await axios.get('http://localhost:3000/input?h=552282329&c=4&d=0');
+};
+Meteor.setTimeout(test, 1000);
+

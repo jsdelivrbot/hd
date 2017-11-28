@@ -3,6 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Mongo } from 'meteor/mongo';
 import faker from 'faker';
 import moment from 'moment';
+import _ from 'lodash';
 import seeder from './seeder';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Companies from '../../server/api/Collections/Companies';
@@ -26,7 +27,7 @@ const fakeSentence = (len) => {
 
 const fakeAddress = () => `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`;
 
-const randomHydrant = (ind) => {
+const randomHydrant = (ind, sim) => {
 	let sentence1 = '';
 	for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
 		const temp = `${sentence1} ${words[rn(words.length)]}`;
@@ -44,7 +45,7 @@ const randomHydrant = (ind) => {
 	const companies = Companies.find({}).fetch();
 	return {
 		companyId: companies[rn(companies.length - 1)]._id,
-		sim: rn(999999999).toString(),
+		sim: sim || rn(999999999).toString(),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		status: rn(5),
@@ -73,7 +74,7 @@ const randomEvent = (hydrantId, ind) => {
 	};
 };
 
-const fillHydrantsAndEvents = (nHydrants, nEvents) => {
+const fillHydrantsAndEvents = (nHydrants, nEvents, sims) => {
 	console.log('starting');
 	const first = (new Date()).getTime();
 	console.log(first);
@@ -83,7 +84,7 @@ const fillHydrantsAndEvents = (nHydrants, nEvents) => {
 
 	a = [];
 	for (let i = 0; i < nHydrants; i += 1) {
-		a.push(randomHydrant(i));
+		a.push(randomHydrant(i, _.get(sims, [i])));
 	}
 	r = Hydrants.batchInsert(a);
 
@@ -214,7 +215,7 @@ function resetDb() {
 
 export { initDb, resetDb };
 
-function initSmallDb() {
+function initTestDb() {
 	Events.remove({});
 	Hydrants.remove({});
 	// Counts.remove({});
@@ -222,7 +223,8 @@ function initSmallDb() {
 	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	// fillCompanies();
 	// fillUsers();
-	fillHydrantsAndEvents(10, 0);
+	const sims = [111, 222, 333];
+	fillHydrantsAndEvents(3, 0, sims);
 }
 
 // initSmallDb();
