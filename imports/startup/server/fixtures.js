@@ -27,7 +27,7 @@ const fakeSentence = (len) => {
 
 const fakeAddress = () => `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`;
 
-const randomHydrant = (ind, sim) => {
+const randomHydrant = (ind, sim, status) => {
 	let sentence1 = '';
 	for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
 		const temp = `${sentence1} ${words[rn(words.length)]}`;
@@ -48,7 +48,7 @@ const randomHydrant = (ind, sim) => {
 		sim: sim ? sim.toString() : rn(999999999).toString(),
 		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
-		status: rn(5),
+		status: sim ? 0 : rn(5),
 		updatedAt: dt,
 		createdAt: dt,
 		lastComm: faker.date.past(1),
