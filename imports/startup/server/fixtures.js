@@ -43,26 +43,27 @@ const randomHydrant = (ind, sim, status) => {
 	const dt = faker.date.past(1);
 	const enabled = faker.random.boolean();
 	const companies = Companies.find({}).fetch();
-	return {
+	const obj = {
 		companyId: companies[rn(companies.length - 1)]._id,
 		sim: sim ? sim.toString() : rn(999999999).toString(),
-		lat: Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
-		lon: Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString(),
 		status: sim ? 0 : rn(5),
 		updatedAt: dt,
 		createdAt: dt,
-		lastComm: faker.date.past(1),
 		enabled,
-		disableDate: enabled ? faker.date.past(1) : undefined, // moment({ year: 1900 }).toISOString(),
-		address: fakeAddress(),
-		description: fakeSentence(50),
-		disableText: fakeSentence(100),
 		number: ind.toString(),
-		bodyBarcode: rn(999999999).toString(),
-		batchDate: faker.date.past(1),
-		history: fakeSentence(50),
-		comments: fakeSentence(50),
 	};
+	if (faker.random.boolean() && !sim) obj.lastComm = faker.date.past(1);
+	if (faker.random.boolean()) obj.disableText = fakeSentence(100);
+	if (faker.random.boolean()) obj.description = fakeSentence(50);
+	if (faker.random.boolean()) obj.bodyBarcode = rn(999999999).toString();
+	if (faker.random.boolean()) obj.batchDate = faker.date.past(1);
+	if (faker.random.boolean()) obj.history = fakeSentence(50);
+	if (faker.random.boolean()) obj.comments = fakeSentence(50);
+	if (faker.random.boolean()) obj.address = fakeAddress();
+	if (enabled && faker.random.boolean()) obj.disableDate = faker.date.past(1);
+	if (faker.random.boolean()) obj.lat = Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString();
+	if (faker.random.boolean()) obj.lon = Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString();
+	return obj;
 };
 
 const randomEvent = (hydrantId, ind) => {

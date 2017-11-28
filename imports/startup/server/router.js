@@ -188,7 +188,7 @@ Picker.route('/input', (params, req, res, next) => {
 const updateHydrantStatusEveryHour = () => {
 	console.log('running no communication check');
 	// status=2=No communication
-	Hydrants.update({ lastComm: { lt: moment().subtract({ hours: 72 }).toDate() } },
+	Hydrants.update({ lastComm: { $lt: moment().subtract({ hours: 72 }).toDate() } },
 		{ $set: { status: 2 } }
 	);
 };
@@ -197,16 +197,15 @@ Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 1000);
 const test = async () => {
 	initTestDb();
 	// Update status with no communication
-	console.log('here');
-	Hydrants.update({ sim: '111' }, { $set: { lastComm: moment().subtract({ hours: 73 }) } });
-	Hydrants.update({ sim: '222' }, { $set: { lastComm: moment().subtract({ hours: 71 }) } });
+	Hydrants.update({ sim: '111' }, { $set: { lastComm: moment().subtract({ hours: 73 }).toDate() } });
+	Hydrants.update({ sim: '222' }, { $set: { lastComm: moment().subtract({ hours: 71 }).toDate() } });
 	updateHydrantStatusEveryHour();
 	console.log('should be: status == 2');
-	console.log(Hydrants.findOne({ _id: '111' }).status);
+	console.log(Hydrants.findOne({ sim: '111' }).status);
 	console.log('should be: status != 2');
-	console.log(Hydrants.findOne({ _id: '222' }).status);
+	console.log(Hydrants.findOne({ sim: '222' }).status);
 	console.log('should be: status != 2');
-	console.log(Hydrants.findOne({ _id: '333' }).status);
+	console.log(Hydrants.findOne({ sim: '333' }).status);
 
 	// Faulty parameters
 	console.log('should be: faulty edata parameter');
@@ -285,4 +284,4 @@ const test = async () => {
 	console.log('should be: inserting code 8 flow end event, flowTotal=100 flowDuration=20, no status change');
 	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
 };
-Meteor.setTimeout(test, 1000);
+// Meteor.setTimeout(test, 1000);
