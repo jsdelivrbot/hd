@@ -33,7 +33,7 @@ class ResetPassword extends React.Component {
 				},
 				repeatNewPassword: {
 					required: 'חזורעל הסיסמה בבקשה',
-					equalTo: 'נראה שהססמאות לא תואמות, האם תרצה לנסות שוב?',
+					equalTo: 'נראה שהסיסמאות לא תואמות, האם תרצה לנסות שוב?',
 				},
 			},
 			submitHandler() {
@@ -59,32 +59,32 @@ class ResetPassword extends React.Component {
 		return (<div className="ResetPassword">
 			<Row>
 				<Col xs={12} sm={6} md={4}>
-					<h4 className="page-header">Reset Password</h4>
+					<h4 className="page-header">איפוס סיסמה</h4>
 					<Alert bsStyle="info">
-						על מנת לאפס את ססמתך, הכנס ססמה חדשה כאן מתחת. אתה תוכנס עם ססמתך החדשה.
+						על מנת לאפס את סיסמתך, הכנס סיסמה חדשה כאן מתחת. אתה תוכנס עם סיסמתך החדשה.
 					</Alert>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
-							<ControlLabel>ססמה חדשה</ControlLabel>
+							<ControlLabel>סיסמה חדשה</ControlLabel>
 							<input
 								type="password"
 								className="form-control"
 								ref={newPassword => (this.newPassword = newPassword)}
 								name="newPassword"
-								placeholder="New Password"
+								placeholder="סיסמה חדשה"
 							/>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel>חזור על הססמה החדשה</ControlLabel>
+							<ControlLabel>חזור על הסיסמה החדשה</ControlLabel>
 							<input
 								type="password"
 								className="form-control"
 								ref={repeatNewPassword => (this.repeatNewPassword = repeatNewPassword)}
 								name="repeatNewPassword"
-								placeholder="Repeat New Password"
+								placeholder="חזור על סיסמה חדשה"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">ססמה חדשה &amp; כניסה</Button>
+						<Button type="submit" bsStyle="success">סיסמה חדשה וכניסה</Button>
 					</form>
 				</Col>
 			</Row>

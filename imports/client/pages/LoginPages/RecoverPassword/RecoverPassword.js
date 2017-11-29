@@ -69,7 +69,7 @@ class RecoverPassword extends React.Component {
 						</FormGroup>
 						<Button type="submit" bsStyle="success">שחזר סיסמה</Button>
 						<AccountPageFooter>
-							<p>האם אתה זוכר את ססמתך? <Link to="/login">היכנס</Link>.</p>
+							<p>האם אתה זוכר את סיסמתך? <Link to="/login">היכנס</Link>.</p>
 						</AccountPageFooter>
 					</form>
 				</Col>
