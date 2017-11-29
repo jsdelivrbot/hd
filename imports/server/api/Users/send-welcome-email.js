@@ -5,7 +5,7 @@ import getOAuthProfile from '../../../modules/get-oauth-profile';
 export default (options, user) => {
 	const OAuthProfile = getOAuthProfile(options, user);
 
-	const applicationName = 'ניהול הידרנטים';
+	const applicationName = Meteor.settings.private.APPLICATION_NAME;
 	const firstName = OAuthProfile ? OAuthProfile.name.first : options.profile.name.first;
 	const emailAddress = OAuthProfile ? OAuthProfile.email : options.email;
 

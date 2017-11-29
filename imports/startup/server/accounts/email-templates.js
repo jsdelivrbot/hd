@@ -4,8 +4,8 @@ import getPrivateFile from '../../../server/Utils/get-private-file';
 import templateToHTML from '../../../server/Utils/handlebars-email-to-html';
 import templateToText from '../../../server/Utils/handlebars-email-to-text';
 
-const name = 'Application Name';
-const email = '<support@application.com>';
+const name = Meteor.settings.private.APPLICATION_NAME;
+const email = `<${Meteor.settings.private.APPLICATION_EMAIL}>`;
 const from = `${name} ${email}`;
 const emailTemplates = Accounts.emailTemplates;
 
@@ -38,15 +38,20 @@ emailTemplates.resetPassword = {
 		return `[${name}] אפס את סיסמתך`;
 	},
 	html(user, url) {
+		let newUrl = url.replace('#/', '');
+		if (newUrl.search('localhost') < 0) newUrl = newUrl.replace('http://', 'http://www.');
+		console.log(newUrl);
 		return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
 			firstName: user.profile.name.first,
 			applicationName: name,
 			emailAddress: user.emails[0].address,
-			resetUrl: `www.${url.replace('#/', '')}`,
+			resetUrl: newUrl,
 		});
 	},
 	text(user, url) {
-		const urlWithoutHash = `www.${url.replace('#/', '')}`;
+		let newUrl = url.replace('#/', '');
+		if (newUrl.search('localhost') < 0) newUrl = newUrl.replace('http://', 'http://www.');
+		const urlWithoutHash = newUrl;
 		if (Meteor.isDevelopment) console.info(`Reset Password Link: ${urlWithoutHash}`); // eslint-disable-line
 		return templateToText(getPrivateFile('email-templates/reset-password.txt'), {
 			firstName: user.profile.name.first,
