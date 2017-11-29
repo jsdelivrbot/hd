@@ -61,12 +61,11 @@ class ResetPassword extends React.Component {
 				<Col xs={12} sm={6} md={4}>
 					<h4 className="page-header">Reset Password</h4>
 					<Alert bsStyle="info">
-						To reset your password, enter a new one below. You will be logged in
-						with your new password.
+						על מנת לאפס את ססמתך, הכנס ססמה חדשה כאן מתחת. אתה תוכנס עם ססמתך החדשה.
 					</Alert>
 					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
-							<ControlLabel>New Password</ControlLabel>
+							<ControlLabel>ססמה חדשה</ControlLabel>
 							<input
 								type="password"
 								className="form-control"
@@ -76,7 +75,7 @@ class ResetPassword extends React.Component {
 							/>
 						</FormGroup>
 						<FormGroup>
-							<ControlLabel>Repeat New Password</ControlLabel>
+							<ControlLabel>חזור על הססמה החדשה</ControlLabel>
 							<input
 								type="password"
 								className="form-control"
@@ -85,7 +84,7 @@ class ResetPassword extends React.Component {
 								placeholder="Repeat New Password"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">Reset Password &amp; Login</Button>
+						<Button type="submit" bsStyle="success">ססמה חדשה &amp; כניסה</Button>
 					</form>
 				</Col>
 			</Row>

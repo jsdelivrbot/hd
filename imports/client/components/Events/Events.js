@@ -223,13 +223,15 @@ export default compose(
 				</Flex>
 				{!p._id ?
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
-						סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {p.company.name}:  {p.cntAllUnits} <br />
+						סה&quot;כ ארועים בהידרנטים :  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
 					: ''}
 			</div>
 		);
 	});
+
+// סה&quot;כ ארועים בהידרנטים ברחבי תאגיד {p.company.name}:  {p.cntAllUnits} <br />
 
 // shouldUpdate((props, nextProps) => !shallowEqual(props, nextProps)),
 

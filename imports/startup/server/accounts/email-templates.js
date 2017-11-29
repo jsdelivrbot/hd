@@ -35,7 +35,7 @@ emailTemplates.verifyEmail = {
 
 emailTemplates.resetPassword = {
 	subject() {
-		return `[${name}] Reset Your Password`;
+		return `[${name}] אפס את ססמתך`;
 	},
 	html(user, url) {
 		return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
@@ -59,7 +59,7 @@ emailTemplates.resetPassword = {
 
 emailTemplates.enrollAccount = {
 	subject() {
-		return `[${name}] Reset Your Password`;
+		return `[${name}] אפס את ססמתך`;
 	},
 	html(user, url) {
 		let newUrl = url.replace('#/', '');

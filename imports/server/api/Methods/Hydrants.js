@@ -10,8 +10,10 @@ import { sleep } from '../../Utils/utils';
 function buildFilter(fromFilter) {
 	const filter = {};
 
-	filter.companyId = Meteor.user().companyId;
-	if (roles.isUserControl()) filter.enabled = true;
+	if (roles.isUserControl()) {
+		filter.companyId = Meteor.user().companyId;
+		filter.enabled = true;
+	}
 	if (fromFilter) {
 		if (fromFilter.number) {
 			filter.number = { $regex: `${fromFilter.number}` };
