@@ -66,8 +66,6 @@ Events.rawCollection().createIndex({ createdAt: -1 });
 
 Events.rawCollection().createIndex({ hydrantId: 1 });
 Events.rawCollection().createIndex({ hydrantId: -1 });
-Events.rawCollection().createIndex({ number: 1 });
-Events.rawCollection().createIndex({ number: -1 });
 Events.rawCollection().createIndex({ code: 1 });
 Events.rawCollection().createIndex({ code: -1 });
 

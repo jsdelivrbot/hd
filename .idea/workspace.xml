@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/router.js" afterPath="$PROJECT_DIR$/imports/startup/server/router.js" />
+      <change beforePath="$PROJECT_DIR$/imports/client/stylesheets/semantic.rtl.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/imports/client/stylesheets/semantic.rtl.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
+      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,11 +42,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2970">
-              <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/app.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,8 +115,8 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="5" column="15" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="1590">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -123,18 +135,18 @@
       <file leaf-file-name="Companies.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="-1350">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+            <state relative-caret-position="600">
+              <caret line="145" column="42" lean-forward="true" selection-start-line="145" selection-start-column="42" selection-end-line="145" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -161,7 +173,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>MAIL</find>
       <find>staging</find>
       <find>collect/</find>
       <find>resetDb</find>
@@ -191,6 +202,7 @@
       <find>552282329</find>
       <find>sleep</find>
       <find>isNumber</find>
+      <find>lat</find>
     </findStrings>
     <replaceStrings>
       <replace>nrow</replace>
@@ -394,11 +406,11 @@
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Static.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Companies.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/router.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Collections/Events.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js" />
       </list>
     </option>
   </component>
@@ -575,6 +587,21 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="pup" type="cbb8eebc:String" user="pup" />
               <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="server" type="cbb8eebc:String" user="server" />
+              <item name="api" type="cbb8eebc:String" user="api" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="server" type="cbb8eebc:String" user="server" />
+              <item name="api" type="cbb8eebc:String" user="api" />
+              <item name="Collections" type="cbb8eebc:String" user="Collections" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
               <item name="startup" type="cbb8eebc:String" user="startup" />
             </path>
             <path>
@@ -597,7 +624,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
-    <property name="settings.editor.selected.configurable" value="project.scopes" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.meteor.project" value="true" />
     <property name="js.meteor.library.was.enabled" value="true" />
@@ -729,7 +756,7 @@
       <workItem from="1511568071512" duration="2197000" />
       <workItem from="1511604806788" duration="58437000" />
       <workItem from="1511885550498" duration="1200000" />
-      <workItem from="1511886910391" duration="3058000" />
+      <workItem from="1511886910391" duration="4048000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -770,7 +797,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="859656000" />
+    <option name="totallyTimeSpent" value="860646000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -780,6 +807,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.50319827" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -796,7 +824,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -825,7 +852,6 @@
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/Css/Companies.scss" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/components/CompanyEditor/CompanyEditor.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/Css/MultiSelect.scss" />
-    <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/semantic.rtl.css" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/NewUser/Signup.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Css/Users.scss">
       <provider selected="true" editor-type-id="text-editor">
@@ -1170,13 +1196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/client/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1353,30 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="5" column="15" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/Main/App/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4770">
@@ -1395,8 +1390,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2970">
-          <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/semantic.rtl.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/stylesheets/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Companies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1350">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1590">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="145" column="42" lean-forward="true" selection-start-line="145" selection-start-column="42" selection-end-line="145" selection-end-column="42" />
           <folding />
         </state>
       </provider>

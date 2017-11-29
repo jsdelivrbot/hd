@@ -145,5 +145,9 @@ Hydrants.rawCollection().createIndex({ lastComm: 1 });
 Hydrants.rawCollection().createIndex({ lastComm: -1 });
 Hydrants.rawCollection().createIndex({ enabled: 1 });
 Hydrants.rawCollection().createIndex({ enabled: -1 });
+Hydrants.rawCollection().createIndex({ description: 1 });
+Hydrants.rawCollection().createIndex({ description: -1 });
+Hydrants.rawCollection().createIndex({ address: 1 });
+Hydrants.rawCollection().createIndex({ address: -1 });
 
 export default Hydrants;
