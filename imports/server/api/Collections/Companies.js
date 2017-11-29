@@ -35,10 +35,10 @@ Companies.schema = new SimpleSchema({
 		},
 	},
 	number: {
-		type: String,
+		type: SimpleSchema.Integer,
 		label: 'Unique hydrant serial number.',
 		autoValue() {
-			if (this.isInsert) return String(incrementCounter('Counts', 'CompaniesSerialNumber'));
+			if (this.isInsert) return incrementCounter('Counts', 'CompaniesSerialNumber');
 		},
 	},
 	name: {

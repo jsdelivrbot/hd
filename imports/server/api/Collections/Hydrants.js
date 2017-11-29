@@ -40,11 +40,10 @@ Hydrants.schema = new SimpleSchema({
 		label: 'Company Id',
 	},
 	number: {
-		type: String,
-		max: 25,
+		type: SimpleSchema.Integer,
 		label: 'Unique hydrant serial number.',
 		autoValue() {
-			if (this.isInsert) return String(incrementCounter('Counts', 'HydrantsSerialNumber'));
+			if (this.isInsert) return incrementCounter('Counts', 'HydrantsSerialNumber');
 		},
 	},
 	sim: {
@@ -53,21 +52,19 @@ Hydrants.schema = new SimpleSchema({
 		max: 24,
 	},
 	lat: {
-		type: String,
+		type: Number,
 		label: 'Latitude',
-		min: 9,
-		max: 9,
+		max: 99.999999,
 		optional: true,
 	},
 	lon: {
-		type: String,
+		type: Number,
 		label: 'Longitude',
-		min: 9,
-		max: 9,
+		max: 99.999999,
 		optional: true,
 	},
 	status: {
-		type: Number,
+		type: SimpleSchema.Integer,
 		label: 'Status',
 		defaultValue: 0,
 	},

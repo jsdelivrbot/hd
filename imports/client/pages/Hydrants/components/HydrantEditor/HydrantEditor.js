@@ -56,8 +56,8 @@ class HydrantEditor extends React.Component {
 				comments: { maxlength: 50 },
 			},
 			messages: {
-				lat: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456', minlength: 'הפורמט: 12.123456' },
-				lon: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456', minlength: 'הפורמט: 12.123456' },
+				lat: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456' },
+				lon: { number: 'הפורמט: 12.123456', maxlength: 'הפורמט: 12.123456' },
 				sim: { required: 'נא לציין מספר סים', maxlength: 'אורך מקסימלי 24' },
 				disableText: { maxlength: 'אורך מקסימלי 250' },
 				address: { maxlength: 'אורך מקסימלי 50' },
@@ -79,21 +79,21 @@ class HydrantEditor extends React.Component {
 
 		const data = {
 			sim: this.sim.value,
-			lat: this.lat.value,
-			lon: this.lon.value,
 			status: this.state.status,
-			disableDate: this.state.disableDate ? this.state.disableDate.toISOString() : '',
-			disableText: this.disableText.value,
-			lastComm: this.state.lastComm ? this.state.lastComm.toISOString() : '',
-			address: this.address.value,
-			description: this.description.value,
 			enabled: this.enabled.checked,
-			bodyBarcode: this.bodyBarcode.value,
-			batchDate: this.state.batchDate ? this.state.batchDate.toISOString() : '',
-			history: this.history.value,
-			comments: this.comments.value,
 			companyId: this.state.companyId,
 		};
+		if (this.lat.value) data.lat = this.lat.value;
+		if (this.lon.value) data.lon = this.lon.value;
+		if (this.disableText.value) data.disableText = this.disableText.value;
+		if (this.address.value) data.address = this.address.value;
+		if (this.description.value) data.description = this.description.value;
+		if (this.bodyBarcode.value) data.bodyBarcode = this.bodyBarcode.value;
+		if (this.history.value) data.history = this.history.value;
+		if (this.comments.value) data.comments = this.comments.value;
+		if (this.state.batchDate) data.batchDate = this.state.batchDate.toDate();
+		if (this.state.lastComm) data.lastComm = this.state.lastComm.toDate();
+		if (this.state.disableDate) data.disableDate = this.state.disableDate.toDate();
 
 		if (existingHydrant) data._id = existingHydrant;
 

@@ -31,9 +31,6 @@ const calculateFlow = ({ flowEndCode }) => {
 		.map('edata')
 		.value();
 
-	console.log('events');
-	console.log(events);
-
 	// Any flow-continue events?
 	if (flows.length < 1) return { error: `Event received, no flow continue ${flowContinueCode} event` };
 
@@ -59,7 +56,7 @@ const updateDb = ({ sim, code, edata }) => {
 	// Message will be accepted only if a matching <hydrantKeyID> is found
 	const hydrant = Hydrants.findOne({ sim });
 	if (!hydrant) return { error: 'Event received, sim not found' };
-	const { _id: hydrantId, status, lastComm } = hydrant;
+	const { _id: hydrantId, status } = hydrant;
 
 	// Message will update LastComm field of hydrant
 	const newHydrant = { lastComm: moment().toDate() };
@@ -159,11 +156,6 @@ const updateDb = ({ sim, code, edata }) => {
 		default:
 			return { error: 'Event received, faulty code parameter' };
 	}
-
-	console.log('newEvent');
-	console.log(newEvent);
-	console.log('newHydrant');
-	console.log(newHydrant);
 
 	Events.insert(newEvent);
 	Hydrants.update({ _id: hydrantId }, { $set: newHydrant });

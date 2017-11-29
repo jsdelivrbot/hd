@@ -39,7 +39,7 @@ Events.schema = new SimpleSchema({
 		label: 'Hydrant id',
 	},
 	code: {
-		type: Number,
+		type: SimpleSchema.Integer,
 		label: 'Event code',
 	},
 	edata: {

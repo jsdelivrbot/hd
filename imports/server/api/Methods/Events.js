@@ -13,7 +13,7 @@ function buildFilterEvents(fromFilter) {
 
 	if (fromFilter.createdAt) {
 		const choose = { 0: 1, 1: 7, 2: 30, 3: 90, 4: 365 };
-		filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toISOString() };
+		filter.createdAt = { $gt: moment().subtract(choose[fromFilter.createdAt] || 10000, 'days').toDate() };
 	}
 
 	if (!_.isEmpty(fromFilter.code)) {

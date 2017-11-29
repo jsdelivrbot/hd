@@ -27,7 +27,7 @@ const fakeSentence = (len) => {
 
 const fakeAddress = () => `${cities[rn(cities.length - 1)]} ${streets[rn(streets.length - 1)]} ${rn(99)}`;
 
-const randomHydrant = (ind, sim, status) => {
+const randomHydrant = (ind, sim) => {
 	let sentence1 = '';
 	for (let i = 0; i <= rn({ min: 5, max: 10 }); i += 1) {
 		const temp = `${sentence1} ${words[rn(words.length)]}`;
@@ -50,7 +50,7 @@ const randomHydrant = (ind, sim, status) => {
 		updatedAt: dt,
 		createdAt: dt,
 		enabled,
-		number: ind.toString(),
+		number: ind,
 	};
 	if (faker.random.boolean() && !sim) obj.lastComm = faker.date.past(1);
 	if (faker.random.boolean()) obj.disableText = fakeSentence(100);
@@ -61,8 +61,8 @@ const randomHydrant = (ind, sim, status) => {
 	if (faker.random.boolean()) obj.comments = fakeSentence(50);
 	if (faker.random.boolean()) obj.address = fakeAddress();
 	if (enabled && faker.random.boolean()) obj.disableDate = faker.date.past(1);
-	if (faker.random.boolean()) obj.lat = Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString();
-	if (faker.random.boolean()) obj.lon = Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6)).toString();
+	if (faker.random.boolean()) obj.lat = Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
+	if (faker.random.boolean()) obj.lon = Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
 	return obj;
 };
 
@@ -70,7 +70,7 @@ const randomEvent = (hydrantId, ind) => {
 	return {
 		hydrantId,
 		code: rn(7),
-		edata: faker.random.number(),
+		edata: rn(),
 		createdAt: faker.date.past(1),
 	};
 };
