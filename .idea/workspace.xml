@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/imports/client/components/Events/Events.js" afterPath="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
       <change beforePath="$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js" afterPath="$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js" />
       <change beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/accounts/email-templates.js" afterPath="$PROJECT_DIR$/imports/startup/server/accounts/email-templates.js" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/fixtures.js" afterPath="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-      <change beforePath="$PROJECT_DIR$/private/email-templates/reset-password.html" afterPath="$PROJECT_DIR$/private/email-templates/reset-password.html" />
-      <change beforePath="$PROJECT_DIR$/settings-development.json" afterPath="$PROJECT_DIR$/settings-development.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Hydrants.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="61" column="72" lean-forward="true" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+            <state relative-caret-position="29">
+              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -70,18 +64,18 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="62" column="25" lean-forward="false" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultiSelect.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MultiSelect.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="19" column="44" lean-forward="false" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+            <state relative-caret-position="571">
+              <caret line="27" column="58" lean-forward="false" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -423,9 +417,9 @@
         <option value="$PROJECT_DIR$/private/email-templates/reset-password.html" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
-        <option value="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
-        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js" />
+        <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js" />
+        <option value="$PROJECT_DIR$/imports/client/components/Events/Events.js" />
       </list>
     </option>
   </component>
@@ -919,7 +913,7 @@
       <workItem from="1511604806788" duration="58437000" />
       <workItem from="1511885550498" duration="1200000" />
       <workItem from="1511886910391" duration="17965000" />
-      <workItem from="1512026672231" duration="8554000" />
+      <workItem from="1512026672231" duration="9145000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -960,7 +954,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="883117000" />
+    <option name="totallyTimeSpent" value="883708000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1616,14 +1610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/Storage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1190">
@@ -1632,18 +1618,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="61" column="72" lean-forward="true" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+        <state relative-caret-position="571">
+          <caret line="27" column="58" lean-forward="false" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/MultiSelect/MultiSelect.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/components/Events/Events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="19" column="44" lean-forward="false" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+        <state relative-caret-position="150">
+          <caret line="62" column="25" lean-forward="false" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/Hydrants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
           <folding />
         </state>
       </provider>

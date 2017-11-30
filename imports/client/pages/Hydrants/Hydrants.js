@@ -59,7 +59,7 @@ export default compose(
 				sort = { name, order: (order === 'asc') ? 1 : -1 };
 				return p.setStore({ sort });
 			},
-			setFilterStatus: ({ filter }, p) => ({ activeCodes: status } => p.setStore({ filter }),
+			setFilterStatus: ({ filter }, p) => ({ activeCodes: status }) => p.setStore({ filter: _.assign({}, filter, status) }),
 			setFilterSelectAndSearch: ({ filter }, p) => (filterObj) => {
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				const address = _.get(filterObj, 'address.value');

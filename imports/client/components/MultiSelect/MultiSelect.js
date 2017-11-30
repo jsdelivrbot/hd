@@ -17,8 +17,16 @@ const popoverClickRootClose = ({ types, activeCodes, onChange }) => (
 							inline
 							key={key}
 							checked={_.get(activeCodes, key, false)}
-							onChange={() => onChange({ code: key })
-							}
+							onChange={() => {
+								if (key) {
+									if (_.get(activeCodes, [key])) {
+										_.unset(activeCodes, [key]);
+									} else {
+										_.set(activeCodes, [key], true);
+									}
+								}
+								onChange({ activeCodes });
+							}}
 
 						>
 							{type}

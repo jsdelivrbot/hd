@@ -60,21 +60,22 @@ export default compose(
 				filter = Object.assign({}, filter, { createdAt });
 				return p.setStore({ filter });
 			},
-			setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
-				console.log('filterObj');
-				console.log(filterObj);
-				const index = filterObj.code;
-				if (index) {
-					const codes = filter.code;
-					if (_.get(codes, [index])) {
-						_.unset(codes, [index]);
-					} else {
-						_.set(codes, [index], true);
-					}
-					filter = Object.assign({}, filter, { code: codes });
-				}
-				return p.setStore({ filter });
-			},
+			setFilterCode: ({ filter }, p) => ({ activeCodes: status }) => p.setStore({ filter: _.assign({}, filter, status) }),
+			// setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
+			// 	console.log('filterObj');
+			// 	console.log(filterObj);
+			// 	const index = filterObj.code;
+			// 	if (index) {
+			// 		const codes = filter.code;
+			// 		if (_.get(codes, [index])) {
+			// 			_.unset(codes, [index]);
+			// 		} else {
+			// 			_.set(codes, [index], true);
+			// 		}
+			// 		filter = Object.assign({}, filter, { code: codes });
+			// 	}
+			// 	return p.setStore({ filter });
+			// },
 		}
 	),
 	withHandlers({
@@ -188,7 +189,7 @@ export default compose(
 									dataFormat={formatter}
 									filter={{
 										type: 'CustomFilter',
-										getElement: () => MultiSelect({ types: p.types.code, activeCodes: p.filter.code, onChange: p.setFilterMultiSelect }),
+										getElement: () => MultiSelect({ types: p.types.code, activeCodes: p.filter.code, onChange: p.setFilterCode }),
 									}}
 									width="155px"
 									dataField="code"
