@@ -59,19 +59,7 @@ export default compose(
 				sort = { name, order: (order === 'asc') ? 1 : -1 };
 				return p.setStore({ sort });
 			},
-			setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
-				const index = filterObj.status;
-				if (index) {
-					const statuses = filter.status;
-					if (_.get(statuses, [index])) {
-						_.unset(statuses, [index]);
-					} else {
-						_.set(statuses, [index], true);
-					}
-					filter = Object.assign({}, filter, { status: statuses });
-				}
-				return p.setStore({ filter });
-			},
+			setFilterStatus: ({ filter }, p) => ({ activeCodes: status } => p.setStore({ filter }),
 			setFilterSelectAndSearch: ({ filter }, p) => (filterObj) => {
 				const createdAt = _.get(filterObj, 'createdAt.value');
 				const address = _.get(filterObj, 'address.value');
@@ -217,7 +205,7 @@ export default compose(
 									dataFormat={formatter}
 									filter={{
 										type: 'CustomFilter',
-										getElement: () => MultiSelect({ types: p.types.status, activeCodes: p.filter.status, onChange: p.setFilterMultiSelect }),
+										getElement: () => MultiSelect({ types: p.types.status, activeCodes: p.filter.status, onChange: p.setFilterStatus }),
 									}}
 									width="135px"
 									dataField="status"

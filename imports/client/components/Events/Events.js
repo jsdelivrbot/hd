@@ -61,6 +61,8 @@ export default compose(
 				return p.setStore({ filter });
 			},
 			setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
+				console.log('filterObj');
+				console.log(filterObj);
 				const index = filterObj.code;
 				if (index) {
 					const codes = filter.code;

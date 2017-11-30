@@ -35,7 +35,7 @@ emailTemplates.verifyEmail = {
 
 emailTemplates.resetPassword = {
 	subject() {
-		return `[${name}] אפס את סיסמתך`;
+		return `.${name}אפס את סיסמתך. `;
 	},
 	html(user, url) {
 		let newUrl = url.replace('#/', '');

@@ -46,7 +46,7 @@ const randomHydrant = (ind, sim) => {
 	const obj = {
 		companyId: companies[rn(companies.length - 1)]._id,
 		sim: sim ? sim.toString() : rn(999999999).toString(),
-		status: sim ? 0 : rn(5),
+		status: sim ? 0 : rn(8),
 		updatedAt: dt,
 		createdAt: dt,
 		enabled,

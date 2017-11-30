@@ -16,7 +16,7 @@ function buildFilter(fromFilter) {
 	}
 	if (fromFilter) {
 		if (fromFilter.number) {
-			filter.number = { $regex: `${fromFilter.number}` };
+			filter.numberStringified = { $regex: `^${fromFilter.number}` };
 		}
 		if (fromFilter.address) {
 			filter.address = { $regex: `${fromFilter.address}` };
@@ -85,17 +85,19 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter, sort, skip } = p;
 		return Hydrants.aggregate([
-			{ $match: buildFilter(filter) },
-			{ $sort: { [sort.name]: sort.order } },
-			{ $skip: skip },
-			{ $limit: 12 },
 			{ $project: {
 				createdAt: 1,
+				numberStringified: { $toLower: '$number' },
 				number: 1,
 				status: 1,
 				address: 1,
 				description: 1,
-			} }], { allowDiskUse: true });
+			} },
+			{ $match: buildFilter(filter) },
+			{ $sort: { [sort.name]: sort.order } },
+			{ $skip: skip },
+			{ $limit: 12 },
+		], { allowDiskUse: true });
 	},
 	'hydrants.get.data.one': function anon(p) {
 		check(p, Object);
