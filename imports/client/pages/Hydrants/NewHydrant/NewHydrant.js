@@ -4,7 +4,7 @@ import HydrantEditor from '../components/HydrantEditor/HydrantEditor';
 const NewHydrant = p => (
 	<div className="NewHydrant">
 		<h4 className="page-header ">הידרנט חדש</h4>
-		<HydrantEditor history={p.history} data={{ }} company={p.company} types={p.types} />
+		<HydrantEditor data={{ }} {...p} />
 	</div>
 );
 export default NewHydrant;

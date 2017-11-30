@@ -51,6 +51,7 @@ class CompanyEditor extends React.Component {
 
 	render() {
 		const { data } = this.props;
+		const p = this.props;
 		return (
 			<Flex align="center">
 				<Box w={1 / 5}>
@@ -88,9 +89,21 @@ class CompanyEditor extends React.Component {
 								placeholder="חובה"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="success">
-							{data && data._id ? 'לשמור שינויים' : 'להוסיף חברה'}
-						</Button>
+						<Flex>
+							<Box w={1} ml={2}>
+								<Button block type="submit" bsStyle="success">
+									{data && data._id ? 'לשמור שינויים' : 'להוסיף חברה'}
+								</Button>
+							</Box>
+							<Box w={1} mr={4}>
+								<Button
+									bsStyle="primary" block
+									onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+								>
+									ביטול
+								</Button>
+							</Box>
+						</Flex>
 					</form>
 				</Box>
 				<Box w={2 / 5} />

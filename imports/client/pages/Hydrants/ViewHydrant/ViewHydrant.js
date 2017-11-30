@@ -142,7 +142,10 @@ export default compose(
 							{p.isUserAdmin() ?
 								<Button
 									bsStyle="primary" block
-									onClick={() => { p.setHydrantEdited(true); p.history.push(`${p.match.url}/edit`);}}
+									onClick={() => {
+										p.setHydrantEdited(true);
+										p.history.push(`${p.match.url}/edit`);
+									}}
 								>ערוך</Button>
 								:
 								''

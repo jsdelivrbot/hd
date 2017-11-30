@@ -146,7 +146,19 @@ class NewUser extends React.Component {
 										className="form-control"
 									/>
 								</FormGroup>
-								<Button type="submit" bsStyle="success">הירשם</Button>
+								<Flex>
+									<Box w={2 / 3} ml={2}>
+										<Button block type="submit" bsStyle="success">הירשם</Button>
+									</Box>
+									<Box w={1 / 3} mr={2}>
+										<Button
+											bsStyle="primary" block
+											onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+										>
+											ביטול
+										</Button>
+									</Box>
+								</Flex>
 							</form>
 						</Col>
 					</Row>

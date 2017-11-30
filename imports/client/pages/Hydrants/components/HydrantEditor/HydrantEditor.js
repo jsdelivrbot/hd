@@ -266,9 +266,21 @@ class HydrantEditor extends React.Component {
 								placeholder="חובה"
 							/>
 						</FormGroup>
-						<Button type="submit" bsStyle="danger">
-							{data && data._id ? 'לשמור שינויים' : 'להוסיף הידרנט'}
-						</Button>
+						<Flex>
+							<Box w={1} ml={1}>
+								<Button type="submit" bsStyle="danger">
+									{data && data._id ? 'לשמור שינויים' : 'להוסיף הידרנט'}
+								</Button>
+							</Box>
+							<Box w={1} mr={3}>
+								<Button
+									bsStyle="primary" block
+									onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+								>
+									ביטול
+								</Button>
+							</Box>
+						</Flex>
 					</form>
 				</Box>
 				<Box w={2 / 5} />
