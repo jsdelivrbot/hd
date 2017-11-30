@@ -17,6 +17,8 @@ import {
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
+import moment from 'moment';
+import 'moment/locale/he';
 
 import Map from '../../components/Map/Map';
 import Events from '../../components/Events/Events';
@@ -50,19 +52,10 @@ import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 import { difProps } from '../../Utils/Utils';
 
-import moment from 'moment';
-import 'moment/locale/he';
-
-// import LogRocket from 'logrocket';
-// require('logrocket-react')(LogRocket);
-// LogRocket.init('kdcqzb/hdapp');
-//# sourceMappingURL=https://github.com/LiShine/hd
-
-// Raven.config('https://61d91ce1100c4f3696b5a196179a35d7@sentry.io/249201').install()
+import './Css/App.scss';
 
 moment.locale('he');
 
-import './Css/App.scss';
 
 const getUserName = name => ({
 	string: name,
@@ -157,14 +150,6 @@ export default compose(
 				p.setAppInitialized(true);
 				console.log('p.userId');
 				console.log(p.userId);
-				// LogRocket.startNewSession();
-				// LogRocket.identify(
-				// 	p.userId, {
-				// 		name: p.name,
-				// 		email: p.emailAddress,
-				// 		role,
-				// 		company: company.name,
-				// 	});
 			}
 		},
 	}),
@@ -214,6 +199,25 @@ export default compose(
 		);
 	});
 
+
+// LogRocket.startNewSession();
+// LogRocket.identify(
+// 	p.userId, {
+// 		name: p.name,
+// 		email: p.emailAddress,
+// 		role,
+// 		company: company.name,
+// 	});
+
+
+// import LogRocket from 'logrocket';
+// require('logrocket-react')(LogRocket);
+// LogRocket.init('kdcqzb/hdapp');
+//# sourceMappingURL=https://github.com/LiShine/hd
+
+// Raven.config('https://61d91ce1100c4f3696b5a196179a35d7@sentry.io/249201').install()
+
+
 // withProps((p) => {
 // 	console.log('p.authenticated');
 // 	console.log(p.authenticated);
@@ -258,3 +262,4 @@ export default compose(
 // 		}
 // 	});
 // };
+

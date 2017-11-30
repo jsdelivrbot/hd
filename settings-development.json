@@ -1,7 +1,7 @@
 {
   "public": {},
   "private": {
-    "MAIL_URL": "smtp://postmaster%40mg.hydrant-system.com:cbdf253c11930eda563c5672c9950bd6@smtp.mailgun.org:587",
+    "MAIL_URL": "smtp://postmaster%40mg.hydrant-system.com:mvwp98u5t09w75ht0wh5twu3h2p3uh@smtp.mailgun.org:587",
     "APPLICATION_NAME": "ניהול הידרנטים",
     "APPLICATION_EMAIL": "hdapp1111@gmail.com"
   }
