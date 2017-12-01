@@ -81,6 +81,8 @@ Meteor.methods({
 				status: 1,
 				address: 1,
 				description: 1,
+				companyId: 1,
+				enabled: 1,
 			} },
 			{ $match: buildFilter(filter) },
 			{ $group: {
@@ -88,6 +90,10 @@ Meteor.methods({
 				count: { $sum: 1 }
 			} },
 		]);
+		console.log(filter);
+		console.log(buildFilter(filter));
+		console.log(array);
+		console.log(_.get(array, '[0].count', 0));
 		return _.get(array, '[0].count', 0);
 	},
 	'hydrants.get.data': function anon(p) {
@@ -102,6 +108,8 @@ Meteor.methods({
 				status: 1,
 				address: 1,
 				description: 1,
+				companyId: 1,
+				enabled: 1,
 			} },
 			{ $match: buildFilter(filter) },
 			{ $sort: { [sort.name]: sort.order } },
@@ -149,13 +157,12 @@ Meteor.methods({
 	'map.get.data': function anon(p) {
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
-		const { bounds, _id, filterStatus } = p;
+		const { bounds, filterStatus, _id } = p;
 		const { east, west, north, south } = bounds;
 		const result = Hydrants.aggregate([
-			{ $match: _.assign({}, buildFilter(),
+			{ $match: _.assign({}, buildFilter({ _id }),
 				{ $and: [
 					{ status: (filterStatus && { $gt: 2 }) || { $exists: true } },
-					{ _id: _id || { $exists: true } },
 					{ lat: { $gt: south, $lt: north } },
 					{ lon: { $gt: west, $lt: east } }
 				] }

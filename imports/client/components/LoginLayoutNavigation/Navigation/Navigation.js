@@ -69,7 +69,11 @@ const Navigation = (p) => {
 							</LinkContainer>
 							<MenuItem divider />
 							<MenuItem eventKey={2.5} onClick={() => p.history.push('/logout')}>לצאת</MenuItem>
-							<MenuItem divider />
+							{p.isUserAdmin() ?
+								<MenuItem divider />
+								:
+								''
+							}
 							{p.isUserAdmin() ?
 								<MenuItem eventKey={2.6} onClick={() => Meteor.callPromise('utility.db.reset')}>איפוס</MenuItem>
 								:
