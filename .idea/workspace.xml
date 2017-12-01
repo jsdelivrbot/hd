@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" afterPath="$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/ViewHydrant.js" />
-      <change beforePath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" afterPath="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+      <change beforePath="$PROJECT_DIR$/settings-development.json" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
-              <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+              <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -49,16 +45,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="338">
               <caret line="91" column="32" lean-forward="false" selection-start-line="91" selection-start-column="32" selection-end-line="91" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings-development.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings-development.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -404,7 +390,6 @@
         <option value="$PROJECT_DIR$/imports/client/pages/LoginPages/ResetPassword/ResetPassword.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-        <option value="$PROJECT_DIR$/settings-development.json" />
         <option value="$PROJECT_DIR$/private/settings_deploy.json" />
         <option value="$PROJECT_DIR$/imports/startup/server/accounts/email-templates.js" />
         <option value="$PROJECT_DIR$/private/email-templates/reset-password.html" />
@@ -422,6 +407,7 @@
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
+        <option value="$PROJECT_DIR$/settings-development.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
@@ -450,7 +436,7 @@
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -649,260 +635,6 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="pup" type="cbb8eebc:String" user="pup" />
             </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-              <item name="Events" type="cbb8eebc:String" user="Events" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-              <item name="MultiSelect" type="cbb8eebc:String" user="MultiSelect" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="Main" type="cbb8eebc:String" user="Main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="Main" type="cbb8eebc:String" user="Main" />
-              <item name="App" type="cbb8eebc:String" user="App" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-              <item name="CompanyEditor" type="cbb8eebc:String" user="CompanyEditor" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-              <item name="EditCompany" type="cbb8eebc:String" user="EditCompany" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-              <item name="NewCompany" type="cbb8eebc:String" user="NewCompany" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Companies" type="cbb8eebc:String" user="Companies" />
-              <item name="ViewCompany" type="cbb8eebc:String" user="ViewCompany" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-              <item name="HydrantEditor" type="cbb8eebc:String" user="HydrantEditor" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-              <item name="EditHydrant" type="cbb8eebc:String" user="EditHydrant" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-              <item name="NewHydrant" type="cbb8eebc:String" user="NewHydrant" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Hydrants" type="cbb8eebc:String" user="Hydrants" />
-              <item name="ViewHydrant" type="cbb8eebc:String" user="ViewHydrant" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Users" type="cbb8eebc:String" user="Users" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="pages" type="cbb8eebc:String" user="pages" />
-              <item name="Users" type="cbb8eebc:String" user="Users" />
-              <item name="NewUser" type="cbb8eebc:String" user="NewUser" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="client" type="cbb8eebc:String" user="client" />
-              <item name="stylesheets" type="cbb8eebc:String" user="stylesheets" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-              <item name="api" type="cbb8eebc:String" user="api" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-              <item name="api" type="cbb8eebc:String" user="api" />
-              <item name="Collections" type="cbb8eebc:String" user="Collections" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-              <item name="api" type="cbb8eebc:String" user="api" />
-              <item name="Methods" type="cbb8eebc:String" user="Methods" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="startup" type="cbb8eebc:String" user="startup" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="startup" type="cbb8eebc:String" user="startup" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="imports" type="cbb8eebc:String" user="imports" />
-              <item name="startup" type="cbb8eebc:String" user="startup" />
-              <item name="server" type="cbb8eebc:String" user="server" />
-              <item name="accounts" type="cbb8eebc:String" user="accounts" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="private" type="cbb8eebc:String" user="private" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="pup" type="cbb8eebc:String" user="pup" />
-              <item name="private" type="cbb8eebc:String" user="private" />
-              <item name="email-templates" type="cbb8eebc:String" user="email-templates" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -1048,7 +780,7 @@
       <workItem from="1511604806788" duration="58437000" />
       <workItem from="1511885550498" duration="1200000" />
       <workItem from="1511886910391" duration="17965000" />
-      <workItem from="1512026672231" duration="20710000" />
+      <workItem from="1512026672231" duration="20853000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -1089,10 +821,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="895273000" />
+    <option name="totallyTimeSpent" value="895416000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21205357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1755,14 +1487,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings-development.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
@@ -1779,10 +1503,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/settings-development.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="25" />
           <folding />
         </state>
       </provider>

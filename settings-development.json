@@ -1,8 +1,0 @@
-{
-  "public": {},
-  "private": {
-    "MAIL_URL": "smtp://dtoa1fjbxt9xo819owgsibhnp%40mg.hydrant-system.com:0d9iOUflVwGQujIGvpzRjzfD0@smtp.mailgun.org:587",
-    "APPLICATION_NAME": "ניהול הידרנטים",
-    "APPLICATION_EMAIL": "hdapp1111@gmail.com"
-  }
-}
