@@ -42,13 +42,23 @@ export default compose(
 			setInitialized: () => initialized => ({ initialized }),
 		}
 	),
+	withHandlers({
+		loadUsers: p => async () => {
+			p.setLoading(true);
+			p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
+			p.setLoading(false);
+		},
+		loadCompanies: p => async () => {
+			p.setLoading(true);
+			p.setCData(await Meteor.callPromise('companies.get.all'));
+			p.setLoading(false);
+		},
+	}),
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
-			p.setLoading(true);
-			p.setCData(await Meteor.callPromise('companies.get.all'));
-			p.setData(_.map(await Meteor.callPromise('users.get.all'), (e, k) => _.assign(e, { nRow: k })));
-			p.setLoading(false);
+			await p.loadUsers();
+			await p.loadCompanies();
 			p.setInitialized(true);
 		},
 	}),
@@ -67,6 +77,12 @@ export default compose(
 				p.setDataRow(p.editRow, row.nRow);
 			}
 			p.setEditRow({});
+		},
+		onClickDelete: p => async (row) => {
+			const { _id } = row;
+			if (!confirm('האם אתה בטוח? אין דרך חזרה!')) return;
+			await Meteor.callPromise('user.delete', { _id });
+			p.loadUsers();
 		},
 		onClickRole: p => (role) => {
 			if (role !== p.editRow.role) p.assignEditRow({ role });
@@ -104,12 +120,24 @@ export default compose(
 						</Flex>
 					</div>
 					:
-					<Button
-						bsStyle="success" block
-						onClick={() => p.editRow.nRow || p.onClickEdit(row)}
-					>
-						ערוך
-					</Button>
+					<Flex>
+						<Box w={7 / 10} ml={1}>
+							<Button
+								bsStyle="success" block
+								onClick={() => p.editRow.nRow || p.onClickEdit(row)}
+							>
+								ערוך
+							</Button>
+						</Box>
+						<Box w={3 / 10}>
+							<Button
+								bsStyle="primary" block
+								onClick={() => p.onClickDelete(row)}
+							>
+								מחק
+							</Button>
+						</Box>
+					</Flex>
 				}
 			</span>
 		);
@@ -175,7 +203,7 @@ export default compose(
 										{role}
 									</TableHeaderColumn>
 								))}
-								<TableHeaderColumn dataFormat={formatButton} width="165px" dataAlign="center" headerAlign="center">
+								<TableHeaderColumn dataFormat={formatButton} width="185px" dataAlign="center" headerAlign="center">
 									<Button
 										bsStyle="primary"
 										block

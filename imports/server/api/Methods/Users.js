@@ -63,6 +63,12 @@ Meteor.methods({
 		Meteor.users.update(_id, { $set: { companyId, role } });
 		return ({ _id, companyId, role } = Meteor.user());
 	},
+	'user.delete': function anon(p) {
+		check(p, Object);
+		const { _id } = p;
+		if (!roles.isUserAdmin()) return;
+		Meteor.users.remove(_id);
+	},
 	'user.editProfile': function anon(profile) {
 		check(profile, {
 			emailAddress: String,

@@ -131,7 +131,10 @@ export default compose(
 							{p.isUserControl() ?
 								<Button
 									bsStyle="primary" block
-									onClick={p.zeroStatus}
+									onClick={() => {
+										p.setHydrantEdited(true);
+										p.zeroStatus();
+									}}
 								>אפס סטטוס</Button>
 								:
 								''

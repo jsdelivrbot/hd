@@ -15,6 +15,9 @@ function buildFilter(fromFilter) {
 		filter.enabled = true;
 	}
 	if (fromFilter) {
+		if (fromFilter._id) {
+			filter._id = fromFilter._id;
+		}
 		if (fromFilter.number) {
 			filter.numberStringified = { $regex: `^${fromFilter.number}` };
 		}
@@ -72,6 +75,13 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
 		const array = Hydrants.aggregate([
+			{ $project: {
+				createdAt: 1,
+				numberStringified: { $toLower: '$number' },
+				status: 1,
+				address: 1,
+				description: 1,
+			} },
 			{ $match: buildFilter(filter) },
 			{ $group: {
 				_id: null,
@@ -103,7 +113,7 @@ Meteor.methods({
 		check(p, Object);
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { filter } = p;
-		return Hydrants.findOne(_.assign({}, buildFilter(), { _id: filter._id }));
+		return Hydrants.findOne(buildFilter(filter));
 	},
 	'hydrants.zero.status': function anon(p) {
 		check(p, Object);
