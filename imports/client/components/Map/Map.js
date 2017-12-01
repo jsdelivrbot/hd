@@ -180,7 +180,7 @@ export default compose(
 									block
 									onClick={p.toggleFilterStatus}
 								>
-									{p.filterStatus ? 'אדומים' : 'כולם'}
+									{p.filterStatus ? 'בארוע' : 'כולם'}
 								</Button>
 							</Box>
 							<Box w={6 / 8}>

@@ -61,8 +61,8 @@ const randomHydrant = (ind, sim) => {
 	if (faker.random.boolean()) obj.comments = fakeSentence(50);
 	if (faker.random.boolean()) obj.address = fakeAddress();
 	if (enabled && faker.random.boolean()) obj.disableDate = faker.date.past(1);
-	if (faker.random.boolean()) obj.lat = Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
-	if (faker.random.boolean()) obj.lon = Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
+	if (faker.random.boolean() || enabled) obj.lat = Number((32.848439 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
+	if (faker.random.boolean() || enabled) obj.lon = Number((35.117543 + ((5000 - rn(10000)) * 0.000005)).toFixed(6));
 	return obj;
 };
 

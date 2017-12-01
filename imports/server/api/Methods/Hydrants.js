@@ -90,10 +90,6 @@ Meteor.methods({
 				count: { $sum: 1 }
 			} },
 		]);
-		console.log(filter);
-		console.log(buildFilter(filter));
-		console.log(array);
-		console.log(_.get(array, '[0].count', 0));
 		return _.get(array, '[0].count', 0);
 	},
 	'hydrants.get.data': function anon(p) {

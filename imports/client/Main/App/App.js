@@ -50,12 +50,12 @@ import NotFound from '../../components/LoginLayoutNavigation/NotFound/NotFound';
 import Footer from '../../components/LoginLayoutNavigation/Footer/Footer';
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
+import { resetStore } from '../../components/Storage';
 import { difProps } from '../../Utils/Utils';
 
 import './Css/App.scss';
 
 moment.locale('he');
-
 
 const getUserName = name => ({
 	string: name,
@@ -148,6 +148,7 @@ export default compose(
 				p.setRole(role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);
+				resetStore();
 				console.log('p.userId');
 				console.log(p.userId);
 			}

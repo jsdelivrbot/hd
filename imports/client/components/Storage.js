@@ -39,6 +39,9 @@ function setStore(field, obj) {
 	return obj;
 }
 
+function resetStore() {
+	StorageCollection.remove(1);
+}
 // async function getStoreGlobal(keys) {
 // 	let result = _.get(StorageCollection.findOne({}), 'global');
 // 	if (result && keys) {
@@ -59,7 +62,7 @@ function setStore(field, obj) {
 // }
 
 
-export { getStore, setStore };
+export { getStore, setStore, resetStore };
 
 // export function getHydrantSort() {
 // 	return _.get(StorageCollection.findOne({}), 'hydrantSort');
