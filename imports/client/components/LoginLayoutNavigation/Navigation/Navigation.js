@@ -70,7 +70,7 @@ const Navigation = (p) => {
 							<MenuItem divider />
 							<MenuItem eventKey={2.5} onClick={() => p.history.push('/logout')}>לצאת</MenuItem>
 							<MenuItem divider />
-							{p.isUserAdmin ?
+							{p.isUserAdmin() ?
 								<MenuItem eventKey={2.6} onClick={() => Meteor.callPromise('utility.db.reset')}>איפוס</MenuItem>
 								:
 								''
@@ -80,7 +80,7 @@ const Navigation = (p) => {
 								:
 								''
 							}
-							{p.isUserAdmin ?
+							{p.isUserAdmin() ?
 								<MenuItem eventKey={2.6} onClick={() => Meteor.callPromise('utility.db.init')}>פיקטיבי</MenuItem>
 								:
 								''

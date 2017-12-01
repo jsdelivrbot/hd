@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" afterPath="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,11 +29,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="25" />
+            <state relative-caret-position="180">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings-development.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/settings-development.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="3" column="70" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -53,8 +62,18 @@
       <file leaf-file-name="settings_deploy.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/private/settings_deploy.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="3" column="5" lean-forward="true" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Navigation.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="78" column="52" lean-forward="true" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -102,16 +121,6 @@
       </file>
       <file leaf-file-name="NewCompany.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/pages/Companies/NewCompany/NewCompany.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewHydrant.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/NewHydrant/NewHydrant.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -171,8 +180,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>toISOString</find>
-      <find>createdAt</find>
       <find>running</find>
       <find>company</find>
       <find>companyId</find>
@@ -201,6 +208,8 @@
       <find>p.setData(</find>
       <find>setData</find>
       <find>האם אתה</find>
+      <find>איפוס</find>
+      <find>p.isUserAdmin</find>
     </findStrings>
     <replaceStrings>
       <replace>editRow.row.companyId</replace>
@@ -367,7 +376,6 @@
         <option value="$PROJECT_DIR$/.meteor/packages" />
         <option value="$PROJECT_DIR$/imports/client/pages/Hydrants/components/HydrantEditor/Css/HydrantEditor.scss" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Utility.js" />
-        <option value="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/imports/startup/client/index.js" />
         <option value="$PROJECT_DIR$/imports/client/stylesheets/app.scss" />
@@ -390,7 +398,6 @@
         <option value="$PROJECT_DIR$/imports/client/pages/LoginPages/ResetPassword/ResetPassword.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Users/send-welcome-email.js" />
         <option value="$PROJECT_DIR$/imports/client/Main/App/App.js" />
-        <option value="$PROJECT_DIR$/private/settings_deploy.json" />
         <option value="$PROJECT_DIR$/imports/startup/server/accounts/email-templates.js" />
         <option value="$PROJECT_DIR$/private/email-templates/reset-password.html" />
         <option value="$PROJECT_DIR$/imports/startup/server/fixtures.js" />
@@ -407,8 +414,10 @@
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
         <option value="$PROJECT_DIR$/imports/client/pages/Users/Users.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Hydrants.js" />
-        <option value="$PROJECT_DIR$/settings-development.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/settings-development.json" />
+        <option value="$PROJECT_DIR$/private/settings_deploy.json" />
+        <option value="$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js" />
       </list>
     </option>
   </component>
@@ -635,6 +644,46 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="pup" type="cbb8eebc:String" user="pup" />
             </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="client" type="cbb8eebc:String" user="client" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="client" type="cbb8eebc:String" user="client" />
+              <item name="components" type="cbb8eebc:String" user="components" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="client" type="cbb8eebc:String" user="client" />
+              <item name="components" type="cbb8eebc:String" user="components" />
+              <item name="LoginLayoutNavigation" type="cbb8eebc:String" user="LoginLayoutNavigation" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="imports" type="cbb8eebc:String" user="imports" />
+              <item name="client" type="cbb8eebc:String" user="client" />
+              <item name="components" type="cbb8eebc:String" user="components" />
+              <item name="LoginLayoutNavigation" type="cbb8eebc:String" user="LoginLayoutNavigation" />
+              <item name="Navigation" type="cbb8eebc:String" user="Navigation" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="pup" type="cbb8eebc:String" user="pup" />
+              <item name="private" type="cbb8eebc:String" user="private" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -780,7 +829,7 @@
       <workItem from="1511604806788" duration="58437000" />
       <workItem from="1511885550498" duration="1200000" />
       <workItem from="1511886910391" duration="17965000" />
-      <workItem from="1512026672231" duration="20902000" />
+      <workItem from="1512026672231" duration="22348000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -821,7 +870,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="895465000" />
+    <option name="totallyTimeSpent" value="896911000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1084,13 +1133,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-180">
           <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="961">
-          <caret line="80" column="34" lean-forward="false" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1479,14 +1521,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private/settings_deploy.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Users/Users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
@@ -1503,18 +1537,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings-development.json">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/settings-development.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="25" />
+        <state relative-caret-position="90">
+          <caret line="3" column="70" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/settings_deploy.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="3" column="5" lean-forward="true" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/components/LoginLayoutNavigation/Navigation/Navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="78" column="52" lean-forward="true" selection-start-line="78" selection-start-column="52" selection-end-line="78" selection-end-column="52" />
           <folding />
         </state>
       </provider>
