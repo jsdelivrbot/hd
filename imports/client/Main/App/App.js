@@ -44,7 +44,6 @@ import DownloadApp from '../../pages/DownloadApp/DownloadApp';
 import Profile from '../../pages/LoginPages/Profile/Profile';
 import Index from '../Index/Index';
 
-import Public from '../../components/LoginLayoutNavigation/Public/Public';
 import Navigation from '../../components/LoginLayoutNavigation/Navigation/Navigation';
 import NotFound from '../../components/LoginLayoutNavigation/NotFound/NotFound';
 import Footer from '../../components/LoginLayoutNavigation/Footer/Footer';
@@ -80,6 +79,19 @@ const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => {
 		/>
 	);
 };
+
+const Public = ({ loggingIn, authenticated, component, path, exact, ...rest }) => (
+	<Route
+		path={path}
+		exact={exact}
+		render={props => (
+			!authenticated ?
+				(React.createElement(component, { ...props, ...rest, loggingIn, authenticated })) :
+				(<Redirect to="/" />)
+		)}
+	/>
+);
+
 const AllUser = p => Authenticated({ allUser: true, ...p });
 const ControlUser = p => Authenticated({ controlUser: true, adminUser: true, ...p });
 const AdminUser = p => Authenticated({ adminUser: true, ...p });

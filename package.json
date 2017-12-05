@@ -9,13 +9,12 @@
     "@cleverbeagle/dates": "^0.5.1",
     "@cleverbeagle/seeder": "^1.2.0",
     "axios": "^0.17.1",
-    "babel-plugin-add-react-displayname": "0.0.4",
-    "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "commonmark": "^0.28.1",
     "core-js": "^2.5.1",
     "eslint-config-react-tools": "^1.0.10",
+    "eslint-plugin-jsx-control-statements": "^2.2.0",
     "faker": "^4.1.0",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
@@ -57,6 +56,8 @@
     "simpl-schema": "^0.3.2"
   },
   "devDependencies": {
+    "babel-plugin-add-react-displayname": "0.0.4",
+    "babel-runtime": "^6.26.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-jsx-control-statements": "^3.2.8",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",

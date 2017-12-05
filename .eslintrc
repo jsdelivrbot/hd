@@ -1,5 +1,6 @@
 {
   "rules": {
+    react/jsx-no-undef: [2, { "allowGlobals": true }],
     no-unused-vars: 0,
     camelcase: 0,
     react/jsx-first-prop-new-line: 1,
@@ -60,12 +61,14 @@
   },
   "plugins": [
     "meteor",
-    "react"
+    "react",
+	"jsx-control-statements"
   ],
   "extends": [
     "airbnb",
     "plugin:meteor/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+	"plugin:jsx-control-statements/recommended"
   ],
   "env": {
     "browser": true

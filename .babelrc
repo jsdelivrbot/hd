@@ -1,4 +1,9 @@
 {
+  "env": {
+    "development": {
+      "plugins": ["transform-react-jsx-source"]
+    }
+  },
   "plugins": [
     "add-react-displayname",
 	"jsx-control-statements"
