@@ -66,13 +66,13 @@ const Authenticated = ({ allUser, adminUser, controlUser, ...p }) => {
 		<Route
 			path={p.path}
 			exact={p.exact}
-			render={props => (
+			render={({ component, ...rest }) => (
 				p.authenticated &&
 				(allUser ||
 					(adminUser && p.isUserAdmin()) ||
 					(controlUser && p.isUserControl())
 				) ?
-					(React.createElement(p.component, { ...props, ...p }))
+					(React.createElement(component, { ...rest, ...p }))
 					:
 					(<Redirect to="/login" />)
 			)}
