@@ -3,3 +3,4 @@ import './api';
 import './fixtures';
 import './router';
 import './email';
+import './googleInit';
