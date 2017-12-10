@@ -1,13 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import _ from 'lodash';
-import moment from 'moment';
-import axios from 'axios';
-import * as admin from 'firebase-admin';
 
-import Hydrants from '../../server/api/Collections/Hydrants';
-import Events from '../../server/api/Collections/Events';
-import Errors from '../../server/api/Collections/Errors';
-import { sleep } from '../../server/Utils/utils';
+const admin = require('firebase-admin');
+// import * as admin from 'firebase-admin';
+
+const { serviceAccount } = Meteor.settings.private;
+
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount),
+	databaseURL: 'https://hdapp-45a74.firebaseio.com'
+});
 
 export function sendNotification() {
 // This registration token comes from the client FCM SDKs.
@@ -33,5 +34,3 @@ export function sendNotification() {
 			console.log('Error sending message:', error);
 		});
 }
-
-sendNotification();
