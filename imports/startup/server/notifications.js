@@ -9,4 +9,3 @@
 import { sendNotification } from './google';
 
 sendNotification();
-
