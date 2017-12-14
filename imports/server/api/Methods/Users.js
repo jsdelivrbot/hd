@@ -56,6 +56,41 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return;
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
+	'user.set.fcmtoken': function anon(fcmToken) {
+		check(fcmToken, String);
+		console.log('fcmToken');
+		console.log(fcmToken);
+		console.log('updated _id');
+		console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken } }));
+		return fcmToken;
+	},
+	'user.loginWithFCMToken': function anon(p) {
+		check(p, Object);
+		const { email, password, fcmToken } = p;
+		console.log('fcmToken');
+		console.log(fcmToken);
+		let err;
+		Meteor.loginWithPassword(email, password, (err) => {
+			if (err) {
+				this.handleError(err.reason);
+			} else {
+				await meteorCall('user.set.fcmtoken', this.props.fcmToken);
+			}
+		});
+		const _id = Meteor.users.update({ fcmToken }, { $set: { fcmToken } });
+		return !!_id;
+	},
+	'user.getUserDetailsForFCMToken': function anon(fcmToken) {
+		check(fcmToken, String);
+		console.log('fcmToken');
+		console.log(fcmToken);
+		console.log('_id');
+		const user = Meteor.users.findOne({ fcmToken });
+		console.log(user);
+		if (!user) return {};
+		const { email, name, role, company } = user;
+		return { email, name, role, company };
+	},
 	'user.update': function anon(p) {
 		check(p, Object);
 		if (!roles.isUserAdmin()) return undefined;
@@ -90,7 +125,7 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
+		'user.getUserDetailsForFCMToken', 'user.loginWithFCMToken', 'user.set.fcmtoken', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
 	],
 	limit: 2,
 	timeRange: 1000,
