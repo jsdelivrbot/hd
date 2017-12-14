@@ -1,10 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
+import to from 'await-to-js';
 import editProfile from '../Users/edit-profile';
 import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
 import * as roles from '../../Utils/roles';
+
+const meteorLoginWithPassword = (params) => new Promise((resolve, reject) => {
+	Meteor.loginWithPassword(...params, (error, result) => {
+		if (error) reject(error);
+		resolve(result);
+	});
+});
 
 Meteor.methods({
 	'users.get.all': function anon() {
@@ -64,21 +72,14 @@ Meteor.methods({
 		console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken } }));
 		return fcmToken;
 	},
-	'user.loginWithFCMToken': function anon(p) {
+	'user.loginWithFCMToken': async function anon(p) {
 		check(p, Object);
 		const { email, password, fcmToken } = p;
 		console.log('fcmToken');
 		console.log(fcmToken);
-		let err;
-		Meteor.loginWithPassword(email, password, (err) => {
-			if (err) {
-				this.handleError(err.reason);
-			} else {
-				await meteorCall('user.set.fcmtoken', this.props.fcmToken);
-			}
-		});
-		const _id = Meteor.users.update({ fcmToken }, { $set: { fcmToken } });
-		return !!_id;
+		const [err] = await to(meteorLoginWithPassword(email, password));
+		Meteor.call('user.set.fcmtoken', fcmToken);
+		return err;
 	},
 	'user.getUserDetailsForFCMToken': function anon(fcmToken) {
 		check(fcmToken, String);
@@ -88,8 +89,12 @@ Meteor.methods({
 		const user = Meteor.users.findOne({ fcmToken });
 		console.log(user);
 		if (!user) return {};
-		const { email, name, role, company } = user;
-		return { email, name, role, company };
+		return {
+			email: user.emails[0].address,
+			name: user.profile.name,
+			role: user.role,
+			company: user.company,
+		};
 	},
 	'user.update': function anon(p) {
 		check(p, Object);
