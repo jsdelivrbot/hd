@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 // import * as admin from 'firebase-admin';
 
 const { serviceAccount } = Meteor.settings.private;
-console.log(serviceAccount);
+// console.log(serviceAccount);
 
 console.log('initializing google');
 admin.initializeApp({
