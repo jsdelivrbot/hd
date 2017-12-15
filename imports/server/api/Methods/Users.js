@@ -7,12 +7,6 @@ import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
 import * as roles from '../../Utils/roles';
 
-const meteorLoginWithPassword = (params) => new Promise((resolve, reject) => {
-	Meteor.loginWithPassword(...params, (error, result) => {
-		if (error) reject(error);
-		resolve(result);
-	});
-});
 
 Meteor.methods({
 	'users.get.all': function anon() {
@@ -64,28 +58,26 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return;
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
-	'user.set.fcmtoken': function anon(fcmToken) {
-		check(fcmToken, String);
-		console.log('fcmToken');
-		console.log(fcmToken);
-		console.log('updated _id');
-		console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken } }));
-		return fcmToken;
-	},
-	'user.loginWithFCMToken': async function anon(p) {
+	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
-		const { email, password, fcmToken } = p;
+		const { fcmToken, flag } = p;
 		console.log('fcmToken');
 		console.log(fcmToken);
-		const [err] = await to(meteorLoginWithPassword(email, password));
-		Meteor.call('user.set.fcmtoken', fcmToken);
-		return err;
+		console.log('success?');
+		if (flag == 'logged_in') {
+			console.log(Meteor.users.update(this.userId, { $set: { fcmToken } }));
+		} else if (flag == 'reset') {
+			console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken: 'I am in reset' } }));
+		} else {
+			console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken } }));
+		}
 	},
-	'user.getUserDetailsForFCMToken': function anon(fcmToken) {
-		check(fcmToken, String);
+	'user.getUserDetailsForFCMToken': function anon(p) {
+		check(p, Object);
+		const { fcmToken } = p;
 		console.log('fcmToken');
 		console.log(fcmToken);
-		console.log('_id');
+		console.log('user');
 		const user = Meteor.users.findOne({ fcmToken });
 		console.log(user);
 		if (!user) return {};
@@ -130,7 +122,7 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'user.getUserDetailsForFCMToken', 'user.loginWithFCMToken', 'user.set.fcmtoken', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
+		'user.getUserDetailsForFCMToken', 'user.set.fcmtoken', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
 	],
 	limit: 2,
 	timeRange: 1000,
