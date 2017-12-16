@@ -22,7 +22,9 @@ Errors.schema = new SimpleSchema({
 	createdAt: {
 		type: Date,
 		label: 'The date this document was created.',
-		defaultValue: moment().toDate(),
+		autoValue() {
+			if (this.isInsert && !this.isSet) return moment().toDate();
+		},
 	},
 	description: {
 		type: String,

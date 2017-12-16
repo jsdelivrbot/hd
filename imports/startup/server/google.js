@@ -25,6 +25,9 @@ function sendNotification({ registrationTokens, payload }) {
 	// on how to define a message payload.
 	// Send a message to the device corresponding to the provided
 	// registration token...
+	console.log('payload');
+	console.log(payload);
+	payload.data = { data: JSON.stringify(payload.data) };
 	admin.messaging().sendToDevice(registrationTokens, payload)
 		.then((response) => {
 			// See the MessagingDevicesResponse reference documentation for
@@ -38,10 +41,10 @@ function sendNotification({ registrationTokens, payload }) {
 }
 
 export default function sendNotifications({ eventId }) {
-	const event = Events.find(eventId);
+	const event = Events.findOne(eventId);
 	const { createdAt, code, edata } = event;
 
-	const hydrant = Hydrants.find(eventId.hydrantId);
+	const hydrant = Hydrants.findOne(event.hydrantId);
 	const { number: hydrantNumber, address, lat, lon } = hydrant;
 
 	const payload = {
@@ -61,8 +64,10 @@ export default function sendNotifications({ eventId }) {
 			lon,
 		}
 	};
-	const usersSignedIn = Meteor.users.find({ $exists: { fcmToken: 1 } }).fetch();
-	const userIds = _.map(usersSignedIn, '_id');
+	const usersSignedIn = Meteor.users.find({ fcmToken: { $exists: true } }).fetch();
+	console.log('usersSignedIn');
+	console.log(usersSignedIn);
+	// const userIds = _.map(usersSignedIn, '_id');
 	const registrationTokens = _.map(usersSignedIn, 'fcmToken');
 
 	sendNotification({ registrationTokens, payload });

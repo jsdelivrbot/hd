@@ -8,7 +8,7 @@ import Events from '../../server/api/Collections/Events';
 import Errors from '../../server/api/Collections/Errors';
 import { sleep } from '../../server/Utils/utils';
 import { initTestDb } from './fixtures';
-import { sendNotifications } from './google';
+import sendNotifications from './google';
 
 const calculateFlow = ({ flowEndCode }) => {
 	const flowContinueCode = flowEndCode - 1;
