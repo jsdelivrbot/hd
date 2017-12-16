@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import _ from 'lodash';
+
 import Errors from '../../server/api/Collections/Errors';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Events from '../../server/api/Collections/Events';
@@ -59,5 +61,9 @@ export default function sendNotifications({ eventId }) {
 			lon,
 		}
 	};
-	Meteor.users.find(
+	const usersSignedIn = Meteor.users.find({ $exists: { fcmToken: 1 } }).fetch();
+	const userIds = _.map(usersSignedIn, '_id');
+	const registrationTokens = _.map(usersSignedIn, 'fcmToken');
+
+	sendNotification({ registrationTokens, payload });
 }

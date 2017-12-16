@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
       <change beforePath="$PROJECT_DIR$/imports/startup/server/google.js" afterPath="$PROJECT_DIR$/imports/startup/server/google.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -63,8 +62,8 @@
       <file leaf-file-name="google.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="863">
-              <caret line="61" column="22" lean-forward="false" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+            <state relative-caret-position="420">
+              <caret line="67" column="54" lean-forward="false" selection-start-line="67" selection-start-column="54" selection-end-line="67" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -114,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="593">
-              <caret line="69" column="81" lean-forward="true" selection-start-line="69" selection-start-column="81" selection-end-line="69" selection-end-column="81" />
+              <caret line="69" column="61" lean-forward="false" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -181,8 +180,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setData</find>
-      <find>האם אתה</find>
       <find>איפוס</find>
       <find>p.isUserAdmin</find>
       <find>Storage</find>
@@ -211,6 +208,8 @@
       <find>Meteor.loginWithPassword</find>
       <find>Static</find>
       <find>fields</find>
+      <find>_.</find>
+      <find>lodas</find>
     </findStrings>
     <replaceStrings>
       <replace>editRow.row.companyId</replace>
@@ -417,8 +416,8 @@
         <option value="$PROJECT_DIR$/imports/server/api/Users/edit-profile.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/notifications.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/router.js" />
-        <option value="$PROJECT_DIR$/imports/startup/server/google.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
+        <option value="$PROJECT_DIR$/imports/startup/server/google.js" />
       </list>
     </option>
   </component>
@@ -965,7 +964,7 @@
       <workItem from="1512754831643" duration="10554000" />
       <workItem from="1512922942589" duration="16125000" />
       <workItem from="1513095036309" duration="6999000" />
-      <workItem from="1513274822147" duration="18094000" />
+      <workItem from="1513274822147" duration="19728000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -1006,7 +1005,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="965545000" />
+    <option name="totallyTimeSpent" value="967179000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1707,15 +1706,15 @@
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="593">
-          <caret line="69" column="81" lean-forward="true" selection-start-line="69" selection-start-column="81" selection-end-line="69" selection-end-column="81" />
+          <caret line="69" column="61" lean-forward="false" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="85" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="863">
-          <caret line="61" column="22" lean-forward="false" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+        <state relative-caret-position="420">
+          <caret line="67" column="54" lean-forward="false" selection-start-line="67" selection-start-column="54" selection-end-line="67" selection-end-column="54" />
           <folding />
         </state>
       </provider>
