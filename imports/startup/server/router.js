@@ -8,6 +8,7 @@ import Events from '../../server/api/Collections/Events';
 import Errors from '../../server/api/Collections/Errors';
 import { sleep } from '../../server/Utils/utils';
 import { initTestDb } from './fixtures';
+import { sendNotifications } from './google';
 
 const calculateFlow = ({ flowEndCode }) => {
 	const flowContinueCode = flowEndCode - 1;
@@ -157,19 +158,21 @@ const updateDb = ({ sim, code, edata }) => {
 			return { error: 'Event received, faulty code parameter' };
 	}
 
-	Events.insert(newEvent);
+	const eventId = Events.insert(newEvent);
 	Hydrants.update({ _id: hydrantId }, { $set: newHydrant });
 
-	return {};
+	return { eventId };
 };
 
 Picker.route('/input', (params, req, res, next) => {
 	const { h: sim, c: code, d: edata } = params.query;
-	const { error } = updateDb({ sim, code, edata });
+	const { error, eventId } = updateDb({ sim, code, edata });
 	if (error) {
 		console.log('error');
 		console.log(error);
 		Errors.insert({ description: error });
+	} else {
+		sendNotifications({ eventId });
 	}
 	res.statusCode = 200;
 	res.end('received input route');

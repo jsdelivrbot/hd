@@ -6,6 +6,5 @@
 // import Events from '../../server/api/Collections/Events';
 // import Errors from '../../server/api/Collections/Errors';
 // import { sleep } from '../../server/Utils/utils';
-import { sendNotification } from './google';
 
 // sendNotification();
