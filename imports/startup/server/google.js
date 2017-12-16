@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import Errors from '../../server/api/Collections/Errors';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Events from '../../server/api/Collections/Events';
+import Static from '../../server/api/Collections/Static';
 
 const admin = require('firebase-admin');
 
@@ -35,18 +36,28 @@ function sendNotification({ registrationTokens, payload }) {
 }
 
 export default function sendNotifications({ eventId }) {
-
 	const event = Events.find(eventId);
-	const {
+	const { createdAt, code, edata } = event;
+
 	const hydrant = Hydrants.find(eventId.hydrantId);
+	const { number: hydrantNumber, address, lat, lon } = hydrant;
+
 	const payload = {
 		notification: {
 			title: 'Hydrant event',
 			body: '***push to see***',
 		},
 		data: {
-			eventId
+			eventId,
+			createdAt,
+			code,
+			codeText: Static.findOne({}).types.code[code],
+			edata,
+			hydrantNumber,
+			address,
+			lat,
+			lon,
 		}
 	};
-
+	Meteor.users.find(
 }

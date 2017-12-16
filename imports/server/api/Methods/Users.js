@@ -67,7 +67,7 @@ Meteor.methods({
 		if (flag == 'logged_in') {
 			console.log(Meteor.users.update(this.userId, { $set: { fcmToken } }));
 		} else if (flag == 'reset') {
-			console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken: 'I am in reset' } }));
+			console.log(Meteor.users.update({ fcmToken }, { $unset: { fcmToken: 1 } }));
 		} else {
 			console.log(Meteor.users.update({ fcmToken }, { $set: { fcmToken } }));
 		}
