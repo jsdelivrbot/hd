@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 
-import Errors from '../../server/api/Collections/Errors';
+import Messages from '../../server/api/Collections/Messages';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Events from '../../server/api/Collections/Events';
 import Static from '../../server/api/Collections/Static';
+import Companies from '../../server/api/Collections/Companies';
 
 const admin = require('firebase-admin');
 
@@ -45,7 +46,8 @@ export default function sendNotifications({ eventId }) {
 	const { createdAt, code, edata } = event;
 
 	const hydrant = Hydrants.findOne(event.hydrantId);
-	const { number: hydrantNumber, address, lat, lon } = hydrant;
+	const { number: hydrantNumber, address, lat, lon, companyId } = hydrant;
+	const companyName = Companies.findOne(companyId);
 
 	const payload = {
 		notification: {
@@ -62,13 +64,32 @@ export default function sendNotifications({ eventId }) {
 			address,
 			lat,
 			lon,
+			companyId,
+			companyName
 		}
 	};
-	const usersSignedIn = Meteor.users.find({ fcmToken: { $exists: true } }).fetch();
-	console.log('usersSignedIn');
-	console.log(usersSignedIn);
-	// const userIds = _.map(usersSignedIn, '_id');
-	const registrationTokens = _.map(usersSignedIn, 'fcmToken');
+	let usersSignedIn = Meteor.Users.find(
+		{
+			fcmToken: { $exists: true },
+			companyId: { $eq: companyId }
+		}, {
+			fields: { fcmToken: 1, _id: 1 },
+		}
+	).fetch();
+	if (!_.isEmpty(usersSignedIn)) usersSignedIn = _.filter(usersSignedIn, fcmToken => fcmToken)
+	if (!_.isEmpty(usersSignedIn)) {
 
-	sendNotification({ registrationTokens, payload });
+		const registrationTokens = _.map(usersSignedIn, 'fcmToken');
+		const userIds = _.map(usersSignedIn, '_id');
+
+		console.log('usersSignedIn');
+		console.log(usersSignedIn);
+		console.log('registrationTokens');
+		console.log(registrationTokens);
+		console.log('userIds');
+		console.log(userIds);
+
+		Messages.insert({ eventId, userIds });
+		sendNotification({ registrationTokens, payload });
+	}
 }

@@ -81,12 +81,9 @@ Meteor.methods({
 		const user = Meteor.users.findOne({ fcmToken });
 		console.log(user);
 		if (!user) return {};
-		return {
-			email: user.emails[0].address,
-			name: user.profile.name,
-			role: user.role,
-			company: user.company,
-		};
+		const { email, name, role, companyId } = user;
+		const companyName = Companies.findOne(companyId);
+		return { email, name, role, companyId, companyName };
 	},
 	'user.update': function anon(p) {
 		check(p, Object);
