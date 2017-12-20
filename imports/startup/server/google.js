@@ -29,7 +29,7 @@ function sendNotification({ registrationTokens, payload }) {
 	console.log('payload');
 	console.log(payload);
 	payload.data = { data: JSON.stringify(payload.data) };
-	admin.messaging().sendToDevice(registrationTokens, payload)
+	return admin.messaging().sendToDevice(registrationTokens, payload)
 		.then((response) => {
 			// See the MessagingDevicesResponse reference documentation for
 			// the contents of response.
@@ -41,7 +41,7 @@ function sendNotification({ registrationTokens, payload }) {
 		});
 }
 
-export default function sendNotifications({ eventId }) {
+export default async function sendNotifications({ eventId }) {
 	const event = Events.findOne(eventId);
 	const { createdAt, code, edata } = event;
 
@@ -76,9 +76,8 @@ export default function sendNotifications({ eventId }) {
 			fields: { fcmToken: 1, _id: 1 },
 		}
 	).fetch();
-	if (!_.isEmpty(usersSignedIn)) usersSignedIn = _.filter(usersSignedIn, fcmToken => fcmToken)
+	usersSignedIn = _.filter(usersSignedIn, fcmToken => fcmToken);
 	if (!_.isEmpty(usersSignedIn)) {
-
 		const registrationTokens = _.map(usersSignedIn, 'fcmToken');
 		const userIds = _.map(usersSignedIn, '_id');
 
@@ -88,8 +87,9 @@ export default function sendNotifications({ eventId }) {
 		console.log(registrationTokens);
 		console.log('userIds');
 		console.log(userIds);
-
+		console.log('dispatching');
+		await sendNotification({ registrationTokens, payload });
 		Messages.insert({ eventId, userIds });
-		sendNotification({ registrationTokens, payload });
+		console.log('dispatching successful');
 	}
 }
