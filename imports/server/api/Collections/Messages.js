@@ -30,10 +30,11 @@ Messages.schema = new SimpleSchema({
 		type: String,
 		label: 'Event id',
 	},
-	'userIds.$': {
-		type: String,
+	userIds: {
+		type: Array,
 		label: 'User ids',
 	},
+	'userIds.$': String,
 });
 
 Messages.attachSchema(Messages.schema);
