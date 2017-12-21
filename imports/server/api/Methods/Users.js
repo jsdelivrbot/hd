@@ -78,21 +78,14 @@ Meteor.methods({
 		};
 		const cleanUserToken = () => {
 			if (!email) return;
-			Meteor.users.update({ 'emails[0].address': email }, { $unset: { fcmToken: 1 } });
+			Meteor.users.update({ 'emails.0.address': email }, { $unset: { fcmToken: 1 } });
 		};
 		const updateUserToken = () => {
 			if (!fcmToken) return;
 			if (!email) return;
-			Meteor.users.update({ 'emails[0].address': email }, { $set: { fcmToken } });
+			Meteor.users.update({ 'emails.0.address': email }, { $set: { fcmToken } });
 		};
-		// const createUserToken = () => {
-		// 	if (!fcmToken) return;
-		// 	Meteor.users.update({ 'emails[0].address': email }, { $set: { fcmToken } });
-		// };
 
-		// if (flag == 'login') {
-		// 	removeTokenFromAllUsers();
-		// 	createUserToken();
 		if (flag == 'logout') {
 			removeTokenFromAllUsers();
 			cleanUserToken();
@@ -139,6 +132,15 @@ rateLimit({
 	limit: 2,
 	timeRange: 1000,
 });
+
+// const createUserToken = () => {
+// 	if (!fcmToken) return;
+// 	Meteor.users.update({ 'emails[0].address': email }, { $set: { fcmToken } });
+// };
+
+// if (flag == 'login') {
+// 	removeTokenFromAllUsers();
+// 	createUserToken();
 
 
 // 'user.getUserDetailsForFCMToken': function anon(p) {
