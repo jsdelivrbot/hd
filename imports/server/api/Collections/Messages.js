@@ -21,10 +21,7 @@ Messages.deny({
 Messages.schema = new SimpleSchema({
 	createdAt: {
 		type: Date,
-		label: 'The date this document was created.',
-		autoValue() {
-			if (this.isInsert && !this.isSet) return moment().toDate();
-		},
+		label: 'The date event was created.',
 	},
 	eventId: {
 		type: String,
@@ -40,6 +37,8 @@ Messages.schema = new SimpleSchema({
 Messages.attachSchema(Messages.schema);
 
 Messages.rawCollection().createIndex({ createdAt: 1 });
-Messages.rawCollection().createIndex({ description: -1 });
+Messages.rawCollection().createIndex({ createdAt: -1 });
+Messages.rawCollection().createIndex({ eventId: 1 });
+Messages.rawCollection().createIndex({ eventId: -1 });
 
 export default Messages;

@@ -28,7 +28,6 @@ function sendNotification({ registrationTokens, payload }) {
 	// registration token...
 	console.log('payload');
 	console.log(payload);
-	payload.data = { data: JSON.stringify(payload.data) };
 	return admin.messaging().sendToDevice(registrationTokens, payload)
 		.then((response) => {
 			// See the MessagingDevicesResponse reference documentation for
@@ -50,22 +49,26 @@ export default async function sendNotifications({ eventId }) {
 	const companyName = Companies.findOne(companyId);
 
 	const payload = {
-		notification: {
-			title: 'Hydrant event',
-			body: '***push to see***',
-		},
 		data: {
-			eventId,
-			createdAt,
-			code,
-			codeText: Static.findOne({}).types.code[code],
-			edata,
-			hydrantNumber,
-			address,
-			lat,
-			lon,
-			companyId,
-			companyName
+			custom_notification: JSON.stringify({
+				title: 'Hydrant event',
+				body: '***push to see***',
+				show_in_foreground: true,
+				sound: 'default',
+				event: {
+					eventId,
+					createdAt,
+					code,
+					codeText: Static.findOne({}).types.code[code],
+					edata,
+					hydrantNumber,
+					address,
+					lat,
+					lon,
+					companyId,
+					companyName
+				}
+			})
 		}
 	};
 	let usersSignedIn = Meteor.users.find(
@@ -93,7 +96,7 @@ export default async function sendNotifications({ eventId }) {
 		console.log(userIds);
 		console.log('dispatching');
 		await sendNotification({ registrationTokens, payload });
-		Messages.insert({ eventId, userIds });
+		Messages.insert({ createdAt, eventId, userIds });
 		console.log('dispatching successful');
 	}
 }
