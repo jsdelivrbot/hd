@@ -1,12 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
+import fp from 'lodash/fp';
 import moment from 'moment';
 import Events from '../Collections/Events';
 import Hydrants from '../Collections/Hydrants';
 import Static from '../Collections/Static';
 import rateLimit from '../../Utils/rate-limit';
 import * as roles from '../../Utils/roles';
+import Messages from "../Collections/Messages";
 
 function buildFilterEvents(fromFilter) {
 	const filter = {};
@@ -102,11 +104,53 @@ Meteor.methods({
 			{ $limit: 12 },
 		], { allowDiskUse: true });
 	},
+	'events.get.mobile': function anon(p) {
+		check(p, Object);
+		console.log('p.createdAt');
+		console.log(p.createdAt);
+		console.log('p.companyId');
+		console.log(p.companyId);
+
+		let data = Events.aggregate([
+			{ $sort: { createdAt: -1 } },
+			{ $match: { createdAt: { $gt: new Date(p.createdAt) } } },
+			{ $lookup: {
+				from: 'Hydrants',
+				localField: 'hydrantId',
+				foreignField: '_id',
+				as: 'h'
+			} },
+			{ $unwind: '$h' },
+			{ $match: { 'h.companyId': p.companyId } },
+			{ $project: {
+				createdAt: 1,
+				eventId: '$_id',
+				_id: 0,
+				code: 1,
+				edata: 1,
+				hydrantNumber: '$h.number',
+				lat: '$h.lat',
+				lon: '$h.lon',
+				address: '$h.address',
+			} },
+		], { allowDiskUse: true });
+
+		const ecodes = Static.findOne({}).types.code;
+		data = data.map(({ code, createdAt, ...rest }) => ({
+			createdAt: createdAt.toISOString(),
+			codeText: ecodes[code],
+			code,
+			...rest
+		}));
+		console.log('events data.length');
+		console.log(data.length);
+		return data;
+	},
 });
 
 rateLimit({
 	methods: [
-		'events.get.data', 'events.get.lenQuery', 'events.get.counts'
+		'events.get.mobile', 'events.get.data', 'events.get.lenQuery', 'events.get.counts'
 	],
 	limit: 2,
 	timeRange: 1000,
