@@ -106,10 +106,10 @@ Meteor.methods({
 	},
 	'events.get.mobile': function anon(p) {
 		check(p, Object);
-		console.log('p.createdAt');
-		console.log(p.createdAt);
-		console.log('p.companyId');
-		console.log(p.companyId);
+		// console.log('p.createdAt');
+		// console.log(p.createdAt);
+		// console.log('p.companyId');
+		// console.log(p.companyId);
 
 		let data = Events.aggregate([
 			{ $sort: { createdAt: -1 } },
@@ -142,8 +142,8 @@ Meteor.methods({
 			code,
 			...rest
 		}));
-		console.log('events data.length');
-		console.log(data.length);
+		// console.log('events data.length');
+		// console.log(data.length);
 		return data;
 	},
 });

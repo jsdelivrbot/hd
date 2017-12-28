@@ -28,7 +28,7 @@ function sendNotification({ registrationTokens, payload }) {
 	// registration token...
 	console.log('payload');
 	console.log(payload);
-	return admin.messaging().sendToDevice(registrationTokens, payload)
+	return admin.messaging().sendToDevice(registrationTokens, payload, { priority: 'high' })
 		.then((response) => {
 			// See the MessagingDevicesResponse reference documentation for
 			// the contents of response.
@@ -47,19 +47,21 @@ export default async function sendNotifications({ eventId }) {
 	const hydrant = Hydrants.findOne(event.hydrantId);
 	const { number: hydrantNumber, address, lat, lon, companyId } = hydrant;
 	const companyName = Companies.findOne(companyId);
+	const codeText = Static.findOne({}).types.code[code];
 
 	const payload = {
 		data: {
 			custom_notification: JSON.stringify({
-				title: 'Hydrant event',
-				body: '***push to see***',
+				title: `הידרט #-${hydrantNumber}`,
+				body: `${codeText}`,
 				show_in_foreground: true,
 				sound: 'default',
+				priority: 'high',
 				event: {
 					eventId,
 					createdAt,
 					code,
-					codeText: Static.findOne({}).types.code[code],
+					codeText,
 					edata,
 					hydrantNumber,
 					address,

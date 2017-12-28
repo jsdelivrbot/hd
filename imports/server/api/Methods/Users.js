@@ -54,6 +54,8 @@ Meteor.methods({
 		const company = Companies.findOne({ _id: companyId });
 		const name = `${user.profile.name.first} ${user.profile.name.last}`;
 		const email = user.emails[0].address;
+
+
 		return { company, companyId, role, name, email };
 	},
 	'user.set.companyId': function anon(companyId) {
