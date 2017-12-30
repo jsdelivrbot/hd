@@ -10,6 +10,7 @@
     "@cleverbeagle/seeder": "^1.2.0",
     "await-to-js": "^2.0.1",
     "axios": "^0.17.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "commonmark": "^0.28.1",

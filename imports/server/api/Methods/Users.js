@@ -56,6 +56,9 @@ Meteor.methods({
 		const email = user.emails[0].address;
 
 
+
+
+
 		return { company, companyId, role, name, email };
 	},
 	'user.set.companyId': function anon(companyId) {

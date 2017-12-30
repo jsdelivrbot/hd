@@ -5,6 +5,7 @@
     }
   },
   "plugins": [
+    "transform-class-properties",
     "add-react-displayname",
 	"jsx-control-statements"
   ]
