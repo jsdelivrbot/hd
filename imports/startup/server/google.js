@@ -81,10 +81,9 @@ export default async function sendNotifications({ eventId }) {
 			fields: { fcmToken: 1, _id: 1 },
 		}
 	).fetch();
-	console.log('usersSignedIn');
-	console.log(usersSignedIn);
-	console.log('companyId');
-	console.log(companyId);
+	console.log('usersSignedIn', usersSignedIn);
+	console.log('companyId', companyId, 'companyName', companyName);
+	console.log();
 	usersSignedIn = _.filter(usersSignedIn, fcmToken => fcmToken);
 	if (!_.isEmpty(usersSignedIn)) {
 		const registrationTokens = _.map(usersSignedIn, 'fcmToken');

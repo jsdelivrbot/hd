@@ -49,16 +49,14 @@ Meteor.methods({
 	},
 	'user.get.properties': function anon() {
 		if (!roles.isUserAdminOrControlOrSecurity()) return undefined;
+
 		const user = Meteor.user();
 		const { companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
 		const name = `${user.profile.name.first} ${user.profile.name.last}`;
 		const email = user.emails[0].address;
 
-
-
-
-
+		console.log('user.get.properties', 'company.name', company.name, 'companyId', companyId, 'role', role, 'name', name, 'email', email);
 		return { company, companyId, role, name, email };
 	},
 	'user.set.companyId': function anon(companyId) {
@@ -69,34 +67,42 @@ Meteor.methods({
 	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
 		const { fcmToken, flag, email } = p;
-		console.log('user.set.fcmtoken');
-		console.log('fcmToken');
-		console.log(fcmToken);
-		console.log('flag');
-		console.log(flag);
-		console.log('email');
-		console.log(email);
+		if (!roles.isUserAdminOrControlOrSecurity(email)) return undefined;
+		if (!fcmToken || !email) return undefined;
+		console.log('user.set.fcmtoken ', 'fcmToken ', fcmToken, 'flag ', flag, 'email ', email);
 
 		const removeTokenFromAllUsers = () => {
 			if (!fcmToken) return;
-			Meteor.users.update({ fcmToken }, { $unset: { fcmToken: 1 } });
+			Meteor.users.update(
+				{ },
+				{ $unset: { 'fcmToken.$[element]': 1 } },
+				{ arrayFilters: [{ element: fcmToken }] }
+			);
 		};
-		const cleanUserToken = () => {
-			if (!email) return;
-			Meteor.users.update({ 'emails.0.address': email }, { $unset: { fcmToken: 1 } });
+		const removeUserToken = () => {
+			Meteor.users.update(
+				{ 'emails.0.address': email },
+				{ $unset: { 'fcmToken.$[element]': 1 } },
+				{ arrayFilters: [{ element: fcmToken }] }
+			);
 		};
 		const updateUserToken = () => {
-			if (!fcmToken) return;
-			if (!email) return;
-			Meteor.users.update({ 'emails.0.address': email }, { $set: { fcmToken } });
+			Meteor.users.update(
+				{ 'emails.0.address': email },
+				{ $addToSet: { fcmToken } },
+			);
 		};
 
-		if (flag == 'logout') {
+		if (flag == 'login') {
 			removeTokenFromAllUsers();
-			cleanUserToken();
+			updateUserToken();
+		}
+		if (flag != 'logout') {
+			removeUserToken();
 		} else {
 			updateUserToken();
 		}
+		return true;
 	},
 	'user.update': function anon(p) {
 		check(p, Object);
@@ -137,6 +143,34 @@ rateLimit({
 	limit: 2,
 	timeRange: 1000,
 });
+
+
+// 'user.set.fcmtoken': function anon(p) {   // for one token
+// 	check(p, Object);
+// 	const { fcmToken, flag, email } = p;
+// 	console.log('user.set.fcmtoken ', 'fcmToken ', fcmToken, 'flag ', flag, 'email ', email);
+//
+// 	const removeTokenFromAllUsers = () => {
+// 		if (!fcmToken) return;
+// 		Meteor.users.update({ fcmToken }, { $unset: { fcmToken: 1 } });
+// 	};
+// 	const cleanUserToken = () => {
+// 		if (!email) return;
+// 		Meteor.users.update({ 'emails.0.address': email }, { $unset: { fcmToken: 1 } });
+// 	};
+// 	const updateUserToken = () => {
+// 		if (!fcmToken) return;
+// 		if (!email) return;
+// 		Meteor.users.update({ 'emails.0.address': email }, { $set: { fcmToken } });
+// 	};
+//
+// 	if (flag == 'logout') {
+// 		removeTokenFromAllUsers();
+// 		cleanUserToken();
+// 	} else {
+// 		updateUserToken();
+// 	}
+// },
 
 // const createUserToken = () => {
 // 	if (!fcmToken) return;

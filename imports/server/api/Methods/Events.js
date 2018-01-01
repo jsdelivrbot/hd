@@ -142,8 +142,7 @@ Meteor.methods({
 			code,
 			...rest
 		}));
-		// console.log('events data.length');
-		// console.log(data.length);
+		if (data.length) console.log('events.get.mobile', 'data.length', data.length);
 		return data;
 	},
 });
