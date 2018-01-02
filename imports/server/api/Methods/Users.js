@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
@@ -67,13 +68,13 @@ Meteor.methods({
 	},
 	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
-		const { fcmToken, flag, email, deviceInfo } = p;
-		if (!roles.isUserAdminOrControlOrSecurity(email)) return undefined;
+		const { fcmToken, flag, deviceInfo } = p;
+		const email = p.email || _.get(Meteor.user(), 'emails[0].address');
 		if (!fcmToken || !email) return undefined;
-		console.log('user.set.fcmtoken ', 'fcmToken ', fcmToken, 'flag ', flag, 'email ', email);
+		if (!roles.isUserAdminOrControlOrSecurity(email)) return undefined;
+		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"email"', email, '"deviceInfo"', deviceInfo);
 
 		const removeTokenFromAllUsers = () => {
-			if (!fcmToken) return;
 			Meteor.users.update(
 				{ },
 				{ $unset: { 'fcmToken.$[element]': 1 } },
@@ -83,8 +84,7 @@ Meteor.methods({
 		const removeUserToken = () => {
 			Meteor.users.update(
 				{ 'emails.0.address': email },
-				{ $unset: { 'fcmToken.$[element]': 1 } },
-				{ arrayFilters: [{ element: fcmToken }] }
+				{ $pull: { fcmToken } },
 			);
 		};
 		const updateUserToken = () => {
@@ -101,8 +101,8 @@ Meteor.methods({
 			removeTokenFromAllUsers();
 			updateUserToken();
 			addDevice();
-		}
-		if (flag != 'logout') {
+			return Meteor.call('user.get.properties');
+		} else if (flag == 'logout') {
 			removeUserToken();
 		} else {
 			updateUserToken();

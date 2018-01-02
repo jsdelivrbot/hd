@@ -33,6 +33,7 @@ Devices.schema = new SimpleSchema({
 	},
 	info: {
 		type: Object,
+		blackbox: true,
 		label: 'device info',
 	}
 });
