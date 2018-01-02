@@ -31,6 +31,13 @@ Errors.schema = new SimpleSchema({
 		max: 350,
 		label: 'Description',
 	},
+	data: {
+		type: Array,
+		max: 350,
+		label: 'data',
+		optional: true,
+	},
+	'users.$': Object,
 });
 
 Errors.attachSchema(Errors.schema);

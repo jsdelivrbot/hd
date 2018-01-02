@@ -27,11 +27,11 @@ Messages.schema = new SimpleSchema({
 		type: String,
 		label: 'Event id',
 	},
-	userIds: {
+	users: {
 		type: Array,
-		label: 'User ids',
+		label: 'User Id and fcm token',
 	},
-	'userIds.$': String,
+	'users.$': Object,
 });
 
 Messages.attachSchema(Messages.schema);

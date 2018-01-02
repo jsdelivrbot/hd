@@ -1,11 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
+import to from 'await-to-js';
 
 import Messages from '../../server/api/Collections/Messages';
 import Hydrants from '../../server/api/Collections/Hydrants';
 import Events from '../../server/api/Collections/Events';
 import Static from '../../server/api/Collections/Static';
 import Companies from '../../server/api/Collections/Companies';
+import Errors from '../../server/api/Collections/Errors';
 
 const admin = require('firebase-admin');
 
@@ -40,7 +42,7 @@ function sendNotification({ registrationTokens, payload }) {
 		});
 }
 
-export default async function sendNotifications({ eventId }) {
+export default function sendNotifications({ eventId }) {
 	const event = Events.findOne(eventId);
 	const { createdAt, code, edata } = event;
 
@@ -81,23 +83,31 @@ export default async function sendNotifications({ eventId }) {
 			fields: { fcmToken: 1, _id: 1 },
 		}
 	).fetch();
-	console.log('usersSignedIn', usersSignedIn);
-	console.log('companyId', companyId, 'companyName', companyName);
-	console.log();
-	usersSignedIn = _.filter(usersSignedIn, fcmToken => fcmToken);
-	if (!_.isEmpty(usersSignedIn)) {
-		const registrationTokens = _.map(usersSignedIn, 'fcmToken');
-		const userIds = _.map(usersSignedIn, '_id');
 
-		console.log('usersSignedIn');
-		console.log(usersSignedIn);
-		console.log('registrationTokens');
-		console.log(registrationTokens);
-		console.log('userIds');
-		console.log(userIds);
-		console.log('dispatching');
-		await sendNotification({ registrationTokens, payload });
-		Messages.insert({ createdAt, eventId, userIds });
-		console.log('dispatching successful');
+	const users = [];
+	const errorData = [];
+	_.forEach(usersSignedIn, (user) => {
+		_.forEach(user.fcmToken, async (token) => {
+			const [err] = await to(sendNotification({ token, payload }));
+			if (err) {
+				errorData.push({ userId: user._id, token });
+			} else {
+				users.push({ userId: user._id, token });
+			}
+		});
+	});
+
+	if (!_.isEmpty(users)) {
+		Messages.insert({ createdAt, eventId, users });
 	}
+	if (!_.isEmpty(errorData)) {
+		Errors.insert({ description: 'Error sending notification', data: errorData });
+	}
+	console.log('sendNotifications',
+		'hydrantNumber', hydrantNumber,
+		'companyId', companyId,
+		'companyName', companyName,
+		'number sent', users.length,
+		'number not sent', errorData.length
+	);
 }
