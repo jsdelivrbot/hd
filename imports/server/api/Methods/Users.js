@@ -5,6 +5,7 @@ import to from 'await-to-js';
 import editProfile from '../Users/edit-profile';
 import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
+import Devices from '../Collections/Devices';
 import * as roles from '../../Utils/roles';
 
 
@@ -66,7 +67,7 @@ Meteor.methods({
 	},
 	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
-		const { fcmToken, flag, email } = p;
+		const { fcmToken, flag, email, deviceInfo } = p;
 		if (!roles.isUserAdminOrControlOrSecurity(email)) return undefined;
 		if (!fcmToken || !email) return undefined;
 		console.log('user.set.fcmtoken ', 'fcmToken ', fcmToken, 'flag ', flag, 'email ', email);
@@ -92,10 +93,14 @@ Meteor.methods({
 				{ $addToSet: { fcmToken } },
 			);
 		};
+		const addDevice = () => {
+			Devices.insert({ fcmToken, info: deviceInfo });
+		};
 
 		if (flag == 'login') {
 			removeTokenFromAllUsers();
 			updateUserToken();
+			addDevice();
 		}
 		if (flag != 'logout') {
 			removeUserToken();

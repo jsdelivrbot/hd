@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Messages.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Messages.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Messages.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Messages.js" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/google.js" afterPath="$PROJECT_DIR$/imports/startup/server/google.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Devices.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,7 +31,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="google.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="google.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="653">
@@ -82,6 +81,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Devices.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Devices.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="687">
+              <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Messages.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Messages.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -112,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Users.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="84" column="24" lean-forward="false" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
+            <state relative-caret-position="623">
+              <caret line="102" column="24" lean-forward="false" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -201,11 +210,10 @@
       <find>lod</find>
       <find>forEach</find>
       <find>to from</find>
-      <find>Errors</find>
       <find>optional</find>
+      <find>Errors</find>
     </findStrings>
     <replaceStrings>
-      <replace>assignEditRow</replace>
       <replace>nRow</replace>
       <replace>nRole</replace>
       <replace />
@@ -235,6 +243,7 @@
       <replace>isFinite</replace>
       <replace>סיסמ</replace>
       <replace>Messages</replace>
+      <replace>Devices</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\PSG\m\pup</dir>
@@ -310,7 +319,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/server/api/Events/methods.js" />
         <option value="$PROJECT_DIR$/imports/client/components/HydrantEditor/HydrantEditor.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Hydrants/Hydrants.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Hydrants/methods.js" />
@@ -406,11 +414,12 @@
         <option value="$PROJECT_DIR$/.babelrc" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
         <option value="$PROJECT_DIR$/imports/server/Utils/roles.js" />
-        <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Methods/Messages.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Messages.js" />
         <option value="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" />
         <option value="$PROJECT_DIR$/imports/startup/server/google.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Collections/Devices.js" />
+        <option value="$PROJECT_DIR$/imports/server/api/Methods/Users.js" />
       </list>
     </option>
   </component>
@@ -797,19 +806,19 @@
     <property name="node.js.selected.package.jscs" value="" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
-      <recent name="C:\Users\PSG\m\pup\imports\server\api\Collections" />
-      <recent name="C:\Users\PSG\m\pup\imports\startup\server" />
-      <recent name="C:\Users\PSG\m\pup\imports\server\Utils" />
-      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Hydrants\components\HydrantEditor" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\PSG\m\pup\imports\server\Utils" />
       <recent name="C:\Users\PSG\m\pup\imports\client\Utils" />
       <recent name="C:\Users\PSG\m\pup\imports\modules\server" />
       <recent name="C:\Users\PSG\m\pup\imports" />
       <recent name="C:\Users\PSG\m\pup\imports\server\modules" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\PSG\m\pup\imports\server\api\Collections" />
+      <recent name="C:\Users\PSG\m\pup\imports\server\api\Methods" />
+      <recent name="C:\Users\PSG\m\pup\imports\startup\server" />
+      <recent name="C:\Users\PSG\m\pup\imports\server\Utils" />
+      <recent name="C:\Users\PSG\m\pup\imports\client\pages\Hydrants\components\HydrantEditor" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -930,7 +939,7 @@
       <workItem from="1514800235248" duration="1209000" />
       <workItem from="1514818746179" duration="676000" />
       <workItem from="1514823750697" duration="8564000" />
-      <workItem from="1514850393565" duration="3455000" />
+      <workItem from="1514850393565" duration="5302000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -971,7 +980,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1053867000" />
+    <option name="totallyTimeSpent" value="1055714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1044,13 +1053,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/client/pages/Hydrants/ViewHydrant/Css/ViewHydrant.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Footer/Footer.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/components/LayoutLoginAndNavigationAndGeneral/Loading/Loading.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/pages/Administrative/MaybeNotNeeded/VerifyEmail/VerifyEmail.js" />
@@ -1649,18 +1651,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="84" column="24" lean-forward="false" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="145" column="0" lean-forward="false" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1673,14 +1675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Messages.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Errors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="743">
@@ -1689,10 +1683,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Devices.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+        <state relative-caret-position="687">
+          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Collections/Messages.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="102" column="24" lean-forward="false" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
           <folding />
         </state>
       </provider>
