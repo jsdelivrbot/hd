@@ -108,7 +108,6 @@ Meteor.methods({
 		check(p, Object);
 
 		let data = Events.aggregate([
-			// { $match: { createdAt: { $gt: new Date(p.createdAt) } } },
 			{ $lookup: {
 				from: 'Hydrants',
 				localField: 'hydrantId',
@@ -117,6 +116,7 @@ Meteor.methods({
 			} },
 			{ $unwind: '$h' },
 			{ $match: { 'h.companyId': p.companyId } },
+			{ $match: { createdAt: { $gt: new Date(p.createdAt) } } },
 			{ $sort: { createdAt: -1 } },
 			{ $limit: 200 },
 			{ $project: {
@@ -135,7 +135,7 @@ Meteor.methods({
 		if (data.length) {
 			console.log('events.get.mobile', 'data.length', data.length);
 			const ecodes = Static.findOne({}).types.code;
-			data = data.map(({ code, createdAt, ...rest }) => ({
+			data = _.map(data, ({ code, createdAt, ...rest }) => ({
 				createdAt: createdAt.toISOString(),
 				codeText: ecodes[code],
 				code,

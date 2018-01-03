@@ -23,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="713">
-              <caret line="104" column="17" lean-forward="true" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
+              <caret line="104" column="17" lean-forward="false" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -32,8 +32,8 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+            <state relative-caret-position="451">
+              <caret line="118" column="55" lean-forward="false" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -133,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/private/settings_deploy.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+              <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -180,8 +180,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Meteor.users</find>
-      <find>.$</find>
       <find>$gt</find>
       <find>past</find>
       <find>toISO</find>
@@ -210,6 +208,8 @@
       <find>import loda</find>
       <find>lodas</find>
       <find>transfor</find>
+      <find>value()</find>
+      <find>exists</find>
     </findStrings>
     <replaceStrings>
       <replace>nRow</replace>
@@ -977,7 +977,7 @@
       <workItem from="1514800235248" duration="1209000" />
       <workItem from="1514818746179" duration="676000" />
       <workItem from="1514823750697" duration="8564000" />
-      <workItem from="1514850393565" duration="17574000" />
+      <workItem from="1514850393565" duration="19160000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -1018,7 +1018,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1067986000" />
+    <option name="totallyTimeSpent" value="1069572000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1621,7 +1621,7 @@
     <entry file="file://$PROJECT_DIR$/imports/startup/server/google.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="713">
-          <caret line="104" column="17" lean-forward="true" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
+          <caret line="104" column="17" lean-forward="false" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1725,7 +1725,7 @@
     <entry file="file://$PROJECT_DIR$/private/settings_deploy.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1748,8 +1748,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+        <state relative-caret-position="451">
+          <caret line="118" column="55" lean-forward="false" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
           <folding />
         </state>
       </provider>
