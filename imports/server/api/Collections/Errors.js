@@ -37,7 +37,10 @@ Errors.schema = new SimpleSchema({
 		label: 'data',
 		optional: true,
 	},
-	'users.$': Object,
+	'data.$': {
+		type: Object,
+		blackbox: true,
+	},
 });
 
 Errors.attachSchema(Errors.schema);

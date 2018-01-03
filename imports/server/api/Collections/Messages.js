@@ -31,7 +31,10 @@ Messages.schema = new SimpleSchema({
 		type: Array,
 		label: 'User Id and fcm token',
 	},
-	'users.$': Object,
+	'users.$': {
+		type: Object,
+		blackbox: true,
+	},
 });
 
 Messages.attachSchema(Messages.schema);

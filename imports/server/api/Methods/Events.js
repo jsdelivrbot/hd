@@ -106,14 +106,9 @@ Meteor.methods({
 	},
 	'events.get.mobile': function anon(p) {
 		check(p, Object);
-		// console.log('p.createdAt');
-		// console.log(p.createdAt);
-		// console.log('p.companyId');
-		// console.log(p.companyId);
 
 		let data = Events.aggregate([
-			{ $sort: { createdAt: -1 } },
-			{ $match: { createdAt: { $gt: new Date(p.createdAt) } } },
+			// { $match: { createdAt: { $gt: new Date(p.createdAt) } } },
 			{ $lookup: {
 				from: 'Hydrants',
 				localField: 'hydrantId',
@@ -122,6 +117,8 @@ Meteor.methods({
 			} },
 			{ $unwind: '$h' },
 			{ $match: { 'h.companyId': p.companyId } },
+			{ $sort: { createdAt: -1 } },
+			{ $limit: 200 },
 			{ $project: {
 				createdAt: 1,
 				eventId: '$_id',

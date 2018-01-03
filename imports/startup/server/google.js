@@ -19,8 +19,7 @@ admin.initializeApp({
 	databaseURL: 'https://hdapp-45a74.firebaseio.com'
 });
 
-function sendNotification({ registrationTokens, payload }) {
-	console.log('sending notification');
+function sendNotification({ token, payload }) {
 	// This registration token comes from the client FCM SDKs.
 	// const registrationToken = 'fjSGMKTLGcA:APA91bGJu_z0zpfb393CaY5qrpatUJZTsXRx0M_n9dwwspPmCW6CAD298Q6Iauw47KQLHEW3zOelhqJQywc-iQ-E5R4vPOFz04qT3lT66SpKxNk5imkk5Jr3MhJz29vpXqfmorlWt0c5';
 
@@ -28,27 +27,25 @@ function sendNotification({ registrationTokens, payload }) {
 	// on how to define a message payload.
 	// Send a message to the device corresponding to the provided
 	// registration token...
-	console.log('payload');
-	console.log(payload);
-	return admin.messaging().sendToDevice(registrationTokens, payload, { priority: 'high' })
-		.then((response) => {
-			// See the MessagingDevicesResponse reference documentation for
-			// the contents of response.
-			console.log('Successfully sent message:', response);
-			console.log('results:', response.results);
-		})
-		.catch((error) => {
-			console.log('Error sending message:', error);
-		});
+	return admin.messaging().sendToDevice(token, payload, { priority: 'high' });
+	// .then((response) => {
+	// 	// See the MessagingDevicesResponse reference documentation for
+	// 	// the contents of response.
+	// 	console.log('Successfully sent message:', response);
+	// 	console.log('results:', response.results);
+	// })
+	// .catch((error) => {
+	// 	console.log('Error sending message:', error);
+	// });
 }
 
-export default function sendNotifications({ eventId }) {
+export default async function sendNotifications({ eventId }) {
 	const event = Events.findOne(eventId);
 	const { createdAt, code, edata } = event;
 
 	const hydrant = Hydrants.findOne(event.hydrantId);
 	const { number: hydrantNumber, address, lat, lon, companyId } = hydrant;
-	const companyName = Companies.findOne(companyId);
+	const companyName = Companies.findOne(companyId).name;
 	const codeText = Static.findOne({}).types.code[code];
 
 	const payload = {
@@ -75,7 +72,7 @@ export default function sendNotifications({ eventId }) {
 			})
 		}
 	};
-	let usersSignedIn = Meteor.users.find(
+	const usersSignedIn = Meteor.users.find(
 		{
 			fcmToken: { $exists: true },
 			companyId: { $eq: companyId }
@@ -86,17 +83,22 @@ export default function sendNotifications({ eventId }) {
 
 	const users = [];
 	const errorData = [];
-	_.forEach(usersSignedIn, (user) => {
-		_.forEach(user.fcmToken, async (token) => {
+	await _.reduce(usersSignedIn, async (r1, user) => (
+		await _.reduce(user.fcmToken, async (r2, token) => {
+			console.log('token', token);
 			const [err] = await to(sendNotification({ token, payload }));
+			console.log('err', err);
 			if (err) {
-				errorData.push({ userId: user._id, token });
+				errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
 			} else {
+				console.log('hehr');
 				users.push({ userId: user._id, token });
 			}
-		});
-	});
-
+			return err;
+		}, { })
+	), { });
+	console.log('users', users);
+	console.log('errorData', errorData);
 	if (!_.isEmpty(users)) {
 		Messages.insert({ createdAt, eventId, users });
 	}
