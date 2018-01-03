@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5774cdd-3a53-4ed8-a90e-7a0c66561f8d" name="Default" comment="Various changes">
-      <change beforePath="$PROJECT_DIR$/imports/client/stylesheets/app.scss" afterPath="$PROJECT_DIR$/imports/client/stylesheets/app.scss" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Errors.js" />
-      <change beforePath="$PROJECT_DIR$/imports/server/api/Collections/Messages.js" afterPath="$PROJECT_DIR$/imports/server/api/Collections/Messages.js" />
       <change beforePath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" afterPath="$PROJECT_DIR$/imports/server/api/Methods/Events.js" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/server/google.js" afterPath="$PROJECT_DIR$/imports/startup/server/google.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +32,8 @@
       <file leaf-file-name="Events.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="119" column="25" lean-forward="false" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+            <state relative-caret-position="810">
+              <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -981,7 +977,7 @@
       <workItem from="1514800235248" duration="1209000" />
       <workItem from="1514818746179" duration="676000" />
       <workItem from="1514823750697" duration="8564000" />
-      <workItem from="1514850393565" duration="16909000" />
+      <workItem from="1514850393565" duration="17574000" />
     </task>
     <task id="LOCAL-00001" summary="Hydrants interface v1 complete before review">
       <created>1505592647674</created>
@@ -1022,7 +1018,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1067321000" />
+    <option name="totallyTimeSpent" value="1067986000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1752,8 +1748,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/Methods/Events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="119" column="25" lean-forward="false" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
+        <state relative-caret-position="810">
+          <caret line="146" column="25" lean-forward="false" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
           <folding />
         </state>
       </provider>

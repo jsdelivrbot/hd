@@ -132,15 +132,19 @@ Meteor.methods({
 			} },
 		], { allowDiskUse: true });
 
-		const ecodes = Static.findOne({}).types.code;
-		data = data.map(({ code, createdAt, ...rest }) => ({
-			createdAt: createdAt.toISOString(),
-			codeText: ecodes[code],
-			code,
-			...rest
-		}));
-		if (data.length) console.log('events.get.mobile', 'data.length', data.length);
-		return data;
+		if (data.length) {
+			console.log('events.get.mobile', 'data.length', data.length);
+			const ecodes = Static.findOne({}).types.code;
+			data = data.map(({ code, createdAt, ...rest }) => ({
+				createdAt: createdAt.toISOString(),
+				codeText: ecodes[code],
+				code,
+				...rest
+			}));
+			return data;
+		}
+
+		return undefined;
 	},
 });
 
