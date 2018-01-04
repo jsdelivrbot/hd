@@ -51,11 +51,25 @@ export default async function sendNotifications({ eventId }) {
 	const payload = {
 		data: {
 			custom_notification: JSON.stringify({
-				title: `הידרנט #-${hydrantNumber}`,
+				title: `הידרנט # - ${hydrantNumber}`,
 				body: `${codeText}`,
 				show_in_foreground: true,
 				sound: 'default',
 				priority: 'high',
+				sub_text: 'This is a subText',
+				large_icon: 'ic_launcher',
+				// icon: 'ic_launcher',
+				// badge: 10,
+				// number: 5,
+				// click_action: 'ACTION',
+				// ticker: 'My Notification Ticker',
+				// big_text: 'Show when notification is expanded',
+				vibrate: 300,
+				wake_screen: true,
+				// picture: 'https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjQxIfJ1b7YAhUCy6QKHcPdCq8QjRwIBw&url=http%3A%2F%2Fwww.qygjxz.com%2Fsearch-images.html&psig=AOvVaw1uvfHxCadGWy5rkgYCH-Ho&ust=1515167661403289',
+				ongoing: true,
+				lights: true,
+				color: 'blue',
 				event: {
 					eventId,
 					createdAt,
