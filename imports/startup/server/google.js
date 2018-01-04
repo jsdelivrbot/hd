@@ -51,7 +51,7 @@ export default async function sendNotifications({ eventId }) {
 	const payload = {
 		data: {
 			custom_notification: JSON.stringify({
-				title: `הידרט #-${hydrantNumber}`,
+				title: `הידרנט #-${hydrantNumber}`,
 				body: `${codeText}`,
 				show_in_foreground: true,
 				sound: 'default',
