@@ -4,3 +4,4 @@ settings-staging.json
 settings-production.json
 settings-development.json
 private/settings_deploy.json
+.idea/workspace.xml
