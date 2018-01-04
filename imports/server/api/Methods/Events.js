@@ -133,7 +133,7 @@ Meteor.methods({
 		], { allowDiskUse: true });
 
 		if (data.length) {
-			console.log('events.get.mobile', 'data.length', data.length);
+			console.log('events.get.mobile', 'createdAt', p.createdAt, 'data.length', data.length);
 			const ecodes = Static.findOne({}).types.code;
 			data = _.map(data, ({ code, createdAt, ...rest }) => ({
 				createdAt: createdAt.toISOString(),
