@@ -155,11 +155,11 @@ export default compose(
 				if (p.appLoading) return;
 				p.setAppLoading(true);
 				if (p.isUserAdminOrControl()) p.setTypes(await Meteor.callPromise('utility.get.types'));
-				const { company, role } = await Meteor.callPromise('user.get.properties');
+				const { company, user } = await Meteor.callPromise('user.get.properties');
 				console.log('role');
-				console.log(role);
+				console.log(user.role);
 				p.setCompany(company);
-				p.setRole(role);
+				p.setRole(user.role);
 				p.setAppLoading(false);
 				p.setAppInitialized(true);
 				resetStore();

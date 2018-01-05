@@ -4,10 +4,10 @@ import { Meteor } from 'meteor/meteor';
 const isUserAdmin = () => Meteor.userId() && (Meteor.user().role == 0);
 const isUserControl = () => Meteor.userId() && (Meteor.user().role == 1);
 const isUserAdminOrControl = () => Meteor.userId() && (Meteor.user().role == 0 || Meteor.user().role == 1);
-const isUserAdminOrControlOrSecurity = (email) => {
+const isUserAdminOrControlOrSecurity = (userId) => {
 	let role;
-	if (email) {
-		role = _.get(Meteor.users.findOne({ 'emails.0.address': email }), 'role', false);
+	if (userId) {
+		role = _.get(Meteor.users.findOne(userId), 'role', false);
 	} else {
 		role = Meteor.userId() && Meteor.user().role;
 	}

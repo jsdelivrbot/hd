@@ -53,13 +53,13 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControlOrSecurity()) return undefined;
 
 		const user = Meteor.user();
-		const { companyId, role } = Meteor.user();
+		const { _id: userId, companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
 		const name = `${user.profile.name.first} ${user.profile.name.last}`;
 		const email = user.emails[0].address;
 
 		console.log('user.get.properties', 'company.name', company.name, 'companyId', companyId, 'role', role, 'name', name, 'email', email);
-		return { company, companyId, role, name, email };
+		return { company, user: { userId, role, name, email } };
 	},
 	'user.set.companyId': function anon(companyId) {
 		check(companyId, String);
@@ -69,10 +69,11 @@ Meteor.methods({
 	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
 		const { fcmToken, flag, deviceInfo } = p;
-		const email = p.email || _.get(Meteor.user(), 'emails[0].address');
-		if (!fcmToken || !email) return undefined;
-		if (!roles.isUserAdminOrControlOrSecurity(email)) return undefined;
-		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"email"', email, '"deviceInfo"', deviceInfo);
+		// const email = p.email || _.get(Meteor.user(), 'emails[0].address');
+		const userId = p.userId || _.get(Meteor.user(), '_id');
+		if (!fcmToken || !userId) return undefined;
+		if (!roles.isUserAdminOrControlOrSecurity(userId)) return undefined;
+		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo);
 
 		const removeTokenFromAllUsers = () => {
 			Meteor.users.update(
@@ -83,13 +84,13 @@ Meteor.methods({
 		};
 		const removeUserToken = () => {
 			Meteor.users.update(
-				{ 'emails.0.address': email },
+				userId,
 				{ $pull: { fcmToken } },
 			);
 		};
 		const updateUserToken = () => {
 			Meteor.users.update(
-				{ 'emails.0.address': email },
+				userId,
 				{ $addToSet: { fcmToken } },
 			);
 		};
