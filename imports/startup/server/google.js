@@ -67,7 +67,7 @@ export default async function sendNotifications({ eventId }) {
 				wake_screen: true,
 				// picture: 'https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjQxIfJ1b7YAhUCy6QKHcPdCq8QjRwIBw&url=http%3A%2F%2Fwww.qygjxz.com%2Fsearch-images.html&psig=AOvVaw1uvfHxCadGWy5rkgYCH-Ho&ust=1515167661403289',
 				// sub_text: 'This is a subText',
-				ongoing: true,
+				// ongoing: true,
 				lights: true,
 				color: '#39aeed',
 				event: {
@@ -99,26 +99,26 @@ export default async function sendNotifications({ eventId }) {
 	const errorData = [];
 	await _.reduce(usersSignedIn, async (r1, user) => (
 		await _.reduce(user.fcmToken, async (r2, token) => {
-			console.log('token', token);
+			// console.log('token', token);
 			const [err] = await to(sendNotification({ token, payload }));
-			console.log('err', err);
+			// console.log('err', err);
 			if (err) {
 				errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
 			} else {
-				console.log('hehr');
+				// console.log('hehr');
 				users.push({ userId: user._id, token });
 			}
 			return err;
 		}, { })
 	), { });
-	console.log('users', users);
-	console.log('errorData', errorData);
+
 	if (!_.isEmpty(users)) {
 		Messages.insert({ createdAt, eventId, users });
 	}
 	if (!_.isEmpty(errorData)) {
 		Errors.insert({ description: 'Error sending notification', data: errorData });
 	}
+
 	console.log('sendNotifications',
 		'hydrantNumber', hydrantNumber,
 		'companyId', companyId,
@@ -126,4 +126,7 @@ export default async function sendNotifications({ eventId }) {
 		'number sent', users.length,
 		'number not sent', errorData.length
 	);
+	console.log('users', users);
+	console.log('errorData', errorData);
+
 }
