@@ -36,7 +36,7 @@ Devices.schema = new SimpleSchema({
 		max: 100,
 		label: 'user id',
 	},
-	composedDeviceId: {
+	customDeviceId: {
 		type: String,
 		max: 1000,
 		label: 'user id',

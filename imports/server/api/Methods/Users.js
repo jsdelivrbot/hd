@@ -69,53 +69,51 @@ Meteor.methods({
 	'user.set.fcmtoken': function anon(p) {
 		check(p, Object);
 		const { fcmToken, flag, deviceInfo } = p;
-		// const email = p.email || _.get(Meteor.user(), 'emails[0].address');
 		const userId = p.userId || _.get(Meteor.user(), '_id');
 		if (!fcmToken || !userId || !deviceInfo) return undefined;
 		if (!roles.isUserAdminOrControlOrSecurity(userId)) return undefined;
 		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo);
 
-		const removeTokenFromAllUsers = () => {
+		const { uniqueId, manufacturer, model, deviceId } = deviceInfo;
+		const customDeviceId = `${uniqueId}_${manufacturer}_${model}_${deviceId}_`;
+
+		const removeDeviceFromAllUsers = () => {
 			Meteor.users.update(
 				{ },
-				{ $unset: { 'fcmToken.$[element]': 1 } },
-				{ arrayFilters: [{ element: fcmToken }] }
+				{ $unset: { 'customDeviceIds.$[element]': 1 } },
+				{ arrayFilters: [{ element: customDeviceId }] }
 			);
 		};
-		const removeUserToken = () => {
+		const removeDeviceFromUser = () => {
 			Meteor.users.update(
 				userId,
-				{ $pull: { fcmToken } },
+				{ $pull: { customDeviceIds: customDeviceId } },
 			);
 		};
-		const addTokenToUser = () => {
+		const addDeviceToUser = () => {
 			Meteor.users.update(
 				userId,
-				{ $addToSet: { fcmToken } },
+				{ $addToSet: { customDeviceIds: customDeviceId } },
 			);
 		};
-		const composeDeviceId = () => {
-			const { uniqueId, manufacturer, model, deviceId } = deviceInfo;
-			return `${uniqueId}_${manufacturer}_${model}_${deviceId}_`;
-		};
-		const addDevice = () => {
-			Devices.insert({
+		const upsertDevice = () => {
+			Devices.upsert({ customDeviceId }, {
 				fcmToken,
 				deviceInfo,
-				composedDeviceId: composeDeviceId(deviceInfo),
+				customDeviceId,
 				userId,
 			});
 		};
 
 		if (flag == 'login') {
-			removeTokenFromAllUsers();
-			addTokenToUser();
-			addDevice();
+			removeDeviceFromAllUsers();
+			addDeviceToUser();
+			upsertDevice();
 			return Meteor.call('user.get.properties');
 		} else if (flag == 'logout') {
-			removeUserToken();
+			removeDeviceFromUser();
 		} else {
-			addTokenToUser();
+			upsertDevice();
 		}
 		return true;
 	},
@@ -159,6 +157,7 @@ rateLimit({
 	timeRange: 1000,
 });
 
+// const email = p.email || _.get(Meteor.user(), 'emails[0].address');
 
 // 'user.set.fcmtoken': function anon(p) {   // for one token
 // 	check(p, Object);
