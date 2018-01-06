@@ -28,10 +28,20 @@ Devices.schema = new SimpleSchema({
 	},
 	fcmToken: {
 		type: String,
-		max: 10000,
+		max: 1000,
 		label: 'fcm token',
 	},
-	info: {
+	userId: {
+		type: String,
+		max: 100,
+		label: 'user id',
+	},
+	composedDeviceId: {
+		type: String,
+		max: 1000,
+		label: 'user id',
+	},
+	deviceInfo: {
 		type: Object,
 		blackbox: true,
 		label: 'device info',

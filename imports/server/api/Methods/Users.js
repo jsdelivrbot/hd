@@ -71,7 +71,7 @@ Meteor.methods({
 		const { fcmToken, flag, deviceInfo } = p;
 		// const email = p.email || _.get(Meteor.user(), 'emails[0].address');
 		const userId = p.userId || _.get(Meteor.user(), '_id');
-		if (!fcmToken || !userId) return undefined;
+		if (!fcmToken || !userId || !deviceInfo) return undefined;
 		if (!roles.isUserAdminOrControlOrSecurity(userId)) return undefined;
 		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo);
 
@@ -88,25 +88,34 @@ Meteor.methods({
 				{ $pull: { fcmToken } },
 			);
 		};
-		const updateUserToken = () => {
+		const addTokenToUser = () => {
 			Meteor.users.update(
 				userId,
 				{ $addToSet: { fcmToken } },
 			);
 		};
+		const composeDeviceId = () => {
+			const { uniqueId, manufacturer, model, deviceId } = deviceInfo;
+			return `${uniqueId}_${manufacturer}_${model}_${deviceId}_`;
+		};
 		const addDevice = () => {
-			Devices.insert({ fcmToken, info: deviceInfo });
+			Devices.insert({
+				fcmToken,
+				deviceInfo,
+				composedDeviceId: composeDeviceId(deviceInfo),
+				userId,
+			});
 		};
 
 		if (flag == 'login') {
 			removeTokenFromAllUsers();
-			updateUserToken();
+			addTokenToUser();
 			addDevice();
 			return Meteor.call('user.get.properties');
 		} else if (flag == 'logout') {
 			removeUserToken();
 		} else {
-			updateUserToken();
+			addTokenToUser();
 		}
 		return true;
 	},

@@ -19,25 +19,9 @@ admin.initializeApp({
 	databaseURL: 'https://hdapp-45a74.firebaseio.com'
 });
 
-function sendNotification({ token, payload }) {
-	// This registration token comes from the client FCM SDKs.
-	// const registrationToken = 'fjSGMKTLGcA:APA91bGJu_z0zpfb393CaY5qrpatUJZTsXRx0M_n9dwwspPmCW6CAD298Q6Iauw47KQLHEW3zOelhqJQywc-iQ-E5R4vPOFz04qT3lT66SpKxNk5imkk5Jr3MhJz29vpXqfmorlWt0c5';
-
-	// See the "Defining the message payload" section below for details
-	// on how to define a message payload.
-	// Send a message to the device corresponding to the provided
-	// registration token...
-	return admin.messaging().sendToDevice(token, payload, { priority: 'high' });
-	// .then((response) => {
-	// 	// See the MessagingDevicesResponse reference documentation for
-	// 	// the contents of response.
-	// 	console.log('Successfully sent message:', response);
-	// 	console.log('results:', response.results);
-	// })
-	// .catch((error) => {
-	// 	console.log('Error sending message:', error);
-	// });
-}
+const sendNotification = ({ token, payload }) => (
+	admin.messaging().sendToDevice(token, payload, { priority: 'high' })
+);
 
 export default async function sendNotifications({ eventId }) {
 	const event = Events.findOne(eventId);
@@ -72,16 +56,16 @@ export default async function sendNotifications({ eventId }) {
 				color: '#39aeed',
 				event: {
 					eventId,
-					createdAt,
-					code,
-					codeText,
-					edata,
-					hydrantNumber,
-					address,
-					lat,
-					lon,
-					companyId,
-					companyName
+					// createdAt,
+					// code,
+					// codeText,
+					// edata,
+					// hydrantNumber,
+					// address,
+					// lat,
+					// lon,
+					// companyId,
+					// companyName
 				}
 			})
 		}
@@ -95,21 +79,21 @@ export default async function sendNotifications({ eventId }) {
 		}
 	).fetch();
 
-	const users = [];
-	const errorData = [];
-	await _.reduce(usersSignedIn, async (r1, user) => (
-		await _.reduce(user.fcmToken, async (r2, token) => {
+	// const users = [];
+	// const errorData = [];
+	const { users, errorData } = await _.reduce(usersSignedIn, async (r1, user) => (
+		_.reduce(user.fcmToken, async (r2, token) => {
 			// console.log('token', token);
 			const [err] = await to(sendNotification({ token, payload }));
 			// console.log('err', err);
 			if (err) {
-				errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
+				r2.errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
 			} else {
 				// console.log('hehr');
-				users.push({ userId: user._id, token });
+				r2.users.push({ userId: user._id, token });
 			}
 			return err;
-		}, { })
+		}, r1)
 	), { });
 
 	if (!_.isEmpty(users)) {
@@ -128,5 +112,4 @@ export default async function sendNotifications({ eventId }) {
 	);
 	console.log('users', users);
 	console.log('errorData', errorData);
-
 }
