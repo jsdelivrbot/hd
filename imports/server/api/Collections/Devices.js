@@ -26,6 +26,13 @@ Devices.schema = new SimpleSchema({
 			if (this.isInsert && !this.isSet) return moment().toDate();
 		},
 	},
+	updatedAt: {
+		type: Date,
+		label: 'The date this document was last updated.',
+		autoValue() {
+			if (this.isInsert || this.isUpdate || this.isUpsert) return moment().toDate();
+		},
+	},
 	fcmToken: {
 		type: String,
 		max: 1000,

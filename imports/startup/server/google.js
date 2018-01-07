@@ -8,6 +8,7 @@ import Events from '../../server/api/Collections/Events';
 import Static from '../../server/api/Collections/Static';
 import Companies from '../../server/api/Collections/Companies';
 import Errors from '../../server/api/Collections/Errors';
+import Devices from '../../server/api/Collections/Devices';
 
 const admin = require('firebase-admin');
 
@@ -70,30 +71,49 @@ export default async function sendNotifications({ eventId }) {
 			})
 		}
 	};
+	// let usersSignedIn = Meteor.users.aggregate([
+	// 	{ $lookup: {
+	// 		from: 'Devices',
+	// 		localField: 'hydrantId',
+	// 		foreignField: '_id',
+	// 		as: 'h'
+	// 	} },
+	// 	{ $unwind: '$h' },
+	// 	{ $match: { 'h.companyId': p.companyId } },
+	// 	{ $match: { createdAt: { $gt: new Date(p.createdAt) } } },
+	// 	{ $project: {
+	// 		_id: 1,
+	// 		customDeviceId: 1,
+	// 	} },
+	// ], { allowDiskUse: true });
 	const usersSignedIn = Meteor.users.find(
 		{
-			fcmToken: { $exists: true },
+			customDeviceId: { $exists: true },
 			companyId: { $eq: companyId }
 		}, {
-			fields: { fcmToken: 1, _id: 1 },
+			fields: { customDeviceId: 1, _id: 1 },
 		}
 	).fetch();
-
-	// const users = [];
-	// const errorData = [];
-	const { users, errorData } = await _.reduce(usersSignedIn, async (r1, user) => (
-		_.reduce(user.fcmToken, async (r2, token) => {
+	// usersSignedIn = _.map(usersSignedIn, ({ customDeviceId }) => ({
+	// 	token: _.get(Devices.findOne({ customDeviceId }), 'fcmToken')
+	// }));
+	const users = [];
+	const errorData = [];
+	await _.reduce(usersSignedIn, async (r1, user) => (
+		await _.reduce(user.customDeviceId, async (r2, customDeviceId) => {
+			const token = _.get(Devices.findOne({ customDeviceId }), 'fcmToken');
 			// console.log('token', token);
-			const [err] = await to(sendNotification({ token, payload }));
-			// console.log('err', err);
-			if (err) {
-				r2.errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
-			} else {
-				// console.log('hehr');
-				r2.users.push({ userId: user._id, token });
+			if (token) {
+				const [err] = await to(sendNotification({ token, payload }));
+				if (err) {
+					errorData.push({ userId: user._id, token, description: `Error sending notification: ${err}` });
+				} else {
+					// console.log('hehr');
+					users.push({ userId: user._id, token });
+				}
+				// console.log('err', err);
 			}
-			return err;
-		}, r1)
+		}, { })
 	), { });
 
 	if (!_.isEmpty(users)) {

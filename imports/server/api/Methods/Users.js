@@ -8,6 +8,7 @@ import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
 import Devices from '../Collections/Devices';
 import * as roles from '../../Utils/roles';
+import { getCustomDeviceId } from '../../Utils/utils';
 
 
 Meteor.methods({
@@ -50,16 +51,17 @@ Meteor.methods({
 		return Accounts.sendEnrollmentEmail(userId);
 	},
 	'user.get.properties': function anon() {
-		if (!roles.isUserAdminOrControlOrSecurity()) return undefined;
+		if (!roles.isUserAdminOrControlOrSecurity({})) return undefined;
 
 		const user = Meteor.user();
 		const { _id: userId, companyId, role } = Meteor.user();
 		const company = Companies.findOne({ _id: companyId });
+		const { name: companyName } = company;
 		const name = `${user.profile.name.first} ${user.profile.name.last}`;
 		const email = user.emails[0].address;
 
 		console.log('user.get.properties', 'company.name', company.name, 'companyId', companyId, 'role', role, 'name', name, 'email', email);
-		return { company, user: { userId, role, name, email } };
+		return { company, user: { companyName, companyId, userId, role, name, email } };
 	},
 	'user.set.companyId': function anon(companyId) {
 		check(companyId, String);
@@ -71,45 +73,57 @@ Meteor.methods({
 		const { fcmToken, flag, deviceInfo } = p;
 		const userId = p.userId || _.get(Meteor.user(), '_id');
 		if (!fcmToken || !userId || !deviceInfo) return undefined;
-		if (!roles.isUserAdminOrControlOrSecurity(userId)) return undefined;
-		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo);
 
-		const { uniqueId, manufacturer, model, deviceId } = deviceInfo;
-		const customDeviceId = `${uniqueId}_${manufacturer}_${model}_${deviceId}_`;
+		const customDeviceId = getCustomDeviceId({ deviceInfo });
+
+		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo != undefined, 'customDeviceId', customDeviceId);
+
+		if (!roles.isUserAdminOrControlOrSecurity({})) return undefined;
+		// if (!roles.isUserAdminOrControlOrSecurity({ userId, customDeviceId, flag })) return undefined;
 
 		const removeDeviceFromAllUsers = () => {
 			Meteor.users.update(
 				{ },
-				{ $unset: { 'customDeviceIds.$[element]': 1 } },
+				{ $unset: { 'customDeviceId.$[element]': 1 } },
 				{ arrayFilters: [{ element: customDeviceId }] }
 			);
 		};
 		const removeDeviceFromUser = () => {
 			Meteor.users.update(
 				userId,
-				{ $pull: { customDeviceIds: customDeviceId } },
+				{ $pull: { customDeviceId } },
 			);
 		};
 		const addDeviceToUser = () => {
 			Meteor.users.update(
 				userId,
-				{ $addToSet: { customDeviceIds: customDeviceId } },
+				{ $addToSet: { customDeviceId } },
 			);
 		};
 		const upsertDevice = () => {
-			Devices.upsert({ customDeviceId }, {
-				fcmToken,
-				deviceInfo,
-				customDeviceId,
-				userId,
-			});
+			if (Devices.findOne({ customDeviceId })) {
+				Devices.update({ customDeviceId }, { $set: {
+					fcmToken,
+					deviceInfo,
+					userId,
+				} });
+			} else {
+				Devices.insert({
+					fcmToken,
+					deviceInfo,
+					customDeviceId,
+					userId,
+				});
+			}
 		};
 
 		if (flag == 'login') {
 			removeDeviceFromAllUsers();
 			addDeviceToUser();
 			upsertDevice();
-			return Meteor.call('user.get.properties');
+			const { user } = Meteor.call('user.get.properties');
+			// user.customDeviceId = customDeviceId;
+			return { user };
 		} else if (flag == 'logout') {
 			removeDeviceFromUser();
 		} else {

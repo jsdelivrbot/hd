@@ -106,6 +106,8 @@ Meteor.methods({
 	},
 	'events.get.mobile': function anon(p) {
 		check(p, Object);
+		const { userId, deviceInfo } = p;
+		if (!roles.isUserAdminOrControlOrSecurity({ userId, deviceInfo })) return undefined;
 
 		let data = Events.aggregate([
 			{ $lookup: {
@@ -115,8 +117,10 @@ Meteor.methods({
 				as: 'h'
 			} },
 			{ $unwind: '$h' },
-			{ $match: { 'h.companyId': p.companyId } },
-			{ $match: { createdAt: { $gt: new Date(p.createdAt) } } },
+			{ $match: { $and: [
+				{ 'h.companyId': p.companyId },
+				{ createdAt: { $gt: new Date(p.createdAt) } }
+			] } },
 			{ $sort: { createdAt: -1 } },
 			{ $limit: 200 },
 			{ $project: {
