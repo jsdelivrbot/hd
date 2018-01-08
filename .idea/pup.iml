@@ -9,7 +9,6 @@
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludePattern pattern="package-lock.json" />
-      <excludePattern pattern="package.json" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

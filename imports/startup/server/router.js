@@ -181,13 +181,19 @@ Picker.route('/input', (params, req, res, next) => {
 
 // Message will trigger a query testing if there is a company hydrant that has a LastComm date which is more than 24 hours old, triggering a status change
 const updateHydrantStatusEveryHour = () => {
-	console.log('running no communication check');
+	console.log('running no communication check, updated:');
 	// status=2=No communication
-	Hydrants.update({ lastComm: { $lt: moment().subtract({ minutes: 2 }).toDate() } },
-		{ $set: { status: 2 } }
-	);
+	console.log(Hydrants.update(
+		{ $or: [
+			{ lastComm: { $exists: false } },
+			{ lastComm: { $lt: new Date(moment().subtract({ days: 3 }).toDate()) } }
+		] },
+		{ $set: { status: 2 } },
+		{ multi: true }
+	));
 };
-Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 10);
+
+Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 1000);
 
 const test = async () => {
 	initTestDb();
