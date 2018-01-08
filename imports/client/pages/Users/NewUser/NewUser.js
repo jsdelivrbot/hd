@@ -18,7 +18,6 @@ import Loader from 'react-loader-advanced';
 import { Flex, Box } from 'reflexbox';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
-import 'react-select/dist/react-select.css';
 
 import validate from '../../../Utils/validate';
 

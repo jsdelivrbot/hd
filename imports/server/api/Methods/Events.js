@@ -1,14 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import _ from 'lodash';
-import fp from 'lodash/fp';
 import moment from 'moment';
 import Events from '../Collections/Events';
 import Hydrants from '../Collections/Hydrants';
 import Static from '../Collections/Static';
 import rateLimit from '../../Utils/rate-limit';
 import * as roles from '../../Utils/roles';
-import Messages from "../Collections/Messages";
 
 function buildFilterEvents(fromFilter) {
 	const filter = {};

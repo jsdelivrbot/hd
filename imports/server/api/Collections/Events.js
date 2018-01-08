@@ -2,7 +2,6 @@
 
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
-import { incrementCounter } from 'meteor/osv:mongo-counter';
 import moment from 'moment';
 
 const Events = new Mongo.Collection('Events');

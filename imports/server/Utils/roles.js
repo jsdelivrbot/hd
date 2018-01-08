@@ -2,7 +2,6 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { getCustomDeviceId } from './utils';
 
-
 const isUserAdmin = () => Meteor.userId() && (Meteor.user().role == 0);
 const isUserControl = () => Meteor.userId() && (Meteor.user().role == 1);
 const isUserAdminOrControl = () => Meteor.userId() && (Meteor.user().role == 0 || Meteor.user().role == 1);

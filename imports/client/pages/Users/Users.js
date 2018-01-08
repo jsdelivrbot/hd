@@ -17,7 +17,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import { Flex, Box } from 'reflexbox';
 import { Button } from 'react-bootstrap';
-import 'react-select/dist/react-select.css';
 
 import '../../stylesheets/table.scss';
 import './Css/Users.scss';

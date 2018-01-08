@@ -183,11 +183,11 @@ Picker.route('/input', (params, req, res, next) => {
 const updateHydrantStatusEveryHour = () => {
 	console.log('running no communication check');
 	// status=2=No communication
-	Hydrants.update({ lastComm: { $lt: moment().subtract({ hours: 72 }).toDate() } },
+	Hydrants.update({ lastComm: { $lt: moment().subtract({ minutes: 2 }).toDate() } },
 		{ $set: { status: 2 } }
 	);
 };
-Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 1000);
+Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 10);
 
 const test = async () => {
 	initTestDb();

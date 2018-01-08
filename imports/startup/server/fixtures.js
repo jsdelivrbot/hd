@@ -10,6 +10,9 @@ import Companies from '../../server/api/Collections/Companies';
 import Static from '../../server/api/Collections/Static';
 import Events from '../../server/api/Collections/Events';
 import { words, streets, cities } from './local/he';
+import Devices from '../../server/api/Collections/Devices';
+import Messages from '../../server/api/Collections/Messages';
+import Errors from '../../server/api/Collections/Errors';
 
 const Counts = new Mongo.Collection('Counts');
 
@@ -46,7 +49,7 @@ const randomHydrant = (ind, sim) => {
 	const obj = {
 		companyId: companies[rn(companies.length - 1)]._id,
 		sim: sim ? sim.toString() : rn(999999999).toString(),
-		status: sim ? 0 : rn(8),
+		status: sim ? 0 : rn(5),
 		updatedAt: dt,
 		createdAt: dt,
 		enabled,
@@ -76,6 +79,9 @@ const randomEvent = (hydrantId, ind) => {
 };
 
 const fillHydrantsAndEvents = (nHydrants, nEvents, sims) => {
+	Events.remove({});
+	Hydrants.remove({});
+	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: nHydrants } });
 	console.log('starting');
 	const first = (new Date()).getTime();
 	console.log(first);
@@ -168,6 +174,8 @@ const fillUsers = () => {
 	}
 };
 const fillCompanies = () => {
+	Companies.remove({});
+	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	seeder(Companies, {
 		environments: ['development', 'staging'],
 		noLimit: true,
@@ -193,26 +201,33 @@ const fillCompanies = () => {
 };
 
 function initDb() {
-	Events.remove({});
-	Hydrants.remove({});
-	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
-	Counts.upsert('EventsSerialNumber', { $set: { next_val: 10 } });
-	// Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
 	// fillCompanies();
 	// fillUsers();
 	fillHydrantsAndEvents(1000, 10);
 }
+function initAllDb() {
+	fillCompanies();
+	fillUsers();
+	fillHydrantsAndEvents(1000, 10);
+}
 
 function resetDb() {
-	Static.remove({});
-	Static.insert({});
-
-	Counts.upsert('CompaniesSerialNumber', { $set: { next_val: 3 } });
-
 	Events.remove({});
 	Hydrants.remove({});
-	Counts.upsert('HydrantsSerialNumber', { $set: { next_val: 10000 } });
 }
+
+function resetAllDb() {
+	Counts.remove({});
+	Static.remove({});
+	Static.insert({});
+	Events.remove({});
+	Hydrants.remove({});
+	Devices.remove({});
+	Messages.remove({});
+	Errors.remove({});
+	Meteor.users.remove({});
+}
+
 
 function initTestDb() {
 	Events.remove({});
@@ -226,11 +241,18 @@ function initTestDb() {
 	fillHydrantsAndEvents(3, 0, sims);
 }
 
+// resetAllDb();
+// initAllDb();
 
 export { initTestDb, initDb, resetDb };
 
 // fillUsers();
 
+// initDb();
+
+// Counts.remove({});
+// fillHydrantsAndEvents(1000, 10);
+// fillCompanies();
 
 // initSmallDb();
 
