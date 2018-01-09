@@ -33,14 +33,13 @@ import './Css/Map.scss';
 
 import { getStore, setStore } from '../Storage';
 
-export default compose(
+const Map_ = compose(
 	withHandlers({
 		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
 		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
 	}),
 	withStateHandlers(
 		p => ({
-			filterStatus: p.getStore('filterStatus'),
 			zoom: p.getStore('zoom') || 13,
 			data: p.getStore('data') || [],
 			loading: false,
@@ -106,7 +105,7 @@ export default compose(
 	withProps({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%' }} />,
-		containerElement: <div style={{ marginTop: '20px', height: '600px' }} />,
+		containerElement: <div style={{ marginTop: '20px', height: '570px' }} />,
 		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
 	}),
 	withScriptjs,
@@ -174,23 +173,13 @@ export default compose(
 				<If condition={!p._id}>
 					<Segment raised textAlign="center" size="big">
 						<Flex align="center">
-							<Box w={1 / 8}>
-								<Button
-									bsStyle={p.filterStatus ? 'danger' : 'default'}
-									block
-									onClick={p.toggleFilterStatus}
-								>
-									{p.filterStatus ? 'בארוע' : 'כולם'}
-								</Button>
-							</Box>
-							<Box w={6 / 8}>
+							<Box w={1}>
 								<span>
 									סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits} יח&#39;<br />
 									מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
 									נכון לתאריך: {currentDate}
 								</span>
 							</Box>
-							<Box w={1 / 8} />
 						</Flex>
 					</Segment>
 				</If>
@@ -198,6 +187,46 @@ export default compose(
 		);
 	}
 );
+
+class Map extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			filterStatus: this.props.getStore('filterStatus'),
+		};
+	}
+	toggleFilterStatus() {
+		this.setState({ filterStatus: !this.state.filterStatus });
+		this.props.setStore({ filterStatus: this.state.filterStatus });
+	}
+	render() {
+		return (
+			<div>
+				<Flex align="center">
+					<Box w={1 / 8}>
+						<Button
+							bsStyle={!this.state.filterStatus ? 'default' : 'danger'}
+							block
+							onClick={() => this.toggleFilterStatus()}
+						>
+							{!this.state.filterStatus ? 'כולם' : 'בארוע'}
+						</Button>
+					</Box>
+					<Box w={7 / 8} />
+				</Flex>
+				<Map_ {...this.props} filterStatus={this.state.filterStatus} />
+			</div>
+		);
+	}
+}
+
+export default compose(
+	withHandlers({
+		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
+		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
+	})
+)(Map);
+
 
 // minZoom, cancel zoom and center save, fitbounds, on first load server: calculate bounds, load bounds
 // saving issue, check events
