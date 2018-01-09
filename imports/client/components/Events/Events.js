@@ -61,21 +61,6 @@ export default compose(
 				return p.setStore({ filter });
 			},
 			setFilterCode: ({ filter }, p) => ({ activeCodes: status }) => p.setStore({ filter: _.assign({}, filter, status) }),
-			// setFilterMultiSelect: ({ filter }, p) => (filterObj) => {
-			// 	console.log('filterObj');
-			// 	console.log(filterObj);
-			// 	const index = filterObj.code;
-			// 	if (index) {
-			// 		const codes = filter.code;
-			// 		if (_.get(codes, [index])) {
-			// 			_.unset(codes, [index]);
-			// 		} else {
-			// 			_.set(codes, [index], true);
-			// 		}
-			// 		filter = Object.assign({}, filter, { code: codes });
-			// 	}
-			// 	return p.setStore({ filter });
-			// },
 		}
 	),
 	withHandlers({
@@ -224,12 +209,12 @@ export default compose(
 						</Loader>
 					</Box>
 				</Flex>
-				{!p._id ?
+				<If condition={!p._id}>
 					<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 						סה&quot;כ ארועים בהידרנטים :  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>
-					: ''}
+				</If>
 			</div>
 		);
 	});

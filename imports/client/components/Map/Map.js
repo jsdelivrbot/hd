@@ -171,7 +171,7 @@ export default compose(
 						</MarkerClusterer>
 					</GoogleMap>
 				</Loader>
-				{!p._id ?
+				<If condition={!p._id}>
 					<Segment raised textAlign="center" size="big">
 						<Flex align="center">
 							<Box w={1 / 8}>
@@ -193,7 +193,7 @@ export default compose(
 							<Box w={1 / 8} />
 						</Flex>
 					</Segment>
-					: ''}
+				</If>
 			</div>
 		);
 	}

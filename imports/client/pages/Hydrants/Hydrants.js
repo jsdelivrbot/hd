@@ -272,7 +272,7 @@ export default compose(
 				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
-							{p.isUserAdmin() ?
+							<If condition={p.isUserAdmin()}>
 								<Button
 									bsStyle="primary"
 									block
@@ -283,20 +283,20 @@ export default compose(
 								>
 									חדש
 								</Button>
-								:
-								''
-							}
+							</If>
 						</Box>
 						<Box w={6 / 8}>
 							סה&quot;כ מוצרים מותקנים על הידרנטים : {p.cntTotalUnits} יח&#39;<br />
-							{p.isUserAdmin() ?
-								<span>
-									מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />
-								</span>
-								:
-								''
-							}
-							נכון לתאריך: {currentDate}
+							<Choose>
+								<When condition={p.isUserAdmin()}>
+									<span>
+										מתוכם: {p.cntEnabledUnits} יח&#39; פעילים {p.cntDisabledUnits} יח&#39; מושבתים<br />
+									</span>
+								</When>
+								<Otherwise>
+									נכון לתאריך: {currentDate}
+								</Otherwise>
+							</Choose>
 						</Box>
 						<Box w={1 / 8} />
 					</Flex>
