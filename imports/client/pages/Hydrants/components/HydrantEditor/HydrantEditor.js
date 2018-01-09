@@ -275,7 +275,7 @@ class HydrantEditor extends React.Component {
 							<Box w={1} mr={3}>
 								<Button
 									bsStyle="primary" block
-									onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+									onClick={() => p.history.push(removeLastSlash(p.match.url))}
 								>
 									ביטול
 								</Button>

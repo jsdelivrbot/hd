@@ -38,7 +38,7 @@ export default compose(
 			cntAllUnits: p.getStore('cntAllUnits') || 0,
 			loading: false,
 			initialized: false,
-			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
+			sort: p.getStore('sort') || { name: 'createdAt', order: -1 },
 			filter: p.getStore('filter') || { code: {}, hydrantId: p._id },
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {

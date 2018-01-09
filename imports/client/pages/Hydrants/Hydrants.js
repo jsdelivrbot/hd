@@ -22,7 +22,7 @@ import '../../stylesheets/table.scss';
 import './Css/Hydrants.scss';
 
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
-import { difProps } from '../../Utils/Utils';
+import { difProps, removeLastSlash } from '../../Utils/Utils';
 import Slider from '../../components/Slider/Slider';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import { getStore, setStore } from '../../components/Storage';
@@ -40,7 +40,7 @@ export default compose(
 			cntTotalUnits: p.getStore('cntTotalUnits') || 0,
 			loading: false,
 			initialized: false,
-			sort: p.getStore('sort') || { name: 'createdAt', order: 1 },
+			sort: p.getStore('sort') || { name: 'createdAt', order: -1 },
 			filter: p.getStore('filter') || { status: {} },
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {
@@ -77,7 +77,7 @@ export default compose(
 		}
 	),
 	withHandlers({
-		select: p => row => p.history.push(`${p.match.url}/${row._id}`),
+		select: p => row => p.history.push(`${removeLastSlash(p.match.url)}/${row._id}`),
 		sliderInc: ({ slider, setSlider }) => () => {
 			if (slider.value < slider.max) setSlider({ value: slider.value + 1 });
 		},

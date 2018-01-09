@@ -7,7 +7,12 @@ const difProps = ({ prevProps, nextProps }) => (
 		return result;
 	}, {}));
 
-export { difProps };
+const removeLastSlash = (s) => {
+	const l = s.length;
+	return s.slice(0, (s[l - 1] == '/') ? l - 1 : l);
+};
+
+export { removeLastSlash, difProps };
 
 // import { createContainer } from 'meteor/react-meteor-data';
 

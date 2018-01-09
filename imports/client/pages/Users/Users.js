@@ -21,6 +21,8 @@ import { Button } from 'react-bootstrap';
 import '../../stylesheets/table.scss';
 import './Css/Users.scss';
 
+import { removeLastSlash } from '../../Utils/Utils';
+
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
 export default compose(
@@ -207,7 +209,7 @@ export default compose(
 										bsStyle="primary"
 										block
 										onClick={() => p.history.push(
-											`${p.match.url}/new`
+											`${removeLastSlash(p.match.url)}/new`
 										)}
 									>
 										חדש

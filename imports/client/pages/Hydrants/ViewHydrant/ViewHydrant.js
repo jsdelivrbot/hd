@@ -25,6 +25,8 @@ import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
 import Map from '../../../components/Map/Map';
 import Events from '../../../components/Events/Events';
 
+import { removeLastSlash } from '../../../Utils/Utils';
+
 export default compose(
 	withStateHandlers(
 		p => ({
@@ -147,7 +149,7 @@ export default compose(
 									bsStyle="primary" block
 									onClick={() => {
 										p.setHydrantEdited(true);
-										p.history.push(`${p.match.url}/edit`);
+										p.history.push(`${removeLastSlash(p.match.url)}/edit`);
 									}}
 								>ערוך</Button>
 								:

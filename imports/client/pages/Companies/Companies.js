@@ -18,6 +18,8 @@ import Loader from 'react-loader-advanced';
 
 import Loading from '../../components/LoginLayoutNavigation/Loading/Loading';
 
+import { removeLastSlash } from '../../Utils/Utils';
+
 import '../../stylesheets/table.scss';
 import './Css/Companies.scss';
 
@@ -65,7 +67,7 @@ export default compose(
 			<span>
 				<Button
 					bsStyle="primary"
-					onClick={() => p.history.push(`${p.match.url}/${cell}`)}
+					onClick={() => p.history.push(`${removeLastSlash(p.match.url)}/${cell}`)}
 					block
 				>פתח</Button>
 			</span>

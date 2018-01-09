@@ -21,6 +21,8 @@ import { Bert } from 'meteor/themeteorchef:bert';
 
 import validate from '../../../Utils/validate';
 
+import { removeLastSlash } from '../../../Utils/Utils';
+
 import './Css/NewUser.scss';
 
 import Loading from '../../../components/LoginLayoutNavigation/Loading/Loading';
@@ -152,7 +154,7 @@ class NewUser extends React.Component {
 									<Box w={1 / 3} mr={2}>
 										<Button
 											bsStyle="primary" block
-											onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+											onClick={() => p.history.push(removeLastSlash(p.match.url))}
 										>
 											ביטול
 										</Button>

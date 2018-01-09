@@ -6,6 +6,8 @@ import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
 import validate from '../../../../Utils/validate';
 
+import { removeLastSlash } from '../../../../Utils/Utils';
+
 class CompanyEditor extends React.Component {
 	componentDidMount() {
 		const component = this;
@@ -98,7 +100,7 @@ class CompanyEditor extends React.Component {
 							<Box w={1} mr={4}>
 								<Button
 									bsStyle="primary" block
-									onClick={() => p.history.push(p.match.url.slice(0, p.match.url.lastIndexOf('/')))}
+									onClick={() => p.history.push(removeLastSlash(p.match.url))}
 								>
 									ביטול
 								</Button>

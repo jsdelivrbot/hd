@@ -9,14 +9,14 @@ const reactiveGlobalCompany = new ReactiveVar(undefined);
 // const noneReactiveVar = new ReactiveVar({});
 
 function getStore(field, keys) {
-	console.log('getStore');
-	console.log('field', field);
-	console.log('keys', keys);
+	// console.log('getStore');
+	// console.log('field', field);
+	// console.log('keys', keys);
 	let result = _.get(StorageCollection, field);
-	console.log('result', result);
+	// console.log('result', result);
 	if (keys) result = _.get(result, keys);
 	// let result = _.get(StorageCollection.findOne({}), field);
-	console.log('result', result);
+	// console.log('result', result);
 	// console.log('all result');
 	// console.log(result);
 	// if (result && keys) {
@@ -32,18 +32,18 @@ function getStore(field, keys) {
 	return result;
 }
 function setStore(field, obj) {
-	console.log('setStore');
-	console.log('field', field);
-	console.log('obj', obj);
+	// console.log('setStore');
+	// console.log('field', field);
+	// console.log('obj', obj);
 	// console.log({ [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] });
 	// console.log(StorageCollection.findOne({}));
 	// const result = _.get(StorageCollection.findOne({}), field) || {};
 	const result = _.get(StorageCollection, field, {});
-	console.log('result', result);
+	// console.log('result', result);
 	_.assign(result, obj);
-	console.log('result', result);
+	// console.log('result', result);
 	_.assign(StorageCollection, { [field]: result });
-	console.log('StorageCollection', StorageCollection);
+	// console.log('StorageCollection', StorageCollection);
 	// StorageCollection.upsert(1, { $set: { [`${field}`]: result } });
 	// console.log(StorageCollection.findOne({}));
 	// console.log('{set:');
