@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 
 import React from 'react';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -122,13 +123,11 @@ export default compose(
 		() => ({
 			types: {},
 			role: undefined,
-			appLoading: false,
 			appInitialized: undefined,
 			company: undefined,
 			hydrantEdited: false,
 		}), {
 			setHydrantEdited: () => hydrantEdited => ({ hydrantEdited }),
-			setAppLoading: () => appLoading => ({ appLoading }),
 			setTypes: () => types => ({ types }),
 			setRole: () => role => ({ role }),
 			setAppInitialized: () => appInitialized => ({ appInitialized }),
@@ -147,24 +146,25 @@ export default compose(
 			p.setAppInitialized(false);
 		},
 		async componentWillReceiveProps(p) {
-			const { userId } = difProps({ prevProps: this.props, nextProps: p });
-			if (userId) {
+			const mp = difProps({ prevProps: this.props, nextProps: p });
+			_.forEach(mp, (v, k) => console.log(k, p[k]));
+			if (mp.userId && !p.userId) {
 				p.setAppInitialized(false);
 			}
 			if (p.authenticated && !p.appInitialized) {
-				if (p.appLoading) return;
-				p.setAppLoading(true);
-				if (p.isUserAdminOrControl()) p.setTypes(await Meteor.callPromise('utility.get.types'));
+				if (this.loading) return;
+				this.loading = true;
+				p.setTypes(await Meteor.callPromise('utility.get.types'));
 				const { company, user } = await Meteor.callPromise('user.get.properties');
 				console.log('role');
 				console.log(user.role);
 				p.setCompany(company);
 				p.setRole(user.role);
-				p.setAppLoading(false);
-				p.setAppInitialized(true);
 				resetStore();
 				console.log('p.userId');
 				console.log(p.userId);
+				this.loading = false;
+				p.setAppInitialized(true);
 			}
 		},
 	}),

@@ -1,21 +1,27 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { ReactiveVar } from 'meteor/reactive-var';
 import _ from 'lodash';
 
-const StorageCollection = new Mongo.Collection(null);
+let StorageCollection = { };
 
 const reactiveGlobalCompany = new ReactiveVar(undefined);
 
 // const noneReactiveVar = new ReactiveVar({});
 
 function getStore(field, keys) {
-	let result = _.get(StorageCollection.findOne({}), field);
+	console.log('getStore');
+	console.log('field', field);
+	console.log('keys', keys);
+	let result = _.get(StorageCollection, field);
+	console.log('result', result);
+	if (keys) result = _.get(result, keys);
+	// let result = _.get(StorageCollection.findOne({}), field);
+	console.log('result', result);
 	// console.log('all result');
 	// console.log(result);
-	if (result && keys) {
-		result = result[keys];
-	}
+	// if (result && keys) {
+	// 	result = result[keys];
+	// }
 	// console.log('-----getStore');
 	// console.log('field');
 	// console.log(field);
@@ -26,7 +32,20 @@ function getStore(field, keys) {
 	return result;
 }
 function setStore(field, obj) {
-	StorageCollection.upsert(1, { $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
+	console.log('setStore');
+	console.log('field', field);
+	console.log('obj', obj);
+	// console.log({ [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] });
+	// console.log(StorageCollection.findOne({}));
+	// const result = _.get(StorageCollection.findOne({}), field) || {};
+	const result = _.get(StorageCollection, field, {});
+	console.log('result', result);
+	_.assign(result, obj);
+	console.log('result', result);
+	_.assign(StorageCollection, { [field]: result });
+	console.log('StorageCollection', StorageCollection);
+	// StorageCollection.upsert(1, { $set: { [`${field}`]: result } });
+	// console.log(StorageCollection.findOne({}));
 	// console.log('{set:');
 	// console.log({ $set: { [`${field}.${_.keys(obj)[0]}`]: _.values(obj)[0] } });
 	// console.log('_.values(obj)[0]');
@@ -40,7 +59,8 @@ function setStore(field, obj) {
 }
 
 function resetStore() {
-	StorageCollection.remove(1);
+	console.log('reseting');
+	StorageCollection = {};
 }
 // async function getStoreGlobal(keys) {
 // 	let result = _.get(StorageCollection.findOne({}), 'global');

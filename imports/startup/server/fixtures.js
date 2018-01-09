@@ -49,7 +49,7 @@ const randomHydrant = (ind, sim) => {
 	const obj = {
 		companyId: companies[rn(companies.length - 1)]._id,
 		sim: sim ? sim.toString() : rn(999999999).toString(),
-		status: sim ? 0 : rn(5),
+		status: sim ? 0 : rn({ min: 0, max: 5 }),
 		updatedAt: dt,
 		createdAt: dt,
 		enabled,
@@ -72,8 +72,8 @@ const randomHydrant = (ind, sim) => {
 const randomEvent = (hydrantId, ind) => {
 	return {
 		hydrantId,
-		code: rn(7),
-		edata: rn(),
+		code: rn({ min: 0, max: 8 }),
+		edata: rn({ min: 0, max: 1000 }),
 		createdAt: faker.date.past(1),
 	};
 };

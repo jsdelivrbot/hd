@@ -88,6 +88,9 @@ export default compose(
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
+			console.log('hydrants mounted');
+			console.log(p.getStore('cntTotalUnits'));
+			console.log(p.cntTotalUnits);
 			this.storeEmpty = false;
 			if (!p.getStore() || p.hydrantEdited) {
 				p.setHydrantEdited(false);
@@ -180,8 +183,8 @@ export default compose(
 								striped
 								hover
 							>
-								<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="left" headerAlign="center">
-									מס&quot;ד
+								<TableHeaderColumn dataFormat={formatter} width="55px" dataField="rowNumber" dataAlign="right" headerAlign="center">
+									מס&quot;ד<br /><br /><br /><br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									dataFormat={formatter}
@@ -194,11 +197,11 @@ export default compose(
 									}}
 									width="125px"
 									dataField="number"
-									dataAlign="left"
+									dataAlign="right"
 									headerAlign="center"
 									dataSort
 								>
-									מספר מזהה
+									מספר מזהה<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									filterFormatted
@@ -213,7 +216,7 @@ export default compose(
 									headerAlign="center"
 									dataSort
 								>
-									סטטוס
+									סטטוס<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									dataField="createdAt"
@@ -230,7 +233,7 @@ export default compose(
 										defaultValue: p.filter.createdAt,
 									}}
 								>
-									תאריך התקנה
+									תאריך התקנה<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									filterFormatted
@@ -247,7 +250,7 @@ export default compose(
 									headerAlign="center"
 									dataSort
 								>
-									כתובת ההתקנה
+									כתובת התקנה<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									filterFormatted
@@ -263,13 +266,13 @@ export default compose(
 									headerAlign="center"
 									dataSort
 								>
-									תאור מקום
+									תאור מקום<br />
 								</TableHeaderColumn>
 							</BootstrapTable>
 						</Loader>
 					</Box>
 				</Flex>
-				<Segment style={{ marginTop: '20px', height: 100 }} raised textAlign="center" size="big">
+				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
 							<If condition={p.isUserAdmin()}>

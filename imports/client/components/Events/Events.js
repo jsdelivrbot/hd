@@ -163,11 +163,11 @@ export default compose(
 								striped
 								hover
 							>
-								<TableHeaderColumn dataField="rowNumber" dataFormat={formatter} width="75px" dataAlign="left" headerAlign="center">
-									מס&quot;ד
+								<TableHeaderColumn dataField="rowNumber" dataFormat={formatter} width="75px" dataAlign="right" headerAlign="center">
+									מס&quot;ד<br /><br /><br /><br />
 								</TableHeaderColumn>
-								<TableHeaderColumn dataField="hydrantNumber" dataSort dataFormat={formatter} width="75px" dataAlign="center" headerAlign="center">
-									מספר מזהה
+								<TableHeaderColumn dataField="hydrantNumber" dataSort dataFormat={formatter} width="75px" dataAlign="right" headerAlign="center">
+									מספר מזהה<br /><br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									filterFormatted
@@ -182,7 +182,15 @@ export default compose(
 									headerAlign="center"
 									dataSort
 								>
-									סוג ההתראה
+									סוג ההתראה<br />
+								</TableHeaderColumn>
+								<TableHeaderColumn
+									width="85px"
+									dataField="edata"
+									dataAlign="right"
+									headerAlign="center"
+								>
+									מידע<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn
 									dataField="createdAt"
@@ -195,15 +203,16 @@ export default compose(
 									filter={{
 										type: 'SelectFilter',
 										options: p.types.createdAt,
+										placeholder: 'בחר',
 										selectText: 'בחר',
 										defaultValue: p.filter.createdAt,
 									}}
 								>
-									זמן האירוע
+									זמן האירוע<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn dataField="time" width="135px" dataFormat={formatter} dataAlign="center" headerAlign="center" />
 								<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center">
-									תאור מקום
+									כתובת התקנה<br /><br /><br /><br />
 								</TableHeaderColumn>
 							</BootstrapTable>
 						</Loader>

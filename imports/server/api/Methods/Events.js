@@ -30,7 +30,7 @@ function buildFilterHydrants() {
 	const filter = {};
 	if (roles.isUserControl()) {
 		filter['h.companyId'] = Meteor.user().companyId;
-		filter['h.enabled'] = true;
+		// filter['h.enabled'] = true;
 	}
 	return filter;
 }
