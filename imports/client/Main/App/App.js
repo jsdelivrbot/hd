@@ -175,7 +175,9 @@ export default compose(
 		return (
 			<Router>
 				<div className={`App ${p.style}`}>
-					{ p.authenticated ? <Navigation {...p} /> : '' }
+					<If condition={p.authenticated}>
+						<Navigation {...p} />
+					</If>
 					<Grid>
 						<Switch>
 							<AllUser exact path="/" component={Index} {...p} />

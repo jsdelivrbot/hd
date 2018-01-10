@@ -58,7 +58,7 @@ class Login extends React.Component {
 						<Row>
 							<img
 								style={{ width: '100%' }}
-								src="logo.png"
+								src="logo.jpg"
 								alt="logo"
 							/>
 						</Row>

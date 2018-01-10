@@ -243,6 +243,7 @@ function initTestDb() {
 
 // resetAllDb();
 // initAllDb();
+// fillHydrantsAndEvents(1000, 10);
 
 export { initTestDb, initDb, resetDb };
 

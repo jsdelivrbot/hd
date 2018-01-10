@@ -104,7 +104,7 @@ const MapItself = compose(
 	withProps({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%' }} />,
-		containerElement: <div style={{ marginTop: '20px', height: '570px' }} />,
+		containerElement: <div style={{ marginTop: '20px', height: '560px' }} />,
 		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
 	}),
 	withScriptjs,

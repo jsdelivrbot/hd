@@ -21,7 +21,7 @@ const Slider = p => (
 				disableTrack
 				value={p.slider.value}
 				defaultValue={p.slider.value}
-				verticalSliderHeight="450px"
+				verticalSliderHeight="420px"
 				vertical
 				sliderSize={55}
 				thumbSize={55}

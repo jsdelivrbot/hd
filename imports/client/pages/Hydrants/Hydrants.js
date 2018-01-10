@@ -162,10 +162,10 @@ export default compose(
 		return (
 			<div className="hydrants">
 				<Flex>
-					<Box w={1 / 12} pl={2}>
+					<Box w={1 / 15} pl={2}>
 						<Slider {...p} />
 					</Box>
-					<Box w={11 / 12}>
+					<Box w={14 / 15}>
 						<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 							<BootstrapTable
 								keyField="_id"
@@ -273,7 +273,7 @@ export default compose(
 						</Loader>
 					</Box>
 				</Flex>
-				<Segment style={{ marginTop: '20px' }} raised textAlign="center" size="big">
+				<Segment style={{ marginTop: '10px' }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
 							<If condition={p.isUserAdmin()}>
