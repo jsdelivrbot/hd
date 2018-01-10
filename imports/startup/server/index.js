@@ -1,7 +1,7 @@
 import './accounts';
 import './api';
 import './fixtures';
-import './router';
+import './router/router';
 import './notifications';
 import './email';
 import './google';

@@ -3,12 +3,14 @@ import { Picker } from 'meteor/meteorhacks:picker';
 import _ from 'lodash';
 import moment from 'moment';
 import axios from 'axios';
-import Hydrants from '../../server/api/Collections/Hydrants';
-import Events from '../../server/api/Collections/Events';
-import Errors from '../../server/api/Collections/Errors';
-import { sleep } from '../../server/Utils/utils';
-import { initTestDb } from './fixtures';
-import sendNotifications from './google';
+import test from 'tape';
+
+import Hydrants from '../../../server/api/Collections/Hydrants';
+import Events from '../../../server/api/Collections/Events';
+import Errors from '../../../server/api/Collections/Errors';
+import { sleep } from '../../../server/Utils/utils';
+import { initTestDb } from '../fixtures';
+import sendNotifications from '../google';
 
 const calculateFlow = ({ flowEndCode }) => {
 	const flowContinueCode = flowEndCode - 1;
@@ -195,55 +197,56 @@ const updateHydrantStatusEveryHour = () => {
 
 Meteor.setInterval(updateHydrantStatusEveryHour, 3600 * 1000);
 
-const test = async () => {
+async function runningTest() {
 	initTestDb();
-	// Update status with no communication
-	Hydrants.update({ sim: '111' }, { $set: { lastComm: moment().subtract({ hours: 73 }).toDate() } });
-	Hydrants.update({ sim: '222' }, { $set: { lastComm: moment().subtract({ hours: 71 }).toDate() } });
-	updateHydrantStatusEveryHour();
-	console.log('should be: status == 2');
-	console.log(Hydrants.findOne({ sim: '111' }).status);
-	console.log('should be: status != 2');
-	console.log(Hydrants.findOne({ sim: '222' }).status);
-	console.log('should be: status != 2');
-	console.log(Hydrants.findOne({ sim: '333' }).status);
+	// // Update status with no communication
+	// Hydrants.update({ sim: '111' }, { $set: { lastComm: moment().subtract({ hours: 73 }).toDate() } });
+	// Hydrants.update({ sim: '222' }, { $set: { lastComm: moment().subtract({ hours: 71 }).toDate() } });
+	// updateHydrantStatusEveryHour();
+	// console.log('should be: status == 2');
+	// console.log(Hydrants.findOne({ sim: '111' }).status);
+	// console.log('should be: status != 2');
+	// console.log(Hydrants.findOne({ sim: '222' }).status);
+	// console.log('should be: status != 2');
+	// console.log(Hydrants.findOne({ sim: '333' }).status);
+	//
+	// // Faulty parameters
+	// console.log('should be: faulty edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=0&d=a');
+	//
+	// console.log('should be: sim not found');
+	// await axios.get('http://localhost:3000/input?h=99999999999&c=0&d=0');
+	//
+	// console.log('should be: case 0 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=0&d=');
+	//
+	// console.log('should be: case 1 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=1&d=');
+	//
+	// console.log('should be: case 4 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=4&d=');
+	//
+	// console.log('should be: case 7 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=7&d=');
+	//
+	// console.log('should be: faulty code parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=9&d=0');
+	//
+	//
+	// // Insertations
+	// console.log('should be: inserting code 0 ok event, no status change');
+	// await axios.get('http://localhost:3000/input?h=111&c=0&d=0');
+	//
+	// console.log('should be: inserting code 0 low battery event, updating status 1');
+	// await axios.get('http://localhost:3000/input?h=111&c=1&d=0');
+	//
+	// console.log('should be: inserting code 0 abused event, updating status 3');
+	// await axios.get('http://localhost:3000/input?h=111&c=2&d=');
+	//
+	//
 
-	// Faulty parameters
-	console.log('should be: faulty edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=0&d=a');
-
-	console.log('should be: sim not found');
-	await axios.get('http://localhost:3000/input?h=99999999999&c=0&d=0');
-
-	console.log('should be: case 0 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=0&d=');
-
-	console.log('should be: case 1 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=1&d=');
-
-	console.log('should be: case 4 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=4&d=');
-
-	console.log('should be: case 7 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=7&d=');
-
-	console.log('should be: faulty code parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=9&d=0');
-
-
-	// Insertations
-	console.log('should be: inserting code 0 ok event, no status change');
-	await axios.get('http://localhost:3000/input?h=111&c=0&d=0');
-
-	console.log('should be: inserting code 0 low battery event, updating status 1');
-	await axios.get('http://localhost:3000/input?h=111&c=1&d=0');
-
-	console.log('should be: inserting code 0 abused event, updating status 3');
-	await axios.get('http://localhost:3000/input?h=111&c=2&d=');
-
-
+	console.log('Normal Flow');
 	Events.remove({});
-	// Normal Flow
 	console.log('should be: no flow continue 4 event');
 	await axios.get('http://localhost:3000/input?h=111&c=5&d=');
 
@@ -264,7 +267,8 @@ const test = async () => {
 	console.log('should be: inserting code 5 flow end event, flowTotal=100 flowDuration=20, no status change');
 	await axios.get('http://localhost:3000/input?h=111&c=5&d=');
 
-	// Reverse Flow
+	console.log('Reverse Flow');
+	Events.remove({});
 	console.log('should be: no flow continue 7 event');
 	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
 
@@ -284,5 +288,6 @@ const test = async () => {
 	await axios.get('http://localhost:3000/input?h=111&c=7&d=70');
 	console.log('should be: inserting code 8 flow end event, flowTotal=100 flowDuration=20, no status change');
 	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
-};
-// Meteor.setTimeout(test, 1000);
+}
+
+// Meteor.setTimeout(runningTest, 1000);
