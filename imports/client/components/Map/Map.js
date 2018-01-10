@@ -1,5 +1,6 @@
 
 import React from 'react';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
@@ -33,11 +34,7 @@ import './Css/Map.scss';
 
 import { getStore, setStore } from '../Storage';
 
-const Map_ = compose(
-	withHandlers({
-		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
-		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
-	}),
+const MapItself = compose(
 	withStateHandlers(
 		p => ({
 			zoom: p.getStore('zoom') || 13,
@@ -87,8 +84,10 @@ const Map_ = compose(
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
 			if (p.loading) return;
-			const { bounds, filterStatus } = difProps({ prevProps: this.props, nextProps: p });
-			if (bounds || filterStatus || this.storeEmpty) {
+			const mp = difProps({ prevProps: this.props, nextProps: p });
+			if (mp.bounds || mp.filterStatus || this.storeEmpty || p.getStore('refresh')) {
+				p.setStore({ refresh: false });
+				console.log('map loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
 				p.setData(await Meteor.callPromise('map.get.data', {
@@ -202,19 +201,21 @@ class Map extends React.Component {
 	render() {
 		return (
 			<div>
-				<Flex align="center">
-					<Box w={1 / 8}>
-						<Button
-							bsStyle={!this.state.filterStatus ? 'default' : 'danger'}
-							block
-							onClick={() => this.toggleFilterStatus()}
-						>
-							{!this.state.filterStatus ? 'כולם' : 'בארוע'}
-						</Button>
-					</Box>
-					<Box w={7 / 8} />
-				</Flex>
-				<Map_ {...this.props} filterStatus={this.state.filterStatus} />
+				<If condition={!this.props._id}>
+					<Flex align="center">
+						<Box w={1 / 8}>
+							<Button
+								bsStyle={!this.state.filterStatus ? 'default' : 'danger'}
+								block
+								onClick={() => this.toggleFilterStatus()}
+							>
+								{!this.state.filterStatus ? 'כולם' : 'בארוע'}
+							</Button>
+						</Box>
+						<Box w={7 / 8} />
+					</Flex>
+				</If>
+				<MapItself {...this.props} filterStatus={this.state.filterStatus} />
 			</div>
 		);
 	}
@@ -222,7 +223,7 @@ class Map extends React.Component {
 
 export default compose(
 	withHandlers({
-		getStore: p => keys => getStore(`map_${p.company._id}_${p._id}`, keys),
+		getStore: p => keys => (p._id ? undefined : getStore(`map_${p.company._id}_${p._id}`, keys)),
 		setStore: p => obj => setStore(`map_${p.company._id}_${p._id}`, obj),
 	})
 )(Map);

@@ -25,7 +25,7 @@ const Navigation = (p) => {
 								<NavItem eventKey={1.1} href="/hydrants">מוצרים מותקנים</NavItem>
 							</LinkContainer>
 							<LinkContainer to="/events">
-								<NavItem eventKey={1.2} href="/events">אירועים</NavItem>
+								<NavItem eventKey={1.2} href="/events"><span  style={{ marginLeft: 20 }} className="glyphicon glyphicon-refresh"/><span>אירועים</span></NavItem>
 							</LinkContainer>
 							<LinkContainer to="/map">
 								<NavItem eventKey={1.3} href="/map">מיפוי הדרנטים מבוקרים</NavItem>

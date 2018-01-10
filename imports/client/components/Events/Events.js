@@ -29,7 +29,7 @@ import './Css/Events.scss';
 
 export default compose(
 	withHandlers({
-		getStore: p => keys => getStore(`events_${p.company._id}_${p._id}`, keys),
+		getStore: p => keys => (p._id ? undefined : getStore(`events_${p.company._id}_${p._id}`, keys)),
 		setStore: p => obj => setStore(`events_${p.company._id}_${p._id}`, obj),
 	}),
 	withStateHandlers(
@@ -88,7 +88,18 @@ export default compose(
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
-			if (filter || this.storeEmpty) {
+			const prevKey = _.get(this.props, 'location.key');
+			const nextKey = _.get(p, 'location.key');
+			if (nextKey && (prevKey !== nextKey)) {
+				console.log('got refresh command');
+				setStore(`hydrants_${p.company._id}_undefined`, { refresh: true });
+				setStore(`map_${p.company._id}_undefined`, { refresh: true });
+				setStore(`events_${p.company._id}_undefined`, { refresh: true });
+			}
+
+			if (filter || this.storeEmpty || p.getStore('refresh')) {
+				console.log('reading data anew');
+				p.setStore({ refresh: false });
 				this.storeEmpty = false;
 				p.setLoading(true);
 				const lenQuery = await Meteor.callPromise('events.get.lenQuery', { filter: p.filter });

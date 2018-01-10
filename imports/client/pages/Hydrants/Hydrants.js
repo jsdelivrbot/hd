@@ -29,8 +29,8 @@ import { getStore, setStore } from '../../components/Storage';
 
 export default compose(
 	withHandlers({
-		getStore: p => keys => getStore(`hydrants_${p.company._id}`, keys),
-		setStore: p => obj => setStore(`hydrants_${p.company._id}`, obj),
+		getStore: p => keys => getStore(`hydrants_${p.company._id}_undefined`, keys),
+		setStore: p => obj => setStore(`hydrants_${p.company._id}_undefined`, obj),
 	}),
 	withStateHandlers(
 		p => ({
@@ -108,7 +108,8 @@ export default compose(
 			if (!p.initialized) return;
 			if (p.loading) return;
 			const { filter, sort, slider } = difProps({ prevProps: this.props, nextProps: p });
-			if (filter || this.storeEmpty) {
+			if (filter || this.storeEmpty || p.getStore('refresh')) {
+				p.setStore({ refresh: false });
 				this.storeEmpty = false;
 				p.setLoading(true);
 				const lenQuery = await Meteor.callPromise('hydrants.get.lenQuery', { filter: p.filter });

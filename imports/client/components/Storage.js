@@ -12,6 +12,7 @@ function getStore(field, keys) {
 	// console.log('getStore');
 	// console.log('field', field);
 	// console.log('keys', keys);
+	if (!field) return StorageCollection;
 	let result = _.get(StorageCollection, field);
 	// console.log('result', result);
 	if (keys) result = _.get(result, keys);
