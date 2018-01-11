@@ -26,6 +26,6 @@ rateLimit({
 	methods: [
 		'utility.get.types', 'utility.db.init', 'utility.getPage'
 	],
-	limit: 2,
+	limit: 5,
 	timeRange: 1000,
 });

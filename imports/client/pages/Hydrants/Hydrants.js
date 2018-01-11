@@ -40,7 +40,7 @@ export default compose(
 			cntTotalUnits: p.getStore('cntTotalUnits') || 0,
 			loading: false,
 			initialized: false,
-			sort: p.getStore('sort') || { name: 'createdAt', order: -1 },
+			sort: p.getStore('sort') || { name: 'status', order: -1 },
 			filter: p.getStore('filter') || { status: {} },
 			slider: p.getStore('slider') || { max: 0, value: 0 },
 		}), {

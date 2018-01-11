@@ -12,7 +12,7 @@ import { sleep } from '../../../server/Utils/utils';
 import { initTestDb } from '../fixtures';
 import sendNotifications from '../google';
 
-const calculateFlow = ({ flowEndCode }) => {
+const calculateFlow = ({ edata, flowEndCode }) => {
 	const flowContinueCode = flowEndCode - 1;
 	const flowStartCode = flowEndCode - 2;
 
@@ -27,29 +27,32 @@ const calculateFlow = ({ flowEndCode }) => {
 		}
 	).fetch();
 
-	// Take last flows
-	const flows = _
-		.chain(events)
-		.takeWhile({ code: flowContinueCode })
-		.map('edata')
-		.value();
+	if (events && _.isArray(events) && events.length > 0) {
+		// Take last flows
+		const flows = _
+			.chain(events)
+			.takeWhile({ code: flowContinueCode })
+			.map('edata')
+			.value();
 
-	// Any flow-continue events?
-	if (flows.length < 1) {
-		flows[0] = 0;
-		// return { error: `Event received, no flow continue ${flowContinueCode} event` };
+		// Any flow-continue events?
+		let startEventIndex;
+		if (flows && _.isArray(flows)) startEventIndex = flows.length;
+		else startEventIndex = 0;
+		if (events.length >= startEventIndex + 1) {
+			// Read one before
+			// Is there flow-start event
+			const startEvent = events[startEventIndex];
+			if (startEvent && startEvent.code == flowStartCode && startEvent.edata) {
+				return ({
+					flowTotal: Number(Number(_.sum(flows)) + Number(startEvent.edata) + Number(edata)),
+					flowDuration: moment().diff(moment(startEvent.createdAt), 'seconds'),
+				});
+			}
+		}
 	}
 
-	// Read one before
-	// Is there flow-start event
-	const startEvent = events[flows.length];
-	if (!startEvent || startEvent.code != flowStartCode) return { error: `Event received, no flow start ${flowStartCode} event` };
-
-	const { createdAt } = startEvent;
-	return ({
-		flowTotal: _.sum(flows) + events[flows.length].edata,
-		flowDuration: moment().diff(moment(createdAt), 'seconds'),
-	});
+	return { error: `Event received, no flow start ${flowStartCode} event` };
 };
 
 const updateDb = ({ sim, code, edata }) => {
@@ -62,7 +65,9 @@ const updateDb = ({ sim, code, edata }) => {
 	// Message will be accepted only if a matching <hydrantKeyID> is found
 	const hydrant = Hydrants.findOne({ sim });
 	if (!hydrant) return { error: 'Event received, sim not found' };
-	const { _id: hydrantId, status } = hydrant;
+	const { _id: hydrantId, status, enabled } = hydrant;
+
+	if (!enabled) return { error: 'Event received, hydrant disabled' };
 
 	// Message will update LastComm field of hydrant
 	const newHydrant = { lastComm: moment().toDate() };
@@ -127,7 +132,8 @@ const updateDb = ({ sim, code, edata }) => {
 		// flowTotal <-- sum of previous edata from flow start
 		// flowDuration <-- delta time to flow start
 		case 5:
-			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 5 }));
+			if (!_.isFinite(edata)) return { error: 'Event received, case 5 missing edata parameter' };
+			({ error, flowTotal, flowDuration } = calculateFlow({ edata, flowEndCode: 5 }));
 			if (error) return { error };
 			_.assign(newEvent, { flowTotal, flowDuration });
 			break;
@@ -158,7 +164,8 @@ const updateDb = ({ sim, code, edata }) => {
 		// flowTotal <-- sum of previous edata from flow start
 		// flowDuration <-- delta time to flow start
 		case 8:
-			({ error, flowTotal, flowDuration } = calculateFlow({ flowEndCode: 8 }));
+			if (!_.isFinite(edata)) return { error: 'Event received, case 8 missing edata parameter' };
+			({ error, flowTotal, flowDuration } = calculateFlow({ edata, flowEndCode: 8 }));
 			if (error) return { error };
 			_.assign(newEvent, { flowTotal, flowDuration });
 			break;
@@ -196,9 +203,12 @@ const updateHydrantStatusEveryHour = () => {
 	console.log('running no communication check, updated:');
 	// status=2=No communication
 	console.log(Hydrants.update(
-		{ $or: [
-			{ lastComm: { $exists: false } },
-			{ lastComm: { $lt: new Date(moment().subtract({ days: 3 }).toDate()) } }
+		{ $and: [
+			{ status: { $ne: 2 } },
+			{ $or: [
+				{ lastComm: { $exists: false } },
+				{ lastComm: { $lt: new Date(moment().subtract({ days: 3 }).toDate()) } }
+			] },
 		] },
 		{ $set: { status: 2 } },
 		{ multi: true }
@@ -220,33 +230,33 @@ async function runningTest() {
 	// console.log('should be: status != 2');
 	// console.log(Hydrants.findOne({ sim: '333' }).status);
 	//
-	// Faulty parameters
-	console.log('should be: faulty edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=0&d=a');
-
-	console.log('should be: sim not found');
-	await axios.get('http://localhost:3000/input?h=99999999999&c=0&d=0');
-
-	console.log('should be: case 0 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=0&d=');
-
-	console.log('should be: case 1 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=1&d=');
-
-	console.log('should be: case 3 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=3&d=');
-
-	console.log('should be: case 4 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=4&d=');
-
-	console.log('should be: case 6 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=6&d=');
-
-	console.log('should be: case 7 missing edata parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=7&d=');
-
-	console.log('should be: faulty code parameter');
-	await axios.get('http://localhost:3000/input?h=111&c=9&d=0');
+	// // Faulty parameters
+	// console.log('should be: faulty edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=0&d=a');
+	//
+	// console.log('should be: sim not found');
+	// await axios.get('http://localhost:3000/input?h=99999999999&c=0&d=0');
+	//
+	// console.log('should be: case 0 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=0&d=');
+	//
+	// console.log('should be: case 1 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=1&d=');
+	//
+	// console.log('should be: case 3 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=3&d=');
+	//
+	// console.log('should be: case 4 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=4&d=');
+	//
+	// console.log('should be: case 6 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=6&d=');
+	//
+	// console.log('should be: case 7 missing edata parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=7&d=');
+	//
+	// console.log('should be: faulty code parameter');
+	// await axios.get('http://localhost:3000/input?h=111&c=9&d=0');
 	//
 	//
 	// // Insertations
@@ -261,17 +271,28 @@ async function runningTest() {
 	//
 	//
 
+	console.log('Hydrant disabled');
+	console.log('should be: Event received, hydrant disabled');
+	await axios.get('http://localhost:3000/input?h=333&c=3&d=20');
+
 	console.log('Normal Flow');
 	Events.remove({});
 	// console.log('should be: no flow continue 4 event');
 	console.log('should be: no flow start 3 event');
-	await axios.get('http://localhost:3000/input?h=111&c=5&d=');
+	await axios.get('http://localhost:3000/input?h=111&c=5&d=20');
 
 	console.log('should be: inserting code 4 flow continue event, no status change');
 	await axios.get('http://localhost:3000/input?h=111&c=4&d=50');
 
 	console.log('should be: no flow start 3 event');
-	await axios.get('http://localhost:3000/input?h=111&c=5&d=');
+	await axios.get('http://localhost:3000/input?h=111&c=5&d=20');
+
+	console.log('should be: inserting code 3 flow start event, updating status 4');
+	await axios.get('http://localhost:3000/input?h=111&c=3&d=40');
+	await sleep(10000);
+
+	console.log('should be: inserting code 5 flow end event, flowTotal=60 flowDuration=10, no status change');
+	await axios.get('http://localhost:3000/input?h=111&c=5&d=20');
 
 	console.log('should be: inserting code 3 flow start event, updating status 4');
 	await axios.get('http://localhost:3000/input?h=111&c=3&d=40');
@@ -284,20 +305,27 @@ async function runningTest() {
 	await axios.get('http://localhost:3000/input?h=111&c=4&d=70');
 	await sleep(10000);
 
-	console.log('should be: inserting code 5 flow end event, flowTotal=160 flowDuration=30, no status change');
-	await axios.get('http://localhost:3000/input?h=111&c=5&d=');
+	console.log('should be: inserting code 5 flow end event, flowTotal=180 flowDuration=30, no status change');
+	await axios.get('http://localhost:3000/input?h=111&c=5&d=20');
 
 	console.log('Reverse Flow');
 	Events.remove({});
 	// console.log('should be: no flow continue 7 event');
 	console.log('should be: no flow start 6 event');
-	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
+	await axios.get('http://localhost:3000/input?h=111&c=8&d=20');
 
 	console.log('should be: inserting code 7 flow continue event, no status change');
 	await axios.get('http://localhost:3000/input?h=111&c=7&d=50');
 
 	console.log('should be: no flow start 6 event');
-	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
+	await axios.get('http://localhost:3000/input?h=111&c=8&d=20');
+
+	console.log('should be: inserting code 6 flow start event, updating status 4');
+	await axios.get('http://localhost:3000/input?h=111&c=6&d=40');
+	await sleep(10000);
+
+	console.log('should be: inserting code 8 flow end event, flowTotal=60 flowDuration=10, no status change');
+	await axios.get('http://localhost:3000/input?h=111&c=8&d=20');
 
 	console.log('should be: inserting code 6 flow start event, updating status 4');
 	await axios.get('http://localhost:3000/input?h=111&c=6&d=40');
@@ -311,8 +339,8 @@ async function runningTest() {
 	await axios.get('http://localhost:3000/input?h=111&c=7&d=70');
 	await sleep(10000);
 
-	console.log('should be: inserting code 8 flow end event, flowTotal=160 flowDuration=30, no status change');
-	await axios.get('http://localhost:3000/input?h=111&c=8&d=');
+	console.log('should be: inserting code 8 flow end event, flowTotal=180 flowDuration=30, no status change');
+	await axios.get('http://localhost:3000/input?h=111&c=8&d=20');
 }
 
 // Meteor.setTimeout(runningTest, 1000);

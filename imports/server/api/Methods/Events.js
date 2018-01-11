@@ -95,7 +95,7 @@ Meteor.methods({
 				code: 1,
 				edata: 1,
 				hydrantNumber: '$h.number',
-				description: '$h.description',
+				address: '$h.address',
 			} },
 			{ $sort: { [sort.name]: sort.order } },
 			{ $skip: skip },
@@ -154,7 +154,7 @@ rateLimit({
 	methods: [
 		'events.get.mobile', 'events.get.data', 'events.get.lenQuery', 'events.get.counts'
 	],
-	limit: 2,
+	limit: 5,
 	timeRange: 1000,
 });
 

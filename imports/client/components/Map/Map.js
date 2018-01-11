@@ -38,6 +38,7 @@ const MapItself = compose(
 	withStateHandlers(
 		p => ({
 			zoom: p.getStore('zoom') || 13,
+			// center: p.getStore('center') || { lat: 32.848439, lng: 35.117543 },
 			data: p.getStore('data') || [],
 			loading: false,
 			initialized: false,
@@ -83,8 +84,9 @@ const MapItself = compose(
 		},
 		async componentWillReceiveProps(p) {
 			if (!p.initialized) return;
-			if (p.loading) return;
 			const mp = difProps({ prevProps: this.props, nextProps: p });
+			_.forEach(mp, (v, k) => console.log(k, p[k]));
+			if (p.loading) return;
 			if (mp.bounds || mp.filterStatus || this.storeEmpty || p.getStore('refresh')) {
 				p.setStore({ refresh: false });
 				console.log('map loading data');
@@ -125,7 +127,9 @@ const MapItself = compose(
 				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 					<GoogleMap
 						defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
+						// center={p.center}
 						zoom={p.zoom}
+						// bounds={p.bounds}
 						ref={p.setMapRef}
 						onBoundsChanged={p.setBounds}
 						onZoomChanged={p.setZoom}

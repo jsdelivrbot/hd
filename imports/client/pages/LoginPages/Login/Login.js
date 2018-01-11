@@ -68,6 +68,7 @@ class Login extends React.Component {
 								<FormGroup>
 									<ControlLabel>אימייל</ControlLabel>
 									<input
+										dir="ltr"
 										type="email"
 										name="emailAddress"
 										ref={emailAddress => (this.emailAddress = emailAddress)}
@@ -80,6 +81,7 @@ class Login extends React.Component {
 										<Link className="pull-left" to="/recover-password">האם שכחת סיסמה?</Link>
 									</ControlLabel>
 									<input
+										dir="ltr"
 										type="password"
 										name="password"
 										ref={password => (this.password = password)}

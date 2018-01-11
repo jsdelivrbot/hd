@@ -52,7 +52,7 @@ const randomHydrant = (ind, sim) => {
 		status: sim ? 0 : rn({ min: 0, max: 5 }),
 		updatedAt: dt,
 		createdAt: dt,
-		enabled,
+		enabled: (sim == 333) ? false : enabled,
 		number: ind,
 	};
 	if (faker.random.boolean() && !sim) obj.lastComm = faker.date.past(1);
@@ -243,7 +243,7 @@ function initTestDb() {
 
 // resetAllDb();
 // initAllDb();
-// fillHydrantsAndEvents(1000, 10);
+// initDb();
 
 export { initTestDb, initDb, resetDb };
 

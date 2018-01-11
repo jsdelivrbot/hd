@@ -217,6 +217,6 @@ rateLimit({
 		'hydrants.zero.status', 'hydrants.get.total.counts', 'hydrants.get.lenQuery', 'hydrants.get.data', 'hydrants.get.data.one',
 		'hydrants.insert', 'hydrants.update', 'hydrants.remove'
 	],
-	limit: 2,
+	limit: 5,
 	timeRange: 1000,
 });

@@ -67,6 +67,7 @@ class ResetPassword extends React.Component {
 						<FormGroup>
 							<ControlLabel>סיסמה חדשה</ControlLabel>
 							<input
+								dir="ltr"
 								type="password"
 								className="form-control"
 								ref={newPassword => (this.newPassword = newPassword)}
@@ -77,6 +78,7 @@ class ResetPassword extends React.Component {
 						<FormGroup>
 							<ControlLabel>חזור על הסיסמה החדשה</ControlLabel>
 							<input
+								dir="ltr"
 								type="password"
 								className="form-control"
 								ref={repeatNewPassword => (this.repeatNewPassword = repeatNewPassword)}

@@ -222,7 +222,7 @@ export default compose(
 									זמן האירוע<br />
 								</TableHeaderColumn>
 								<TableHeaderColumn dataField="time" width="135px" dataFormat={formatter} dataAlign="center" headerAlign="center" />
-								<TableHeaderColumn dataFormat={formatter} dataField="description" dataAlign="right" headerAlign="center">
+								<TableHeaderColumn dataFormat={formatter} dataField="address" dataAlign="right" headerAlign="center">
 									כתובת התקנה<br /><br /><br /><br />
 								</TableHeaderColumn>
 							</BootstrapTable>

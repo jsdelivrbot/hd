@@ -167,7 +167,7 @@ rateLimit({
 	methods: [
 		'user.set.fcmtoken', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
 	],
-	limit: 2,
+	limit: 5,
 	timeRange: 1000,
 });
 

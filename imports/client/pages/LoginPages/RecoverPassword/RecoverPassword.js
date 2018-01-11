@@ -61,6 +61,7 @@ class RecoverPassword extends React.Component {
 						<FormGroup>
 							<ControlLabel>אימייל</ControlLabel>
 							<input
+								dir="ltr"
 								type="email"
 								name="emailAddress"
 								ref={emailAddress => (this.emailAddress = emailAddress)}

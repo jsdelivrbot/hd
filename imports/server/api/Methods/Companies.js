@@ -58,7 +58,7 @@ rateLimit({
 		'companies.get.all', 'companies.get.data.one',
 		'companies.insert', 'companies.update', 'companies.remove'
 	],
-	limit: 2,
+	limit: 5,
 	timeRange: 1000,
 });
 
