@@ -99,7 +99,7 @@ Meteor.methods({
 			} },
 			{ $sort: { [sort.name]: sort.order } },
 			{ $skip: skip },
-			{ $limit: 12 },
+			{ $limit: 14 },
 		], { allowDiskUse: true });
 	},
 	'events.get.mobile': function anon(p) {

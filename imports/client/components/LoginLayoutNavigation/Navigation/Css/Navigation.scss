@@ -95,6 +95,8 @@ $dropDown       : true;
   background-color: $bgDefault;
   border-color: $bgHighlight;
   .navbar-nav.navbar-left {
+    z-index: 10001;
+    height: 2px;
     position: relative;
     bottom: 100px;
     .dropdown-menu {

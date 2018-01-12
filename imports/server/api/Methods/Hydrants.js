@@ -111,7 +111,7 @@ Meteor.methods({
 			{ $match: buildFilter(filter) },
 			{ $sort: { [sort.name]: sort.order } },
 			{ $skip: skip },
-			{ $limit: 12 },
+			{ $limit: 14 },
 		], { allowDiskUse: true });
 	},
 	'hydrants.get.data.one': function anon(p) {
@@ -147,7 +147,7 @@ Meteor.methods({
 		if (array_cntAllUnits.length >= 1) cntAllUnits = array_cntAllUnits[0];
 		
 		const array_cntTroubledUnits = Hydrants.aggregate([
-				{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
+			{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
 			{ $group: {
 				_id: null,
 				sum: { $sum: 1 },

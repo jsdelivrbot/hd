@@ -21,12 +21,12 @@ const Slider = p => (
 				disableTrack
 				value={p.slider.value}
 				defaultValue={p.slider.value}
-				verticalSliderHeight="420px"
+				verticalSliderHeight="470px"
 				vertical
 				sliderSize={55}
 				thumbSize={55}
 				max={p.slider.max}
-				step={12}
+				step={14}
 			>
 				<div className="sslider">
 					<Flex align="center" justify="space-around" w={1} py={2}>

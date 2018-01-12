@@ -34,7 +34,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		p => ({
-			data: p.getStore('data') || [],
+			data: p.getStore('data') || [{ _id: 'nothingyet' }],
 			cntEnabledUnits: p.getStore('cntEnabledUnits') || 0,
 			cntDisabledUnits: p.getStore('cntDisabledUnits') || 0,
 			cntTotalUnits: p.getStore('cntTotalUnits') || 0,
@@ -51,7 +51,7 @@ export default compose(
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }, p) => (obj) => {
-				if (obj.value !== undefined && (_.isUndefined(obj.max) ? slider.max > 12 : obj.max > 12) && obj.value < 12) obj.value = 12;
+				if (obj.value !== undefined && (_.isUndefined(obj.max) ? slider.max > 14 : obj.max > 14) && obj.value < 14) obj.value = 14;
 				slider = Object.assign({}, slider, obj);
 				return p.setStore({ slider });
 			},
@@ -142,7 +142,7 @@ export default compose(
 				skip,
 			});
 
-			p.setLoading(false);
+			p.setLoading(false);`
 			data = _.map(data, ({ createdAt, status, ...row }, key) => ({
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				status: p.types.status[status],
@@ -180,7 +180,7 @@ export default compose(
 									onFilterChange: p.setFilterSelectAndSearch,
 									onRowClick: p.select,
 								}}
-								height="600px"
+								height="650px"
 								striped
 								hover
 							>

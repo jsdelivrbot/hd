@@ -34,7 +34,7 @@ export default compose(
 	}),
 	withStateHandlers(
 		p => ({
-			data: p.getStore('data') || [],
+			data: p.getStore('data') || [{ _id: 'nothingyet' }],
 			cntAllUnits: p.getStore('cntAllUnits') || 0,
 			loading: false,
 			initialized: false,
@@ -47,7 +47,7 @@ export default compose(
 			setData: ({}, p) => data => p.setStore({ data }),
 			setInitialized: () => initialized => ({ initialized }),
 			setSlider: ({ slider }, p) => (obj) => {
-				if (obj.value !== undefined && obj.max >= 12 && obj.value < 12) obj.value = 12;
+				if (obj.value !== undefined && obj.max >= 14 && obj.value < 14) obj.value = 14;
 				slider = Object.assign({}, slider, obj);
 				return p.setStore({ slider });
 			},
@@ -170,7 +170,7 @@ export default compose(
 									defaultSortOrder: (p.sort.order === 1) ? 'asc' : 'desc',
 									onFilterChange: p.setFilterSelect,
 								}}
-								height="600px"
+								height="650px"
 								striped
 								hover
 							>
