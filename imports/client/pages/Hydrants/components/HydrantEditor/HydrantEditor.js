@@ -6,6 +6,8 @@ import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
+import Switch from 'react-toggle-switch'
+
 import 'react-datepicker/dist/react-datepicker.css';
 import {
 	compose,
@@ -217,13 +219,18 @@ class HydrantEditor extends React.Component {
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>מאופשר</ControlLabel>
-							<input
-								type="checkbox"
-								className="form-control"
+							<Switch
 								name="enabled"
 								ref={enabled => (this.enabled = enabled)}
-								defaultChecked={(data && data.enabled) ? 'checked' : ''}
+								on={data && data.enabled}
 							/>
+							{/*<input*/}
+								{/*type="checkbox"*/}
+								{/*className="form-control"*/}
+								{/*name="enabled"*/}
+								{/*ref={enabled => (this.enabled = enabled)}*/}
+								{/*defaultChecked={(data && data.enabled) ? 'checked' : ''}*/}
+							{/*/>*/}
 						</FormGroup>
 						<FormGroup>
 							<ControlLabel>הערות</ControlLabel>

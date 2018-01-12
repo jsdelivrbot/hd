@@ -168,7 +168,7 @@ const MapItself = compose(
 	withProps({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%', width: '1140px' }} />,
-		containerElement: <div style={{ marginTop: '20px', height: '560px', width: '1140px' }} />,
+		containerElement: <div style={{ marginTop: '5px', height: '630px', width: '1140px' }} />,
 		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
 	}),
 	withScriptjs,
@@ -277,9 +277,11 @@ class Map extends React.Component {
 		return (
 			<div style={{ width: '1140px' }}>
 				<If condition={!this.props._id}>
-					<Flex align="center">
+					<Flex style={{ height: 1 }} align="center">
+						<Box w={7 / 8} />
 						<Box w={1 / 8}>
 							<Button
+								style={{ zIndex: 10000, position: 'relative', left: 120, top: 32 }}
 								bsStyle={!this.state.filterStatus ? 'default' : 'danger'}
 								block
 								onClick={() => this.toggleFilterStatus()}
@@ -287,7 +289,6 @@ class Map extends React.Component {
 								{!this.state.filterStatus ? 'כולם' : 'בארוע'}
 							</Button>
 						</Box>
-						<Box w={7 / 8} />
 					</Flex>
 				</If>
 				<MapItself {...this.props} filterStatus={this.state.filterStatus} />
