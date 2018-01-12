@@ -142,7 +142,7 @@ export default compose(
 				skip,
 			});
 
-			p.setLoading(false);`
+			p.setLoading(false);
 			data = _.map(data, ({ createdAt, status, ...row }, key) => ({
 				createdAt: moment(createdAt).format('DD.MM.YYYY'),
 				status: p.types.status[status],
