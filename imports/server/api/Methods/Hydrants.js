@@ -147,14 +147,22 @@ Meteor.methods({
 		if (array_cntAllUnits.length >= 1) cntAllUnits = array_cntAllUnits[0];
 		
 		const array_cntTroubledUnits = Hydrants.aggregate([
-			{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
+				{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
 			{ $group: {
 				_id: null,
-				count: { $sum: 1 }
+				sum: { $sum: 1 },
+				south: { $min: '$lat' },
+				north: { $max: '$lat' },
+				west: { $min: '$lon' },
+				east: { $max: '$lon' },
 			} },
 		]);
-		const cntTroubledUnits = _.get(array_cntTroubledUnits, '[0].count', 0);
-		
+		let cntTroubledUnits = 0;
+		if (array_cntTroubledUnits.length >= 1) cntTroubledUnits = array_cntTroubledUnits[0];
+		console.log('cntAllUnits');
+		console.log(cntAllUnits);
+		console.log('cntTroubledUnits');
+		console.log(cntTroubledUnits);
 		return { cntAllUnits, cntTroubledUnits };
 	},
 	'map.get.data': function anon(p) {

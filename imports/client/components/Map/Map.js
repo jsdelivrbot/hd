@@ -14,7 +14,6 @@ import {
 } from 'recompose';
 
 import {
-	OverlayView,
 	withScriptjs,
 	withGoogleMap,
 	GoogleMap,
@@ -74,11 +73,16 @@ const MapItself = compose(
 				setInitialized(true);
 			}
 		},
+		getPixelPositionOffset: () => (width, height) => ({
+			x: -(width / 2),
+			y: -(height / 2),
+		})
 	})),
 	lifecycle({
 		async componentDidMount() {
 			const p = this.props;
 			this.storeEmpty = false;
+			this.savedBounds = p.getStore('bounds');
 			if (!p.getStore()) {
 				p.setLoading(true);
 				const { cntTroubledUnits, cntAllUnits } = await Meteor.callPromise('map.get.counts');
@@ -86,8 +90,6 @@ const MapItself = compose(
 				p.setCntTroubledUnits(cntTroubledUnits);
 				p.setCntAllUnits(cntAllUnits);
 				this.storeEmpty = true;
-			} else {
-				this.savedBounds = p.getStore('bounds');
 			}
 			p.setDataInitialized(true);
 		},
@@ -115,10 +117,23 @@ const MapItself = compose(
 				p.setData(data);
 
 				if (data.length) {
+					if (mp.filterStatus) {
+						if (p.filterStatus) {
+							const { south, north, west, east } = p.cntTroubledUnits;
+							p.mapRef.fitBounds({ south, north, west, east });
+						} else {
+							const { south, north, west, east } = p.cntAllUnits;
+							p.mapRef.fitBounds({ south, north, west, east });
+						}
+					}
 					if (!this.firstSet) {
 						console.log(data);
-						const { south, north, west, east } = p.cntAllUnits;
-						p.mapRef.fitBounds({ south, north, west, east });
+						if (!p._id && this.savedBounds) {
+							p.mapRef.panTo(p.center);
+						} else {
+							const { south, north, west, east } = p.cntAllUnits;
+							p.mapRef.fitBounds({ south, north, west, east });
+						}
 						if (p._id) {
 							p.mapRef.panTo({ lat: Number(data[0].lat),	 lng: Number(data[0].lon) });
 						}
@@ -187,7 +202,7 @@ const MapItself = compose(
 						onDragStart={p.setOnDrugStart}
 					>
 						<MarkerClusterer
-							// averageCenter
+							averageCenter
 							enableRetinaIcons
 							gridSize={50}
 						>
@@ -231,7 +246,7 @@ const MapItself = compose(
 								<Box w={1}>
 									<span>
 										סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits.sum} יח&#39;<br />
-										מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
+										מתוכם מוצרים בארוע:  {p.cntTroubledUnits.sum} יח&#39;<br />
 										נכון לתאריך: {currentDate}
 									</span>
 								</Box>
@@ -256,7 +271,7 @@ class Map extends React.Component {
 	}
 	toggleFilterStatus() {
 		this.setState({ filterStatus: !this.state.filterStatus });
-		this.props.setStore({ filterStatus: this.state.filterStatus });
+		this.props.setStore({ filterStatus: !this.state.filterStatus });
 	}
 	render() {
 		return (
