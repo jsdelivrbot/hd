@@ -14,6 +14,7 @@ import {
 } from 'recompose';
 
 import {
+	OverlayView,
 	withScriptjs,
 	withGoogleMap,
 	GoogleMap,
@@ -115,7 +116,6 @@ const MapItself = compose(
 
 				if (data.length) {
 					if (!this.firstSet) {
-						console.log('hereeeeeeeeeeeeedata');
 						console.log(data);
 						const { south, north, west, east } = p.cntAllUnits;
 						p.mapRef.fitBounds({ south, north, west, east });
@@ -152,8 +152,8 @@ const MapItself = compose(
 	branch(p => !p.dataInitialized, renderComponent(Loading)),
 	withProps({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
-		loadingElement: <div style={{ height: '100%' }} />,
-		containerElement: <div style={{ marginTop: '20px', height: '560px' }} />,
+		loadingElement: <div style={{ height: '100%', width: '1140px' }} />,
+		containerElement: <div style={{ marginTop: '20px', height: '560px', width: '1140px' }} />,
 		mapElement: <div style={{ height: '100%', width: '1140px' }} />,
 	}),
 	withScriptjs,
@@ -171,7 +171,7 @@ const MapItself = compose(
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
 		// const center = { lat: p.data[0].lat, lon: p.data[0].lon };
 		return (
-			<div className="Map">
+			<div className="Map" style={{ width: '1140px' }}>
 				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 					<GoogleMap
 						// defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
@@ -226,7 +226,7 @@ const MapItself = compose(
 				</Loader>
 				<Choose>
 					<When condition={!p._id}>
-						<Segment raised textAlign="center" size="big">
+						<Segment style={{ marginBottom: 50 }} raised textAlign="center" size="big">
 							<Flex align="center">
 								<Box w={1}>
 									<span>
@@ -260,7 +260,7 @@ class Map extends React.Component {
 	}
 	render() {
 		return (
-			<div>
+			<div style={{ width: '1140px' }}>
 				<If condition={!this.props._id}>
 					<Flex align="center">
 						<Box w={1 / 8}>

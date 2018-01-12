@@ -9,7 +9,7 @@ const DownloadApp = () => (
 				<Row>
 					<img
 						style={{ width: '100%' }}
-						src="qr.png"
+						src="qr.jpg"
 						alt="qr"
 					/>
 				</Row>

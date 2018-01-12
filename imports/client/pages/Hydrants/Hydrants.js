@@ -273,7 +273,7 @@ export default compose(
 						</Loader>
 					</Box>
 				</Flex>
-				<Segment style={{ marginTop: '10px' }} raised textAlign="center" size="big">
+				<Segment style={{ marginTop: 10, marginBottom: 30 }} raised textAlign="center" size="big">
 					<Flex align="center">
 						<Box w={1 / 8}>
 							<If condition={p.isUserAdmin()}>

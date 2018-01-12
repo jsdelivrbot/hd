@@ -230,7 +230,7 @@ export default compose(
 					</Box>
 				</Flex>
 				<If condition={!p._id}>
-					<Segment style={{ marginTop: '10px' }} raised textAlign="center" size="big">
+					<Segment style={{ marginTop: 10, marginBottom: 30 }} raised textAlign="center" size="big">
 						סה&quot;כ ארועים בהידרנטים :  {p.cntAllUnits} <br />
 						נכון לתאריך: {currentDate}
 					</Segment>

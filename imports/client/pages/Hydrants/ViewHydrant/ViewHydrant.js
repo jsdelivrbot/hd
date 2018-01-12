@@ -79,7 +79,6 @@ export default compose(
 						containerClass="table_container_class"
 						tableContainerClass="table_class"
 						data={p.data}
-						height="50px"
 					>
 						<TableHeaderColumn
 							isKey
@@ -159,8 +158,8 @@ export default compose(
 						</Box>
 					</Flex>
 				</div>
-				{/*<Events _id={p._id} types={p.types} company={p.company} />*/}
-				{/*<Map _id={p._id} types={p.types} company={p.company} />*/}
+				<Events _id={p._id} types={p.types} company={p.company} />
+				<Map _id={p._id} types={p.types} company={p.company} />
 			</div>
 		);
 	});
