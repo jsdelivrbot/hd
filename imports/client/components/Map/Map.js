@@ -37,7 +37,9 @@ import { getStore, setStore } from '../Storage';
 const MapItself = compose(
 	withStateHandlers(
 		p => ({
-			zoom: p.getStore('zoom') || 13,
+			onDrugEnd: false,
+			zoom: p._id ? 15 : p.getStore('zoom') || 7,
+			center: p.getStore('center'),
 			// center: p.getStore('center') || { lat: 32.848439, lng: 35.117543 },
 			data: p.getStore('data') || [],
 			loading: false,
@@ -48,9 +50,12 @@ const MapItself = compose(
 			mapRef: undefined,
 			bounds: {},
 		}), {
+			setOnDrugStart: () => () => ({ onDrugEnd: false }),
+			setOnDrugEnd: () => () => ({ onDrugEnd: true }),
 			setMapRef: () => mapRef => ({ mapRef }),
 			toggleFilterStatus: ({ filterStatus }) => () => ({ filterStatus: !filterStatus }),
 			setZoom: ({ mapRef }, p) => () => p.setStore({ zoom: mapRef.getZoom() }),
+			setCenter: ({ mapRef }, p) => () => p.setStore({ center: mapRef.getCenter() }),
 			setCntAllUnits: ({}, p) => cntAllUnits => p.setStore({ cntAllUnits }),
 			setCntTroubledUnits: ({}, p) => cntTroubledUnits => p.setStore({ cntTroubledUnits }),
 			setBounds: ({ mapRef }, p) => () => p.setStore({ bounds: mapRef.getBounds().toJSON() }),
@@ -61,8 +66,9 @@ const MapItself = compose(
 		}
 	),
 	withHandlers(() => ({
-		onTilesLoaded: ({ initialized, setBounds, setInitialized }) => () => {
+		onTilesLoaded: ({ mapRef, initialized, setBounds, setInitialized }) => () => {
 			if (!initialized) {
+				// console.log(mapRef.getCenter().lng());
 				setBounds();
 				setInitialized(true);
 			}
@@ -79,6 +85,8 @@ const MapItself = compose(
 				p.setCntTroubledUnits(cntTroubledUnits);
 				p.setCntAllUnits(cntAllUnits);
 				this.storeEmpty = true;
+			} else {
+				this.savedBounds = p.getStore('bounds');
 			}
 			p.setDataInitialized(true);
 		},
@@ -87,18 +95,57 @@ const MapItself = compose(
 			const mp = difProps({ prevProps: this.props, nextProps: p });
 			_.forEach(mp, (v, k) => console.log(k, p[k]));
 			if (p.loading) return;
-			if (mp.bounds || mp.filterStatus || this.storeEmpty || p.getStore('refresh')) {
+			
+			let data = p.data;
+			if ((mp.onDrugEnd && p.onDrugEnd) || mp.filterStatus || this.storeEmpty || p.getStore('refresh')) {
 				p.setStore({ refresh: false });
 				console.log('map loading data');
 				this.storeEmpty = false;
 				p.setLoading(true);
-				p.setData(await Meteor.callPromise('map.get.data', {
-					filterStatus: p.filterStatus,
-					bounds: p.bounds,
-					_id: p._id,
-				}));
+				if (p._id) {
+					data = await Meteor.callPromise('map.get.data.one', { _id: p._id });
+				} else {
+					data = await Meteor.callPromise('map.get.data', {
+						filterStatus: p.filterStatus,
+						bounds: p.bounds,
+						_id: p._id,
+					});
+				}
+				p.setData(data);
+
+				if (data.length) {
+					if (!this.firstSet) {
+						console.log('hereeeeeeeeeeeeedata');
+						console.log(data);
+						const { south, north, west, east } = p.cntAllUnits;
+						p.mapRef.fitBounds({ south, north, west, east });
+						if (p._id) {
+							p.mapRef.panTo({ lat: Number(data[0].lat),	 lng: Number(data[0].lon) });
+						}
+						this.firstSet = true;
+					}
+				}
+				
 				p.setLoading(false);
 			}
+			// if (data.length) {
+			// 	if (!this.firstSet) {
+			// 		console.log('hereeeeeeeeeeeeedata');
+			// 		console.log(data);
+			// 		if (p._id) {
+			// 			// p.mapRef.panTo({ lat: Number(data[0].lat),	 lng: Number(data[0].lon) });
+			// 			p.mapRef.panTo({ lat: Number(data[0].lat),	 lng: Number(data[0].lon) });
+			// 		} else {
+			// 			if (this.savedBounds) {
+			// 				p.mapRef.panTo(p.center);
+			// 			} else {
+			// 				const { south, north, west, east } = p.cntAllUnits;
+			// 				p.mapRef.fitBounds({ south, north, west, east });
+			// 			}
+			// 		}
+			// 		this.firstSet = true;
+			// 	}
+			// }
 		},
 
 	}),
@@ -122,18 +169,22 @@ const MapItself = compose(
 	(p) => {
 		console.log('rendering map');
 		const currentDate = (new Date()).toLocaleString('he-IL').split(',')[0];
+		// const center = { lat: p.data[0].lat, lon: p.data[0].lon };
 		return (
 			<div className="Map">
 				<Loader show={p.loading} message={Loading()} backgroundStyle={{ backgroundColor: 'transparent' }}>
 					<GoogleMap
-						defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
-						// center={p.center}
+						// defaultCenter={{ lat: 32.848439, lng: 35.117543 }}
+						center={p.center || { lat: 32.848439, lng: 35.117543 }}
 						zoom={p.zoom}
 						// bounds={p.bounds}
 						ref={p.setMapRef}
 						onBoundsChanged={p.setBounds}
+						onCenterChanged={p.setCenter}
 						onZoomChanged={p.setZoom}
 						onTilesLoaded={p.onTilesLoaded}
+						onDragEnd={p.setOnDrugEnd}
+						onDragStart={p.setOnDrugStart}
 					>
 						<MarkerClusterer
 							// averageCenter
@@ -173,19 +224,24 @@ const MapItself = compose(
 						</MarkerClusterer>
 					</GoogleMap>
 				</Loader>
-				<If condition={!p._id}>
-					<Segment raised textAlign="center" size="big">
-						<Flex align="center">
-							<Box w={1}>
-								<span>
-									סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits} יח&#39;<br />
-									מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
-									נכון לתאריך: {currentDate}
-								</span>
-							</Box>
-						</Flex>
-					</Segment>
-				</If>
+				<Choose>
+					<When condition={!p._id}>
+						<Segment raised textAlign="center" size="big">
+							<Flex align="center">
+								<Box w={1}>
+									<span>
+										סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits.sum} יח&#39;<br />
+										מתוכם מוצרים בארוע:  {p.cntTroubledUnits} יח&#39;<br />
+										נכון לתאריך: {currentDate}
+									</span>
+								</Box>
+							</Flex>
+						</Segment>
+					</When>
+					<Otherwise>
+						<div style={{ paddingBottom: 60 }} />
+					</Otherwise>
+				</Choose>
 			</div>
 		);
 	}

@@ -1,5 +1,6 @@
 {
   "rules": {
+    no-trailing-spaces: 0,
     no-return-await: 0,
     react/jsx-no-undef: [2, { "allowGlobals": true }],
     no-unused-vars: 0,
