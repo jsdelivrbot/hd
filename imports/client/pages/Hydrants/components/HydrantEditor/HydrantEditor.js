@@ -6,7 +6,6 @@ import { Flex, Box } from 'reflexbox';
 import { Bert } from 'meteor/themeteorchef:bert';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import Switch from 'react-toggle-switch'
 
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -17,6 +16,8 @@ import {
 import _ from 'lodash';
 
 import validate from '../../../../Utils/validate';
+import { removeLastSlash } from '../../../../Utils/Utils';
+
 
 class CustomDateInput extends React.Component {
 	render() {
@@ -117,7 +118,7 @@ class HydrantEditor extends React.Component {
 		return (
 			<Flex align="center">
 				<Box w={1 / 5}>
-					<form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+					<form style={{ marginBottom: 50 }} ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
 						<FormGroup>
 							<ControlLabel>מספר חברה</ControlLabel>
 							<span>
@@ -217,21 +218,15 @@ class HydrantEditor extends React.Component {
 								placeholder=""
 							/>
 						</FormGroup>
-						<FormGroup>
-							<ControlLabel>מאופשר</ControlLabel>
-							<Switch
+						<div>
+							<input
+								type="checkbox"
+								className="form-control"
 								name="enabled"
 								ref={enabled => (this.enabled = enabled)}
-								on={data && data.enabled}
+								defaultChecked={(data && data.enabled) ? 'checked' : ''}
 							/>
-							{/*<input*/}
-								{/*type="checkbox"*/}
-								{/*className="form-control"*/}
-								{/*name="enabled"*/}
-								{/*ref={enabled => (this.enabled = enabled)}*/}
-								{/*defaultChecked={(data && data.enabled) ? 'checked' : ''}*/}
-							{/*/>*/}
-						</FormGroup>
+						</div>
 						<FormGroup>
 							<ControlLabel>הערות</ControlLabel>
 							<input

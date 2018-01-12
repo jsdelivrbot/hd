@@ -35,7 +35,6 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.1.0",
     "react-simple-range": "^1.6.0",
-    "react-toggle-switch": "^3.0.4",
     "recompose": "^0.26.0",
     "reflexbox": "^3.0.0-0",
     "semantic-ui-react": "^0.74.2",
