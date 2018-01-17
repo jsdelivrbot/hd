@@ -35,8 +35,6 @@ function buildFilter(fromFilter) {
 			filter.status = { $in: _.keys(fromFilter.status).map(k => _.toNumber(k)) };
 		}
 	}
-	console.log(filter);
-	console.log('filter');
 	return filter;
 }
 
@@ -159,10 +157,6 @@ Meteor.methods({
 		]);
 		let cntTroubledUnits = 0;
 		if (array_cntTroubledUnits.length >= 1) cntTroubledUnits = array_cntTroubledUnits[0];
-		console.log('cntAllUnits');
-		console.log(cntAllUnits);
-		console.log('cntTroubledUnits');
-		console.log(cntTroubledUnits);
 		return { cntAllUnits, cntTroubledUnits };
 	},
 	'map.get.data': function anon(p) {
