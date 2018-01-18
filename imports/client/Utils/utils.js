@@ -12,7 +12,11 @@ const removeLastSlash = (s) => {
 	return s.slice(0, (s[l - 1] == '/') ? l - 1 : l);
 };
 
-export { removeLastSlash, difProps };
+function isNumeric(x) {
+	return ((typeof x === 'number' || typeof x === 'string') && !isNaN(Number(x)) && x !== '');
+}
+
+export { isNumeric, removeLastSlash, difProps };
 
 // import { createContainer } from 'meteor/react-meteor-data';
 

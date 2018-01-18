@@ -128,9 +128,9 @@ export default compose(
 					</BootstrapTable>
 				</Loader>
 				<div>
-					<Flex>
+					<Flex pt={2} pb={2}>
 						<Box w={1}>
-							{p.isUserControl() ?
+							<If condition={p.isUserControl()}>
 								<Button
 									bsStyle="primary" block
 									onClick={() => {
@@ -138,13 +138,11 @@ export default compose(
 										p.zeroStatus();
 									}}
 								>אפס סטטוס</Button>
-								:
-								''
-							}
+							</If>
 						</Box>
 						<Box w={1} />
 						<Box w={1}>
-							{p.isUserAdmin() ?
+							<If condition={p.isUserAdmin()}>
 								<Button
 									bsStyle="primary" block
 									onClick={() => {
@@ -152,13 +150,12 @@ export default compose(
 										p.history.push(`${removeLastSlash(p.match.url)}/edit`);
 									}}
 								>ערוך</Button>
-								:
-								''
-							}
+							</If>
 						</Box>
 					</Flex>
 				</div>
 				<Events _id={p._id} types={p.types} company={p.company} />
+				<Flex pt={2} pb={2} />
 				<Map _id={p._id} types={p.types} company={p.company} />
 			</div>
 		);

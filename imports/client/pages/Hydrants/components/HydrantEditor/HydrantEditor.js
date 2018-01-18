@@ -86,18 +86,18 @@ class HydrantEditor extends React.Component {
 			enabled: this.enabled.checked,
 			companyId: this.state.companyId,
 		};
-		if (this.lat.value) data.lat = this.lat.value;
-		if (this.lon.value) data.lon = this.lon.value;
-		if (this.disableText.value) data.disableText = this.disableText.value;
-		if (this.address.value) data.address = this.address.value;
-		if (this.description.value) data.description = this.description.value;
-		if (this.bodyBarcode.value) data.bodyBarcode = this.bodyBarcode.value;
-		if (this.history.value) data.history = this.history.value;
-		if (this.comments.value) data.comments = this.comments.value;
-		if (this.state.batchDate) data.batchDate = this.state.batchDate.toDate();
-		if (this.state.lastComm) data.lastComm = this.state.lastComm.toDate();
-		if (this.state.disableDate) data.disableDate = this.state.disableDate.toDate();
-
+		data.lat = _.get(this, 'lat.value');
+		data.lon = _.get(this, 'lon.value');
+		data.disableText = _.get(this, 'disableText.value');
+		data.address = _.get(this, 'address.value');
+		data.description = _.get(this, 'description.value');
+		data.bodyBarcode = _.get(this, 'bodyBarcode.value');
+		data.history = _.get(this, 'history.value');
+		data.comments = _.get(this, 'comments.value');
+		data.batchDate = (d => (d ? d.toDate() : null))(this.state.batchDate);
+		data.lastComm = (d => (d ? d.toDate() : null))(this.state.lastComm);
+		data.disableDate = (d => (d ? d.toDate() : null))(this.state.disableDate);
+		
 		if (existingHydrant) data._id = existingHydrant;
 
 		Meteor.call(methodToCall, data, (error, hydrantId) => {
@@ -172,6 +172,8 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>תקשורת אחרונה</ControlLabel>
 							<DatePicker
+								isClearable
+								placeholderText="בחר"
 								customInput={<CustomDateInput />}
 								selected={this.state.lastComm}
 								onChange={date => this.setState({ lastComm: date })}
@@ -180,6 +182,8 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>תאריך ההשבתה</ControlLabel>
 							<DatePicker
+								isClearable
+								placeholderText="בחר"
 								customInput={<CustomDateInput />}
 								selected={this.state.disableDate}
 								onChange={date => this.setState({ disableDate: date })}
@@ -252,6 +256,8 @@ class HydrantEditor extends React.Component {
 						<FormGroup>
 							<ControlLabel>תאריך סדרה</ControlLabel>
 							<DatePicker
+								isClearable
+								placeholderText="בחר"
 								customInput={<CustomDateInput />}
 								selected={this.state.batchDate}
 								onChange={date => this.setState({ batchDate: date })}

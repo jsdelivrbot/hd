@@ -28,7 +28,7 @@ import { Button } from 'react-bootstrap';
 import Loader from 'react-loader-advanced';
 
 import Loading from '../LoginLayoutNavigation/Loading/Loading';
-import { difProps } from '../../Utils/Utils';
+import { difProps, isNumeric } from '../../Utils/Utils';
 
 import './Css/Map.scss';
 
@@ -66,10 +66,6 @@ const MapItself = compose(
 				setInitialized(true);
 			}
 		},
-		getPixelPositionOffset: () => (width, height) => ({
-			x: -(width / 2),
-			y: -(height / 2),
-		})
 	})),
 	lifecycle({
 		async componentDidMount() {
@@ -110,10 +106,12 @@ const MapItself = compose(
 						_id: p._id,
 					});
 				}
-				p.setData(data);
+				if (!_.every(p.data, d => !(isNumeric(_.get(d, 'lat')) && isNumeric(_.get(d, 'lon'))))) {
+					// If some hydrant lat and lon are numbers
+					p.setData(data);
+				}
 
 				if (data.length) {
-					
 					if (mp.filterStatus) {
 						if (p.filterStatus) {
 							const { south, north, west, east } = p.cntTroubledUnits;
@@ -143,7 +141,8 @@ const MapItself = compose(
 		},
 
 	}),
-	branch(p => !p.dataInitialized, renderComponent(Loading)),
+	branch(p => !p.dataInitialized || p.loading, renderComponent(Loading)),
+	branch(p => !p.data || _.isEmpty(p.data), renderComponent(() => null)),
 	withProps(p => ({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%' }} />,
@@ -189,7 +188,9 @@ const MapItself = compose(
 						icon = '/marker_red.ico';
 						color = '#ff0000';
 					}
-					return (
+					if (!(isNumeric(d.lat) && isNumeric(d.lat))) return null;
+					else return (
+						
 						<Marker
 							icon={icon}
 							key={d._id}
