@@ -63,6 +63,8 @@ const MapItself = compose(
 			if (!initialized) {
 				// console.log(mapRef.getCenter().lng());
 				setBounds();
+				console.log('mapRef.getBounds().toJSON()');
+				console.log(mapRef.getBounds().toJSON());
 				setInitialized(true);
 			}
 		},
@@ -106,10 +108,13 @@ const MapItself = compose(
 						_id: p._id,
 					});
 				}
-				if (!_.every(p.data, d => !(isNumeric(_.get(d, 'lat')) && isNumeric(_.get(d, 'lon'))))) {
-					// If some hydrant lat and lon are numbers
-					p.setData(data);
-				}
+				console.log('data');
+				console.log(data);
+				// data = _.filter(data, d => isNumeric(d.lat) && isNumeric(d.lat));
+				// if (!_.every(data, d => !(isNumeric(_.get(d, 'lat')) && isNumeric(_.get(d, 'lon'))))) {
+				// If some hydrant lat and lon are numbers
+				p.setData(data);
+				// }
 
 				if (data.length) {
 					if (mp.filterStatus) {
@@ -128,6 +133,8 @@ const MapItself = compose(
 						} else {
 							const { south, north, west, east } = p.cntAllUnits;
 							p.mapRef.fitBounds({ south, north, west, east });
+							console.log('p.cntAllUnits');
+							console.log(p.cntAllUnits);
 						}
 						if (p._id) {
 							p.mapRef.panTo({ lat: Number(data[0].lat),	 lng: Number(data[0].lon) });
@@ -141,8 +148,8 @@ const MapItself = compose(
 		},
 
 	}),
-	branch(p => !p.dataInitialized || p.loading, renderComponent(Loading)),
-	branch(p => !p.data || _.isEmpty(p.data), renderComponent(() => null)),
+	branch(p => !p.dataInitialized, renderComponent(Loading)),
+	// branch(p => !p.data || _.isEmpty(p.data), renderComponent(() => null)),
 	withProps(p => ({
 		googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&language=iw&region=il&key=AIzaSyBLZ9MQsAOpEzHcubQCo-fsKhb1EoUt88U&libraries=geometry,drawing,places',
 		loadingElement: <div style={{ height: '100%' }} />,
@@ -188,8 +195,7 @@ const MapItself = compose(
 						icon = '/marker_red.ico';
 						color = '#ff0000';
 					}
-					if (!(isNumeric(d.lat) && isNumeric(d.lat))) return null;
-					else return (
+					return (
 						
 						<Marker
 							icon={icon}
@@ -267,7 +273,7 @@ export default compose(
 								<Flex align="center">
 									<Box w={1}>
 										<span>
-											סה&quot;כ מוצרים מתוך תאגיד {p.company.name}:  {p.cntAllUnits.sum} יח&#39;<br />
+											סה&quot;כ מוצרים ממופים מתוך תאגיד {p.company.name}:  {p.cntAllUnits.sum} יח&#39;<br />
 											מתוכם מוצרים בארוע:  {p.cntTroubledUnits.sum} יח&#39;<br />
 											נכון לתאריך: {currentDate}
 										</span>

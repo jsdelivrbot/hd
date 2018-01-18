@@ -1,4 +1,5 @@
 
+import '../../server/api/Methods/Map';
 import '../../server/api/Methods/Hydrants';
 import '../../server/api/Methods/Events';
 import '../../server/api/Methods/Companies';

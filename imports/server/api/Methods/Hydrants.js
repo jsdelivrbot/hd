@@ -5,7 +5,6 @@ import moment from 'moment';
 import Hydrants from '../Collections/Hydrants';
 import rateLimit from '../../Utils/rate-limit';
 import * as roles from '../../Utils/roles';
-import { sleep } from '../../Utils/utils';
 
 function buildFilter(fromFilter) {
 	const filter = {};
@@ -127,79 +126,6 @@ Meteor.methods({
 });
 
 Meteor.methods({
-	'map.get.counts': function anon() {
-		if (!roles.isUserAdminOrControl()) return undefined;
-
-		const array_cntAllUnits = Hydrants.aggregate([
-			{ $match: buildFilter() },
-			{ $group: {
-				_id: null,
-				sum: { $sum: 1 },
-				south: { $min: '$lat' },
-				north: { $max: '$lat' },
-				west: { $min: '$lon' },
-				east: { $max: '$lon' },
-			} },
-		]);
-		let cntAllUnits = 0;
-		if (array_cntAllUnits.length >= 1) cntAllUnits = array_cntAllUnits[0];
-		
-		const array_cntTroubledUnits = Hydrants.aggregate([
-			{ $match: _.assign({}, buildFilter(), { status: { $gt: 2 } }) },
-			{ $group: {
-				_id: null,
-				sum: { $sum: 1 },
-				south: { $min: '$lat' },
-				north: { $max: '$lat' },
-				west: { $min: '$lon' },
-				east: { $max: '$lon' },
-			} },
-		]);
-		let cntTroubledUnits = 0;
-		if (array_cntTroubledUnits.length >= 1) cntTroubledUnits = array_cntTroubledUnits[0];
-		return { cntAllUnits, cntTroubledUnits };
-	},
-	'map.get.data': function anon(p) {
-		check(p, Object);
-		if (!roles.isUserAdminOrControl()) return undefined;
-		const { bounds, filterStatus } = p;
-		const { east, west, north, south } = bounds;
-		const result = Hydrants.aggregate([
-			{ $match:
-				{ $and: [
-					{ status: (filterStatus && { $gt: 2 }) || { $exists: true } },
-					{ lat: { $gt: south, $lt: north } },
-					{ lon: { $gt: west, $lt: east } }
-				] }
-			},
-			{ $sample: { size: 40 } },
-			{ $project: {
-				lat: 1,
-				lon: 1,
-				status: 1,
-				address: 1,
-				number: 1,
-			} }]);
-		return result;
-	},
-	'map.get.data.one': function anon(p) {
-		check(p, Object);
-		if (!roles.isUserAdminOrControl()) return undefined;
-		const { _id } = p;
-		const result = Hydrants.aggregate([
-			{ $match: { _id } },
-			{ $project: {
-				lat: 1,
-				lon: 1,
-				status: 1,
-				address: 1,
-				number: 1,
-			} }]);
-		return result;
-	},
-});
-
-Meteor.methods({
 	'hydrants.insert': function anon(doc) {
 		check(doc, Object);
 		if (!roles.isUserAdmin()) return undefined;
@@ -237,7 +163,6 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'map.get.data', 'map.get.counts', 'map.get.data.one',
 		'hydrants.zero.status', 'hydrants.get.total.counts', 'hydrants.get.lenQuery', 'hydrants.get.data', 'hydrants.get.data.one',
 		'hydrants.insert', 'hydrants.update', 'hydrants.remove'
 	],

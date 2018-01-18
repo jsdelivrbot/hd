@@ -7,4 +7,9 @@ const getCustomDeviceId = ({ deviceInfo }) => {
 	const { uniqueId, manufacturer, model, deviceId } = deviceInfo;
 	return `${uniqueId}_${manufacturer}_${model}_${deviceId}_`;
 };
-export { getCustomDeviceId, sleep };
+
+function isNumeric(x) {
+	return ((typeof x === 'number' || typeof x === 'string') && !isNaN(Number(x)) && x !== '');
+}
+
+export { isNumeric, getCustomDeviceId, sleep };
