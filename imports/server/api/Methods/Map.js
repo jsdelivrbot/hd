@@ -80,7 +80,7 @@ Meteor.methods({
 		if (!roles.isUserAdminOrControl()) return undefined;
 		const { _id } = p;
 		const result = Hydrants.aggregate([
-			{ $match: buildFilter(_id) },
+			{ $match: buildFilter({ _id }) },
 			{ $project: {
 				lat: 1,
 				lon: 1,
