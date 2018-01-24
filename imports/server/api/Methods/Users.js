@@ -78,8 +78,7 @@ Meteor.methods({
 
 		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo != undefined, 'customDeviceId', customDeviceId);
 
-		if (!roles.isUserAdminOrControlOrSecurity({})) return undefined;
-		// if (!roles.isUserAdminOrControlOrSecurity({ userId, customDeviceId, flag })) return undefined;
+		if (!roles.isUserAdminOrSecurity({})) return undefined;
 
 		const removeDeviceFromAllUsers = () => {
 			Meteor.users.update(
@@ -122,7 +121,6 @@ Meteor.methods({
 			addDeviceToUser();
 			upsertDevice();
 			const { user } = Meteor.call('user.get.properties');
-			// user.customDeviceId = customDeviceId;
 			return { user };
 		} else if (flag == 'logout') {
 			removeDeviceFromUser();
