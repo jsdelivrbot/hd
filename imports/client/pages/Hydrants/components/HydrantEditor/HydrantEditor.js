@@ -223,6 +223,7 @@ class HydrantEditor extends React.Component {
 							/>
 						</FormGroup>
 						<div>
+							<ControlLabel>מאופשר</ControlLabel>
 							<input
 								type="checkbox"
 								className="form-control"

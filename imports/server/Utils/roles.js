@@ -15,6 +15,11 @@ const isUserAdminOrSecurity = ({ flag, userId, deviceInfo }) => {
 	const role = _.get(user, 'role', false);
 	return role == 0 || role == 2;
 };
+const isUserAdminOrControl = () => {
+	const user = Meteor.user();
+	const role = _.get(user, 'role', false);
+	return role == 0 || role == 1;
+};
 const isUserAdminOrControlOrSecurity = ({ flag, userId, deviceInfo }) => {
 	const customDeviceId = getCustomDeviceId({ deviceInfo });
 	let user;
@@ -27,4 +32,4 @@ const isUserAdminOrControlOrSecurity = ({ flag, userId, deviceInfo }) => {
 	return role == 0 || role == 1 || role == 2;
 };
 
-export { isUserAdmin, isUserControl, isUserAdminOrSecurity, isUserAdminOrControlOrSecurity };
+export { isUserAdmin, isUserControl, isUserAdminOrSecurity, isUserAdminOrControlOrSecurity, isUserAdminOrControl };

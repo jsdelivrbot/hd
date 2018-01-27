@@ -68,15 +68,15 @@ Meteor.methods({
 		if (!roles.isUserAdmin()) return;
 		Meteor.users.update(this.userId, { $set: { companyId } });
 	},
-	'user.set.fcmtoken': function anon(p) {
+	'user.mobile.sync': function anon(p) {
 		check(p, Object);
 		const { fcmToken, flag, deviceInfo } = p;
 		const userId = p.userId || _.get(Meteor.user(), '_id');
-		if (!fcmToken || !userId || !deviceInfo) return undefined;
+		if (!userId || !deviceInfo) return undefined;
 
 		const customDeviceId = getCustomDeviceId({ deviceInfo });
 
-		console.log('user.set.fcmtoken ', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo != undefined, 'customDeviceId', customDeviceId);
+		console.log('user.mobile.sync', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo != undefined, 'customDeviceId', customDeviceId);
 
 		if (!roles.isUserAdminOrSecurity({})) return undefined;
 
@@ -163,7 +163,7 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'user.set.fcmtoken', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
+		'user.mobile.sync', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
 	],
 	limit: 5,
 	timeRange: 1000,
