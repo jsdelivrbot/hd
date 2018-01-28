@@ -121,6 +121,7 @@ Meteor.methods({
 			addDeviceToUser();
 			upsertDevice();
 			const { user } = Meteor.call('user.get.properties');
+			user.role = roles.userRoleAsString(user.role);
 			return { user };
 		} else if (flag == 'logout') {
 			removeDeviceFromUser();

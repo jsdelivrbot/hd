@@ -2,34 +2,27 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { getCustomDeviceId } from './utils';
 
-const isUserAdmin = () => Meteor.userId() && (Meteor.user().role == 0);
-const isUserControl = () => Meteor.userId() && (Meteor.user().role == 1);
-const isUserAdminOrSecurity = ({ flag, userId, deviceInfo }) => {
-	const customDeviceId = getCustomDeviceId({ deviceInfo });
-	let user;
-	if (userId && customDeviceId) {
-		user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { customDeviceId } } }] });
-	} else {
-		user = Meteor.user();
+function getRole(props) {
+	if (props) {
+		const { userId, deviceInfo } = props;
+		if (userId && getCustomDeviceId({ deviceInfo })) {
+			const user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { props.customDeviceId } } }] });
+			return _.get(user, 'role', false);
+		}
 	}
-	const role = _.get(user, 'role', false);
-	return role == 0 || role == 2;
-};
-const isUserAdminOrControl = () => {
 	const user = Meteor.user();
-	const role = _.get(user, 'role', false);
-	return role == 0 || role == 1;
-};
-const isUserAdminOrControlOrSecurity = ({ flag, userId, deviceInfo }) => {
-	const customDeviceId = getCustomDeviceId({ deviceInfo });
-	let user;
-	if (userId && customDeviceId) {
-		user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { customDeviceId } } }] });
-	} else {
-		user = Meteor.user();
-	}
-	const role = _.get(user, 'role', false);
-	return role == 0 || role == 1 || role == 2;
+	return _.get(user, 'role', false);
+}
+const isUserControl = () => Meteor.userId() && (Meteor.user().role == 1);
+const isUserAdmin = props => getRole(props) == 0;
+const isUserAdminOrSecurity = props => getRole(props) == 0 || getRole(props) == 2;
+const isUserAdminOrControl = props => getRole(props) == 0 || getRole(props) == 1;
+const isUserAdminOrControlOrSecurity = props => getRole(props) == 0 || getRole(props) == 1 || getRole(props) == 2;
+const userRoleAsString = (role) => {
+	if (role == 0) return 'admin';
+	else if (role == 1) return 'control';
+	else if (role == 2) return 'security';
+	return undefined;
 };
 
-export { isUserAdmin, isUserControl, isUserAdminOrSecurity, isUserAdminOrControlOrSecurity, isUserAdminOrControl };
+export { userRoleAsString, isUserAdmin, isUserControl, isUserAdminOrSecurity, isUserAdminOrControlOrSecurity, isUserAdminOrControl };

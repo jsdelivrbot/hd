@@ -6,8 +6,9 @@ import rateLimit from '../../Utils/rate-limit';
 import * as roles from '../../Utils/roles';
 
 Meteor.methods({
-	'companies.get.all': function anon() {
-		if (!roles.isUserAdmin()) return undefined;
+	'companies.get.all': function anon(p) {
+		check(p, Object);
+		if (!roles.isUserAdmin(p)) return undefined;
 		return Companies.find({}, { name: 1 }).fetch();
 	},
 	'companies.get.data.one': function anon(p) {
