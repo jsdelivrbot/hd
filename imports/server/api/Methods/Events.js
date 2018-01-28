@@ -104,8 +104,7 @@ Meteor.methods({
 	},
 	'events.get.mobile': function anon(p) {
 		check(p, Object);
-		const { userId, deviceInfo } = p;
-		if (!roles.isUserAdminOrSecurity({ userId, deviceInfo })) return undefined;
+		if (!roles.isUserAdminOrSecurity(p)) return undefined;
 
 		let data = Events.aggregate([
 			{ $lookup: {

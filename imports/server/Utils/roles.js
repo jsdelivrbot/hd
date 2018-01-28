@@ -4,7 +4,8 @@ import { getCustomDeviceId } from './utils';
 
 function getRole(props) {
 	if (props) {
-		const { userId, deviceInfo } = props;
+		const { user, deviceInfo } = props;
+		const { userId } = user;
 		if (userId && getCustomDeviceId({ deviceInfo })) {
 			const user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { props.customDeviceId } } }] });
 			return _.get(user, 'role', false);
