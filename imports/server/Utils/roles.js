@@ -2,17 +2,16 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { getCustomDeviceId } from './utils';
 
-function getRole(props) {
-	if (props) {
-		const { user, deviceInfo } = props;
-		const { userId } = user;
-		if (userId && getCustomDeviceId({ deviceInfo })) {
-			const user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { props.customDeviceId } } }] });
+function getRole(mobileUser) {
+	if (mobileUser) {
+		const { userId, deviceInfo } = mobileUser;
+		const customDeviceId = getCustomDeviceId({ deviceInfo });
+		if (userId && customDeviceId) {
+			const user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { customDeviceId } } }] });
 			return _.get(user, 'role', false);
 		}
 	}
-	const user = Meteor.user();
-	return _.get(user, 'role', false);
+	return _.get(Meteor.user(), 'role', false);
 }
 const isUserControl = () => Meteor.userId() && (Meteor.user().role == 1);
 const isUserAdmin = props => getRole(props) == 0;

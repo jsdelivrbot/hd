@@ -70,15 +70,15 @@ Meteor.methods({
 	},
 	'user.mobile.sync': function anon(p) {
 		check(p, Object);
-		const { fcmToken, flag, user, deviceInfo } = p;
+		if (!p) return undefined;
+		const { fcmToken, flag, user } = p;
+		if (!user) return undefined;
+		const { deviceInfo } = user;
 		const userId = user.userId || _.get(Meteor.user(), '_id');
 		if (!userId || !deviceInfo) return undefined;
-
+		if (!roles.isUserAdminOrSecurity(user)) return undefined;
 		const customDeviceId = getCustomDeviceId({ deviceInfo });
-
 		console.log('user.mobile.sync', '"fcmToken"', fcmToken, '"flag"', flag, '"userId"', userId, '"deviceInfo"', deviceInfo != undefined, 'customDeviceId', customDeviceId);
-
-		if (!roles.isUserAdminOrSecurity({ user, deviceInfo })) return undefined;
 
 		const removeDeviceFromAllUsers = () => {
 			Meteor.users.update(
