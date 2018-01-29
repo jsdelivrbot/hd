@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { getCustomDeviceId } from './utils';
 
-function getRole(mobileUser) {
+function getRole({ user: mobileUser }) {
 	if (mobileUser) {
 		const { userId, deviceInfo } = mobileUser;
 		const customDeviceId = getCustomDeviceId({ deviceInfo });

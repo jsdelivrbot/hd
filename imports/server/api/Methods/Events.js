@@ -115,7 +115,7 @@ Meteor.methods({
 			} },
 			{ $unwind: '$h' },
 			{ $match: { $and: [
-				{ 'h.companyId': p.companyId },
+				{ 'h.companyId': p.user.companyId },
 				{ createdAt: { $gt: new Date(p.createdAt) } }
 			] } },
 			{ $sort: { createdAt: -1 } },
