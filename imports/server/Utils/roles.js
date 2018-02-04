@@ -2,9 +2,11 @@ import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { getCustomDeviceId } from './utils';
 
-function getRole({ user: mobileUser }) {
-	if (mobileUser) {
-		const { userId, deviceInfo } = mobileUser;
+function getRole(props) {
+	const mobileUser = _.get(props, 'user');
+	const deviceInfo = _.get(props, 'deviceInfo');
+	if (mobileUser && deviceInfo) {
+		const { userId } = mobileUser;
 		const customDeviceId = getCustomDeviceId({ deviceInfo });
 		if (userId && customDeviceId) {
 			const user = Meteor.users.findOne({ $and: [{ userId }, { customDeviceId: { $elemMatch: { customDeviceId } } }] });

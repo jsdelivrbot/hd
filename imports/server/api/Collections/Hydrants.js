@@ -99,7 +99,7 @@ Hydrants.schema = new SimpleSchema({
 	enabled: {
 		type: Boolean,
 		label: 'Enabled',
-		defaultValue: false,
+		defaultValue: true,
 	},
 	bodyBarcode: {
 		type: String,

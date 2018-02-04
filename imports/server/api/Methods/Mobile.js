@@ -3,72 +3,33 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import to from 'await-to-js';
+import moment from 'moment';
 import editProfile from '../Users/edit-profile';
 import rateLimit from '../../Utils/rate-limit';
 import Companies from '../Collections/Companies';
 import Devices from '../Collections/Devices';
 import * as roles from '../../Utils/roles';
 import { getCustomDeviceId } from '../../Utils/utils';
-
+import Hydrants from '../Collections/Hydrants';
 
 Meteor.methods({
-	'users.get.all': function anon() {
-		if (!roles.isUserAdmin()) return undefined;
-		return Meteor.users.aggregate([
-			{ $project: {
-				name: { $concat: ['$profile.name.first', { $literal: ' ' }, '$profile.name.last'] },
-				email: { $arrayElemAt: ['$emails', 0] },
-				role: 1,
-				companyId: 1,
-				reset: '$services.password.reset',
-			} },
-			{ $project: {
-				name: 1,
-				email: '$email.address',
-				role: 1,
-				companyName: 1,
-				companyId: 1,
-				reset: { $not: { $not: '$reset' } },
-			} }
-		]);
-	},
-	'user.new': function anon(p) {
+	'mobile.hydrant.insert': function anon(p) {
 		check(p, Object);
-		if (!roles.isUserAdmin()) return undefined;
-		const { email, firstName, lastName, companyId, role } = p;
-		console.log('creating user');
-		const userId = Accounts.createUser({ email });
-		Meteor.users.update(userId, { $set: {
-			profile: {
-				name: {
-					first: firstName,
-					last: lastName,
-				},
-			},
-			companyId,
-			role,
-		} });
-		return Accounts.sendEnrollmentEmail(userId);
-	},
-	'user.get.properties': function anon() {
-		if (!roles.isUserAdminOrControlOrSecurity({})) return undefined;
+		if (!p) return undefined;
+		const { user: mobileUser, deviceInfo, doc } = p;
+		if (!roles.isUserAdminOrSecurity({ deviceInfo, user: mobileUser })) return undefined;
+		console.log('mobile.hydrant.insert', 'p', 'user', mobileUser, 'doc', doc);
 
-		const user = Meteor.user();
-		const { _id: userId, companyId, role } = Meteor.user();
-		const company = Companies.findOne({ _id: companyId });
-		const { name: companyName } = company;
-		const name = `${user.profile.name.first} ${user.profile.name.last}`;
-		const email = user.emails[0].address;
-
-		console.log('user.get.properties', 'company.name', company.name, 'companyId', companyId, 'role', role, 'name', name, 'email', email);
-		return { company, user: { companyName, companyId, userId, role, name, email } };
+		if (doc.batchDate) doc.batchDate = moment(doc.batchDate, 'DD/MM/YYYY').toDate();
+		console.log('doc.batchDate', doc.batchDate);
+		const _id = Meteor.call('hydrants.insert', doc);
+		if (_id) {
+			console.log('mobile inserting hydrant');
+			return { _id, number: Hydrants.findOne(_id).number };
+		}
+		return undefined;
 	},
-	'user.set.companyId': function anon(companyId) {
-		check(companyId, String);
-		if (!roles.isUserAdmin()) return;
-		Meteor.users.update(this.userId, { $set: { companyId } });
-	},
-	'user.mobile.sync': function anon(p) {
+	'mobile.user.sync': function anon(p) {
 		check(p, Object);
 		if (!p) return undefined;
 		const { fcmToken, flag, user: mobileUser, deviceInfo } = p;
@@ -132,41 +93,11 @@ Meteor.methods({
 		}
 		return true;
 	},
-	'user.update': function anon(p) {
-		check(p, Object);
-		if (!roles.isUserAdmin()) return undefined;
-		let { _id, companyId, role } = p;
-		Meteor.users.update(_id, { $set: { companyId, role } });
-		return ({ _id, companyId, role } = Meteor.user());
-	},
-	'user.delete': function anon(p) {
-		check(p, Object);
-		const { _id } = p;
-		if (!roles.isUserAdmin()) return;
-		Meteor.users.remove(_id);
-	},
-	'user.editProfile': function anon(profile) {
-		check(profile, {
-			emailAddress: String,
-			profile: {
-				name: {
-					first: String,
-					last: String,
-				},
-			},
-		});
-
-		return editProfile({ userId: this.userId, profile })
-			.then(response => response)
-			.catch((exception) => {
-				throw new Meteor.Error('500', exception);
-			});
-	},
 });
 
 rateLimit({
 	methods: [
-		'user.mobile.sync', 'users.get.all', 'user.new', 'user.get.properties', 'user.set.companyId', 'user.update', 'user.editProfile'
+		'mobile.user.sync'
 	],
 	limit: 5,
 	timeRange: 1000,

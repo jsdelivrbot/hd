@@ -37,6 +37,7 @@ Devices.schema = new SimpleSchema({
 		type: String,
 		max: 1000,
 		label: 'fcm token',
+		optional: true,
 	},
 	userId: {
 		type: String,

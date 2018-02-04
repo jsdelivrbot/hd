@@ -24,8 +24,8 @@ Meteor.methods({
 
 rateLimit({
 	methods: [
-		'utility.get.types', 'utility.db.init', 'utility.getPage'
+		'mobile.connect', 'utility.db.init', 'utility.getPage'
 	],
-	limit: 5,
+	limit: 10,
 	timeRange: 1000,
 });

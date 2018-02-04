@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import _ from 'lodash';
 import Companies from '../Collections/Companies';
 import rateLimit from '../../Utils/rate-limit';
@@ -7,7 +7,7 @@ import * as roles from '../../Utils/roles';
 
 Meteor.methods({
 	'companies.get.all': function anon(p) {
-		check(p, Object);
+		check(p, Match.Optional(Match.Any));
 		if (!roles.isUserAdmin(p)) return undefined;
 		return Companies.find({}, { name: 1 }).fetch();
 	},
