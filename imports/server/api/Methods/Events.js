@@ -104,6 +104,11 @@ Meteor.methods({
 	},
 	'events.get.mobile': function anon(p) {
 		check(p, Object);
+		const { user } = p;
+		if (typeof user != 'object') return undefined;
+		const { companyId } = user;
+		if (typeof companyId != 'string') return undefined;
+		
 		if (!roles.isUserAdminOrSecurity(p)) return undefined;
 
 		let data = Events.aggregate([
@@ -115,7 +120,7 @@ Meteor.methods({
 			} },
 			{ $unwind: '$h' },
 			{ $match: { $and: [
-				{ 'h.companyId': p.user.companyId },
+				{ 'h.companyId': companyId },
 				{ createdAt: { $gt: new Date(p.createdAt) } }
 			] } },
 			{ $sort: { createdAt: -1 } },
